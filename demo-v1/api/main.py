@@ -26,7 +26,7 @@ SUN = G.graph["sun"]  # slot -> altitude, azimuth, clearsky_dni
 DATE = G.graph["date"]  # shade masks were cast for this date
 START, END = G.graph["start"], G.graph["end"]
 
-app = FastAPI(title="Howdy Shade")
+app = FastAPI(title="SunScreen")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 _weather = {}

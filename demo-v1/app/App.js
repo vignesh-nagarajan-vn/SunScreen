@@ -51,7 +51,7 @@ export default function App() {
       <View style={styles.header}>
         <Image source={require("./assets/logo.png")} style={styles.logo} />
         <View>
-          <Text style={styles.brand}>Howdy Shade</Text>
+          <Text style={styles.brand}>SunScreen</Text>
           <Text style={styles.trip}>The Commons → Zachry</Text>
         </View>
       </View>

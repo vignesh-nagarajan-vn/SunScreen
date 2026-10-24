@@ -1,8 +1,8 @@
-<p align="center"><img src="app/assets/logo.svg" width="72" alt="Howdy Shade logo"></p>
+<p align="center"><img src="app/assets/logo.svg" width="72" alt="SunScreen logo"></p>
 
-# Howdy Shade
+# SunScreen (demo v1)
 
-Howdy Shade finds a shady walk from The Commons to the Zachry Engineering Education Complex at Texas A&M. For any time of day it shows three routes: the fastest route, a recommended route that adds only a minute or so but has more shade, and the shadiest route that isn't too long. Each route shows how much of the walk is shaded.
+SunScreen finds a shady walk from The Commons to the Zachry Engineering Education Complex at Texas A&M. For any time of day it shows three routes: the fastest route, a recommended route that adds only a minute or so but has more shade, and the shadiest route that isn't too long. Each route shows how much of the walk is shaded.
 
 | 2 PM, recommended | 2 PM, max shade | 10:30 AM | 7:30 PM, sun down |
 |:-:|:-:|:-:|:-:|
