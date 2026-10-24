@@ -28,8 +28,6 @@ from api.lighting import routes as lighting_routes
 
 WALK_MPS = 1.4
 ALPHAS = [0, 0.25, 0.5, 1, 2, 4, 8, 16]  # shade weights tried when generating candidate routes
-RECOMMENDED_DETOUR = 0.10  # up to +10% distance in full sun, scaled down by clouds
-MAX_SHADE_DETOUR = 0.30  # "max shade" may be up to 30% longer than the fastest route
 MAX_SNAP_M = 250  # points farther than this from any walkway are rejected
 TZ = ZoneInfo("America/Chicago")
 WEATHER_URL = (
@@ -215,7 +213,15 @@ def feature(route_id, label, r, fastest, sun):
     }
 
 
-def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destination", mode="shade"):
+def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destination", mode="shade",
+          recommended_pct=10, max_detour_pct=30):
+    for value in (recommended_pct, max_detour_pct):
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or not 0 <= value <= 100:
+            raise HTTPException(400, "Route distance allowances must be between 0% and 100%.")
+    if recommended_pct > max_detour_pct:
+        raise HTTPException(400, "The maximum route allowance must be at least the Recommended allowance.")
+    limits = {"recommended_pct": recommended_pct, "max_detour_pct": max_detour_pct,
+              "effective_recommended_pct": recommended_pct}
     a = endpoint(src or DEFAULT[0], src_name)
     b = endpoint(dst or DEFAULT[1], dst_name)
     if a["node"] == b["node"]:
@@ -224,11 +230,13 @@ def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destinat
         raise HTTPException(400, "Unknown routing mode")
     if mode == "lighting":
         try:
-            features, summary, status = lighting_routes(G, a["node"], b["node"], WALK_MPS)
+            features, summary, status = lighting_routes(G, a["node"], b["node"], WALK_MPS,
+                                                        recommended_pct / 100, max_detour_pct / 100)
         except nx.NetworkXNoPath:
             raise HTTPException(400, "No walking path connects those two points.")
         pick = lambda e: {k: e[k] for k in ("id", "name", "lat", "lon")}
         return {"type": "FeatureCollection", "mode": "lighting", "features": features,
+                "route_limits": limits,
                 "summary": summary, "lighting_status": status,
                 "lighting": G.graph.get("lighting", {"source": "OpenStreetMap", "retrieved_at": None}),
                 "start": pick(a), "end": pick(b)}
@@ -257,8 +265,9 @@ def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destinat
     best = lambda limit: max(
         (c for c in candidates if c["length"] <= limit), key=lambda c: (round(c["shade"], 3), -c["length"])
     )
-    recommended = best(fastest["length"] * (1 + RECOMMENDED_DETOUR * sun))
-    max_shade = best(fastest["length"] * (1 + MAX_SHADE_DETOUR))
+    limits['effective_recommended_pct'] = round(recommended_pct * sun, 4)
+    recommended = best(fastest["length"] * (1 + recommended_pct / 100 * sun))
+    max_shade = best(fastest["length"] * (1 + max_detour_pct / 100))
 
     features = [
         feature("fastest", "Fastest", fastest, fastest, sun),
@@ -279,6 +288,7 @@ def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destinat
     return {
         "type": "FeatureCollection",
         "mode": "shade",
+        "route_limits": limits,
         "features": features,
         "shadow_date": SHADOW_DATE,
         "time": f"{slot[:2]}:{slot[2:]}",
@@ -330,8 +340,10 @@ def get_route(
     from_name: str = Query("Start", max_length=80),
     to_name: str = Query("Destination", max_length=80),
     mode: Literal["shade", "lighting"] = "shade",
+    recommended_pct: float = Query(10, ge=0, le=100, allow_inf_nan=False),
+    max_detour_pct: float = Query(30, ge=0, le=100, allow_inf_nan=False),
 ):
-    return route(time, from_, to, from_name, to_name, mode)
+    return route(time, from_, to, from_name, to_name, mode, recommended_pct, max_detour_pct)
 
 
 @router.get("/building-passages")
