@@ -4,7 +4,7 @@
 
 SunScreen finds shady walking routes anywhere on Texas A&M's main campus and the nearby neighborhoods (Northgate, Southside and West Campus). Pick a start and destination from 24 campus places, search for an address, drop a pin, or use your location. For any time from 7 AM to 8 PM it shows three routes: the fastest route, a recommended route that adds only a minute or so but has more shade, and the shadiest route that isn't too long.
 
-**Live demo:** [sunscreen-psi.vercel.app](https://sunscreen-psi.vercel.app). It's the web app plus the routing API, deployed together on Vercel with `make deploy`.
+**Live demo:** [sunscreen-walks.vercel.app](https://sunscreen-walks.vercel.app). It's the web app plus the routing API, deployed together on Vercel with `make deploy`.
 
 ## How it works
 
