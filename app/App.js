@@ -17,7 +17,10 @@ const WIDE = 900; // side-panel layout at and above this width
 const hhmm = (min) => `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
 const clock = (min) => `${((Math.floor(min / 60) + 11) % 12) + 1}:${String(min % 60).padStart(2, "0")} ${min < 720 ? "AM" : "PM"}`;
 const snap = (min) => Math.min(LAST, Math.max(FIRST, Math.round(min / 30) * 30));
-const nowMin = () => { const d = new Date(); return snap(d.getHours() * 60 + d.getMinutes()); };
+const nowMin = () => {
+  const parts = new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date());
+  return snap(Number(parts.find((p) => p.type === "hour").value) * 60 + Number(parts.find((p) => p.type === "minute").value));
+};
 const byId = Object.fromEntries(area.places.map((p) => [p.id, p]));
 const param = (p) => p.id ?? `${p.lat.toFixed(6)},${p.lon.toFixed(6)}`;
 const inBounds = (p, b) => p.lat >= b.south && p.lat <= b.north && p.lon >= b.west && p.lon <= b.east;
@@ -32,7 +35,8 @@ const store = {
 
 // Start at the current time; on web, ?from=&to=&time=HH:MM&route= preselect a trip.
 const params = Platform.OS === "web" ? new URLSearchParams(window.location.search) : new URLSearchParams();
-const timeParam = params.get("time")?.split(":").map(Number);
+const rawTime = params.get("time");
+const timeParam = rawTime && /^([01]?\d|2[0-3]):[0-5]\d$/.test(rawTime) ? rawTime.split(":").map(Number) : null;
 const initialMin = timeParam ? snap(timeParam[0] * 60 + timeParam[1]) : nowMin();
 
 function weatherPills({ weather, sun }) {
@@ -54,7 +58,8 @@ function headline(data) {
 }
 
 export default function App() {
-  const wide = useWindowDimensions().width >= WIDE;
+  const dimensions = useWindowDimensions();
+  const wide = dimensions.width >= WIDE;
   const [from, setFrom] = useState(byId[params.get("from")] ?? byId[area.default[0]]);
   const [to, setTo] = useState(byId[params.get("to")] ?? byId[area.default[1]]);
   const [minutes, setMinutes] = useState(initialMin);
@@ -81,7 +86,17 @@ export default function App() {
       .then(async (r) => {
         const json = await r.json();
         if (cancelled) return;
-        if (r.ok) { setData(json); setStatus({}); } else { setStatus({ error: json.detail }); setPlaying(false); } // e.g. "outside the area"
+        if (!r.ok) {
+          setStatus({ error: typeof json.detail === "string" ? json.detail : "This trip could not be routed. Try different endpoints." });
+          setPlaying(false);
+          return;
+        }
+        const ids = ["fastest", "recommended", "max_shade"];
+        if (!json.start || !json.end || !Array.isArray(json.features) || json.features.length !== 3
+          || json.features.some((f, i) => f?.properties?.id !== ids[i] || !Array.isArray(f.geometry?.coordinates) || f.geometry.coordinates.length < 2)) {
+          throw new Error("Invalid route response");
+        }
+        setData(json); setStatus({});
       })
       .catch(() => {
         if (cancelled) return;
@@ -97,6 +112,12 @@ export default function App() {
       .finally(() => clearTimeout(timer));
     return () => { cancelled = true; clearTimeout(timer); ctrl.abort(); };
   }, [minutes, from, to]);
+
+  useEffect(() => {
+    if (data && !data.features.some((feature) => feature.properties.id === selected)) {
+      setSelected("recommended");
+    }
+  }, [data, selected]);
 
   // Play: step through the day, waiting for each slot's routes before moving on.
   useEffect(() => {
@@ -178,7 +199,10 @@ export default function App() {
       {/* The map ends where the card starts (minus its rounded corner), so fits and limits use what is visible. */}
       <View style={[styles.map, { marginBottom: picking ? 0 : cardHeight - 20 }]}>{mapPane}</View>
       {!picking && (
-        <View style={styles.card} onLayout={(e) => setCardHeight(e.nativeEvent.layout.height)}>{controls}</View>
+        <View style={[styles.card, { maxHeight: Math.max(200, dimensions.height - 280) }]}
+          onLayout={(e) => setCardHeight(e.nativeEvent.layout.height)}>
+          <ScrollView style={{ flexGrow: 0 }} keyboardShouldPersistTaps="handled">{controls}</ScrollView>
+        </View>
       )}
       {pickerSheet}
       {about && <About onClose={closeAbout} />}
@@ -257,7 +281,7 @@ function Controls({ data, stale, status, selected, setSelected, preview, minutes
       ))}
       {data && setExpanded && (
         <Pressable onPress={() => setExpanded(!expanded)} hitSlop={6}>
-          <Text style={styles.compare}>{expanded ? "Show less ▾" : "Compare all 3 routes ▴"}</Text>
+          <Text style={styles.compare}>{expanded ? "Show less ▾" : `Compare all ${data.features.length} routes ▴`}</Text>
         </Pressable>
       )}
       {data && <Handoff data={data} selected={selected} />}
@@ -310,8 +334,13 @@ function Endpoint({ label, place, onPress }) {
 // Hand the selected route to a maps app for turn-by-turn directions.
 function Handoff({ data, selected }) {
   const feature = data.features.find((f) => f.properties.id === selected) ?? data.features[0];
+  const buildings = feature.properties.via_buildings ?? [];
   return (
-    <View style={styles.handoff}>
+    <View>
+      {buildings.length > 0 && <Text style={styles.rowMeta} accessibilityLiveRegion="polite">
+        {feature.properties.access_unconfirmed ? "Check building access. " : ""}External maps may change covered sections.
+      </Text>}
+      <View style={styles.handoff}>
       <Pressable style={[styles.mapsButton, styles.mapsPrimary]} onPress={() => open(googleMapsUrl(feature, data.start, data.end))}
         accessibilityRole="link" accessibilityLabel={`Open the ${feature.properties.label.toLowerCase()} route in Google Maps`}>
         <Text style={styles.mapsPrimaryText}>Open in Google Maps</Text>
@@ -320,6 +349,7 @@ function Handoff({ data, selected }) {
         accessibilityRole="link" accessibilityLabel="Open in Apple Maps">
         <Text style={styles.mapsText}>Apple Maps</Text>
       </Pressable>
+      </View>
     </View>
   );
 }

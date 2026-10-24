@@ -30,10 +30,34 @@ SunScreen finds shady walking routes anywhere on Texas A&M's main campus and the
 
 ## Setup
 
-You need [Miniforge](https://github.com/conda-forge/miniforge) (for PDAL and GDAL) and Node 20+ (for the app).
+For the checked-in routing data, use Python 3.12 and Node 22. You do not need to
+rerun the LiDAR pipeline to try this feature. From the repository root, start
+the API in one terminal:
+
+```sh
+python -m pip install -r requirements-dev.txt uvicorn
+python -m uvicorn api.index:app --host 127.0.0.1 --port 8000
+```
+
+In another terminal:
+
+```sh
+cd app
+npm ci
+npx expo start --web
+```
+
+Open the local URL printed by Expo. Local web uses the API on port 8000.
+The feature is in the normal route choices, so choose endpoints and a time as
+usual. Building coverage, validation commands and limitations are documented in
+[building passages](docs/building-shortcuts.md). A remote feature branch is not
+automatically the production Vercel site; use its Vercel preview if configured.
+
+Rebuilding the LiDAR data additionally needs
+[Miniforge](https://github.com/conda-forge/miniforge) for PDAL and GDAL:
 
 ```bash
-conda create -n shade -c conda-forge python=3.11 pdal python-pdal make --file pipeline/requirements.txt
+conda create -n shade -c conda-forge python=3.12 pdal python-pdal make --file pipeline/requirements.txt
 conda activate shade
 ```
 
@@ -56,6 +80,23 @@ curl "localhost:8000/api/route?time=14:00&from=msc&to=zachry"
 ```
 
 ## API
+
+### Building passages in the normal search
+
+Every normal `/api/route` request automatically considers mapped building
+passages and covered outdoor paths. It returns exactly three options: Fastest,
+Recommended, and Max shade. No indoor setting, separate route, floor picker or
+room destination is required. The existing distance limits still apply.
+
+The catalog includes a provisional Langford A corridor and 22 matched
+covered-walkway/roof records across campus. Current Langford door access, exact
+geometry and opening hours are unverified; a compact access notice appears if
+it is selected. Scheduled closures are checked through estimated traversal.
+Offline routes exclude enclosed door-dependent passages. More interiors require
+documented entrance-to-exit paths before being added.
+See [building passages](docs/building-shortcuts.md) for sources and tests.
+
+### Existing endpoints
 
 Every endpoint is served at both `/x` and `/api/x`.
 

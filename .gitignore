@@ -3,6 +3,8 @@ data/*
 !data/area.json
 !data/graph.geojson
 !data/graph.pkl
+!data/building_passages.json
+!data/building_coverage.json
 *.laz
 *.las
 *.tif
@@ -18,3 +20,9 @@ dist/
 .vercel/
 deploy/
 .env*.local
+
+# Local floor-plan inspection and development artifacts
+tmp/
+.venv/
+test-results/
+playwright-report/
