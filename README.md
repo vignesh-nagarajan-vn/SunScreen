@@ -11,6 +11,8 @@ SunScreen finds the shadiest walking route between any two spots on Texas A&M's 
 
 ## Demo
 
+Drag either endpoint pin on the map to choose a custom start or destination; routes recalculate when you release it. In the native app, long-press a pin to drag it. Pins remain available while routing loads or fails, so you can adjust an unroutable location. Drops must stay inside the mapped campus area, and the server requires a connected walking route with each endpoint within 250 metres of a mapped walkway node.
+
 Try it live at [sunscreen-walks.vercel.app](https://sunscreen-walks.vercel.app/).
 
 | Shade (maroon) vs. sun (gold) | Places grouped by type | Compare all three routes | How it works |
