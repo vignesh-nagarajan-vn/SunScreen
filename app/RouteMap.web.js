@@ -14,28 +14,34 @@ function loadLeaflet() {
   return leaflet;
 }
 
-export default function RouteMap({ data, selected, bottomInset, bounds, picking, onMapPress }) {
+export default function RouteMap({ data, selected, bounds, picking, onMapPress }) {
   const el = useRef(null);
   const map = useRef(null);
   const press = useRef(onMapPress);
   press.current = picking ? onMapPress : null;
+  const lastFit = useRef(null); // bounds of the latest route, refit on resize
+  const lock = useRef(() => {});
 
   // Create the map once, locked to the campus area: no panning or zooming out past it.
   useEffect(() => {
     loadLeaflet().then((L) => {
       const area = L.latLngBounds([bounds.south, bounds.west], [bounds.north, bounds.east]);
-      map.current = L.map(el.current, { zoomControl: false, attributionControl: false, maxBounds: area.pad(0.05), maxBoundsViscosity: 1 });
+      map.current = L.map(el.current, { zoomControl: false, attributionControl: false, maxBoundsViscosity: 1 });
       L.control.attribution({ position: "topright", prefix: false }).addTo(map.current);
       L.tileLayer(TILES, { maxNativeZoom: 16, maxZoom: 19, attribution: "Tiles © Esri, © OpenStreetMap contributors" })
         .addTo(map.current);
-      const lockZoom = () => {
-        map.current.invalidateSize();
-        map.current.setMinZoom(map.current.getBoundsZoom(area, true));
+      // Widest zoom = the whole area on screen; panning stops at its edges.
+      lock.current = () => {
+        const m = map.current;
+        m.invalidateSize();
+        m.setMinZoom(m.getBoundsZoom(area));
+        m.setMaxBounds(area.pad(0.03));
+        if (lastFit.current) m.fitBounds(lastFit.current, { paddingTopLeft: [30, 70], paddingBottomRight: [30, 40], maxZoom: 18, animate: false });
       };
       // The container has no size until React Native Web lays it out.
-      new ResizeObserver(lockZoom).observe(el.current);
-      lockZoom();
+      new ResizeObserver(() => lock.current()).observe(el.current);
       map.current.fitBounds(area);
+      lock.current();
       map.current.on("click", (e) => press.current?.({ lat: e.latlng.lat, lon: e.latlng.lng }));
     });
   }, []);
@@ -71,13 +77,12 @@ export default function RouteMap({ data, selected, bottomInset, bounds, picking,
           .addTo(layers);
       pin(data.start, "white");
       pin(data.end, MAROON);
-      map.current.invalidateSize();
-      map.current.fitBounds(L.featureGroup(lines).getBounds(), {
-        paddingTopLeft: [40, 60], paddingBottomRight: [40, bottomInset + 20], maxZoom: 18,
-      });
+      const pins = [data.start, data.end].map((p) => [p.lat, p.lon]);
+      lastFit.current = L.featureGroup(lines).getBounds().extend(pins);
+      lock.current(); // fit the new route
     });
     return () => layers?.remove();
-  }, [data, selected, bottomInset]);
+  }, [data, selected]);
 
   return (
     <>

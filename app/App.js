@@ -4,6 +4,7 @@ import Slider from "@react-native-community/slider";
 import RouteMap from "./RouteMap";
 import PlacePicker from "./PlacePicker";
 import { API_BASE } from "./config";
+import { appleMapsUrl, googleMapsUrl, open } from "./openInMaps";
 import { INK, LINE, MAROON, MUTED, ROUTES, TINT } from "./theme";
 import fallback from "./fallback.json";
 import area from "./places.json";
@@ -99,9 +100,10 @@ export default function App() {
         </View>
       </View>
 
-      <View style={styles.map}>
+      {/* The map ends where the card starts (minus its rounded corner), so fits and limits use what is visible. */}
+      <View style={[styles.map, { marginBottom: picking ? 0 : cardHeight - 20 }]}>
         <RouteMap
-          data={showRoutes ? data : null} selected={selected} bottomInset={cardHeight}
+          data={showRoutes ? data : null} selected={selected}
           bounds={area.bounds} picking={!!picking} onMapPress={onMapPress}
         />
         {picking && (
@@ -133,6 +135,7 @@ export default function App() {
             <RouteRow key={p.id} p={p} active={p.id === selected} onPress={() => setSelected(p.id)} />
           ))}
           {showRoutes && <Text style={styles.summary}>{data.summary}</Text>}
+          {showRoutes && <Handoff data={data} selected={selected} />}
           {status.offline && <Text style={styles.offline}>Offline: showing saved routes for The Commons → Zachry</Text>}
         </View>
       )}
@@ -157,6 +160,21 @@ function Endpoint({ label, place, onPress }) {
   );
 }
 
+// Hand the selected route to a maps app for turn-by-turn directions.
+function Handoff({ data, selected }) {
+  const feature = data.features.find((f) => f.properties.id === selected) ?? data.features[0];
+  return (
+    <View style={styles.handoff}>
+      <Pressable style={[styles.mapsButton, styles.mapsPrimary]} onPress={() => open(googleMapsUrl(feature, data.start, data.end))}>
+        <Text style={styles.mapsPrimaryText}>Open in Google Maps</Text>
+      </Pressable>
+      <Pressable style={styles.mapsButton} onPress={() => open(appleMapsUrl(data.start, data.end))}>
+        <Text style={styles.mapsText}>Apple Maps</Text>
+      </Pressable>
+    </View>
+  );
+}
+
 function RouteRow({ p, active, onPress }) {
   const extra = p.extra_s <= 0 ? "" : p.extra_s < 60 ? ` · +${p.extra_s} s` : ` · +${(p.extra_s / 60).toFixed(1)} min`;
   return (
@@ -165,8 +183,8 @@ function RouteRow({ p, active, onPress }) {
       <View style={{ flex: 1 }}>
         <Text style={styles.rowTitle}>
           {p.label}
-          {p.id !== "fastest" && p.same_as_fastest && <Text style={styles.same}>  same as fastest</Text>}
-          {!p.same_as_fastest && p.same_as_recommended && <Text style={styles.same}>  same as recommended</Text>}
+          {p.id !== "fastest" && p.same_as_fastest && <Text style={styles.same}>  same route</Text>}
+          {!p.same_as_fastest && p.same_as_recommended && <Text style={styles.same}>  same route</Text>}
         </Text>
         <Text style={styles.rowMeta}>{p.time_min} min · {p.distance_m} m{extra}</Text>
       </View>
@@ -211,6 +229,11 @@ const styles = StyleSheet.create({
   rowMeta: { fontSize: 12, color: MUTED, marginTop: 1 },
   shade: { fontSize: 20, fontWeight: "700", color: INK },
   summary: { marginTop: 4, fontSize: 13, color: INK, textAlign: "center" },
+  handoff: { flexDirection: "row", gap: 8, marginTop: 10 },
+  mapsButton: { flex: 1, borderRadius: 12, borderWidth: 1.5, borderColor: MAROON, paddingVertical: 10, alignItems: "center" },
+  mapsPrimary: { flex: 1.6, backgroundColor: MAROON },
+  mapsPrimaryText: { color: "white", fontWeight: "700", fontSize: 14 },
+  mapsText: { color: MAROON, fontWeight: "700", fontSize: 14 },
   error: { color: "#9a1b1b", fontSize: 14, marginVertical: 8, textAlign: "center" },
   offline: { marginTop: 4, fontSize: 12, color: "#9a5b00", textAlign: "center" },
 });

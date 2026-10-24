@@ -17,6 +17,7 @@ SunScreen finds shady walking routes anywhere on Texas A&M's main campus and the
    - **Fastest:** the shortest path.
    - **Recommended:** the shadiest route within +10% distance, scaled down by sunlight strength.
    - **Max shade:** the shadiest route within +30% distance.
+7. **Open in Google Maps** hands the selected route to Google Maps for turn-by-turn walking directions. It passes three waypoints along the route, which is Google's limit on phones, so Google follows the shady path. **Apple Maps** URLs can't carry waypoints, so Apple gets the same start and destination and picks its own path.
 
 ## Setup
 

@@ -7,7 +7,7 @@ const toLatLng = (f) => f.geometry.coordinates.map(([longitude, latitude]) => ({
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
 // Native map (Expo Go). RouteMap.web.js is the browser version.
-export default function RouteMap({ data, selected, bottomInset, bounds, picking, onMapPress }) {
+export default function RouteMap({ data, selected, bounds, picking, onMapPress }) {
   const map = useRef(null);
   const area = {
     latitude: (bounds.south + bounds.north) / 2,
@@ -17,10 +17,10 @@ export default function RouteMap({ data, selected, bottomInset, bounds, picking,
   };
 
   const fit = () => data && map.current?.fitToCoordinates(data.features.flatMap(toLatLng), {
-    edgePadding: { top: 40, left: 40, right: 40, bottom: bottomInset + 20 },
+    edgePadding: { top: 40, left: 40, right: 40, bottom: 40 },
     animated: true,
   });
-  useEffect(() => { fit(); }, [data, bottomInset]);
+  useEffect(() => { fit(); }, [data]);
 
   const onReady = () => {
     // Google Maps (Android) can hard-limit panning; elsewhere onRegionChangeComplete snaps back.
@@ -51,6 +51,7 @@ export default function RouteMap({ data, selected, bottomInset, bounds, picking,
       initialRegion={area}
       minZoomLevel={13.5}
       onMapReady={onReady}
+      onLayout={fit}
       onRegionChangeComplete={keepInside}
       onPress={(e) => picking && onMapPress({ lat: e.nativeEvent.coordinate.latitude, lon: e.nativeEvent.coordinate.longitude })}
       toolbarEnabled={false}

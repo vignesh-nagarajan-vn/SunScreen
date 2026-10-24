@@ -13,10 +13,10 @@ SunScreen finds the shadiest walking route between any two spots on Texas A&M's 
 
 Try it live at **[sunscreen-psi.vercel.app](https://sunscreen-psi.vercel.app)**.
 
-| 2 PM, recommended | 2 PM, max shade | 10:30 AM | 7:30 PM, sun down |
+| The Commons → Zachry, 2 PM | Pick any place | Bush Library → Evans, max shade | Kyle Field → Blocker, 10:30 AM |
 |:-:|:-:|:-:|:-:|
-| <img src="screenshots/1-afternoon-recommended.png" width="200"> | <img src="screenshots/2-afternoon-max-shade.png" width="200"> | <img src="screenshots/3-morning.png" width="200"> | <img src="screenshots/4-sun-down.png" width="200"> |
+| <img src="screenshots/1-recommended.png" width="200"> | <img src="screenshots/2-pick-a-place.png" width="200"> | <img src="screenshots/3-cross-campus.png" width="200"> | <img src="screenshots/4-morning.png" width="200"> |
 
-You can route between 24 campus places, any searched address, a dropped pin, or your current location, and the map stays locked to campus, Northgate, Southside and West Campus. A one-time pipeline turns 65 million LiDAR points into 1 m height maps, casts shadows from every roof and tree for each half hour from 7 AM to 8 PM, and records how much of each footpath is shaded. The API weighs that shade against today's cloud forecast. It returns the fastest route, a recommended route that adds about a minute for noticeably more shade, and a max-shade route. For The Commons to Zachry at 2 PM, that's 42%, 73% and 82% shaded.
+You can route between 24 campus places, any searched address, a dropped pin, or your current location, and the map stays locked to campus, Northgate, Southside and West Campus. A one-time pipeline turns 65 million LiDAR points into 1 m height maps, casts shadows from every roof and tree for each half hour from 7 AM to 8 PM, and records how much of each footpath is shaded. The API weighs that shade against today's cloud forecast. It returns the fastest route, a recommended route that adds about a minute for noticeably more shade, and a max-shade route, and any of them can be opened in Google Maps or Apple Maps for turn-by-turn directions. For The Commons to Zachry at 2 PM, that's 42%, 73% and 82% shaded.
 
 The pipeline, API and app run end to end on real data, and the live site runs the same routing API on Vercel with live weather. Shadow directions were checked against the sun's position on the real campus data and match within a few degrees. The app hasn't been tested on a phone in Expo Go yet, and the LiDAR was flown in January, so deciduous trees cast less shade than they do in summer.
