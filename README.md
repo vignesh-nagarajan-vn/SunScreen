@@ -2,6 +2,13 @@
 
 # SunScreen
 
+Mapped building pass-throughs and covered walkways are included automatically in
+Fastest, Recommended and Max shade. There is no separate indoor-navigation flow
+or fourth route option. The catalog includes a provisional Langford corridor
+and 22 covered-walkway/roof records across campus. Langford's geometry and door
+access still need field verification. See
+[building passages](docs/building-shortcuts.md).
+
 SunScreen finds the shadiest walking route between any two spots on Texas A&M's campus and the nearby neighborhoods, for any time of day. It builds a 3D shadow map from LiDAR using PDAL and pvlib, scores every footpath for shade, adjusts for live cloud cover, and shows routes in an Expo (React Native) app backed by a FastAPI router. Built for Aggies during Howdy Hacks 2026.
 
 - **Team:** Vignesh Nagarajan, Amulya Bisaria, Abhi Thatavarthi, Jayin Palicha

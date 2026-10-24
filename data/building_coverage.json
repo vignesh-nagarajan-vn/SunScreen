@@ -1,0 +1,135 @@
+{
+  "checked": "2026-10-24",
+  "osm_sha256": "369e4020056c3a6ce56e76bad2b6e1267d77da6ccb2f9ec72ad5ee559c1f77eb",
+  "building_footprints_audited": 1584,
+  "named_buildings_audited": 354,
+  "explicit_indoor_pedestrian_ways": 0,
+  "matched_roof_records": 22,
+  "excluded": [
+    {
+      "osm_way": "1104113171",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1125557195",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1125557196",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1275221445",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1275221448",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1275221449",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1322469448",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1322469450",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1409421267",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1432182306",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1432182307",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1434618154",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1500710356",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1500710357",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1565741330",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "1565741334",
+      "reason": "Not an explicitly pedestrian path (roads/driveways excluded)"
+    },
+    {
+      "osm_way": "747369475",
+      "reason": "No matching saved pedestrian edge geometry"
+    },
+    {
+      "osm_way": "870608956",
+      "reason": "No matching saved pedestrian edge geometry"
+    },
+    {
+      "osm_way": "1049232925",
+      "reason": "No matching saved pedestrian edge geometry"
+    },
+    {
+      "osm_way": "1095414338",
+      "reason": "No matching saved pedestrian edge geometry"
+    },
+    {
+      "osm_way": "1214015165",
+      "reason": "No matching saved pedestrian edge geometry"
+    },
+    {
+      "osm_way": "1459831323",
+      "reason": "No matching saved pedestrian edge geometry"
+    },
+    {
+      "osm_way": "1459831325",
+      "reason": "No matching saved pedestrian edge geometry"
+    },
+    {
+      "osm_way": "1460405114",
+      "reason": "No matching saved pedestrian edge geometry"
+    },
+    {
+      "osm_way": "1460405116",
+      "reason": "No matching saved pedestrian edge geometry"
+    },
+    {
+      "osm_way": "1460405120",
+      "reason": "No matching saved pedestrian edge geometry"
+    },
+    {
+      "osm_way": "1500710360",
+      "reason": "No matching saved pedestrian edge geometry"
+    },
+    {
+      "osm_way": "1503800979",
+      "reason": "No matching saved pedestrian edge geometry"
+    },
+    {
+      "osm_way": "1503800980",
+      "reason": "No matching saved pedestrian edge geometry"
+    },
+    {
+      "osm_way": "1503800988",
+      "reason": "No matching saved pedestrian edge geometry"
+    },
+    {
+      "osm_way": "1554378705",
+      "reason": "No matching saved pedestrian edge geometry"
+    }
+  ],
+  "limits": "Footprints are not floor plans. Missing corridors, entrances, floor transitions and schedules are not invented."
+}

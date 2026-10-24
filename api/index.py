@@ -6,16 +6,23 @@ import json
 import math
 import os
 import pickle
+import sys
 import time
 import urllib.parse
 import urllib.request
 from datetime import datetime
+from functools import lru_cache
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import networkx as nx
 from fastapi import APIRouter, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+
+# Also support the documented `cd api && uvicorn index:app` local entrypoint.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from campus_routing.passages import add_passages, load_catalog, traversal_available
+from campus_routing.geometry import route_key
 
 WALK_MPS = 1.4
 ALPHAS = [0, 0.25, 0.5, 1, 2, 4, 8, 16]  # shade weights tried when generating candidate routes
@@ -41,6 +48,14 @@ DEFAULT = G.graph["default"]
 B = G.graph["bounds"]
 NODES = [(n, d["y"], d["x"]) for n, d in G.nodes(data=True)]
 CENTER_LAT = (B["south"] + B["north"]) / 2
+PASSAGES = load_catalog()
+
+
+@lru_cache(maxsize=4)
+def compiled_network(base, catalog_json, departure_iso):
+    graph, records = add_passages(base, json.loads(catalog_json), datetime.fromisoformat(departure_iso))
+    nx.freeze(graph)
+    return graph, records
 
 app = FastAPI(title="SunScreen")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -88,22 +103,33 @@ def weather_at(slot):
     day = datetime.now(TZ).date().isoformat()
     try:
         w = hourly_weather(day)
+        h, frac = int(slot[:2]), int(slot[2:]) / 60
+        def lerp(key):
+            a, b = w[key][h], w[key][min(h + 1, 23)]
+            if any(isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v) for v in (a, b)):
+                raise ValueError('Missing forecast values')
+            return a * (1 - frac) + b * frac
+        dni, clouds = lerp('direct_normal_irradiance_instant'), lerp('cloud_cover')
+        if dni < 0 or not 0 <= clouds <= 100:
+            raise ValueError('Forecast values out of range')
+        strength = min(1.0, max(0.0, dni / sun['clearsky_dni']))
     except Exception as e:  # say so plainly and fall back to clear sky
         print(f"weather unavailable ({e}); assuming clear sky")
         return {"source": "unavailable, assuming clear sky", "cloud_cover_pct": None, "sun_strength_pct": 100}
-    # Interpolate hourly values to the half-hour slot.
-    h, frac = int(slot[:2]), int(slot[2:]) / 60
-    lerp = lambda key: w[key][h] * (1 - frac) + w[key][min(h + 1, 23)] * frac
-    strength = min(1.0, max(0.0, lerp("direct_normal_irradiance_instant") / sun["clearsky_dni"]))
-    return {"source": "open-meteo", "date": day, "cloud_cover_pct": round(lerp("cloud_cover")),
+    return {"source": "open-meteo", "date": day, "cloud_cover_pct": round(clouds),
             "sun_strength_pct": round(100 * strength)}
 
 
 # ---- routing ------------------------------------------------------------------
 def nearest_slot(hhmm):
-    h, m = map(int, hhmm.split(":"))
+    try:
+        h, m = map(int, hhmm.split(":"))
+        if not 0 <= h <= 23 or not 0 <= m <= 59:
+            raise ValueError('Invalid clock time')
+    except (ValueError, TypeError, AttributeError):
+        raise HTTPException(400, 'Time must be a valid 24-hour HH:MM value.')
     minutes = lambda s: int(s[:2]) * 60 + int(s[2:])
-    return min(SLOTS, key=lambda s: abs(minutes(s) - (h * 60 + m)))
+    return min(SLOTS, key=lambda s: (abs(minutes(s) - (h * 60 + m)), -minutes(s)))
 
 
 def endpoint(value, label):
@@ -123,26 +149,44 @@ def endpoint(value, label):
     return {"id": None, "name": label, "lat": lat, "lon": lon, "node": node}
 
 
-def shortest(src, dst, i, alpha):
+def shortest(src, dst, i, alpha, graph=None):
+    graph = G if graph is None else graph
     cost = lambda d: d["length"] * (1 + alpha * (1 - d["shade"][i]))
-    _, path = nx.bidirectional_dijkstra(G, src, dst, weight=lambda u, v, ds: min(map(cost, ds.values())))
+    _, path = nx.bidirectional_dijkstra(graph, src, dst, weight=lambda u, v, ds: min(map(cost, ds.values())))
     coords, runs, length, shaded = [], [], 0.0, 0.0
+    building_runs, indoor_m, covered_m = [], 0.0, 0.0
     for u, v in zip(path, path[1:]):
-        d = min(G[u][v].values(), key=cost)
+        d = min(graph[u][v].values(), key=cost)
         first = max(len(coords) - 1, 0)
         coords += d["coords"] if not coords else d["coords"][1:]
         runs.append([first, len(coords) - 1, round(d["shade"][i], 2)])  # coord range + shade of this edge
         length += d["length"]
         shaded += d["length"] * d["shade"][i]
+        if d.get("passage_id"):
+            indoor_m += d["length"] if d["environment"] == "indoor" else 0
+            covered_m += d["length"] if d["environment"] == "covered" else 0
+            building_runs.append({"first": first, "last": len(coords) - 1,
+                                  "building": d["building"], "environment": d["environment"],
+                                  "passage_id": d["passage_id"], "access_status": d.get("access_status", "unconfirmed"),
+                                  "start_m": length - d["length"], "end_m": length})
     if not coords:  # both ends snapped to the same node
-        n = G.nodes[src]
+        n = graph.nodes[src]
         coords = [[n["x"], n["y"]]]
-    return {"path": tuple(path), "coords": coords, "runs": runs, "length": length,
-            "shade": shaded / length if length else 1.0}
+    # Original edges were rounded to six decimals; corridor endpoints were not.
+    # All variants must meet at exactly the same mapped nodes.
+    coords[0] = [graph.nodes[src]['x'], graph.nodes[src]['y']]
+    coords[-1] = [graph.nodes[dst]['x'], graph.nodes[dst]['y']]
+    return {"path": tuple(path), "route_key": route_key(coords), "coords": coords, "runs": runs, "length": length,
+            "shade": shaded / length if length else 1.0, "indoor_m": indoor_m,
+            "covered_passage_m": covered_m, "building_runs": building_runs}
 
 
 def extra(seconds):
     return f"+{seconds} s" if seconds < 60 else f"+{seconds / 60:.1f} min"
+
+
+def departure_for_slot(slot):
+    return datetime.now(TZ).replace(hour=int(slot[:2]), minute=int(slot[2:]), second=0, microsecond=0)
 
 
 def feature(route_id, label, r, fastest, sun):
@@ -158,8 +202,13 @@ def feature(route_id, label, r, fastest, sun):
             "extra_s": round((r["length"] - fastest["length"]) / WALK_MPS),
             "shaded_pct": round(100 * r["shade"]),
             "sun_min": round(minutes * (1 - r["shade"]) * sun, 1),  # minutes in direct sun
-            "same_as_fastest": r["path"] == fastest["path"],
+            "same_as_fastest": r["route_key"] == fastest["route_key"],
             "runs": r["runs"],  # [first coord, last coord, shade 0-1] per edge, for sun/shade coloring
+            "indoor_m": round(r["indoor_m"], 1),
+            "covered_passage_m": round(r["covered_passage_m"], 1),
+            "building_runs": r["building_runs"],
+            "via_buildings": list(dict.fromkeys(run["building"] for run in r["building_runs"])),
+            "access_unconfirmed": any(run['access_status'] == 'unconfirmed' for run in r['building_runs']),
         },
     }
 
@@ -173,12 +222,24 @@ def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destinat
     i = SLOTS.index(slot)
     weather = weather_at(slot)
     sun = weather["sun_strength_pct"] / 100
-
+    departure = departure_for_slot(slot)
     try:
-        candidates = [shortest(a["node"], b["node"], i, alpha) for alpha in ALPHAS]
-    except nx.NetworkXNoPath:
+        graph, available = compiled_network(G, json.dumps(PASSAGES, sort_keys=True), departure.isoformat())
+    except (ValueError, KeyError, TypeError) as exc:
+        print(f"Building passages unavailable: {exc}; using outdoor graph")
+        graph, available = G, []
+
+    candidates = []
+    for network in (G, graph) if available else (G,):
+        try:
+            paths = [shortest(a['node'], b['node'], i, alpha, network) for alpha in ALPHAS]
+            candidates.extend(path for path in paths if traversal_available(path, network, departure, WALK_MPS))
+        except nx.NetworkXNoPath:
+            # A building may connect components that were disconnected outdoors.
+            continue
+    if not candidates:
         raise HTTPException(400, "No walking path connects those two points.")
-    fastest = candidates[0]
+    fastest = min(candidates, key=lambda candidate: candidate["length"])
     best = lambda limit: max(
         (c for c in candidates if c["length"] <= limit), key=lambda c: (round(c["shade"], 3), -c["length"])
     )
@@ -190,10 +251,10 @@ def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destinat
         feature("recommended", "Recommended", recommended, fastest, sun),
         feature("max_shade", "Max shade", max_shade, fastest, sun),
     ]
-    features[2]["properties"]["same_as_recommended"] = max_shade["path"] == recommended["path"]
+    features[2]["properties"]["same_as_recommended"] = max_shade["route_key"] == recommended["route_key"]
     f, r = features[0]["properties"], features[1]["properties"]
     if sun == 0:
-        note = "Sun is down, so every route is in shade. Take the fastest."
+        note = "Direct sunlight is low. The fastest route is a good choice."
     elif sun < 0.25:
         note = "Heavy clouds are blocking the sun, so shade barely matters."
     elif r["same_as_fastest"]:
@@ -211,6 +272,11 @@ def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destinat
         "summary": note,
         "start": pick(a),
         "end": pick(b),
+        "building_routing": {
+            "available_passages": [p["id"] for p in available],
+            "excluded_count": len(graph.graph.get('passage_diagnostics', [])),
+            "verification": "Map-derived passages; exact geometry and current access remain unverified.",
+        },
     }
 
 
@@ -250,6 +316,11 @@ def get_route(
     to_name: str = Query("Destination", max_length=80),
 ):
     return route(time, from_, to, from_name, to_name)
+
+
+@router.get("/building-passages")
+def get_building_passages():
+    return PASSAGES
 
 
 @router.get("/places")

@@ -1,4 +1,4 @@
 # Runtime deps for the API on Vercel (locally the conda env from pipeline/requirements.txt has them).
-fastapi
-networkx
-tzdata
+fastapi==0.162.0
+networkx==3.7
+tzdata==2026.5
