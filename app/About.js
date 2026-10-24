@@ -10,7 +10,7 @@ const STEPS = [
 const NIGHT_STEPS = [
   ["💡", "Find mapped lighting", "TAMU campus GIS supplies lamp locations, supplemented by historical lighting surveys and OpenStreetMap path tags. Removed lights and sign-only poles are excluded. Missing information stays unknown."],
   ["🌙", "Estimate nighttime coverage", "Nearby lamps suggest lighting within 12 meters. This is an estimate, not measured brightness, operating status, or a guarantee of safety."],
-  ["🚶", "Balance lighting and walking time", "Recommended routes can add up to 10% walking distance; Most lit can add up to 30%. If coverage is insufficient, take the fastest route."],
+  ["🚶", "Balance lighting and walking time", "By default, Recommended allows up to 10% extra distance and Most lit up to 30%. Adjust these limits in Route settings. If coverage is insufficient, take the fastest route."],
 ];
 
 // "How it works" sheet: three steps and a tiny sun / building / shadow diagram.
