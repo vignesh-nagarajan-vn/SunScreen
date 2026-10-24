@@ -76,11 +76,18 @@ test('repeated selection does not accumulate old map paths', async ({ page }) =>
 
 test('address names are rendered as literal text', async ({ page }) => {
   const malicious = '<img src=x onerror="window.injected=true">';
+  await page.route('**/api/search?**', route => route.fulfill({ json: {
+    results: [{ ...fixtures.default.start, id: null, name: malicious }],
+  } }));
   await page.route('**/api/route?**', route => {
     const data = structuredClone(fixtures.default); data.start.name = malicious;
     return route.fulfill({ json: data, headers: { 'access-control-allow-origin': '*' } });
   });
   await page.goto('/?intro=0&time=14:00');
+  await page.getByRole('button', { name: /^From:/ }).click();
+  await page.getByLabel('Search buildings or addresses').fill('test address');
+  await page.getByLabel('Search buildings or addresses').press('Enter');
+  await page.getByText(malicious, { exact: true }).click();
   await expect(page.locator('.leaflet-tooltip').filter({ hasText: malicious })).toBeVisible();
   expect(await page.evaluate(() => window.injected)).toBeUndefined();
 });
@@ -126,6 +133,7 @@ test('failed trip clears the previous routes from the map', async ({ page }) => 
   await page.getByLabel('Swap start and destination').click();
   await expect(page.getByText('No walking path connects those two points.')).toBeVisible();
   await expect(page.locator('.leaflet-overlay-pane path')).toHaveCount(0);
+  await expect(page.locator('.endpoint-pin')).toHaveCount(2);
 });
 
 test('desktop keeps the same three route choices', async ({ page }) => {
