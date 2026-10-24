@@ -19,7 +19,8 @@ STEP_M = 2.0
 
 area = json.loads((DATA / "area.json").read_text())
 crs = area["crs"]
-slots = list(json.loads((DATA / "shade" / "sun.json").read_text())["slots"])
+sun = json.loads((DATA / "shade" / "sun.json").read_text())
+slots = list(sun["slots"])
 
 G = ox.graph_from_bbox(tuple(area["bbox_wgs84"]), network_type="walk")
 Gp = ox.project_graph(G, to_crs=crs)
@@ -49,7 +50,7 @@ shade = np.stack([np.bincount(edge_idx, weights=s) / n for s in samples], axis=1
 
 # Lean graph for the API: lon/lat nodes, edges with length, coords (u -> v) and shade per slot.
 to_wgs = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
-out = nx.MultiDiGraph(slots=slots)
+out = nx.MultiDiGraph(slots=slots, date=sun["date"], sun=sun["slots"])
 for node, d in G.nodes(data=True):
     out.add_node(node, x=d["x"], y=d["y"])
 for i, ((u, v, k), geom) in enumerate(edges.geometry.items()):

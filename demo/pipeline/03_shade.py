@@ -77,17 +77,19 @@ def main():
 
     times = pd.DatetimeIndex([pd.Timestamp(f"{args.date} {s[:2]}:{s[2:]}", tz=TZ) for s in SLOTS])
     sun = pvlib.solarposition.get_solarposition(times, lat, lon)
+    # Clear-sky direct beam; the API compares it with the forecast to get a cloud factor.
+    clear = pvlib.location.Location(lat, lon, TZ).get_clearsky(times, model="ineichen", solar_position=sun)
 
     out = DATA / "shade"
     out.mkdir(exist_ok=True)
     profile.update(dtype="uint8", nodata=None, compress="deflate")
     meta = {"date": str(args.date), "lat": lat, "lon": lon, "slots": {}}
-    for slot, (_, s) in zip(SLOTS, sun.iterrows()):
+    for slot, (_, s), dni in zip(SLOTS, sun.iterrows(), clear["dni"]):
         alt, az = float(s["apparent_elevation"]), float(s["azimuth"])
         mask = cast_shadows(surface, dtm, az, alt) | covered
         with rasterio.open(out / f"shade_{slot}.tif", "w", **profile) as dst:
             dst.write(mask.astype("uint8"), 1)
-        meta["slots"][slot] = {"altitude": round(alt, 2), "azimuth": round(az, 2)}
+        meta["slots"][slot] = {"altitude": round(alt, 2), "azimuth": round(az, 2), "clearsky_dni": round(float(dni), 1)}
         note = "  (sun below horizon: all shaded)" if alt <= 0 else ""
         print(f"{slot}  alt {alt:5.1f}  az {az:5.1f}  shaded {mask.mean():5.1%}{note}")
     (out / "sun.json").write_text(json.dumps(meta, indent=2))

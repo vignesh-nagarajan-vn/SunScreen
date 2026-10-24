@@ -1,9 +1,13 @@
 {
   "expo": {
-    "name": "Shade Route",
-    "slug": "shade-route",
+    "name": "Howdy Shade",
+    "slug": "howdy-shade",
     "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "light"
+    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "splash": { "image": "./assets/icon.png", "resizeMode": "contain", "backgroundColor": "#ffffff" },
+    "android": { "adaptiveIcon": { "foregroundImage": "./assets/icon.png", "backgroundColor": "#ffffff" } },
+    "web": { "favicon": "./assets/logo.png", "name": "Howdy Shade" }
   }
 }

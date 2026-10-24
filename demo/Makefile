@@ -1,6 +1,6 @@
 PY ?= python
 
-.PHONY: data test api app fallback
+.PHONY: data test api app web fallback
 
 data: test
 	$(PY) pipeline/01_area.py
@@ -17,6 +17,9 @@ api:
 app:
 	cd app && npm install && npx expo start
 
-# Re-bake app/fallback.json (alpha=1, every slot) from the current graph.
+web:
+	cd app && npm install && npx expo start --web
+
+# Re-bake app/fallback.json (every time slot) from the current graph and weather.
 fallback:
 	cd api && $(PY) -c "import json, main; json.dump({r['time']: r for r in (main.route(s[:2] + ':' + s[2:]) for s in main.SLOTS)}, open('../app/fallback.json', 'w', encoding='utf-8'), ensure_ascii=False)"
