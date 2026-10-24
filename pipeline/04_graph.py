@@ -52,22 +52,27 @@ shade = np.stack([np.bincount(edge_idx, weights=s) / n for s in samples], axis=1
 to_wgs = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
 out = nx.MultiDiGraph(slots=slots, date=sun["date"], sun=sun["slots"])
 for node, d in G.nodes(data=True):
-    out.add_node(node, x=d["x"], y=d["y"])
+    out.add_node(int(node), x=float(d["x"]), y=float(d["y"]))
 for i, ((u, v, k), geom) in enumerate(edges.geometry.items()):
     lon, lat = to_wgs.transform(*np.asarray(geom.coords).T)
-    coords = [[round(a, 6), round(b, 6)] for a, b in zip(lon, lat)]
+    coords = [[round(float(a), 6), round(float(b), 6)] for a, b in zip(lon, lat)]
     if np.hypot(coords[0][0] - G.nodes[u]["x"], coords[0][1] - G.nodes[u]["y"]) > \
        np.hypot(coords[-1][0] - G.nodes[u]["x"], coords[-1][1] - G.nodes[u]["y"]):
         coords.reverse()
-    out.add_edge(int(u), int(v), int(k), length=float(lengths[i]), coords=coords, shade=shade[i].round(3))
+    # Plain floats, so the API can unpickle the graph without numpy.
+    out.add_edge(int(u), int(v), int(k), length=float(lengths[i]), coords=coords,
+                 shade=tuple(round(float(s), 3) for s in shade[i]))
 
 to_utm = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
-for name in ("start", "end"):
-    x, y = to_utm.transform(area[name]["lon"], area[name]["lat"])
+places = []
+for pl in area["places"]:
+    x, y = to_utm.transform(pl["lon"], pl["lat"])
     node = ox.distance.nearest_nodes(Gp, x, y)
-    snap = np.hypot(Gp.nodes[node]["x"] - x, Gp.nodes[node]["y"] - y)
-    out.graph[name] = {**area[name], "node": int(node)}
-    print(f"{name} snapped to node {node} ({snap:.0f} m away)")
+    snap = float(np.hypot(Gp.nodes[node]["x"] - x, Gp.nodes[node]["y"] - y))
+    places.append({**pl, "node": int(node), "snap_m": round(snap)})
+    print(f"{pl['name']:28s} snapped to node {node} ({snap:.0f} m away)")
+west, south, east, north = area["bbox_wgs84"]
+out.graph.update(places=places, default=area["default"], bounds={"west": west, "south": south, "east": east, "north": north})
 
 with open(DATA / "graph.pkl", "wb") as f:
     pickle.dump(out, f)

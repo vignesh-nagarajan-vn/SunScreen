@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react";
-import { Image, Platform, Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Image, Platform, Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
 import Slider from "@react-native-community/slider";
 import RouteMap from "./RouteMap";
-import { API_BASE, STATIC_DEMO } from "./config";
+import PlacePicker from "./PlacePicker";
+import { API_BASE } from "./config";
 import { INK, LINE, MAROON, MUTED, ROUTES, TINT } from "./theme";
 import fallback from "./fallback.json";
+import area from "./places.json";
 
 const FIRST = 7 * 60, LAST = 20 * 60;
 const hhmm = (min) => `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
-const longDate = (iso) => new Date(`${iso}T12:00`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 const clock = (min) => `${((Math.floor(min / 60) + 11) % 12) + 1}:${String(min % 60).padStart(2, "0")} ${min < 720 ? "AM" : "PM"}`;
+const byId = Object.fromEntries(area.places.map((p) => [p.id, p]));
+const param = (p) => p.id ?? `${p.lat.toFixed(6)},${p.lon.toFixed(6)}`;
+const inBounds = (p, b) => p.lat >= b.south && p.lat <= b.north && p.lon >= b.west && p.lon <= b.east;
 
-// Start at the current time (or ?time=HH:MM&route=id on web), snapped to a 30-min slot.
+// Start at the current time; on web, ?from=&to=&time=HH:MM&route= preselect a trip.
 const params = Platform.OS === "web" ? new URLSearchParams(window.location.search) : new URLSearchParams();
 const now = new Date();
-const fromParam = params.get("time")?.split(":").map(Number);
+const timeParam = params.get("time")?.split(":").map(Number);
 const initialMin = Math.min(LAST, Math.max(FIRST, Math.round(
-  (fromParam ? fromParam[0] * 60 + fromParam[1] : now.getHours() * 60 + now.getMinutes()) / 30) * 30));
+  (timeParam ? timeParam[0] * 60 + timeParam[1] : now.getHours() * 60 + now.getMinutes()) / 30) * 30));
 
 function weatherText({ weather, sun }) {
   if (weather.source === "sun down") return "Sun is down";
@@ -28,63 +32,128 @@ function weatherText({ weather, sun }) {
 }
 
 export default function App() {
+  const [from, setFrom] = useState(byId[params.get("from")] ?? byId[area.default[0]]);
+  const [to, setTo] = useState(byId[params.get("to")] ?? byId[area.default[1]]);
   const [minutes, setMinutes] = useState(initialMin);
   const [preview, setPreview] = useState(initialMin);
   const [selected, setSelected] = useState(params.get("route") ?? "recommended");
-  const [data, setData] = useState(fallback[hhmm(initialMin)]);
-  const [offline, setOffline] = useState(false);
+  const [data, setData] = useState(null);
+  const [status, setStatus] = useState({ loading: true });
+  const [picker, setPicker] = useState(null); // "from" | "to" while choosing an endpoint
+  const [picking, setPicking] = useState(null); // "from" | "to" while waiting for a map tap
   const [cardHeight, setCardHeight] = useState(360);
 
   useEffect(() => {
-    if (STATIC_DEMO) return setData(fallback[hhmm(minutes)]);
+    let cancelled = false;
     const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 4000);
-    fetch(`${API_BASE}/route?time=${hhmm(minutes)}`, { signal: ctrl.signal })
-      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((json) => { setData(json); setOffline(false); })
-      .catch(() => { setData(fallback[hhmm(minutes)]); setOffline(true); })
+    const timer = setTimeout(() => ctrl.abort(), 8000);
+    const q = new URLSearchParams({ time: hhmm(minutes), from: param(from), to: param(to), from_name: from.name, to_name: to.name });
+    setStatus({ loading: true });
+    fetch(`${API_BASE}/api/route?${q}`, { signal: ctrl.signal })
+      .then(async (r) => {
+        const json = await r.json();
+        if (cancelled) return;
+        if (r.ok) { setData(json); setStatus({}); } else setStatus({ error: json.detail }); // e.g. "outside the area"
+      })
+      .catch(() => {
+        if (cancelled) return;
+        // Server unreachable: the default trip has bundled routes, anything else can't be routed offline.
+        if (from.id === area.default[0] && to.id === area.default[1]) {
+          setData(fallback[hhmm(minutes)]);
+          setStatus({ offline: true });
+        } else setStatus({ error: "Can't reach the SunScreen server. Check your connection and try again." });
+      })
       .finally(() => clearTimeout(timer));
-    return () => { clearTimeout(timer); ctrl.abort(); };
-  }, [minutes]);
+    return () => { cancelled = true; clearTimeout(timer); ctrl.abort(); };
+  }, [minutes, from, to]);
+
+  const choose = (which, place) => {
+    (which === "from" ? setFrom : setTo)(place);
+    setPicker(null);
+    setPicking(null);
+  };
+  const onMapPress = (p) => {
+    if (!inBounds(p, area.bounds)) return;
+    choose(picking, { ...p, id: null, name: "Dropped pin" });
+  };
+  const swap = () => { setFrom(to); setTo(from); };
+  const showRoutes = data && !status.error;
 
   return (
     <View style={styles.screen}>
       <StatusBar barStyle="light-content" backgroundColor={MAROON} />
       <View style={styles.header}>
-        <Image source={require("./assets/logo.png")} style={styles.logo} />
-        <View>
+        <View style={styles.brandRow}>
+          <Image source={require("./assets/logo.png")} style={styles.logo} />
           <Text style={styles.brand}>SunScreen</Text>
-          <Text style={styles.trip}>The Commons → Zachry</Text>
+        </View>
+        <View style={styles.trip}>
+          <View style={{ flex: 1 }}>
+            <Endpoint label="From" place={from} onPress={() => setPicker("from")} />
+            <View style={styles.tripDivider} />
+            <Endpoint label="To" place={to} onPress={() => setPicker("to")} />
+          </View>
+          <Pressable onPress={swap} style={styles.swap} hitSlop={8} accessibilityLabel="Swap start and destination">
+            <Text style={styles.swapText}>⇅</Text>
+          </Pressable>
         </View>
       </View>
 
       <View style={styles.map}>
-        <RouteMap data={data} selected={selected} bottomInset={cardHeight} />
-      </View>
-
-      <View style={styles.card} onLayout={(e) => setCardHeight(e.nativeEvent.layout.height)}>
-        <View style={styles.timeRow}>
-          <Text style={styles.time}>{clock(preview)}</Text>
-          <Text style={styles.weather} numberOfLines={2}>{weatherText(data)}</Text>
-        </View>
-        <Slider
-          minimumValue={FIRST} maximumValue={LAST} step={30} value={minutes}
-          onValueChange={setPreview} onSlidingComplete={setMinutes}
-          minimumTrackTintColor={MAROON} maximumTrackTintColor="#d9cfcf" thumbTintColor={MAROON}
+        <RouteMap
+          data={showRoutes ? data : null} selected={selected} bottomInset={cardHeight}
+          bounds={area.bounds} picking={!!picking} onMapPress={onMapPress}
         />
-        <View style={styles.ticks}>
-          {["7 AM", "11 AM", "3 PM", "8 PM"].map((t) => <Text key={t} style={styles.tick}>{t}</Text>)}
-        </View>
-
-        {data.features.map(({ properties: p }) => (
-          <RouteRow key={p.id} p={p} active={p.id === selected} onPress={() => setSelected(p.id)} />
-        ))}
-
-        <Text style={styles.summary}>{data.summary}</Text>
-        {STATIC_DEMO && <Text style={styles.saved}>Hosted demo: saved routes and weather for {longDate(data.date)}</Text>}
-        {!STATIC_DEMO && offline && <Text style={styles.offline}>Offline: showing saved routes for {longDate(data.date)}</Text>}
+        {picking && (
+          <View style={styles.banner}>
+            <Text style={styles.bannerText}>Tap the map to set your {picking === "from" ? "start" : "destination"}</Text>
+            <Pressable onPress={() => setPicking(null)} hitSlop={8}><Text style={styles.bannerCancel}>Cancel</Text></Pressable>
+          </View>
+        )}
       </View>
+
+      {!picking && (
+        <View style={styles.card} onLayout={(e) => setCardHeight(e.nativeEvent.layout.height)}>
+          <View style={styles.timeRow}>
+            <Text style={styles.time}>{clock(preview)}</Text>
+            {data && <Text style={styles.weather} numberOfLines={2}>{weatherText(data)}</Text>}
+            {status.loading && <ActivityIndicator color={MAROON} />}
+          </View>
+          <Slider
+            minimumValue={FIRST} maximumValue={LAST} step={30} value={minutes}
+            onValueChange={setPreview} onSlidingComplete={setMinutes}
+            minimumTrackTintColor={MAROON} maximumTrackTintColor="#d9cfcf" thumbTintColor={MAROON}
+          />
+          <View style={styles.ticks}>
+            {["7 AM", "11 AM", "3 PM", "8 PM"].map((t) => <Text key={t} style={styles.tick}>{t}</Text>)}
+          </View>
+
+          {status.error && <Text style={styles.error}>{status.error}</Text>}
+          {showRoutes && data.features.map(({ properties: p }) => (
+            <RouteRow key={p.id} p={p} active={p.id === selected} onPress={() => setSelected(p.id)} />
+          ))}
+          {showRoutes && <Text style={styles.summary}>{data.summary}</Text>}
+          {status.offline && <Text style={styles.offline}>Offline: showing saved routes for The Commons → Zachry</Text>}
+        </View>
+      )}
+
+      {picker && (
+        <PlacePicker
+          title={picker === "from" ? "Start" : "Destination"} places={area.places} bounds={area.bounds}
+          onSelect={(p) => choose(picker, p)} onClose={() => setPicker(null)}
+          onPickOnMap={() => { setPicking(picker); setPicker(null); }}
+        />
+      )}
     </View>
+  );
+}
+
+function Endpoint({ label, place, onPress }) {
+  return (
+    <Pressable onPress={onPress} style={styles.endpoint}>
+      <Text style={styles.endpointLabel}>{label}</Text>
+      <Text style={styles.endpointName} numberOfLines={1}>{place.name}</Text>
+    </Pressable>
   );
 }
 
@@ -97,6 +166,7 @@ function RouteRow({ p, active, onPress }) {
         <Text style={styles.rowTitle}>
           {p.label}
           {p.id !== "fastest" && p.same_as_fastest && <Text style={styles.same}>  same as fastest</Text>}
+          {!p.same_as_fastest && p.same_as_recommended && <Text style={styles.same}>  same as recommended</Text>}
         </Text>
         <Text style={styles.rowMeta}>{p.time_min} min · {p.distance_m} m{extra}</Text>
       </View>
@@ -112,11 +182,21 @@ const topInset = Platform.select({ ios: 50, android: (StatusBar.currentHeight ??
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: "white" },
-  header: { backgroundColor: MAROON, paddingTop: topInset, paddingBottom: 12, paddingHorizontal: 16, flexDirection: "row", alignItems: "center", gap: 10 },
-  logo: { width: 34, height: 34 },
+  header: { backgroundColor: MAROON, paddingTop: topInset, paddingBottom: 12, paddingHorizontal: 16, gap: 10 },
+  brandRow: { flexDirection: "row", alignItems: "center", gap: 8 },
+  logo: { width: 28, height: 28 },
   brand: { color: "white", fontSize: 20, fontWeight: "700", letterSpacing: 0.3 },
-  trip: { color: "#f1dede", fontSize: 13 },
+  trip: { flexDirection: "row", alignItems: "center", backgroundColor: "white", borderRadius: 12, paddingLeft: 12 },
+  tripDivider: { height: 1, backgroundColor: LINE },
+  endpoint: { flexDirection: "row", alignItems: "center", paddingVertical: 9, gap: 10 },
+  endpointLabel: { width: 36, color: MUTED, fontSize: 12, fontWeight: "600" },
+  endpointName: { flex: 1, color: INK, fontSize: 15, fontWeight: "600" },
+  swap: { width: 44, alignSelf: "stretch", alignItems: "center", justifyContent: "center" },
+  swapText: { color: MAROON, fontSize: 22, fontWeight: "700" },
   map: { flex: 1 },
+  banner: { position: "absolute", top: 12, left: 12, right: 12, backgroundColor: MAROON, borderRadius: 12, padding: 12, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+  bannerText: { color: "white", fontWeight: "600", flex: 1 },
+  bannerCancel: { color: "#f1dede", fontWeight: "600", marginLeft: 12 },
   card: { position: "absolute", left: 0, right: 0, bottom: 0, backgroundColor: "white", borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingHorizontal: 16, paddingTop: 14, paddingBottom: Platform.OS === "ios" ? 30 : 16, shadowColor: "#000", shadowOpacity: 0.15, shadowRadius: 12, elevation: 12 },
   timeRow: { flexDirection: "row", alignItems: "center", gap: 12 },
   time: { fontSize: 26, fontWeight: "700", color: MAROON, minWidth: 108 },
@@ -131,6 +211,6 @@ const styles = StyleSheet.create({
   rowMeta: { fontSize: 12, color: MUTED, marginTop: 1 },
   shade: { fontSize: 20, fontWeight: "700", color: INK },
   summary: { marginTop: 4, fontSize: 13, color: INK, textAlign: "center" },
+  error: { color: "#9a1b1b", fontSize: 14, marginVertical: 8, textAlign: "center" },
   offline: { marginTop: 4, fontSize: 12, color: "#9a5b00", textAlign: "center" },
-  saved: { marginTop: 4, fontSize: 12, color: MUTED, textAlign: "center" },
 });

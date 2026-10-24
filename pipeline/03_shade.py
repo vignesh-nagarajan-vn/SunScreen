@@ -61,8 +61,8 @@ def main():
     args = p.parse_args()
 
     area = json.loads((DATA / "area.json").read_text())
-    lat = (area["start"]["lat"] + area["end"]["lat"]) / 2
-    lon = (area["start"]["lon"] + area["end"]["lon"]) / 2
+    west, south, east, north = area["bbox_wgs84"]
+    lat, lon = (south + north) / 2, (west + east) / 2
 
     def read(name):
         with rasterio.open(DATA / f"{name}.tif") as src:

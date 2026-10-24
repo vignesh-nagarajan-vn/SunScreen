@@ -2,10 +2,10 @@
 
 # SunScreen
 
-SunScreen finds the shadiest walking routes across Texas A&M's campus for any time of day. It builds a 3D shadow map from LiDAR using PDAL and pvlib, scores every footpath for shade, adjusts for live cloud cover, and shows routes in an Expo (React Native) app backed by a FastAPI router. Built for Aggies during Howdy Hacks 2026.
+SunScreen finds the shadiest walking route between any two spots on Texas A&M's campus and the nearby neighborhoods, for any time of day. It builds a 3D shadow map from LiDAR using PDAL and pvlib, scores every footpath for shade, adjusts for live cloud cover, and shows routes in an Expo (React Native) app backed by a FastAPI router. Built for Aggies during Howdy Hacks 2026.
 
 - **Team:** Vignesh Nagarajan, Amulya Bisaria, Jayin Palicha
-- **Datasets:** [USGS 3DEP LiDAR](https://registry.opendata.aws/usgs-lidar/) (TX RedRiver 2018, via AWS), [OpenStreetMap](https://www.openstreetmap.org/) walking paths (via osmnx), [Open-Meteo](https://open-meteo.com/) cloud and sunlight forecast
+- **Datasets:** [TxGIO StratMap 2025 LiDAR](https://data.geographic.texas.gov/) (Brazos basins, with [USGS 3DEP](https://registry.opendata.aws/usgs-lidar/) as a fallback), [OpenStreetMap](https://www.openstreetmap.org/) walking paths (via osmnx), [Open-Meteo](https://open-meteo.com/) cloud and sunlight forecast
 - **Stack:** Python (PDAL, rasterio, numpy, osmnx, networkx, pvlib), FastAPI, Expo / React Native, Leaflet for web
 - **Run it:** see [EXTENDED.md](EXTENDED.md) for setup, then `make data`, `make api` and `make app`
 
@@ -17,6 +17,6 @@ Try it live at **[sunscreen-psi.vercel.app](https://sunscreen-psi.vercel.app)**.
 |:-:|:-:|:-:|:-:|
 | <img src="screenshots/1-afternoon-recommended.png" width="200"> | <img src="screenshots/2-afternoon-max-shade.png" width="200"> | <img src="screenshots/3-morning.png" width="200"> | <img src="screenshots/4-sun-down.png" width="200"> |
 
-The demo routes a walk from The Commons to the Zachry Engineering Education Complex. A one-time pipeline turns LiDAR into 1 m height maps, casts shadows from every roof and tree for each half hour from 7 AM to 8 PM, and records how much of each footpath is shaded. The API weighs that shade against the cloud forecast. It returns the fastest route, a recommended route that adds about a minute for noticeably more shade, and a max-shade route; at 2 PM that's 45%, 67% and 81% shaded.
+You can route between 24 campus places, any searched address, a dropped pin, or your current location, and the map stays locked to campus, Northgate, Southside and West Campus. A one-time pipeline turns 65 million LiDAR points into 1 m height maps, casts shadows from every roof and tree for each half hour from 7 AM to 8 PM, and records how much of each footpath is shaded. The API weighs that shade against today's cloud forecast. It returns the fastest route, a recommended route that adds about a minute for noticeably more shade, and a max-shade route. For The Commons to Zachry at 2 PM, that's 42%, 73% and 82% shaded.
 
-The full pipeline, API and app run end to end on real data, and both the web and native builds compile. The live web demo uses routes and weather saved on October 22, 2026, and the app hasn't been tested on a phone in Expo Go yet. Tree shade is undercounted because the available LiDAR was flown in winter, so newer TxGIO tiles are the next upgrade.
+The pipeline, API and app run end to end on real data, and the live site runs the same routing API on Vercel with live weather. Shadow directions were checked against the sun's position on the real campus data and match within a few degrees. The app hasn't been tested on a phone in Expo Go yet, and the LiDAR was flown in January, so deciduous trees cast less shade than they do in summer.

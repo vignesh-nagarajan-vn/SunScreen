@@ -1,28 +1,190 @@
 {
-  "start": {
-    "name": "Commons Dining Hall, College Station, TX",
-    "lat": 30.6155193,
-    "lon": -96.3361609,
-    "source": "nominatim"
-  },
-  "end": {
-    "name": "Zachry Engineering Education Complex, College Station, TX",
-    "lat": 30.6213752,
-    "lon": -96.3402021,
-    "source": "nominatim"
-  },
+  "places": [
+    {
+      "id": "commons",
+      "name": "The Commons",
+      "lat": 30.6155193,
+      "lon": -96.3361609,
+      "source": "nominatim"
+    },
+    {
+      "id": "zachry",
+      "name": "Zachry Engineering",
+      "lat": 30.6213752,
+      "lon": -96.3402021,
+      "source": "nominatim"
+    },
+    {
+      "id": "msc",
+      "name": "Memorial Student Center",
+      "lat": 30.6122297,
+      "lon": -96.3412229,
+      "source": "nominatim"
+    },
+    {
+      "id": "evans",
+      "name": "Evans Library",
+      "lat": 30.6168208,
+      "lon": -96.3391984,
+      "source": "nominatim"
+    },
+    {
+      "id": "academic",
+      "name": "Academic Building",
+      "lat": 30.6157404,
+      "lon": -96.3407842,
+      "source": "nominatim"
+    },
+    {
+      "id": "century_tree",
+      "name": "Century Tree",
+      "lat": 30.6158806,
+      "lon": -96.3413475,
+      "source": "nominatim"
+    },
+    {
+      "id": "rudder",
+      "name": "Rudder Tower",
+      "lat": 30.6128606,
+      "lon": -96.3403448,
+      "source": "nominatim"
+    },
+    {
+      "id": "ssb",
+      "name": "Student Services Building",
+      "lat": 30.6141742,
+      "lon": -96.3413579,
+      "source": "nominatim"
+    },
+    {
+      "id": "kyle",
+      "name": "Kyle Field",
+      "lat": 30.6098548,
+      "lon": -96.3403698,
+      "source": "nominatim"
+    },
+    {
+      "id": "rec",
+      "name": "Student Rec Center",
+      "lat": 30.6071334,
+      "lon": -96.3428624,
+      "source": "nominatim"
+    },
+    {
+      "id": "reed",
+      "name": "Reed Arena",
+      "lat": 30.6056832,
+      "lon": -96.3462955,
+      "source": "nominatim"
+    },
+    {
+      "id": "sbisa",
+      "name": "Sbisa Dining Hall",
+      "lat": 30.6171429,
+      "lon": -96.3438025,
+      "source": "nominatim"
+    },
+    {
+      "id": "wehner",
+      "name": "Mays Business School",
+      "lat": 30.610444,
+      "lon": -96.3512091,
+      "source": "nominatim"
+    },
+    {
+      "id": "bell_tower",
+      "name": "Albritton Bell Tower",
+      "lat": 30.6131298,
+      "lon": -96.3446636,
+      "source": "nominatim"
+    },
+    {
+      "id": "drill_field",
+      "name": "Simpson Drill Field",
+      "lat": 30.6135004,
+      "lon": -96.3427367,
+      "source": "nominatim"
+    },
+    {
+      "id": "corps",
+      "name": "Corps of Cadets Center",
+      "lat": 30.6120939,
+      "lon": -96.3375242,
+      "source": "nominatim"
+    },
+    {
+      "id": "cushing",
+      "name": "Cushing Library",
+      "lat": 30.6163551,
+      "lon": -96.3399534,
+      "source": "nominatim"
+    },
+    {
+      "id": "blocker",
+      "name": "Blocker Building",
+      "lat": 30.6196311,
+      "lon": -96.3421599,
+      "source": "nominatim"
+    },
+    {
+      "id": "langford",
+      "name": "Langford Architecture",
+      "lat": 30.6188047,
+      "lon": -96.3376411,
+      "source": "nominatim"
+    },
+    {
+      "id": "agls",
+      "name": "AgriLife Sciences Building",
+      "lat": 30.6056395,
+      "lon": -96.3507785,
+      "source": "nominatim"
+    },
+    {
+      "id": "aggie_park",
+      "name": "Aggie Park",
+      "lat": 30.609532,
+      "lon": -96.3365261,
+      "source": "nominatim"
+    },
+    {
+      "id": "spence_park",
+      "name": "Spence Park",
+      "lat": 30.6127894,
+      "lon": -96.3381439,
+      "source": "nominatim"
+    },
+    {
+      "id": "bush_library",
+      "name": "Bush Library",
+      "lat": 30.5960994,
+      "lon": -96.3534813,
+      "source": "nominatim"
+    },
+    {
+      "id": "northgate",
+      "name": "Northgate",
+      "lat": 30.6256273,
+      "lon": -96.3453931,
+      "source": "nominatim"
+    }
+  ],
+  "default": [
+    "commons",
+    "zachry"
+  ],
   "crs": "EPSG:6343",
-  "buffer_m": 300,
+  "buffer_m": 400,
   "bbox_utm": [
-    754662,
-    3389717,
-    755666,
-    3390958
+    753355,
+    3387425,
+    755766,
+    3391518
   ],
   "bbox_wgs84": [
-    -96.34356594870869,
-    30.612744874786696,
-    -96.33279567776337,
-    30.624145524990524
+    -96.35774850051926,
+    30.592063483272277,
+    -96.33161480957132,
+    30.629471196192544
   ]
 }

@@ -14,22 +14,41 @@ function loadLeaflet() {
   return leaflet;
 }
 
-export default function RouteMap({ data, selected, bottomInset }) {
+export default function RouteMap({ data, selected, bottomInset, bounds, picking, onMapPress }) {
   const el = useRef(null);
   const map = useRef(null);
+  const press = useRef(onMapPress);
+  press.current = picking ? onMapPress : null;
+
+  // Create the map once, locked to the campus area: no panning or zooming out past it.
+  useEffect(() => {
+    loadLeaflet().then((L) => {
+      const area = L.latLngBounds([bounds.south, bounds.west], [bounds.north, bounds.east]);
+      map.current = L.map(el.current, { zoomControl: false, attributionControl: false, maxBounds: area.pad(0.05), maxBoundsViscosity: 1 });
+      L.control.attribution({ position: "topright", prefix: false }).addTo(map.current);
+      L.tileLayer(TILES, { maxNativeZoom: 16, maxZoom: 19, attribution: "Tiles © Esri, © OpenStreetMap contributors" })
+        .addTo(map.current);
+      const lockZoom = () => {
+        map.current.invalidateSize();
+        map.current.setMinZoom(map.current.getBoundsZoom(area, true));
+      };
+      // The container has no size until React Native Web lays it out.
+      new ResizeObserver(lockZoom).observe(el.current);
+      lockZoom();
+      map.current.fitBounds(area);
+      map.current.on("click", (e) => press.current?.({ lat: e.latlng.lat, lon: e.latlng.lng }));
+    });
+  }, []);
 
   useEffect(() => {
+    if (el.current) el.current.style.cursor = picking ? "crosshair" : "";
+  }, [picking]);
+
+  useEffect(() => {
+    if (!data) return;
     let layers;
     loadLeaflet().then((L) => {
-      if (!map.current) {
-        map.current = L.map(el.current, { zoomControl: false, attributionControl: false });
-        L.control.attribution({ position: "topright", prefix: false }).addTo(map.current);
-        L.tileLayer(TILES, { maxNativeZoom: 16, maxZoom: 19, attribution: "Tiles © Esri, © OpenStreetMap contributors" })
-          .addTo(map.current);
-        // The container has no size until React Native Web lays it out.
-        new ResizeObserver(() => map.current.invalidateSize()).observe(el.current);
-      }
-      map.current.invalidateSize();
+      if (!map.current) return;
       layers = L.layerGroup().addTo(map.current);
       const ordered = data.features.filter((f) => f.properties.id !== selected)
         .concat(data.features.filter((f) => f.properties.id === selected));
@@ -41,19 +60,20 @@ export default function RouteMap({ data, selected, bottomInset }) {
           color: ROUTES[f.properties.id].color, weight: on ? 7 : 4, opacity: on ? 1 : 0.55,
         }).addTo(layers);
       });
-      // Routes start and end at the nearest footpath node; dash the last few metres to each building.
+      // Routes start and end at the nearest footpath node; dash the last few metres to each point.
       const path = data.features[0].geometry.coordinates;
       for (const [p, [lon, lat]] of [[data.start, path[0]], [data.end, path[path.length - 1]]]) {
         L.polyline([[p.lat, p.lon], [lat, lon]], { color: MAROON, weight: 3, dashArray: "2 6", opacity: 0.8 }).addTo(layers);
       }
-      const pin = (p, fill, label) =>
+      const pin = (p, fill) =>
         L.circleMarker([p.lat, p.lon], { radius: 8, color: MAROON, weight: 3, fillColor: fill, fillOpacity: 1 })
-          .bindTooltip(label, { permanent: true, direction: "top", offset: [0, -8], className: "pin-label" })
+          .bindTooltip(p.name, { permanent: true, direction: "top", offset: [0, -8], className: "pin-label" })
           .addTo(layers);
-      pin(data.start, "white", "The Commons");
-      pin(data.end, MAROON, "Zachry");
+      pin(data.start, "white");
+      pin(data.end, MAROON);
+      map.current.invalidateSize();
       map.current.fitBounds(L.featureGroup(lines).getBounds(), {
-        paddingTopLeft: [40, 60], paddingBottomRight: [40, bottomInset + 20],
+        paddingTopLeft: [40, 60], paddingBottomRight: [40, bottomInset + 20], maxZoom: 18,
       });
     });
     return () => layers?.remove();

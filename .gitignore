@@ -13,3 +13,5 @@ app/.expo/
 # osmnx HTTP cache
 cache/
 web-dist/
+deploy/
+.env*.local

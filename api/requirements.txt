@@ -1,0 +1,4 @@
+# Runtime deps for the API on Vercel (locally the conda env from pipeline/requirements.txt has them).
+fastapi
+networkx
+tzdata

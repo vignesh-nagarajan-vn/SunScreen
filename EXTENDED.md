@@ -2,23 +2,18 @@
 
 # SunScreen: extended docs
 
-SunScreen finds a shady walk from The Commons to the Zachry Engineering Education Complex at Texas A&M. For any time of day it shows three routes: the fastest route, a recommended route that adds only a minute or so but has more shade, and the shadiest route that isn't too long. Each route shows how much of the walk is shaded.
+SunScreen finds shady walking routes anywhere on Texas A&M's main campus and the nearby neighborhoods (Northgate, Southside and West Campus). Pick a start and destination from 24 campus places, search for an address, drop a pin, or use your location. For any time from 7 AM to 8 PM it shows three routes: the fastest route, a recommended route that adds only a minute or so but has more shade, and the shadiest route that isn't too long.
 
-| 2 PM, recommended | 2 PM, max shade | 10:30 AM | 7:30 PM, sun down |
-|:-:|:-:|:-:|:-:|
-| <img src="screenshots/1-afternoon-recommended.png" width="200"> | <img src="screenshots/2-afternoon-max-shade.png" width="200"> | <img src="screenshots/3-morning.png" width="200"> | <img src="screenshots/4-sun-down.png" width="200"> |
-
-**Live demo:** [sunscreen-psi.vercel.app](https://sunscreen-psi.vercel.app). It's the static web build (`make static`) and uses the routes and weather saved in `app/fallback.json` for October 22, 2026, so it needs no API.
-
-These screenshots come from the web build (`make web`), which uses a Leaflet map. In Expo Go the same screen uses the phone's native map.
+**Live demo:** [sunscreen-psi.vercel.app](https://sunscreen-psi.vercel.app). It's the web app plus the routing API, deployed together on Vercel with `make deploy`.
 
 ## How it works
 
-1. `02_lidar` turns USGS LiDAR into 1 m rasters: ground height, surface height (roofs and treetops), and canopy height.
-2. `03_shade` uses pvlib to place the sun every 30 minutes from 7:00 to 20:00 and traces shadows from every roof and tree. Anything under cover taller than 2.5 m always counts as shaded.
-3. `04_graph` samples those shade masks every 2 m along each OpenStreetMap footpath.
-4. The API pulls the Open-Meteo cloud forecast. It measures sunlight strength by comparing the forecast's direct sunlight with clear-sky sunlight (pvlib Ineichen model), so heavy clouds make shade matter less.
-5. The API runs Dijkstra with several shade weights and picks three routes:
+1. `01_area` geocodes 24 campus places and sets the routing area to their extent plus 400 m. The map can't pan or zoom out past that area.
+2. `02_lidar` downloads the TxGIO StratMap 2025 LiDAR tiles for the area (falling back to USGS 3DEP) and builds 1 m ground (DTM), surface (DSM) and canopy-height (CHM) rasters.
+3. `03_shade` uses pvlib to place the sun every 30 minutes from 7:00 to 20:00 and traces shadows from every roof and tree. Anything under cover taller than 2.5 m always counts as shaded.
+4. `04_graph` samples those shade masks every 2 m along each OpenStreetMap footpath.
+5. The API pulls today's Open-Meteo forecast. It measures sunlight strength by comparing the forecast's direct sunlight with clear-sky sunlight (pvlib Ineichen model), so heavy clouds make shade matter less.
+6. The API runs Dijkstra with several shade weights and picks three routes:
    - **Fastest:** the shortest path.
    - **Recommended:** the shadiest route within +10% distance, scaled down by sunlight strength.
    - **Max shade:** the shadiest route within +30% distance.
@@ -35,31 +30,42 @@ conda activate shade
 Run these from the repo root:
 
 ```bash
-make data   # ~5 min: geocode, LiDAR download, shadows, graph -> data/
-make api    # http://localhost:8000/route?time=14:00
-make app    # Expo dev server; scan the QR code with Expo Go
-make web    # the same app in a browser
-make static # static build in web-dist/ with saved routes; deploy with `npx vercel deploy web-dist --prod`
+make data     # ~45 min the first time: geocode, ~700 MB LiDAR download, shadows, graph -> data/
+make refresh  # re-cast shadows for today's sun and rebuild the graph (reuses the LiDAR)
+make bake     # bundle app/places.json and the offline routes in app/fallback.json
+make api      # http://localhost:8000/api/route?time=14:00&from=commons&to=zachry
+make web      # the app in a browser, using the local API
+make app      # Expo dev server; scan the QR code with Expo Go
+make deploy   # web app + API to Vercel (link once: cd deploy && npx vercel link --project sunscreen)
 ```
 
 Check the API with:
 
 ```bash
-curl "localhost:8000/route?time=14:00"
+curl "localhost:8000/api/route?time=14:00&from=msc&to=zachry"
 ```
 
-The response is GeoJSON with three LineStrings: `fastest`, `recommended` and `max_shade`. Each one includes `distance_m`, `time_min` (at 1.4 m/s), `extra_s`, `shaded_pct` and `sun_min`. The response also includes the sun's position and the weather for that slot.
+## API
+
+Every endpoint is served at both `/x` and `/api/x`.
+
+- **`/route`:** takes `time=HH:MM` (snapped to the nearest 30-minute slot), plus `from` and `to`. Each endpoint can be a place id from `/places` or `lat,lon`, and `from_name` and `to_name` label custom points. The response is GeoJSON with three LineStrings: `fastest`, `recommended` and `max_shade`. Each one includes `distance_m`, `time_min` (at 1.4 m/s), `extra_s`, `shaded_pct` and `sun_min`. The response also includes the sun's position and the weather for that slot.
+- **`/places`:** the campus places and the bounds of the routing area.
+- **`/search?q=`:** a Nominatim search limited to the routing area.
+
+Points outside the area, or more than 250 m from any walkway, get a 400 response with a plain-English reason that the app shows.
 
 ## Phone setup
 
-In Expo Go, the app finds your laptop's IP from the Expo dev server address and calls the API on port 8000 there. The phone and laptop must be on the same Wi-Fi network, and port 8000 must be allowed through the firewall. To use a different address, set `API_OVERRIDE` in [app/config.js](app/config.js).
+Expo Go uses the hosted API by default, so the phone doesn't need your laptop. To use your own API, set `API_OVERRIDE` in [app/config.js](app/config.js) to your laptop's LAN IP, for example `http://192.168.1.23:8000`. The phone and laptop must be on the same Wi-Fi network, and port 8000 must be allowed through the firewall.
 
-If the API is unreachable, the app shows the bundled `app/fallback.json` (every time slot, baked with `make fallback`) and labels it as offline.
+If the API is unreachable, the app falls back to the bundled routes for The Commons → Zachry and labels them as offline.
 
 ## Data notes
 
-- **LiDAR source:** the default is the USGS 3DEP `TX_RedRiver_3Area_B2_2018` dataset, about 4 pts/m², flown January 8–10, 2017. It has no vegetation classes, so the CHM is zero. Trees still cast shade through the surface raster, but they were mostly leafless in January, so tree shade is undercounted. TxGIO StratMap point-cloud tiles fix this. Put the `.laz` files in `data/raw/` and `02_lidar` uses them instead.
-- **Shadow date:** shadows are cast for the day `03_shade` runs. Run `python pipeline/03_shade.py --date 2026-06-21` to use another date.
-- **Weather fallback:** if Open-Meteo is unreachable, the API logs it and assumes a clear sky. The app then shows "weather unavailable".
-- **Endpoints:** Nominatim doesn't know "The Commons", so the start point is geocoded as "Commons Dining Hall". Routes start at the nearest footpath, about 40 m from each building; the map shows that gap as a dashed line. To override the endpoints, run `python pipeline/01_area.py --start lat,lon --end lat,lon`.
+- **LiDAR source:** TxGIO StratMap 2025 (Little/Middle/Lower Brazos basins), flown January–March 2025 and classified with vegetation (classes 3–5) and buildings. It was flown in winter, so deciduous trees are bare and their shade is undercounted; live oaks keep their leaves. If TxGIO is unreachable, `02_lidar` says so and uses the USGS 3DEP `TX_RedRiver_3Area_B2_2018` EPT, which has no vegetation classes. `.laz` files already in `data/raw/` are always used first.
+- **Trees:** canopy is treated as fully opaque.
+- **Shadow date:** shadows are cast for the day `03_shade` runs, while weather is always today's. The sun's noon height changes by about 5° every two weeks in autumn, so run `make refresh` before a demo. To use another date, run `python pipeline/03_shade.py --date 2026-06-21`.
+- **Weather fallback:** if Open-Meteo is unreachable, the API logs it and assumes a clear sky, and the app shows "weather unavailable".
+- **Places:** Nominatim doesn't know "The Commons", so it's geocoded as "Commons Dining Hall". `01_area` drops any geocode that lands outside the campus box (some names match buildings in other states). To override a place, run `python pipeline/01_area.py --place id=lat,lon`. Routes start at the nearest footpath node, and the map shows that gap as a dashed line.
 - **Windows:** keep the conda install path short. Deep package paths can exceed the 260-character limit.

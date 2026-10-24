@@ -1,39 +1,61 @@
 import { useEffect, useRef } from "react";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { MAROON, ROUTES } from "./theme";
 
 const toLatLng = (f) => f.geometry.coordinates.map(([longitude, latitude]) => ({ latitude, longitude }));
+const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
 // Native map (Expo Go). RouteMap.web.js is the browser version.
-export default function RouteMap({ data, selected, bottomInset }) {
+export default function RouteMap({ data, selected, bottomInset, bounds, picking, onMapPress }) {
   const map = useRef(null);
-  const { start, end } = data;
-  const path = toLatLng(data.features[0]);
-  const ends = [path[0], path[path.length - 1]];
-  const drawOrder = data.features.filter((f) => f.properties.id !== selected)
-    .concat(data.features.filter((f) => f.properties.id === selected));
+  const area = {
+    latitude: (bounds.south + bounds.north) / 2,
+    longitude: (bounds.west + bounds.east) / 2,
+    latitudeDelta: bounds.north - bounds.south,
+    longitudeDelta: bounds.east - bounds.west,
+  };
 
-  const fit = () =>
-    map.current?.fitToCoordinates(data.features.flatMap(toLatLng), {
-      edgePadding: { top: 40, left: 40, right: 40, bottom: bottomInset + 20 },
-      animated: false,
-    });
-  useEffect(() => { fit(); }, [bottomInset]);
+  const fit = () => data && map.current?.fitToCoordinates(data.features.flatMap(toLatLng), {
+    edgePadding: { top: 40, left: 40, right: 40, bottom: bottomInset + 20 },
+    animated: true,
+  });
+  useEffect(() => { fit(); }, [data, bottomInset]);
+
+  const onReady = () => {
+    // Google Maps (Android) can hard-limit panning; elsewhere onRegionChangeComplete snaps back.
+    if (Platform.OS === "android") {
+      map.current?.setMapBoundaries({ latitude: bounds.north, longitude: bounds.east }, { latitude: bounds.south, longitude: bounds.west });
+    }
+    fit();
+  };
+
+  // Keep the view inside the campus area: no zooming out past it or panning away from it.
+  const keepInside = (r) => {
+    const latitudeDelta = Math.min(r.latitudeDelta, area.latitudeDelta);
+    const longitudeDelta = Math.min(r.longitudeDelta, area.longitudeDelta);
+    const latitude = clamp(r.latitude, bounds.south + latitudeDelta / 2, bounds.north - latitudeDelta / 2);
+    const longitude = clamp(r.longitude, bounds.west + longitudeDelta / 2, bounds.east - longitudeDelta / 2);
+    const moved = Math.abs(latitude - r.latitude) > 1e-6 || Math.abs(longitude - r.longitude) > 1e-6;
+    if (moved || latitudeDelta < r.latitudeDelta) map.current?.animateToRegion({ latitude, longitude, latitudeDelta, longitudeDelta }, 200);
+  };
+
+  const ordered = data ? data.features.filter((f) => f.properties.id !== selected)
+    .concat(data.features.filter((f) => f.properties.id === selected)) : [];
+  const path = data ? toLatLng(data.features[0]) : [];
 
   return (
     <MapView
       ref={map}
-      onMapReady={fit}
       style={StyleSheet.absoluteFill}
-      initialRegion={{
-        latitude: (start.lat + end.lat) / 2,
-        longitude: (start.lon + end.lon) / 2,
-        latitudeDelta: 0.012,
-        longitudeDelta: 0.012,
-      }}
+      initialRegion={area}
+      minZoomLevel={13.5}
+      onMapReady={onReady}
+      onRegionChangeComplete={keepInside}
+      onPress={(e) => picking && onMapPress({ lat: e.nativeEvent.coordinate.latitude, lon: e.nativeEvent.coordinate.longitude })}
+      toolbarEnabled={false}
     >
-      {drawOrder.map((f) => {
+      {ordered.map((f) => {
         const on = f.properties.id === selected;
         return (
           <Polyline
@@ -44,12 +66,16 @@ export default function RouteMap({ data, selected, bottomInset }) {
           />
         );
       })}
-      {/* Routes start and end at the nearest footpath node; dash the last few metres to each building. */}
-      {[[start, ends[0]], [end, ends[1]]].map(([p, q], i) => (
-        <Polyline key={i} coordinates={[{ latitude: p.lat, longitude: p.lon }, q]} strokeColor={MAROON} strokeWidth={3} lineDashPattern={[2, 6]} />
-      ))}
-      <Marker coordinate={{ latitude: start.lat, longitude: start.lon }} title="The Commons" pinColor="white" />
-      <Marker coordinate={{ latitude: end.lat, longitude: end.lon }} title="Zachry" pinColor={MAROON} />
+      {data && (
+        <>
+          {/* Routes start and end at the nearest footpath node; dash the last few metres to each point. */}
+          {[[data.start, path[0]], [data.end, path[path.length - 1]]].map(([p, q], i) => (
+            <Polyline key={i} coordinates={[{ latitude: p.lat, longitude: p.lon }, q]} strokeColor={MAROON} strokeWidth={3} lineDashPattern={[2, 6]} />
+          ))}
+          <Marker coordinate={{ latitude: data.start.lat, longitude: data.start.lon }} title={data.start.name} pinColor="white" />
+          <Marker coordinate={{ latitude: data.end.lat, longitude: data.end.lon }} title={data.end.name} pinColor={MAROON} />
+        </>
+      )}
     </MapView>
   );
 }
