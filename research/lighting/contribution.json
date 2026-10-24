@@ -1,0 +1,18 @@
+{
+  "source_records": 6069,
+  "eligible_inventory": 6024,
+  "excluded": {
+    "removed": 30,
+    "sign": 15
+  },
+  "survey_records": 2467,
+  "passing_survey_additions_beyond_3m": 1560,
+  "sample_count": 278812,
+  "sampled_directed_m": 546068.216714159,
+  "inventory_estimated_coverage": {
+    "10": 0.2813,
+    "15": 0.4679,
+    "20": 0.5638
+  },
+  "with_survey_estimated_coverage_15m": 0.4933
+}

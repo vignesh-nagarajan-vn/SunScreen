@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  ActivityIndicator, Image, PanResponder, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, useWindowDimensions, View,
+  ActivityIndicator, Image, PanResponder, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Switch, Text, useWindowDimensions, View,
 } from "react-native";
 import Slider from "@react-native-community/slider";
 import RouteMap from "./RouteMap";
@@ -8,8 +8,9 @@ import PlacePicker from "./PlacePicker";
 import About from "./About";
 import { API_BASE } from "./config";
 import { appleMapsUrl, googleMapsUrl, open } from "./openInMaps";
-import { INK, LINE, MAROON, MUTED, ROUTES, SUN, TINT } from "./theme";
+import { ThemeProvider, useTheme, useThemedStyles } from "./ThemeContext";
 import fallback from "./fallback.json";
+import lightingFallback from "./fallback-lighting.json";
 import area from "./places.json";
 
 const FIRST = 7 * 60, LAST = 20 * 60;
@@ -50,6 +51,7 @@ function weatherPills({ weather, sun }) {
 
 // One line on what the recommended route buys you.
 function headline(data) {
+  if (data.mode === "lighting") return data.summary;
   const [f, r] = data.features.map((x) => x.properties);
   if (data.weather.sun_strength_pct === 0 || data.weather.sun_strength_pct < 25 || r.same_as_fastest) return data.summary;
   const saved = f.sun_min - r.sun_min;
@@ -58,6 +60,14 @@ function headline(data) {
 }
 
 export default function App() {
+  const [night, setNight] = useState(() => store.get("sunscreen-night-mode", false));
+  const toggleNight = (value) => { setNight(value); store.set("sunscreen-night-mode", value); };
+  return <ThemeProvider night={night}><AppContent toggleNight={toggleNight} /></ThemeProvider>;
+}
+
+function AppContent({ toggleNight }) {
+  const styles = useThemedStyles(createStyles);
+  const { colors: { MAROON, surface, header: headerColor, onAccent, track }, night } = useTheme();
   const dimensions = useWindowDimensions();
   const wide = dimensions.width >= WIDE;
   const [from, setFrom] = useState(byId[params.get("from")] ?? byId[area.default[0]]);
@@ -80,7 +90,8 @@ export default function App() {
     let cancelled = false;
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 8000);
-    const q = new URLSearchParams({ time: hhmm(minutes), from: param(from), to: param(to), from_name: from.name, to_name: to.name });
+    const mode = night ? "lighting" : "shade";
+    const q = new URLSearchParams({ mode, time: hhmm(minutes), from: param(from), to: param(to), from_name: from.name, to_name: to.name });
     setStatus({ loading: true });
     fetch(`${API_BASE}/api/route?${q}`, { signal: ctrl.signal })
       .then(async (r) => {
@@ -91,7 +102,12 @@ export default function App() {
           setPlaying(false);
           return;
         }
-        const ids = ["fastest", "recommended", "max_shade"];
+        if ((json.mode ?? "shade") !== mode) {
+          setStatus({ error: "The server does not support this routing mode yet." });
+          setPlaying(false);
+          return;
+        }
+        const ids = ["fastest", "recommended", mode === "lighting" ? "max_lit" : "max_shade"];
         if (!json.start || !json.end || !Array.isArray(json.features) || json.features.length !== 3
           || json.features.some((f, i) => f?.properties?.id !== ids[i] || !Array.isArray(f.geometry?.coordinates) || f.geometry.coordinates.length < 2)) {
           throw new Error("Invalid route response");
@@ -102,7 +118,7 @@ export default function App() {
         if (cancelled) return;
         // Server unreachable: the default trip has bundled routes, anything else can't be routed offline.
         if (from.id === area.default[0] && to.id === area.default[1]) {
-          setData(fallback[hhmm(minutes)]);
+          setData(night ? lightingFallback : fallback[hhmm(minutes)]);
           setStatus({ offline: true });
         } else {
           setStatus({ error: "Can't reach the SunScreen server. Check your connection and try again." });
@@ -111,7 +127,12 @@ export default function App() {
       })
       .finally(() => clearTimeout(timer));
     return () => { cancelled = true; clearTimeout(timer); ctrl.abort(); };
-  }, [minutes, from, to]);
+  }, [night, minutes, from, to]);
+
+  useEffect(() => {
+    setPlaying(false);
+    setSelected((value) => value === "max_shade" && night ? "max_lit" : value === "max_lit" && !night ? "max_shade" : value);
+  }, [night]);
 
   useEffect(() => {
     if (data && !data.features.some((feature) => feature.properties.id === selected)) {
@@ -121,11 +142,11 @@ export default function App() {
 
   // Play: step through the day, waiting for each slot's routes before moving on.
   useEffect(() => {
-    if (!playing || status.loading) return;
+    if (night || !playing || status.loading) return;
     if (minutes >= LAST) return setPlaying(false);
     const t = setTimeout(() => { setMinutes(minutes + 30); setPreview(minutes + 30); }, 700);
     return () => clearTimeout(t);
-  }, [playing, status.loading, minutes]);
+  }, [night, playing, status.loading, minutes]);
 
   const setTime = (m) => { setPlaying(false); setMinutes(m); setPreview(m); };
   const togglePlay = () => {
@@ -146,8 +167,23 @@ export default function App() {
   };
   const showRoutes = data && !status.error;
   // While a new trip loads, show placeholders instead of the previous trip's routes.
-  const stale = status.loading && (!data || tripKey(data.start, data.end) !== tripKey(from, to));
+  const stale = !status.error && (!data || (data.mode ?? "shade") !== (night ? "lighting" : "shade") ||
+    (status.loading && tripKey(data.start, data.end) !== tripKey(from, to)));
   const closeAbout = () => { setAbout(false); store.set("sunscreen-intro-seen", true); };
+
+  const nightSwitch = (
+    <View style={styles.themeFooter}>
+      <View style={{ flex: 1 }}>
+        <Text style={styles.themeLabel}>☾  Night mode</Text>
+        <Text style={styles.rowMeta}>{night ? "Route by streetlights" : "Route by shade"}</Text>
+      </View>
+      <Switch value={night} onValueChange={toggleNight} accessibilityLabel="Night mode"
+        accessibilityHint="Switch between sun-affected and streetlight-affected routing"
+        trackColor={{ false: track, true: MAROON }} thumbColor={night ? onAccent : surface}
+        {...(Platform.OS === "web" ? { activeThumbColor: onAccent } : {})}
+        ios_backgroundColor={track} />
+    </View>
+  );
 
   const controls = (
     <Controls
@@ -185,6 +221,7 @@ export default function App() {
         <View style={styles.panel}>
           {header}
           <ScrollView contentContainerStyle={styles.panelBody}>{controls}</ScrollView>
+          {nightSwitch}
           {pickerSheet}
         </View>
         <View style={styles.map}>{mapPane}</View>
@@ -194,7 +231,7 @@ export default function App() {
   }
   return (
     <View style={styles.screen}>
-      <StatusBar barStyle="light-content" backgroundColor={MAROON} />
+      <StatusBar barStyle="light-content" backgroundColor={headerColor} />
       {header}
       {/* The map ends where the card starts (minus its rounded corner), so fits and limits use what is visible. */}
       <View style={[styles.map, { marginBottom: picking ? 0 : cardHeight - 20 }]}>{mapPane}</View>
@@ -202,6 +239,7 @@ export default function App() {
         <View style={[styles.card, { maxHeight: Math.max(200, dimensions.height - 280) }]}
           onLayout={(e) => setCardHeight(e.nativeEvent.layout.height)}>
           <ScrollView style={{ flexGrow: 0 }} keyboardShouldPersistTaps="handled">{controls}</ScrollView>
+          {nightSwitch}
         </View>
       )}
       {pickerSheet}
@@ -211,6 +249,7 @@ export default function App() {
 }
 
 function Header({ from, to, setPicker, swap, onInfo }) {
+  const styles = useThemedStyles(createStyles);
   return (
     <View style={styles.header}>
       <View style={styles.brandRow}>
@@ -235,6 +274,8 @@ function Header({ from, to, setPicker, swap, onInfo }) {
 }
 
 function Controls({ data, stale, status, selected, setSelected, preview, minutes, setPreview, setTime, playing, togglePlay, expanded, setExpanded }) {
+  const styles = useThemedStyles(createStyles);
+  const { colors: { MAROON, track }, night } = useTheme();
   // Swipe the handle up/down (or tap it) to show all routes or just the selected one.
   const pan = useRef(PanResponder.create({
     onMoveShouldSetPanResponder: (_, g) => Math.abs(g.dy) > 8,
@@ -250,6 +291,12 @@ function Controls({ data, stale, status, selected, setSelected, preview, minutes
           <View style={styles.handle} />
         </Pressable>
       )}
+      {night ? (
+        <View style={{ paddingTop: 12, paddingBottom: 8 }}>
+          <Text style={styles.time}>Streetlight routing</Text>
+          <Text style={styles.rowMeta}>Prefer paths with mapped streetlights</Text>
+        </View>
+      ) : <>
       <View style={styles.timeRow}>
         <Text style={styles.time}>{clock(preview)}</Text>
         <View style={styles.timeButtons}>
@@ -267,11 +314,20 @@ function Controls({ data, stale, status, selected, setSelected, preview, minutes
         accessibilityLabel="Time of day"
         minimumValue={FIRST} maximumValue={LAST} step={30} value={minutes}
         onValueChange={setPreview} onSlidingComplete={setTime}
-        minimumTrackTintColor={MAROON} maximumTrackTintColor="#d9cfcf" thumbTintColor={MAROON}
+        minimumTrackTintColor={MAROON} maximumTrackTintColor={track} thumbTintColor={MAROON}
       />
       <View style={styles.ticks}>
         {["7 AM", "11 AM", "3 PM", "8 PM"].map((t) => <Text key={t} style={styles.tick}>{t}</Text>)}
       </View>
+      </>}
+
+      {night && data && <>
+        <View style={styles.pills}>
+          <Text style={styles.pill}>{data.lighting?.source ?? "OpenStreetMap"}</Text>
+          <Text style={styles.pill}>{data.features[1]?.properties.lighting_status !== "available" ? "Limited coverage" : "Mapped + estimated"}</Text>
+        </View>
+        <Text style={[styles.rowMeta, { marginVertical: 8 }]}>Lamp proximity is estimated, not measured brightness or live outage status. Unmapped paths remain unknown.</Text>
+      </>}
 
       {status.error && <Text style={styles.error} accessibilityLiveRegion="polite">{status.error}</Text>}
       {stale && <Skeleton rows={expanded ? 3 : 1} />}
@@ -285,6 +341,10 @@ function Controls({ data, stale, status, selected, setSelected, preview, minutes
         </Pressable>
       )}
       {data && <Handoff data={data} selected={selected} />}
+      {night && data && <Text style={[styles.rowMeta, { marginTop: 8 }]} accessibilityRole="link"
+        onPress={() => open("https://www.openstreetmap.org/copyright")}>© OpenStreetMap contributors · ODbL{data.lighting?.retrieved_at ? ` · ${data.lighting.retrieved_at.slice(0, 10)}` : ""}</Text>}
+      {night && data?.lighting?.sources?.length > 0 && <Text style={styles.rowMeta} accessibilityRole="link"
+        onPress={() => open(`https://www.arcgis.com/home/item.html?id=${data.lighting.sources[0].item_id}`)}>Lamp locations: TAMU campus GIS · nighttime coverage is estimated</Text>}
       {status.offline && <Text style={styles.offline}>Offline: showing saved routes for The Commons → Zachry</Text>}
     </View>
   );
@@ -292,6 +352,7 @@ function Controls({ data, stale, status, selected, setSelected, preview, minutes
 
 // Gray placeholders while routes load.
 function Skeleton({ rows }) {
+  const styles = useThemedStyles(createStyles);
   return (
     <View accessibilityLabel="Loading routes">
       <View style={[styles.skelLine, { width: "70%" }]} />
@@ -306,23 +367,34 @@ function Skeleton({ rows }) {
 }
 
 function SmallButton({ label, onPress, active }) {
+  const styles = useThemedStyles(createStyles);
+  const { colors: { onAccent } } = useTheme();
   return (
     <Pressable onPress={onPress} style={[styles.small, active && styles.smallActive]} accessibilityRole="button">
-      <Text style={[styles.smallText, active && { color: "white" }]}>{label}</Text>
+      <Text style={[styles.smallText, active && { color: onAccent }]}>{label}</Text>
     </Pressable>
   );
 }
 
 function Legend() {
+  const styles = useThemedStyles(createStyles);
+  const { colors: { MAROON, SUN }, night } = useTheme();
   return (
     <View style={styles.legend} pointerEvents="none">
-      <View style={[styles.legendSwatch, { backgroundColor: MAROON }]} /><Text style={styles.legendText}>Shade</Text>
-      <View style={[styles.legendSwatch, { backgroundColor: SUN }]} /><Text style={styles.legendText}>Sun</Text>
+      {night ? [["#f5d76e", "Mapped lit"], ["#d0a85c", "Estimated"], ["#94a3b8", "Unknown"], ["#d77887", "Unlit / conflict"]].map(([color, label]) => (
+        <View key={label} style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+          <View style={[styles.legendSwatch, { backgroundColor: color }]} /><Text style={styles.legendText}>{label}</Text>
+        </View>
+      )) : <>
+        <View style={[styles.legendSwatch, { backgroundColor: MAROON }]} /><Text style={styles.legendText}>Shade</Text>
+        <View style={[styles.legendSwatch, { backgroundColor: SUN }]} /><Text style={styles.legendText}>Sun</Text>
+      </>}
     </View>
   );
 }
 
 function Endpoint({ label, place, onPress }) {
+  const styles = useThemedStyles(createStyles);
   return (
     <Pressable onPress={onPress} style={styles.endpoint} accessibilityRole="button" accessibilityLabel={`${label}: ${place.name}. Change`}>
       <Text style={styles.endpointLabel}>{label}</Text>
@@ -333,6 +405,7 @@ function Endpoint({ label, place, onPress }) {
 
 // Hand the selected route to a maps app for turn-by-turn directions.
 function Handoff({ data, selected }) {
+  const styles = useThemedStyles(createStyles);
   const feature = data.features.find((f) => f.properties.id === selected) ?? data.features[0];
   const buildings = feature.properties.via_buildings ?? [];
   return (
@@ -355,12 +428,15 @@ function Handoff({ data, selected }) {
 }
 
 function RouteRow({ p, active, onPress }) {
+  const styles = useThemedStyles(createStyles);
+  const { colors: { MAROON }, routes: ROUTES } = useTheme();
   const extra = p.extra_s > 0 ? ` · ${extraText(p.extra_s)}` : "";
+  const lighting = p.mode === "lighting";
   const style = ROUTES[p.id];
   return (
     <Pressable onPress={onPress} style={[styles.row, active && styles.rowActive]} accessibilityRole="button"
       accessibilityState={{ selected: active }}
-      accessibilityLabel={`${p.label}: ${p.time_min} minutes, ${p.shaded_pct} percent shaded`}>
+      accessibilityLabel={`${p.label}: ${p.time_min} minutes, ${lighting ? `${p.lit_pct} percent mapped or estimated lit, ${p.unknown_pct} percent unknown` : `${p.shaded_pct} percent shaded`}`}>
       <View style={[styles.swatch, { backgroundColor: style.color }, style.dash && styles.swatchDashed]} />
       <View style={{ flex: 1 }}>
         <Text style={styles.rowTitle}>
@@ -371,8 +447,9 @@ function RouteRow({ p, active, onPress }) {
         <Text style={styles.rowMeta}>{p.time_min} min · {p.distance_m} m{extra}</Text>
       </View>
       <View style={{ alignItems: "flex-end" }}>
-        <Text style={[styles.shade, active && { color: MAROON }]}>{p.shaded_pct}%</Text>
-        <Text style={styles.rowMeta}>shaded · {p.sun_min} min sun</Text>
+        <Text style={[styles.shade, active && { color: MAROON }]}>{lighting ? p.lit_pct : p.shaded_pct}%</Text>
+        <Text style={styles.rowMeta}>{lighting ? `lit evidence · ${p.unknown_pct}% unknown` : `shaded · ${p.sun_min} min sun`}</Text>
+        {lighting && <Text style={styles.rowMeta}>{p.mapped_lit_pct}% mapped · {p.estimated_lit_pct}% est.</Text>}
       </View>
     </Pressable>
   );
@@ -380,15 +457,15 @@ function RouteRow({ p, active, onPress }) {
 
 const topInset = Platform.select({ ios: 50, android: (StatusBar.currentHeight ?? 24) + 6, default: 12 });
 
-const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "white" },
-  header: { backgroundColor: MAROON, paddingTop: topInset, paddingBottom: 12, paddingHorizontal: 16, gap: 10 },
+const createStyles = ({ INK, LINE, MAROON, MUTED, SUN, TINT, surface, header, onAccent, track, handle, skeleton, error, warning, overlay }) => StyleSheet.create({
+  screen: { flex: 1, backgroundColor: surface },
+  header: { backgroundColor: header, paddingTop: topInset, paddingBottom: 12, paddingHorizontal: 16, gap: 10 },
   brandRow: { flexDirection: "row", alignItems: "center", gap: 8 },
   logo: { width: 28, height: 28 },
-  brand: { flex: 1, color: "white", fontSize: 20, fontWeight: "700", letterSpacing: 0.3 },
+  brand: { flex: 1, color: "#ffffff", fontSize: 20, fontWeight: "700", letterSpacing: 0.3 },
   info: { width: 44, height: 36, alignItems: "flex-end", justifyContent: "center" },
-  infoText: { color: "white", fontSize: 22 },
-  trip: { flexDirection: "row", alignItems: "center", backgroundColor: "white", borderRadius: 12, paddingLeft: 12 },
+  infoText: { color: "#ffffff", fontSize: 22 },
+  trip: { flexDirection: "row", alignItems: "center", backgroundColor: surface, borderRadius: 12, paddingLeft: 12 },
   tripDivider: { height: 1, backgroundColor: LINE },
   endpoint: { flexDirection: "row", alignItems: "center", paddingVertical: 10, gap: 10 },
   endpointLabel: { width: 36, color: MUTED, fontSize: 12, fontWeight: "600" },
@@ -396,17 +473,19 @@ const styles = StyleSheet.create({
   swap: { width: 48, alignSelf: "stretch", alignItems: "center", justifyContent: "center" },
   swapText: { color: MAROON, fontSize: 22, fontWeight: "700" },
   map: { flex: 1 },
-  panel: { width: 400, borderRightWidth: 1, borderRightColor: LINE, backgroundColor: "white" },
+  panel: { width: 400, borderRightWidth: 1, borderRightColor: LINE, backgroundColor: surface },
   panelBody: { padding: 16 },
+  themeFooter: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", borderTopWidth: 1, borderTopColor: LINE, paddingHorizontal: 16, paddingVertical: 12, gap: 12 },
+  themeLabel: { color: INK, fontSize: 14, fontWeight: "600" },
   banner: { position: "absolute", zIndex: 1000, top: 12, left: 12, right: 12, backgroundColor: MAROON, borderRadius: 12, padding: 12, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
-  bannerText: { color: "white", fontWeight: "600", flex: 1 },
-  bannerCancel: { color: "#f1dede", fontWeight: "600", marginLeft: 12 },
-  legend: { position: "absolute", zIndex: 1000, top: 10, left: 10, flexDirection: "row", alignItems: "center", gap: 6, backgroundColor: "rgba(255,255,255,0.92)", borderRadius: 10, paddingHorizontal: 10, paddingVertical: 5 },
+  bannerText: { color: onAccent, fontWeight: "600", flex: 1 },
+  bannerCancel: { color: onAccent, fontWeight: "600", marginLeft: 12 },
+  legend: { position: "absolute", zIndex: 1000, top: 10, left: 10, maxWidth: "95%", flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 6, backgroundColor: overlay, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 5 },
   legendSwatch: { width: 16, height: 5, borderRadius: 3 },
   legendText: { fontSize: 12, color: INK, marginRight: 6 },
-  card: { position: "absolute", left: 0, right: 0, bottom: 0, backgroundColor: "white", borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingHorizontal: 16, paddingBottom: Platform.OS === "ios" ? 30 : 14, shadowColor: "#000", shadowOpacity: 0.15, shadowRadius: 12, elevation: 12 },
+  card: { position: "absolute", left: 0, right: 0, bottom: 0, backgroundColor: surface, borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingHorizontal: 16, paddingBottom: Platform.OS === "ios" ? 30 : 14, shadowColor: "#000", shadowOpacity: 0.15, shadowRadius: 12, elevation: 12 },
   handleArea: { alignItems: "center", paddingTop: 8, paddingBottom: 6 },
-  handle: { width: 40, height: 5, borderRadius: 3, backgroundColor: "#d4cccc" },
+  handle: { width: 40, height: 5, borderRadius: 3, backgroundColor: handle },
   timeRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
   time: { fontSize: 26, fontWeight: "700", color: MAROON },
   timeButtons: { flexDirection: "row", gap: 6 },
@@ -430,10 +509,10 @@ const styles = StyleSheet.create({
   handoff: { flexDirection: "row", gap: 8, marginTop: 8 },
   mapsButton: { flex: 1, borderRadius: 12, borderWidth: 1.5, borderColor: MAROON, paddingVertical: 11, alignItems: "center", minHeight: 44, justifyContent: "center" },
   mapsPrimary: { flex: 1.6, backgroundColor: MAROON },
-  mapsPrimaryText: { color: "white", fontWeight: "700", fontSize: 14 },
+  mapsPrimaryText: { color: onAccent, fontWeight: "700", fontSize: 14 },
   mapsText: { color: MAROON, fontWeight: "700", fontSize: 14 },
-  skelRow: { justifyContent: "space-between", borderColor: "#eee" },
-  skelLine: { height: 14, borderRadius: 7, backgroundColor: "#eeeaea", marginBottom: 8 },
-  error: { color: "#9a1b1b", fontSize: 14, marginVertical: 8, textAlign: "center" },
-  offline: { marginTop: 6, fontSize: 12, color: "#9a5b00", textAlign: "center" },
+  skelRow: { justifyContent: "space-between", borderColor: LINE },
+  skelLine: { height: 14, borderRadius: 7, backgroundColor: skeleton, marginBottom: 8 },
+  error: { color: error, fontSize: 14, marginVertical: 8, textAlign: "center" },
+  offline: { marginTop: 6, fontSize: 12, color: warning, textAlign: "center" },
 });

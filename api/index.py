@@ -14,6 +14,7 @@ from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
 from zoneinfo import ZoneInfo
+from typing import Literal
 
 import networkx as nx
 from fastapi import APIRouter, FastAPI, HTTPException, Query
@@ -23,6 +24,7 @@ from fastapi.middleware.cors import CORSMiddleware
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from campus_routing.passages import add_passages, load_catalog, traversal_available
 from campus_routing.geometry import route_key
+from api.lighting import routes as lighting_routes
 
 WALK_MPS = 1.4
 ALPHAS = [0, 0.25, 0.5, 1, 2, 4, 8, 16]  # shade weights tried when generating candidate routes
@@ -213,11 +215,23 @@ def feature(route_id, label, r, fastest, sun):
     }
 
 
-def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destination"):
+def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destination", mode="shade"):
     a = endpoint(src or DEFAULT[0], src_name)
     b = endpoint(dst or DEFAULT[1], dst_name)
     if a["node"] == b["node"]:
         raise HTTPException(400, "Start and destination are the same spot.")
+    if mode not in ("shade", "lighting"):
+        raise HTTPException(400, "Unknown routing mode")
+    if mode == "lighting":
+        try:
+            features, summary, status = lighting_routes(G, a["node"], b["node"], WALK_MPS)
+        except nx.NetworkXNoPath:
+            raise HTTPException(400, "No walking path connects those two points.")
+        pick = lambda e: {k: e[k] for k in ("id", "name", "lat", "lon")}
+        return {"type": "FeatureCollection", "mode": "lighting", "features": features,
+                "summary": summary, "lighting_status": status,
+                "lighting": G.graph.get("lighting", {"source": "OpenStreetMap", "retrieved_at": None}),
+                "start": pick(a), "end": pick(b)}
     slot = nearest_slot(time)
     i = SLOTS.index(slot)
     weather = weather_at(slot)
@@ -264,6 +278,7 @@ def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destinat
     pick = lambda e: {k: e[k] for k in ("id", "name", "lat", "lon")}
     return {
         "type": "FeatureCollection",
+        "mode": "shade",
         "features": features,
         "shadow_date": SHADOW_DATE,
         "time": f"{slot[:2]}:{slot[2:]}",
@@ -314,8 +329,9 @@ def get_route(
     to: str = Query(None, description="place id or lat,lon"),
     from_name: str = Query("Start", max_length=80),
     to_name: str = Query("Destination", max_length=80),
+    mode: Literal["shade", "lighting"] = "shade",
 ):
-    return route(time, from_, to, from_name, to_name)
+    return route(time, from_, to, from_name, to_name, mode)
 
 
 @router.get("/building-passages")
