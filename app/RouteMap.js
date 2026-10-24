@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Platform, StyleSheet, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { routeRuns } from "./theme";
@@ -8,11 +8,24 @@ const toLatLng = (coords) => coords.map(([longitude, latitude]) => ({ latitude, 
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
 // Native map (Expo Go). RouteMap.web.js is the browser version.
-export default function RouteMap({ data, selected, bounds, picking, onMapPress }) {
+export default function RouteMap({ data, selected, bounds, picking, onMapPress, from, to, onEndpointDragStart, onEndpointDragEnd }) {
   const styles = useThemedStyles(createStyles);
   const { colors: { MAROON, surface }, routes: ROUTES, night } = useTheme();
   const map = useRef(null);
   const fittedTrip = useRef(null);
+  const draggedTrip = useRef(null);
+  const [pinRevision, setPinRevision] = useState(0);
+  const finishDrag = (which, e) => {
+    const { latitude: lat, longitude: lon } = e.nativeEvent.coordinate;
+    if (onEndpointDragEnd(which, { lat, lon }) === false) {
+      // Remount rejected pins so the native map restores their controlled coordinates.
+      setPinRevision(v => v + 1);
+      return;
+    }
+    const a = which === "from" ? { lat, lon } : from;
+    const b = which === "to" ? { lat, lon } : to;
+    draggedTrip.current = [a.lat, a.lon, b.lat, b.lon].map(v => v.toFixed(5)).join();
+  };
   const area = {
     latitude: (bounds.south + bounds.north) / 2,
     longitude: (bounds.west + bounds.east) / 2,
@@ -27,8 +40,11 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress }
   // Refit only when the trip changes, not when the time or selected route does.
   useEffect(() => {
     if (!data) return;
-    const trip = [data.start.lat, data.start.lon, data.end.lat, data.end.lon].join();
-    if (trip !== fittedTrip.current) { fittedTrip.current = trip; fit(); }
+    const trip = [data.start.lat, data.start.lon, data.end.lat, data.end.lon].map(v => v.toFixed(5)).join();
+    if (trip !== fittedTrip.current) {
+      fittedTrip.current = trip;
+      if (trip !== draggedTrip.current) fit();
+    }
   }, [data]);
 
   const onReady = () => {
@@ -89,14 +105,16 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress }
           {[[data.start, path[0]], [data.end, path[path.length - 1]]].map(([p, q], i) => (
             <Polyline key={i} coordinates={[{ latitude: p.lat, longitude: p.lon }, q]} strokeColor={MAROON} strokeWidth={3} lineDashPattern={[2, 6]} />
           ))}
-          <Marker coordinate={{ latitude: data.start.lat, longitude: data.start.lon }} title={data.start.name} anchor={{ x: 0.5, y: 0.5 }}>
-            <View style={[styles.pin, styles.pinStart]} />
-          </Marker>
-          <Marker coordinate={{ latitude: data.end.lat, longitude: data.end.lon }} title={data.end.name} anchor={{ x: 0.5, y: 0.5 }}>
-            <View style={[styles.pin, styles.pinEnd]} />
-          </Marker>
         </>
       )}
+      {[["from", from, styles.pinStart], ["to", to, styles.pinEnd]].map(([which, p, style]) => (
+        <Marker key={`${which}-${pinRevision}`} coordinate={{ latitude: p.lat, longitude: p.lon }}
+          title={p.name} accessibilityLabel={which === "from" ? "Drag start" : "Drag destination"}
+          anchor={{ x: 0.5, y: 0.5 }} draggable onDragStart={onEndpointDragStart}
+          onDragEnd={e => finishDrag(which, e)}>
+          <View style={[styles.pin, style]} />
+        </Marker>
+      ))}
     </MapView>
   );
 }

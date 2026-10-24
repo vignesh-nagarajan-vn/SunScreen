@@ -79,6 +79,8 @@ function AppContent({ toggleNight }) {
   const [selected, setSelected] = useState(params.get("route") ?? "recommended");
   const [data, setData] = useState(null);
   const [status, setStatus] = useState({ loading: true });
+  const [endpointError, setEndpointError] = useState(null);
+  useEffect(() => setEndpointError(null), [from, to]);
   const [picker, setPicker] = useState(null); // "from" | "to" while choosing an endpoint
   const [picking, setPicking] = useState(null); // "from" | "to" while waiting for a map tap
   const [expanded, setExpanded] = useState(false); // phone card: all three routes vs. just the selected one
@@ -168,6 +170,7 @@ function AppContent({ toggleNight }) {
     setPlaying(!playing);
   };
   const choose = (which, place) => {
+    setEndpointError(null);
     (which === "from" ? setFrom : setTo)(place);
     const next = [place, ...recents.filter((r) => r.name !== place.name)].slice(0, 5);
     setRecents(next);
@@ -178,6 +181,18 @@ function AppContent({ toggleNight }) {
   const onMapPress = (p) => {
     if (!inBounds(p, area.bounds)) return;
     choose(picking, { ...p, id: null, name: "Dropped pin" });
+  };
+  const onEndpointDragEnd = (which, point) => {
+    setPlaying(false);
+    if (!inBounds(point, area.bounds)) {
+      setEndpointError("Keep the pin inside the campus area SunScreen covers.");
+      return false;
+    }
+    setEndpointError(null);
+    (which === "from" ? setFrom : setTo)({
+      ...point, id: null, name: which === "from" ? "Custom start" : "Custom destination",
+    });
+    return true;
   };
   const showRoutes = data && !status.error;
   // While a new trip loads, show placeholders instead of the previous trip's routes.
@@ -205,7 +220,7 @@ function AppContent({ toggleNight }) {
 
   const controls = (
     <Controls
-      data={showRoutes && !stale ? data : null} stale={stale} status={status} selected={selected} setSelected={setSelected}
+      data={showRoutes && !stale ? data : null} stale={stale} status={{ ...status, error: endpointError || status.error }} selected={selected} setSelected={setSelected}
       preview={preview} minutes={minutes} setPreview={setPreview} setTime={setTime}
       playing={playing} togglePlay={togglePlay} expanded={wide || expanded} setExpanded={wide ? null : setExpanded}
       limits={limits}
@@ -214,6 +229,7 @@ function AppContent({ toggleNight }) {
   const mapPane = (
     <>
       <RouteMap data={showRoutes && !stale ? data : null} selected={selected} bounds={area.bounds} picking={!!picking} onMapPress={onMapPress}
+        from={from} to={to} onEndpointDragStart={() => setPlaying(false)} onEndpointDragEnd={onEndpointDragEnd}
         layoutKey={picking ? 0 : cardHeight} />
       {showRoutes && !stale && !picking && <Legend />}
       {picking && (
