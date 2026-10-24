@@ -13,7 +13,10 @@ if __name__ == '__main__':
             'source': 'test clear sky', 'cloud_cover_pct': 0, 'sun_strength_pct': 100}):
         data = {'default': index.route('14:00'),
                 'reverse': index.route('14:00', 'zachry', 'commons'),
-                'building': index.route('14:00', 'commons', 'langford')}
+                'building': index.route('14:00', 'commons', 'langford'),
+                'custom': index.route('14:00', recommended_pct=20, max_detour_pct=50),
+                'lighting': index.route(mode='lighting'),
+                'lightingCustom': index.route(mode='lighting', recommended_pct=20, max_detour_pct=50)}
     target = Path('tmp/browser-fixtures.json')
     target.parent.mkdir(exist_ok=True)
     target.write_text(json.dumps(data), encoding='utf-8')
