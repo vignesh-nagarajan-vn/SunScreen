@@ -63,17 +63,17 @@ def shortest(graph, src, dst, alpha):
             "totals": totals, "risk_m": risk_m, "longest_gap_m": longest_gap}
 
 
-def routes(graph, src, dst, walk_mps):
+def routes(graph, src, dst, walk_mps, recommended_detour=0.10, max_detour=0.30):
     candidates = [shortest(graph, src, dst, alpha) for alpha in ALPHAS]
     fastest = candidates[0]
     def bounded(detour):
         return [c for c in candidates if c["length"] <= fastest["length"] * (1 + detour) + 1e-6]
-    usable = bounded(0.30)
+    usable = bounded(max_detour)
     coverage = lambda c: (c["totals"]["mapped"] + c["totals"]["estimated"] + c["totals"]["unlit"]) / max(c["length"], 1)
     insufficient = max(map(coverage, usable)) < MIN_EVIDENCE
     def best(detour):
         return fastest if insufficient else min(bounded(detour), key=lambda c: (round(c["risk_m"], 3), c["length"]))
-    recommended, most_lit = best(0.10), best(0.30)
+    recommended, most_lit = best(recommended_detour), best(max_detour)
     features = []
     for route_id, label, route in (("fastest", "Fastest", fastest), ("recommended", "Recommended", recommended), ("max_lit", "Most lit", most_lit)):
         total = max(route["length"], 1)

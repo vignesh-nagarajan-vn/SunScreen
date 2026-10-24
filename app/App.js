@@ -6,6 +6,8 @@ import Slider from "@react-native-community/slider";
 import RouteMap from "./RouteMap";
 import PlacePicker from "./PlacePicker";
 import About from "./About";
+import RouteSettings from "./RouteSettings";
+import { defaultLimits, matchesLimits, savedLimits, sameLimits } from "./routePreferences";
 import { API_BASE } from "./config";
 import { appleMapsUrl, googleMapsUrl, open } from "./openInMaps";
 import { ThemeProvider, useTheme, useThemedStyles } from "./ThemeContext";
@@ -85,13 +87,21 @@ function AppContent({ toggleNight }) {
   const [recents, setRecents] = useState(() => store.get("sunscreen-recents", []));
   const [here, setHere] = useState(null); // last known GPS position, for distances in the picker
   const [about, setAbout] = useState(() => Platform.OS === "web" && params.get("intro") !== "0" && !store.get("sunscreen-intro-seen", false));
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [limits, setLimits] = useState(() => savedLimits(store.get("sunscreen-route-limits", null)));
+  const applyLimits = value => {
+    setPlaying(false);
+    if (!sameLimits(limits, value)) setLimits(value);
+    store.set("sunscreen-route-limits", value);
+    setSettingsOpen(false);
+  };
 
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 8000);
     const mode = night ? "lighting" : "shade";
-    const q = new URLSearchParams({ mode, time: hhmm(minutes), from: param(from), to: param(to), from_name: from.name, to_name: to.name });
+    const q = new URLSearchParams({ mode, time: hhmm(minutes), from: param(from), to: param(to), from_name: from.name, to_name: to.name, ...limits });
     setStatus({ loading: true });
     fetch(`${API_BASE}/api/route?${q}`, { signal: ctrl.signal })
       .then(async (r) => {
@@ -107,6 +117,7 @@ function AppContent({ toggleNight }) {
           setPlaying(false);
           return;
         }
+        if (!matchesLimits(json, limits)) throw new Error("Server did not apply route limits");
         const ids = ["fastest", "recommended", mode === "lighting" ? "max_lit" : "max_shade"];
         if (!json.start || !json.end || !Array.isArray(json.features) || json.features.length !== 3
           || json.features.some((f, i) => f?.properties?.id !== ids[i] || !Array.isArray(f.geometry?.coordinates) || f.geometry.coordinates.length < 2)) {
@@ -117,7 +128,10 @@ function AppContent({ toggleNight }) {
       .catch(() => {
         if (cancelled) return;
         // Server unreachable: the default trip has bundled routes, anything else can't be routed offline.
-        if (from.id === area.default[0] && to.id === area.default[1]) {
+        if (!defaultLimits(limits)) {
+          setStatus({ error: "Custom route limits need a connection and an updated server. Reset to 10% / 30% in Route settings to use saved routes." });
+          setPlaying(false);
+        } else if (from.id === area.default[0] && to.id === area.default[1]) {
           setData(night ? lightingFallback : fallback[hhmm(minutes)]);
           setStatus({ offline: true });
         } else {
@@ -127,7 +141,7 @@ function AppContent({ toggleNight }) {
       })
       .finally(() => clearTimeout(timer));
     return () => { cancelled = true; clearTimeout(timer); ctrl.abort(); };
-  }, [night, minutes, from, to]);
+  }, [night, minutes, from, to, limits]);
 
   useEffect(() => {
     setPlaying(false);
@@ -167,7 +181,7 @@ function AppContent({ toggleNight }) {
   };
   const showRoutes = data && !status.error;
   // While a new trip loads, show placeholders instead of the previous trip's routes.
-  const stale = !status.error && (!data || (data.mode ?? "shade") !== (night ? "lighting" : "shade") ||
+  const stale = !status.error && (!data || !matchesLimits(data, limits) || (data.mode ?? "shade") !== (night ? "lighting" : "shade") ||
     (status.loading && tripKey(data.start, data.end) !== tripKey(from, to)));
   const closeAbout = () => { setAbout(false); store.set("sunscreen-intro-seen", true); };
 
@@ -182,6 +196,10 @@ function AppContent({ toggleNight }) {
         trackColor={{ false: track, true: MAROON }} thumbColor={night ? onAccent : surface}
         {...(Platform.OS === "web" ? { activeThumbColor: onAccent } : {})}
         ios_backgroundColor={track} />
+      <Pressable onPress={() => { setPlaying(false); setSettingsOpen(true); }} style={styles.settingsButton}
+        accessibilityRole="button" accessibilityLabel="Route settings" accessibilityHint="Adjust extra walking distance limits">
+        <Text style={{ color: MAROON, fontSize: 23 }}>⚙</Text>
+      </Pressable>
     </View>
   );
 
@@ -190,6 +208,7 @@ function AppContent({ toggleNight }) {
       data={showRoutes && !stale ? data : null} stale={stale} status={status} selected={selected} setSelected={setSelected}
       preview={preview} minutes={minutes} setPreview={setPreview} setTime={setTime}
       playing={playing} togglePlay={togglePlay} expanded={wide || expanded} setExpanded={wide ? null : setExpanded}
+      limits={limits}
     />
   );
   const mapPane = (
@@ -214,6 +233,7 @@ function AppContent({ toggleNight }) {
     />
   );
   const header = <Header from={from} to={to} setPicker={setPicker} swap={() => { setFrom(to); setTo(from); }} onInfo={() => setAbout(true)} />;
+  const settingsPanel = settingsOpen && <RouteSettings limits={limits} onApply={applyLimits} onClose={() => setSettingsOpen(false)} />;
 
   if (wide) {
     return (
@@ -226,6 +246,7 @@ function AppContent({ toggleNight }) {
         </View>
         <View style={styles.map}>{mapPane}</View>
         {about && <About onClose={closeAbout} />}
+        {settingsPanel}
       </View>
     );
   }
@@ -244,6 +265,7 @@ function AppContent({ toggleNight }) {
       )}
       {pickerSheet}
       {about && <About onClose={closeAbout} />}
+      {settingsPanel}
     </View>
   );
 }
@@ -273,7 +295,7 @@ function Header({ from, to, setPicker, swap, onInfo }) {
   );
 }
 
-function Controls({ data, stale, status, selected, setSelected, preview, minutes, setPreview, setTime, playing, togglePlay, expanded, setExpanded }) {
+function Controls({ data, stale, status, selected, setSelected, preview, minutes, setPreview, setTime, playing, togglePlay, expanded, setExpanded, limits }) {
   const styles = useThemedStyles(createStyles);
   const { colors: { MAROON, track }, night } = useTheme();
   // Swipe the handle up/down (or tap it) to show all routes or just the selected one.
@@ -330,6 +352,7 @@ function Controls({ data, stale, status, selected, setSelected, preview, minutes
       </>}
 
       {status.error && <Text style={styles.error} accessibilityLiveRegion="polite">{status.error}</Text>}
+      {!defaultLimits(limits) && <Text style={[styles.rowMeta, { marginBottom: 6 }]}>Custom limits: Recommended +{limits.recommended_pct}%; {night ? "Most lit" : "Max shade"} +{limits.max_detour_pct}%.</Text>}
       {stale && <Skeleton rows={expanded ? 3 : 1} />}
       {data && <Text style={styles.headline}>{headline(data)}</Text>}
       {routes.map(({ properties: p }) => (
@@ -477,6 +500,7 @@ const createStyles = ({ INK, LINE, MAROON, MUTED, SUN, TINT, surface, header, on
   panelBody: { padding: 16 },
   themeFooter: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", borderTopWidth: 1, borderTopColor: LINE, paddingHorizontal: 16, paddingVertical: 12, gap: 12 },
   themeLabel: { color: INK, fontSize: 14, fontWeight: "600" },
+  settingsButton: { width: 44, height: 44, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: LINE, borderRadius: 10 },
   banner: { position: "absolute", zIndex: 1000, top: 12, left: 12, right: 12, backgroundColor: MAROON, borderRadius: 12, padding: 12, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   bannerText: { color: onAccent, fontWeight: "600", flex: 1 },
   bannerCancel: { color: onAccent, fontWeight: "600", marginLeft: 12 },
