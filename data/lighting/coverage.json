@@ -1,0 +1,68 @@
+{
+  "source": "TAMU GIS + OpenStreetMap",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "bbox_wgs84": [
+    -96.35774850051926,
+    30.592063483272277,
+    -96.33161480957132,
+    30.629471196192544
+  ],
+  "retrieved_at": "2026-10-24T18:24:11.051407+00:00",
+  "processed_at": "2026-10-24T19:30:08.814263+00:00",
+  "lamp_count": 7294,
+  "osm_lamp_count": 30,
+  "tagged_way_count": 15,
+  "sources": [
+    {
+      "id": "tamu_streetlight",
+      "name": "TAMU Streetlight inventory",
+      "url": "https://services1.arcgis.com/qr14biwnHA6Vis6l/arcgis/rest/services/Streetlight/FeatureServer/297",
+      "item_id": "6789572816e4423080aacd7f8e763074",
+      "retrieved_at": "2026-10-24T18:40:23.331737+00:00",
+      "layer_updated_ms": 1789488774081,
+      "downloaded": 6064,
+      "eligible_before_dedup": 5872,
+      "excluded": {
+        "non_existing": 30,
+        "invalid_geometry": 162
+      },
+      "terms": "Publicly queryable TAMU GIS; no explicit open license supplied in item metadata.",
+      "unique_contribution": 5790
+    },
+    {
+      "id": "tamu_survey",
+      "name": "TAMU Lighting Survey",
+      "url": "https://services1.arcgis.com/qr14biwnHA6Vis6l/arcgis/rest/services/survey123_e4683e97abd84e13bc7c11a35db139ec_stakeholder/FeatureServer/0",
+      "item_id": "84ba426f85b941bb8d35197e316571d4",
+      "retrieved_at": "2026-10-24T18:40:28.565728+00:00",
+      "layer_updated_ms": 1634064521837,
+      "downloaded": 2466,
+      "eligible_before_dedup": 1877,
+      "excluded": {
+        "survey_not_passed": 587,
+        "unsupported_survey_type": 2
+      },
+      "terms": "Publicly queryable TAMU GIS; no explicit open license supplied in item metadata.",
+      "unique_contribution": 1477
+    }
+  ],
+  "source_errors": [],
+  "unique_lamps_by_source": {
+    "tamu_streetlight": 5790,
+    "tamu_survey": 1477,
+    "osm": 27
+  },
+  "radius_m": 12.0,
+  "sample_step_m": 2.0,
+  "coverage": {
+    "mapped": 0.001,
+    "estimated": 0.3977,
+    "unlit": 0.0013,
+    "unknown": 0.6,
+    "conflict": 0.0001
+  },
+  "attribution": "TAMU campus GIS; \u00a9 OpenStreetMap contributors (ODbL)",
+  "license_url": "https://www.openstreetmap.org/copyright",
+  "terms_note": "ODbL applies to OSM. TAMU item license fields are unspecified; retain separate provenance and confirm reuse terms before external redistribution.",
+  "model": "12 m lamp proximity estimate, not measured illuminance or live outage data. Removed/sign-only inventory records excluded; historical passing inspections supplement locations."
+}

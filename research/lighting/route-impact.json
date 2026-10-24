@@ -1,0 +1,93 @@
+[
+  {
+    "from": "commons",
+    "to": "zachry",
+    "status": "available",
+    "fastest_m": 901,
+    "recommended_m": 901,
+    "fastest_lit_pct": 97,
+    "recommended_lit_pct": 97,
+    "recommended_unknown_pct": 3,
+    "most_lit_pct": 97,
+    "recommended_changed": false,
+    "summary": "The fastest route is already the best lighting trade-off in the mapped data."
+  },
+  {
+    "from": "msc",
+    "to": "evans",
+    "status": "available",
+    "fastest_m": 744,
+    "recommended_m": 761,
+    "fastest_lit_pct": 92,
+    "recommended_lit_pct": 97,
+    "recommended_unknown_pct": 3,
+    "most_lit_pct": 97,
+    "recommended_changed": true,
+    "summary": "Recommended: 97% mapped or estimated lit, +12 s walk."
+  },
+  {
+    "from": "sbisa",
+    "to": "msc",
+    "status": "available",
+    "fastest_m": 815,
+    "recommended_m": 850,
+    "fastest_lit_pct": 82,
+    "recommended_lit_pct": 93,
+    "recommended_unknown_pct": 7,
+    "most_lit_pct": 93,
+    "recommended_changed": true,
+    "summary": "Recommended: 93% mapped or estimated lit, +25 s walk."
+  },
+  {
+    "from": "rec",
+    "to": "zachry",
+    "status": "available",
+    "fastest_m": 2191,
+    "recommended_m": 2195,
+    "fastest_lit_pct": 93,
+    "recommended_lit_pct": 94,
+    "recommended_unknown_pct": 6,
+    "most_lit_pct": 94,
+    "recommended_changed": true,
+    "summary": "Recommended: 94% mapped or estimated lit, +3 s walk."
+  },
+  {
+    "from": "kyle",
+    "to": "blocker",
+    "status": "available",
+    "fastest_m": 1631,
+    "recommended_m": 1669,
+    "fastest_lit_pct": 88,
+    "recommended_lit_pct": 92,
+    "recommended_unknown_pct": 8,
+    "most_lit_pct": 92,
+    "recommended_changed": true,
+    "summary": "Recommended: 92% mapped or estimated lit, +27 s walk."
+  },
+  {
+    "from": "wehner",
+    "to": "commons",
+    "status": "available",
+    "fastest_m": 1753,
+    "recommended_m": 1772,
+    "fastest_lit_pct": 95,
+    "recommended_lit_pct": 98,
+    "recommended_unknown_pct": 2,
+    "most_lit_pct": 98,
+    "recommended_changed": true,
+    "summary": "Recommended: 98% mapped or estimated lit, +13 s walk."
+  },
+  {
+    "from": "northgate",
+    "to": "commons",
+    "status": "available",
+    "fastest_m": 1824,
+    "recommended_m": 1824,
+    "fastest_lit_pct": 53,
+    "recommended_lit_pct": 53,
+    "recommended_unknown_pct": 47,
+    "most_lit_pct": 70,
+    "recommended_changed": false,
+    "summary": "The fastest route is already the best lighting trade-off in the mapped data."
+  }
+]

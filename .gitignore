@@ -26,3 +26,13 @@ tmp/
 .venv/
 test-results/
 playwright-report/
+
+# Keep the normalized public lighting evidence and its provenance.
+!data/lighting/
+data/lighting/*
+!data/lighting/coverage.json
+!data/lighting/lights.geojson
+
+# Public source snapshots are reproducible local research/cache artifacts.
+research/lighting/cache/
+research/lighting/*-points.json
