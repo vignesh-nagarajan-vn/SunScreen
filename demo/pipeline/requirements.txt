@@ -1,0 +1,14 @@
+# Installed from conda-forge together with pdal + python-pdal (see ../README.md)
+numpy
+pandas
+scipy
+rasterio
+shapely
+pyproj
+geopandas
+osmnx>=2.0
+pvlib
+networkx
+# api
+fastapi
+uvicorn

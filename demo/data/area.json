@@ -1,0 +1,28 @@
+{
+  "start": {
+    "name": "Commons Dining Hall, College Station, TX",
+    "lat": 30.6155193,
+    "lon": -96.3361609,
+    "source": "nominatim"
+  },
+  "end": {
+    "name": "Zachry Engineering Education Complex, College Station, TX",
+    "lat": 30.6213752,
+    "lon": -96.3402021,
+    "source": "nominatim"
+  },
+  "crs": "EPSG:6343",
+  "buffer_m": 300,
+  "bbox_utm": [
+    754662,
+    3389717,
+    755666,
+    3390958
+  ],
+  "bbox_wgs84": [
+    -96.34356594870869,
+    30.612744874786696,
+    -96.33279567776337,
+    30.624145524990524
+  ]
+}

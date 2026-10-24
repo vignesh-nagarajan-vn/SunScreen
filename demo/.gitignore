@@ -1,0 +1,14 @@
+# Generated data: keep the small, reviewable outputs only.
+data/*
+!data/area.json
+!data/graph.geojson
+*.laz
+*.las
+*.tif
+
+__pycache__/
+app/node_modules/
+app/.expo/
+
+# osmnx HTTP cache
+cache/
