@@ -1,6 +1,6 @@
 <p align="center"><img src="app/assets/logo.svg" width="72" alt="SunScreen logo"></p>
 
-# SunScreen (demo v1)
+# SunScreen: extended docs
 
 SunScreen finds a shady walk from The Commons to the Zachry Engineering Education Complex at Texas A&M. For any time of day it shows three routes: the fastest route, a recommended route that adds only a minute or so but has more shade, and the shadiest route that isn't too long. Each route shows how much of the walk is shaded.
 
@@ -32,7 +32,7 @@ conda create -n shade -c conda-forge python=3.11 pdal python-pdal make --file pi
 conda activate shade
 ```
 
-Run these from `demo/`:
+Run these from the repo root:
 
 ```bash
 make data   # ~5 min: geocode, LiDAR download, shadows, graph -> data/
