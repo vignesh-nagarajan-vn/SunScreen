@@ -21,6 +21,12 @@ SunScreen finds shady walking routes anywhere on Texas A&M's main campus and the
 
 ## Using the app
 
+- **Route settings:** tap the gear beside Night mode to adjust extra walking
+  distance for Recommended and Max shade / Most lit. Defaults are 10% / 30%.
+  Each limit can range from 0% to 100%; the maximum route's allowance must be at
+  least Recommended's. Apply recalculates routes, Cancel discards edits, and
+  Reset restores the defaults. Settings persist in this browser; native keeps
+  them for the current session. See [route settings](docs/route-settings.md).
 - **From / To:** opens a picker with campus places grouped by type, your recent picks, distances once you've shared your location, address search, **My location** and **Pick on map**. The ⇅ button swaps the two.
 - **Map:** the selected route is colored segment by segment from shade (maroon) to sun (gold). The fastest route is dashed gray, and the third route is drawn thinner.
 - **Time:** drag the slider, tap **Now**, or tap **Play day** to step through the day while the routes redraw.
@@ -99,6 +105,14 @@ See [building passages](docs/building-shortcuts.md) for sources and tests.
 ### Existing endpoints
 
 Every endpoint is served at both `/x` and `/api/x`.
+
+`/route` also accepts `recommended_pct=10&max_detour_pct=30` in shade and
+lighting modes. Values must be finite percentages in [0, 100], with
+`recommended_pct <= max_detour_pct`. They are extra-distance caps relative to
+Fastest, not target shade or lighting percentages. Daytime Recommended's cap
+is still scaled down by sunlight strength. The response echoes the applied
+values and effective Recommended cap in `route_limits`. Older offline bundles
+only support defaults; custom settings require the live API.
 
 - **`/route`:** takes `time=HH:MM` (snapped to the nearest 30-minute slot), plus `from` and `to`. Each endpoint can be a place id from `/places` or `lat,lon`, and `from_name` and `to_name` label custom points. The response is GeoJSON with three LineStrings: `fastest`, `recommended` and `max_shade`. Each one includes `distance_m`, `time_min` (at 1.4 m/s), `extra_s`, `shaded_pct`, `sun_min`, and `runs`: one `[first coord, last coord, shade]` entry per path segment, which the app uses to color the route from shade (maroon) to sun (gold). The response also includes the sun's position and the weather for that slot.
 - **`/places`:** the campus places and the bounds of the routing area.
