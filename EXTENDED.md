@@ -108,7 +108,17 @@ Points outside the area, or more than 250 m from any walkway, get a 400 response
 
 ## Phone setup
 
-Expo Go uses the hosted API by default, so the phone doesn't need your laptop. To use your own API, set `API_OVERRIDE` in [app/config.js](app/config.js) to your laptop's LAN IP, for example `http://192.168.1.23:8000`. The phone and laptop must be on the same Wi-Fi network, and port 8000 must be allowed through the firewall.
+Hosted web builds use their own `/api`, so a Vercel preview of `night-mode` uses
+the lighting API and graph from that branch. Leave `EXPO_PUBLIC_API_BASE_URL`
+unset on Vercel. No local server is needed by the deployed app.
+
+For local web development, copy `app/.env.example` to `app/.env.local` before
+starting Expo; its optional API override points at `http://localhost:8000`.
+Expo Go uses the hosted API by default. To use your own API from a phone, set
+`EXPO_PUBLIC_API_BASE_URL` in `app/.env.local` to your laptop's LAN IP, for example
+`http://192.168.1.23:8000`. The phone and laptop must be on the same Wi-Fi network,
+and port 8000 must be allowed through the firewall. Restart Expo after changing
+the setting; public Expo variables are embedded at build time.
 
 If the API is unreachable, the app falls back to the bundled routes for The Commons → Zachry and labels them as offline.
 
@@ -120,3 +130,112 @@ If the API is unreachable, the app falls back to the bundled routes for The Comm
 - **Weather fallback:** if Open-Meteo is unreachable, the API logs it and assumes a clear sky, and the app shows "weather unavailable".
 - **Places:** Nominatim doesn't know "The Commons", so it's geocoded as "Commons Dining Hall". `01_area` drops any geocode that lands outside the campus box (some names match buildings in other states). To override a place, run `python pipeline/01_area.py --place id=lat,lon`. Routes start at the nearest footpath node, and the map shows that gap as a dashed line.
 - **Windows:** keep the conda install path short. Deep package paths can exceed the 260-character limit.
+## Night routing with public lighting data
+
+Night mode selects `mode=lighting` on `/api/route`; turning it off restores the
+existing `mode=shade` behavior. The lighting scorer does not use shade fractions,
+solar time slots, or weather. The night model assumes ordinary dusk-to-dawn lamps
+are on; it is not a live outage feed or a measurement of illuminance.
+
+After the walking graph exists, run:
+
+```sh
+python pipeline/05_lighting.py
+```
+
+The script combines the public TAMU Streetlight inventory and historical passing
+lighting surveys with OpenStreetMap data inside the routing boundary plus a 40 m
+buffer. `pipeline/lighting_sources.py` downloads complete ArcGIS snapshots by
+object ID, requests only lamp physical/status fields, and rejects incomplete or
+duplicate pages. It excludes removed/non-existing fixtures, sign-only poles,
+out-of-envelope points, unsupported survey types and non-passing historical
+inspections. Failed inspections are not interpreted as current lamp outages.
+Sources are deduplicated within 3 m, preferring current inventory, then survey,
+then OSM; newer removed locations suppress older positive observations nearby.
+
+Campus snapshots are cached under `data/lighting/cache/` for up to 30 days, keyed
+by source URL, field schema and buffered boundary. A valid older snapshot can be
+retained on refresh failure, with its original timestamp and an explicit error in
+the metadata. If the main inventory is unavailable with no matching cache, the
+pipeline retains the existing graph rather than silently downgrading it.
+
+The OSM response is cached in `data/lighting/osm.raw`. It downloads
+`highway=street_lamp` nodes and `lit` tags on highway ways. If Overpass is
+unavailable, it tries a second public instance and then the bounded OSM map API.
+Downloads run only during preprocessing, never during route requests. To refresh
+OSM and campus snapshots rather than use the caches:
+
+```sh
+python pipeline/05_lighting.py --refresh
+```
+
+For a previously downloaded Overpass JSON or OSM XML extract, use
+`--input path/to/extract.osm`. `--osm-only` explicitly omits campus inventories
+for a baseline audit. `--radius 12` configures the pilot lamp influence
+radius in meters (default 12, maximum 50). This radius requires local validation.
+Known disused/broken lamps and unsupported operating schedules do not contribute
+to the proximity estimate.
+
+Each directed walkway is sampled at equal-length intervals of at most 2 m.
+Samples within 1 m of a way tagged lit/unlit use that evidence. Samples within
+the lamp radius are estimated lit; unsupported or missing evidence remains
+unknown. Conflicting lit/unlit evidence is explicitly classified as conflict.
+The estimate does not yet model buildings, canopy, lamp direction, or photometry.
+Co-located OSM ways can conflict; review those locations in the coverage output.
+
+Outputs:
+
+- `data/lighting/lights.geojson`: normalized campus lamp and OSM lamp/way evidence,
+  including source IDs and provenance. This retains evidence records; model lamp
+  counts in coverage.json are spatially deduplicated.
+- `data/lighting/coverage.json`: retrieval time, counts, model parameters, license,
+  and length-weighted graph coverage. Directed reciprocal edges are both counted.
+- `data/graph.pkl` and `data/graph.geojson`: existing shade data plus per-edge
+  lighting fractions and ordered lighting runs.
+
+The API tries positive weighted shortest paths. Relative penalties are mapped
+lit=0, estimated lit=0.2, unknown=0.5, conflict=0.6, mapped unlit=1. Recommended
+routes may be at most 10% longer than fastest; Most lit at most 30%. Among those
+candidates, minimize total penalized meters. These weights and the 10% minimum
+route-evidence threshold are pilot heuristics, not a safety score or a global
+constrained-optimization guarantee. Below the evidence threshold all alternatives
+use the fastest route and return `lighting_status=insufficient_data`. Missing
+lighting attributes on an older graph are also treated as unknown.
+
+Night responses include mapped/estimated lit percentages, unknown/unlit/conflict
+percentages, the longest continuous uncertain or unlit gap across edge boundaries,
+and separate `lighting_runs` for map rendering. They contain no shade percentages
+or weather. Ordinary shade responses retain their prior fields and calculations.
+
+`make data` and `make refresh` run lighting annotation after rebuilding the graph.
+`make lighting` refreshes lighting without reprocessing LiDAR. Run `make bake`
+afterward to update the offline lighting response in `app/fallback-lighting.json`
+as well as the existing places/daytime fallback. Local development also needs
+the API on port 8000; otherwise only the saved default trip is available offline.
+Restart the API after rebuilding the graph; it loads graph data at startup.
+
+The original OSM-only extract on October 24, 2026 contained 30 eligible lamps and
+15 tagged ways, leaving 99.4% of walkway length unknown. The expanded public-source
+audit found live campus inventories referenced by TAMU's lighting-circuit map.
+The combined pipeline now models 7,294 unique lamps: 5,790 inventory locations,
+1,477 additional historical survey observations, and 27 additional OSM lamps.
+The current 12 m radius models mapped/estimated lit evidence on 39.87% of
+directed walkway length, with 60.00% unknown. Sbisa-to-MSC improves from 71%
+on fastest to 89% on recommended for +25 seconds. The initial 15 m calibration
+covered 49.45% of walkway length and showed 82% versus 93% on that trip.
+These are modeled proximity estimates, not measured light levels or live uptime.
+See [the full source audit](research/lighting/SOURCES.md) for all evaluated source
+families, URLs, actual contribution measurements, rejected sources and access limits.
+
+Data attribution: TAMU campus GIS and
+[© OpenStreetMap contributors, ODbL](https://www.openstreetmap.org/copyright).
+The TAMU item license fields are blank despite anonymous public query access.
+The local prototype retains their attribution and source URLs separately; it
+does not label TAMU snapshots as ODbL. Resolve redistribution terms before
+publishing those snapshots or a combined database. Preserve the applicable OSM
+attribution/license obligations. This task does not publish the app or data.
+
+Run behavioral checks with `python -m unittest discover -s tests -v` (requires
+the pipeline dependencies plus `httpx`). These cover mode isolation, API validation,
+detour limits, multigraph edge selection, uncertain gaps, empty/incomplete data,
+lamp status handling, and classification.

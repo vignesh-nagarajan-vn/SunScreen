@@ -19,7 +19,9 @@ test('phone shows one map and exactly three normal route choices', async ({ page
   await page.getByText('Compare all 3 routes', { exact: false }).click();
   for (const label of ['Fastest', 'Recommended', 'Max shade'])
     await expect(page.getByRole('button', { name: new RegExp('^' + label + ':') })).toBeVisible();
-  await expect(page.getByRole('switch')).toHaveCount(0);
+  // The night mode toggle is the only switch; no indoor routing controls.
+  await expect(page.getByRole('switch')).toHaveCount(1);
+  await expect(page.getByRole('switch', { name: 'Night mode' })).toHaveCount(1);
   await expect(page.getByText('Via buildings', { exact: true })).toHaveCount(0);
   await expect(page.locator('.leaflet-container')).toHaveCount(1);
   await expect(page.locator('.leaflet-overlay-pane path').first()).toBeVisible();
@@ -43,7 +45,9 @@ test('building traversal uses the usual route card without indoor controls', asy
   await mock(page, 'building'); await page.goto('/?intro=0&time=14:00&to=langford');
   await expect(page.getByRole('button', { name: /^Recommended:/ })).toBeVisible();
   await expect(page.getByText(/Check building access/)).toBeVisible();
-  await expect(page.getByRole('switch')).toHaveCount(0);
+  // The night mode toggle is the only switch; no indoor routing controls.
+  await expect(page.getByRole('switch')).toHaveCount(1);
+  await expect(page.getByRole('switch', { name: 'Night mode' })).toHaveCount(1);
   await expect(page.getByText(/Choose a building|Floor plan|Preloaded layout/)).toHaveCount(0);
   await page.screenshot({ path: '../tmp/reports/mobile-building.png' });
 });

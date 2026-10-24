@@ -10,6 +10,7 @@ export const ROUTES = {
   fastest: { color: "#8c8c8c", label: "Fastest", dash: [6, 8] },
   recommended: { color: MAROON, label: "Recommended" },
   max_shade: { color: "#b0636b", label: "Max shade", outline: "#6e2f35" },
+  max_lit: { color: "#b0636b", label: "Most lit", outline: "#6e2f35" },
 };
 
 // Blend from the route's own color (fully shaded) to SUN (fully in sun).
@@ -25,4 +26,13 @@ export function shadeRuns(feature) {
   const c = feature.geometry.coordinates;
   return (feature.properties.runs ?? [[0, c.length - 1, feature.properties.shaded_pct / 100]])
     .map(([a, b, shade]) => ({ coords: c.slice(a, b + 1), shade }));
+}
+
+export const LIGHTING_COLORS = { mapped: "#f5d76e", estimated: "#d0a85c", unknown: "#94a3b8", unlit: "#d77887", conflict: "#d77887" };
+
+export function routeRuns(feature, routeColor) {
+  if (feature.properties.mode === "lighting") {
+    return feature.properties.lighting_runs.map((run) => ({ coords: run.coordinates, color: LIGHTING_COLORS[run.state] ?? LIGHTING_COLORS.unknown }));
+  }
+  return shadeRuns(feature).map((run) => ({ coords: run.coords, color: shadeColor(routeColor, run.shade) }));
 }

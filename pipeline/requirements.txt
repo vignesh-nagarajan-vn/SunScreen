@@ -12,3 +12,5 @@ networkx
 # api
 fastapi
 uvicorn
+# In-process API behavior tests
+httpx
