@@ -1,6 +1,6 @@
 {
   "framework": null,
-  "installCommand": "npm ci --prefix app",
+  "installCommand": "cd app && npm ci",
   "buildCommand": "cd app && npx expo export --platform web --output-dir ../dist",
   "outputDirectory": "dist",
   "rewrites": [{ "source": "/api/(.*)", "destination": "/api/index" }],
