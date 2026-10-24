@@ -1,0 +1,1700 @@
+{
+  "purpose": "Outdoor-to-outdoor building shortcuts for shade routing; no room destinations",
+  "passages": [
+    {
+      "id": "langford-a-ground-pass-through",
+      "building": "Langford A",
+      "enabled": true,
+      "access": "public",
+      "access_hours": null,
+      "verification": "Experimental map-derived corridor. Current door access, floor transition and hours need field checking. Not a verified navigation route.",
+      "route_context": "The user describes walking between Langford B and C and past the cafe. This A-building pass-through is a candidate continuation; the exact user path has not been field matched.",
+      "sources": [
+        {
+          "url": "https://oaktrust.library.tamu.edu/bitstreams/df2776aa-5b73-4543-a4fd-4b652daecc60/download",
+          "detail": "Figure 24, printed page 120 / PDF page 142: first-floor plan. Central circulation connects the northwest vestibule toward the southeast covered atrium. Trace is schematic, not a measured survey."
+        },
+        {
+          "url": "https://www.openstreetmap.org/way/155052696",
+          "detail": "Building A footprint; entrance nodes 11693047110 and 11693047117. Exterior footways 411547655 and 1257690109 connect these exact nodes to the saved campus graph. OSM contributors, ODbL 1.0."
+        },
+        {
+          "url": "https://www.arch.tamu.edu/about/facilities/langford-a/",
+          "detail": "Official building identity and cafe location. No live access or HVAC guarantee."
+        }
+      ],
+      "doors": [
+        {
+          "node": 11693047117,
+          "name": "Southeast approach",
+          "coordinates": [
+            -96.3375308,
+            30.6185753
+          ]
+        },
+        {
+          "node": 11693047110,
+          "name": "Northwest approach toward B/C",
+          "coordinates": [
+            -96.337867,
+            30.6189529
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "environment": "covered",
+          "description": "Covered atrium approach, not assumed air conditioned",
+          "coordinates": [
+            [
+              -96.3375308,
+              30.6185753
+            ],
+            [
+              -96.337618212,
+              30.618673476
+            ]
+          ]
+        },
+        {
+          "environment": "indoor",
+          "description": "Central shared circulation toward the northwest vestibule; HVAC operation unverified",
+          "coordinates": [
+            [
+              -96.337618212,
+              30.618673476
+            ],
+            [
+              -96.337722434,
+              30.618790532
+            ],
+            [
+              -96.337867,
+              30.6189529
+            ]
+          ]
+        }
+      ],
+      "unknown_hours_policy": "allow_with_notice",
+      "verification_status": "map-derived-unconfirmed"
+    }
+  ],
+  "covered_walkways": [
+    {
+      "id": "osm-roof-155052521",
+      "name": "AgriLife Rainwater Harvesting Covered Walkway",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/155052521",
+          "tags": {
+            "building": "roof",
+            "layer": "1",
+            "name": "AgriLife Rainwater Harvesting Covered Walkway"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 6193581582,
+          "v": 9993151360,
+          "key": 0,
+          "ranges": [
+            [
+              0.339204751069,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "eb61f17fdbb8bad952b1e28e55f1aad5e49df102cd530e7e66c2b38b9c09af8b"
+        },
+        {
+          "u": 6193583121,
+          "v": 9993151363,
+          "key": 0,
+          "ranges": [
+            [
+              0.522195217007,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "18bcefe69b843311036e3d78fa1e2e41d25bf43af88687eff38f0888cc187ea4"
+        },
+        {
+          "u": 6193583125,
+          "v": 9993151363,
+          "key": 0,
+          "ranges": [
+            [
+              0.899666931832,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "f785c18d5be9f4326d90ddf9c869065ead05e124ff3a2901b2fc06a1a9d5b1d5"
+        },
+        {
+          "u": 9993151360,
+          "v": 9993151363,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "aab409675d5094711db0eee1176fc21bb3a24c78cf25d38eaa7492a9037144cb"
+        },
+        {
+          "u": 9993151360,
+          "v": 6193581582,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.660795248931
+            ]
+          ],
+          "geometry_sha256": "34a49c4f548a1299ebb3448b95fa2ed9733747f948731735424022c1be2028b8"
+        },
+        {
+          "u": 9993151360,
+          "v": 9993151366,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.147401934814
+            ]
+          ],
+          "geometry_sha256": "5385460d24f325f9b7c919844b3e7ee41c988dc0f00da131e80d5830a122f1a6"
+        },
+        {
+          "u": 9993151363,
+          "v": 9993151360,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "8acaaaeba26841c0c64bf97b5802c3457277abd70007976bae9d5a75e4616916"
+        },
+        {
+          "u": 9993151363,
+          "v": 6193583121,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.477804782993
+            ]
+          ],
+          "geometry_sha256": "74c87d80ca7284c8f7677553e8562bf8658993c0734ab8b81187111d351b7c67"
+        },
+        {
+          "u": 9993151363,
+          "v": 6193583125,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.100333068168
+            ]
+          ],
+          "geometry_sha256": "cf96b9a6563b8a31cfa9ef65bd1a437792c6cc45bbe637d17653ca38c7ca0897"
+        },
+        {
+          "u": 9993151366,
+          "v": 9993151360,
+          "key": 0,
+          "ranges": [
+            [
+              0.852598065186,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "479623a0e912162f1d2920fbb62c6d76b743071f52c9857bda61610f83922b80"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-307097865",
+      "name": "Raised building canopy",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/307097865",
+          "tags": {
+            "building": "university",
+            "building:levels": "2",
+            "building:min_level": "1"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 1500895387,
+          "v": 4131890249,
+          "key": 0,
+          "ranges": [
+            [
+              0.933195380228,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "3f179caac5940e5f666bc9220ea6e0a7eef43869972be1e5dbb1a8e815229adc"
+        },
+        {
+          "u": 4131890248,
+          "v": 11693047111,
+          "key": 0,
+          "ranges": [
+            [
+              0.963611262042,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "e76be498e2b5beee185b15992776bf55e1cd85bb027a30798918fe21779455e1"
+        },
+        {
+          "u": 4131890249,
+          "v": 11693047078,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.078481786894
+            ]
+          ],
+          "geometry_sha256": "5d33f37f5fe9d51de930562243439e0510246a46705bfe8540a478e0b86a0148"
+        },
+        {
+          "u": 4131890249,
+          "v": 11693047110,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "88c582ede54731b03a035cda70379390572db9ae2081ec026fb7e50a53d3f155"
+        },
+        {
+          "u": 4131890249,
+          "v": 11693047112,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "1864a7e5297e3d0abb3c67ae734e793067280b2265f1ca72817398f1ef21be22"
+        },
+        {
+          "u": 4131890249,
+          "v": 1500895387,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.066804619772
+            ]
+          ],
+          "geometry_sha256": "95540e6552645f145a26e2b1f808b506c1d3e3b70f2fd4988736c6ac856c2e93"
+        },
+        {
+          "u": 11693047078,
+          "v": 4131890249,
+          "key": 0,
+          "ranges": [
+            [
+              0.921518213106,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "3d045b6cc8ba3764926a1c33ed4c372522e18a1c85008a7efadf7641530d819d"
+        },
+        {
+          "u": 11693047110,
+          "v": 4131890249,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "a666f4e67535e49eb521fdce866090b2cbb99251f6df87d4a29e2e534c393b5e"
+        },
+        {
+          "u": 11693047111,
+          "v": 11693047112,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "5f2bcb03c44ab4c81a3f1c68180099e0432564a3cd180254f3c3fd7a553abe22"
+        },
+        {
+          "u": 11693047111,
+          "v": 4131890248,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.036388737958
+            ]
+          ],
+          "geometry_sha256": "fe75d2b79672962c065e067ba8a3b9af5f6c6f80400994bff48c732560df7ada"
+        },
+        {
+          "u": 11693047111,
+          "v": 11693047114,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.992789839212
+            ]
+          ],
+          "geometry_sha256": "f51568aca3e1fdabab234e5fb3b792b2849e9794025c485d81e2dff3bfff4ce5"
+        },
+        {
+          "u": 11693047111,
+          "v": 11693047113,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "aa21d98be396862308933e8ed47183bad3394a1f269a675948a833e72543d5c9"
+        },
+        {
+          "u": 11693047112,
+          "v": 4131890249,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "0f37b7761ad47c2b343e32908f40860d76aa30da31a8b17e1683975c79821871"
+        },
+        {
+          "u": 11693047112,
+          "v": 11693047111,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "e933e27209498d150d9d6334117966622b3fd99d28a45db658239e72a326fee1"
+        },
+        {
+          "u": 11693047112,
+          "v": 11693047115,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "1c311d6d141aa1f11cfe3ed53c8dd61ced637be00091c8f088d3b15715b4730e"
+        },
+        {
+          "u": 11693047113,
+          "v": 11693047111,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "3609be1b11b301ae0fe493115cf5dba788d89358fb4c680fe62c342ebb12e4d4"
+        },
+        {
+          "u": 11693047114,
+          "v": 11693047111,
+          "key": 0,
+          "ranges": [
+            [
+              0.007210160788,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "a83ac683a0a6d08d1f46724c9434fa850367068135d7b9e5b990bdbca7f80a8b"
+        },
+        {
+          "u": 11693047115,
+          "v": 11693047112,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "c8c9c7d09ef6c4e4bb4d3e956c3675b6a3c9227db9586a484b4f4e3b20e63426"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-307097867",
+      "name": "Raised building canopy",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/307097867",
+          "tags": {
+            "building": "bridge",
+            "building:levels": "4",
+            "building:min_level": "1",
+            "layer": "1",
+            "level": "1-3",
+            "level:ref": "2;3;4"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 4085520831,
+          "v": 4085622740,
+          "key": 0,
+          "ranges": [
+            [
+              0.044454486889,
+              0.17891061863
+            ]
+          ],
+          "geometry_sha256": "07a76c7e242f2b15505f1b89514c94e99f6726b40d65f7cf5a19acecd9d49c10"
+        },
+        {
+          "u": 4085622740,
+          "v": 4085520831,
+          "key": 0,
+          "ranges": [
+            [
+              0.82108938137,
+              0.955545513111
+            ]
+          ],
+          "geometry_sha256": "de6162d5a77ac76b9fe42f899cba95565cba38e52cfbdb9d7f84852e0138ebfa"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-415318248",
+      "name": "Covered campus walkway",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/415318248",
+          "tags": {
+            "highway": "footway",
+            "layer": "-1",
+            "tunnel": "building_passage"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 4163620487,
+          "v": 4163620488,
+          "key": 0,
+          "ranges": [
+            [
+              0.334636923357,
+              0.747541133431
+            ]
+          ],
+          "geometry_sha256": "cedda4a35aacc1baaf098f4a3a63f5bde9ff62329086b88a03ab32b85443d406"
+        },
+        {
+          "u": 4163620488,
+          "v": 4163620487,
+          "key": 0,
+          "ranges": [
+            [
+              0.252458866569,
+              0.665363076643
+            ]
+          ],
+          "geometry_sha256": "9410a55f317355df7167fab4e713538ec643f96aa19c8cf999acffdbd76525f2"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-451576974",
+      "name": "Raised building canopy",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/451576974",
+          "tags": {
+            "amenity": "fuel",
+            "building": "roof"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 14257539395,
+          "v": 14257539398,
+          "key": 1,
+          "ranges": [
+            [
+              0.322824005989,
+              0.644797752104
+            ]
+          ],
+          "geometry_sha256": "f0ec6362237f628536ca67820b8d79bf6ec08efc8b6ff993f168ae68b8a50fcd"
+        },
+        {
+          "u": 14257539398,
+          "v": 14257539395,
+          "key": 0,
+          "ranges": [
+            [
+              0.355202247896,
+              0.677175994011
+            ]
+          ],
+          "geometry_sha256": "89f7d9ff29f3060afe4b325f6a4ababc68143204b5728a86a1bd290dae9721f9"
+        },
+        {
+          "u": 14257622902,
+          "v": 14257622903,
+          "key": 0,
+          "ranges": [
+            [
+              0.349739020262,
+              0.681942858198
+            ]
+          ],
+          "geometry_sha256": "8132b7d73eeab94dfd488306d87ba97e0b6ff2bf4a91f78d2de3a359f4efa6ac"
+        },
+        {
+          "u": 14257622903,
+          "v": 14257622902,
+          "key": 0,
+          "ranges": [
+            [
+              0.318057141802,
+              0.650260979738
+            ]
+          ],
+          "geometry_sha256": "b76757cd398dce664f36e9cadcb383393e59d90bd9e9c1eb4e64e4676b450886"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-870621006",
+      "name": "Raised building canopy",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/870621006",
+          "tags": {
+            "building:levels": "15",
+            "building:min_level": "5",
+            "building:part": "apartments"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 10103492757,
+          "v": 13739744736,
+          "key": 0,
+          "ranges": [
+            [
+              0.173012759926,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "f12b15dfd8af3d1568c68312f82950be54b2f6e5a76e7aced6b93a10b78165ac"
+        },
+        {
+          "u": 13739744736,
+          "v": 10103492757,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.826987240074
+            ]
+          ],
+          "geometry_sha256": "4508af37e7faebf56c72804b059242c55e35e93b04d91032d2a06a8ef90f236d"
+        },
+        {
+          "u": 13739744736,
+          "v": 14017493030,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.543803958693
+            ]
+          ],
+          "geometry_sha256": "b62ba63fe9f7fe513b24cdb205997eec7de1d8499dcb5f2980e80bb9e04c7f43"
+        },
+        {
+          "u": 13739744736,
+          "v": 14017493031,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.660540788803
+            ]
+          ],
+          "geometry_sha256": "7069c4fbb8229c6876098c6f2df824ea9509316d549f1ed616c14bda7edffe77"
+        },
+        {
+          "u": 14017493030,
+          "v": 13739744736,
+          "key": 0,
+          "ranges": [
+            [
+              0.456196041307,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "e45a6fa791530e2c5f99a769b2e5cad7293bc79bd1e0403bfcb70ec79f75fa89"
+        },
+        {
+          "u": 14017493031,
+          "v": 13739744736,
+          "key": 0,
+          "ranges": [
+            [
+              0.339459211197,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "6642fef0ee15c5ab383f9a8bb30076e70acab3adff1667f50c1fad1e710d417d"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-951897041",
+      "name": "Covered campus walkway",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/951897041",
+          "tags": {
+            "highway": "footway",
+            "layer": "-1",
+            "tunnel": "building_passage"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 4163620487,
+          "v": 4163620488,
+          "key": 0,
+          "ranges": [
+            [
+              0.748838007303,
+              0.880210288967
+            ]
+          ],
+          "geometry_sha256": "cedda4a35aacc1baaf098f4a3a63f5bde9ff62329086b88a03ab32b85443d406"
+        },
+        {
+          "u": 4163620488,
+          "v": 4163620487,
+          "key": 0,
+          "ranges": [
+            [
+              0.119789711033,
+              0.251161992697
+            ]
+          ],
+          "geometry_sha256": "9410a55f317355df7167fab4e713538ec643f96aa19c8cf999acffdbd76525f2"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-951897043",
+      "name": "Covered campus walkway",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/951897043",
+          "tags": {
+            "highway": "footway",
+            "layer": "-1",
+            "tunnel": "building_passage"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 4163620487,
+          "v": 4163620488,
+          "key": 0,
+          "ranges": [
+            [
+              0.217328287314,
+              0.333355175181
+            ]
+          ],
+          "geometry_sha256": "cedda4a35aacc1baaf098f4a3a63f5bde9ff62329086b88a03ab32b85443d406"
+        },
+        {
+          "u": 4163620488,
+          "v": 4163620487,
+          "key": 0,
+          "ranges": [
+            [
+              0.666644824819,
+              0.782671712686
+            ]
+          ],
+          "geometry_sha256": "9410a55f317355df7167fab4e713538ec643f96aa19c8cf999acffdbd76525f2"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-1091041919",
+      "name": "Covered campus walkway",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/1091041919",
+          "tags": {
+            "covered": "yes",
+            "highway": "footway",
+            "lit": "yes",
+            "surface": "concrete"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 6193581582,
+          "v": 9993151360,
+          "key": 0,
+          "ranges": [
+            [
+              0.372960539204,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "eb61f17fdbb8bad952b1e28e55f1aad5e49df102cd530e7e66c2b38b9c09af8b"
+        },
+        {
+          "u": 6193583121,
+          "v": 9993151363,
+          "key": 0,
+          "ranges": [
+            [
+              0.514385493292,
+              0.996200171706
+            ],
+            [
+              0.996383377535,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "18bcefe69b843311036e3d78fa1e2e41d25bf43af88687eff38f0888cc187ea4"
+        },
+        {
+          "u": 9993151360,
+          "v": 9993151363,
+          "key": 0,
+          "ranges": [
+            [
+              0.001405505292,
+              0.996452065497
+            ]
+          ],
+          "geometry_sha256": "aab409675d5094711db0eee1176fc21bb3a24c78cf25d38eaa7492a9037144cb"
+        },
+        {
+          "u": 9993151360,
+          "v": 6193581582,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.627039460796
+            ]
+          ],
+          "geometry_sha256": "34a49c4f548a1299ebb3448b95fa2ed9733747f948731735424022c1be2028b8"
+        },
+        {
+          "u": 9993151363,
+          "v": 9993151360,
+          "key": 0,
+          "ranges": [
+            [
+              0.003547934503,
+              0.998594494708
+            ]
+          ],
+          "geometry_sha256": "8acaaaeba26841c0c64bf97b5802c3457277abd70007976bae9d5a75e4616916"
+        },
+        {
+          "u": 9993151363,
+          "v": 6193583121,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.003616622465
+            ],
+            [
+              0.003799828294,
+              0.485614506708
+            ]
+          ],
+          "geometry_sha256": "74c87d80ca7284c8f7677553e8562bf8658993c0734ab8b81187111d351b7c67"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-1091041920",
+      "name": "Covered campus walkway",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/1091041920",
+          "tags": {
+            "covered": "yes",
+            "highway": "footway",
+            "lit": "yes",
+            "surface": "concrete"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 6193583125,
+          "v": 9993151363,
+          "key": 0,
+          "ranges": [
+            [
+              0.887141253458,
+              0.999619680202
+            ]
+          ],
+          "geometry_sha256": "f785c18d5be9f4326d90ddf9c869065ead05e124ff3a2901b2fc06a1a9d5b1d5"
+        },
+        {
+          "u": 9993151363,
+          "v": 6193583125,
+          "key": 0,
+          "ranges": [
+            [
+              0.000380319798,
+              0.112858746542
+            ]
+          ],
+          "geometry_sha256": "cf96b9a6563b8a31cfa9ef65bd1a437792c6cc45bbe637d17653ca38c7ca0897"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-1091041921",
+      "name": "Covered campus walkway",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/1091041921",
+          "tags": {
+            "covered": "yes",
+            "highway": "footway",
+            "lit": "yes",
+            "surface": "concrete"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 9993151360,
+          "v": 9993151366,
+          "key": 0,
+          "ranges": [
+            [
+              0.001648620211,
+              0.092246167454
+            ]
+          ],
+          "geometry_sha256": "5385460d24f325f9b7c919844b3e7ee41c988dc0f00da131e80d5830a122f1a6"
+        },
+        {
+          "u": 9993151366,
+          "v": 9993151360,
+          "key": 0,
+          "ranges": [
+            [
+              0.907753832546,
+              0.998351379789
+            ]
+          ],
+          "geometry_sha256": "479623a0e912162f1d2920fbb62c6d76b743071f52c9857bda61610f83922b80"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-1257690102",
+      "name": "Raised building canopy",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/1257690102",
+          "tags": {
+            "amenity": "fuel",
+            "building": "roof",
+            "layer": "1"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 11840879711,
+          "v": 11840879714,
+          "key": 0,
+          "ranges": [
+            [
+              0.282840262405,
+              0.725318012353
+            ]
+          ],
+          "geometry_sha256": "58c2bfff50adef3481e4e34e701b6b82aa41f8887403d7cc79823b6995940883"
+        },
+        {
+          "u": 11840879714,
+          "v": 11840879711,
+          "key": 0,
+          "ranges": [
+            [
+              0.274681987647,
+              0.717159737595
+            ]
+          ],
+          "geometry_sha256": "0410c422e9088c476693d4cc7452896479a98997a37966a249ea2ac849765093"
+        },
+        {
+          "u": 11840879715,
+          "v": 11840879718,
+          "key": 0,
+          "ranges": [
+            [
+              0.252907397345,
+              0.703748088411
+            ]
+          ],
+          "geometry_sha256": "dfb8bc253b701df60378d4837892199d08d1931eb87a3a08365f9246d035c728"
+        },
+        {
+          "u": 11840879718,
+          "v": 11840879715,
+          "key": 0,
+          "ranges": [
+            [
+              0.296251911589,
+              0.747092602655
+            ]
+          ],
+          "geometry_sha256": "b3e712a605498fe04a6a731451fe204b8ca7aafaf6e7db75b46825fe9b1b1e05"
+        },
+        {
+          "u": 11840879719,
+          "v": 11840879722,
+          "key": 0,
+          "ranges": [
+            [
+              0.347011179196,
+              0.72834624849
+            ]
+          ],
+          "geometry_sha256": "1c6b22620d03b75f9c4224362b23a8ed513db0ac00f901fbf875b8c0129b81cf"
+        },
+        {
+          "u": 11840879722,
+          "v": 11840879719,
+          "key": 0,
+          "ranges": [
+            [
+              0.27165375151,
+              0.652988820804
+            ]
+          ],
+          "geometry_sha256": "6465d3b25b61d94a2a22fce74a9fffb42eda6fa36e4a20b8b76dad0129e59a44"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-1459997087",
+      "name": "Covered campus walkway",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/1459997087",
+          "tags": {
+            "covered": "yes",
+            "highway": "footway"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 13390283465,
+          "v": 13390283467,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.777532101732
+            ]
+          ],
+          "geometry_sha256": "8b494a868dccdbb1239f01495e3068ec6ce997d0fca2f31d15be62ed3fc1fdf3"
+        },
+        {
+          "u": 13390283467,
+          "v": 13390283465,
+          "key": 0,
+          "ranges": [
+            [
+              0.222467898268,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "c70175273e0d0109d72740669315408dd7c023c914fe6cf13ccb6e46cbe9d35d"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-1459997099",
+      "name": "Covered campus walkway",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/1459997099",
+          "tags": {
+            "covered": "yes",
+            "highway": "footway"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 13390283465,
+          "v": 13390283490,
+          "key": 0,
+          "ranges": [
+            [
+              0.000269266762,
+              0.917202550298
+            ]
+          ],
+          "geometry_sha256": "9a6b1fb04e02fe186bb25231d1ea29f32e6c29d380303dfdac8ab59f70ef645e"
+        },
+        {
+          "u": 13390283490,
+          "v": 13390283465,
+          "key": 0,
+          "ranges": [
+            [
+              0.082797449702,
+              0.999730733238
+            ]
+          ],
+          "geometry_sha256": "507b4e8286acebc3583e01b4b32bcb94ec285f44922553c826217037fd400d01"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-1460255197",
+      "name": "Covered campus walkway",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/1460255197",
+          "tags": {
+            "covered": "yes",
+            "highway": "footway"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 3118455290,
+          "v": 13392870211,
+          "key": 0,
+          "ranges": [
+            [
+              0.479966823277,
+              0.972328867322
+            ]
+          ],
+          "geometry_sha256": "6d891a33812597c03b7aa72046cb189c9616e1d0e752acbfae03b06b5f1554d1"
+        },
+        {
+          "u": 13392870211,
+          "v": 3118455290,
+          "key": 0,
+          "ranges": [
+            [
+              0.027671132678,
+              0.520033176723
+            ]
+          ],
+          "geometry_sha256": "2ccae7c2bb6f28c607e8c27009e455e636cf660b7e12dac19ad49ded5f3381bb"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-1460255199",
+      "name": "Covered campus walkway",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/1460255199",
+          "tags": {
+            "covered": "yes",
+            "highway": "footway"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 1674931064,
+          "v": 13392870211,
+          "key": 0,
+          "ranges": [
+            [
+              0.256092340796,
+              0.682719922794
+            ]
+          ],
+          "geometry_sha256": "9a45c3f3df4bf2adeeeb2810d3830b105da964682651b54c45a2e41ff914e701"
+        },
+        {
+          "u": 13392870211,
+          "v": 1674931064,
+          "key": 0,
+          "ranges": [
+            [
+              0.317280077206,
+              0.743907659204
+            ]
+          ],
+          "geometry_sha256": "ddbcf76b82bf19c4622f7184d7f9f63adc58b83d347f3d0c4dd857d7ec8e466f"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-1497644574",
+      "name": "Raised building canopy",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/1497644574",
+          "tags": {
+            "building": "roof",
+            "layer": "1"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 12986622843,
+          "v": 13633025595,
+          "key": 0,
+          "ranges": [
+            [
+              0.259737272392,
+              0.650812030419
+            ]
+          ],
+          "geometry_sha256": "cad99dfcf3f0d5672bce6b025ca78724f9be22ca0d4551223406f60e669d49e9"
+        },
+        {
+          "u": 13633025595,
+          "v": 12986622843,
+          "key": 0,
+          "ranges": [
+            [
+              0.349187969581,
+              0.740262727608
+            ]
+          ],
+          "geometry_sha256": "2c23f680f97461b6837d5a1ea02bda8190c0cb739565ce6765f5613fd33357c1"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-1500710359",
+      "name": "Raised building canopy",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/1500710359",
+          "tags": {
+            "amenity": "parking",
+            "building:levels": "5",
+            "building:min_level": "1",
+            "building:part": "parking",
+            "parking": "multi-storey"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 10103492757,
+          "v": 13739744736,
+          "key": 0,
+          "ranges": [
+            [
+              0.154976095188,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "f12b15dfd8af3d1568c68312f82950be54b2f6e5a76e7aced6b93a10b78165ac"
+        },
+        {
+          "u": 13739744736,
+          "v": 10103492757,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.845023904812
+            ]
+          ],
+          "geometry_sha256": "4508af37e7faebf56c72804b059242c55e35e93b04d91032d2a06a8ef90f236d"
+        },
+        {
+          "u": 13739744736,
+          "v": 14017493030,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.614303122458
+            ]
+          ],
+          "geometry_sha256": "b62ba63fe9f7fe513b24cdb205997eec7de1d8499dcb5f2980e80bb9e04c7f43"
+        },
+        {
+          "u": 13739744736,
+          "v": 14017493031,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.660540788803
+            ]
+          ],
+          "geometry_sha256": "7069c4fbb8229c6876098c6f2df824ea9509316d549f1ed616c14bda7edffe77"
+        },
+        {
+          "u": 14017493030,
+          "v": 13739744736,
+          "key": 0,
+          "ranges": [
+            [
+              0.385696877542,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "e45a6fa791530e2c5f99a769b2e5cad7293bc79bd1e0403bfcb70ec79f75fa89"
+        },
+        {
+          "u": 14017493031,
+          "v": 13739744736,
+          "key": 0,
+          "ranges": [
+            [
+              0.339459211197,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "6642fef0ee15c5ab383f9a8bb30076e70acab3adff1667f50c1fad1e710d417d"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-1501679958",
+      "name": "Raised building canopy",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/1501679958",
+          "tags": {
+            "building": "bridge",
+            "building:levels": "4",
+            "building:min_level": "3",
+            "layer": "1",
+            "level": "3",
+            "level:ref": "4"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 1500895357,
+          "v": 4131890087,
+          "key": 0,
+          "ranges": [
+            [
+              0.333018593358,
+              0.401690787894
+            ]
+          ],
+          "geometry_sha256": "310f6cd7963107fd86acd17d2b8e5417238b98f729c2656f5c60051077806595"
+        },
+        {
+          "u": 4131890087,
+          "v": 1500895357,
+          "key": 0,
+          "ranges": [
+            [
+              0.598309212106,
+              0.666981406642
+            ]
+          ],
+          "geometry_sha256": "a35917632438e55274fcd75ece3b457740d0b53e7589cb98849d9cdad697a55c"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-1503800977",
+      "name": "Raised building canopy",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/1503800977",
+          "tags": {
+            "building": "bridge",
+            "building:levels": "2",
+            "building:min_level": "1",
+            "layer": "1",
+            "level": "1",
+            "level:ref": "2"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 8502844858,
+          "v": 8502844912,
+          "key": 0,
+          "ranges": [
+            [
+              0.206533251455,
+              0.371933401854
+            ]
+          ],
+          "geometry_sha256": "269cf35066660688618e740efe9a6ac94ef5712a41124a68926a8fdb575fe7b7"
+        },
+        {
+          "u": 8502844912,
+          "v": 8502844858,
+          "key": 0,
+          "ranges": [
+            [
+              0.628066598146,
+              0.793466748545
+            ]
+          ],
+          "geometry_sha256": "51c46eb5f8567cd8efe7e834547f6f2a7f881277f2c9719aec59407f2756a089"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-1503800986",
+      "name": "Raised building canopy",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/1503800986",
+          "tags": {
+            "building:levels": "5",
+            "building:material": "glass",
+            "building:min_level": "1",
+            "building:part": "yes",
+            "layer": "1"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 10689415954,
+          "v": 13762344476,
+          "key": 0,
+          "ranges": [
+            [
+              0.864313991761,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "f138bfaa0bbb80fa6ed4dc3853ce6967ea431f5ef0caa8e557f2f9136b7bbd0e"
+        },
+        {
+          "u": 13762344476,
+          "v": 10689415954,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.135686008239
+            ]
+          ],
+          "geometry_sha256": "8fcaed610c07a2c32a7ac81bfaa7bcec496de7408346fbd1c8e9147bdd1228e2"
+        }
+      ]
+    },
+    {
+      "id": "osm-roof-1503800987",
+      "name": "Raised building canopy",
+      "enabled": true,
+      "access": "public",
+      "environment": "covered",
+      "weekly_hours": "24/7",
+      "verification": "Public OSM roof/raised structure over existing pedestrian geometry; not an enclosed corridor.",
+      "sources": [
+        {
+          "url": "https://www.openstreetmap.org/way/1503800987",
+          "tags": {
+            "building": "bridge",
+            "building:levels": "5",
+            "building:min_level": "1",
+            "layer": "1",
+            "level": "1-4",
+            "level:ref": "2;3;4;5"
+          },
+          "license": "ODbL-1.0, OpenStreetMap contributors"
+        }
+      ],
+      "edges": [
+        {
+          "u": 10689415913,
+          "v": 13762387315,
+          "key": 0,
+          "ranges": [
+            [
+              0.914780773771,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "75327ae7f02f99db2cf79e3c21b489e6dff1789c47e885f9796773504e8e85f4"
+        },
+        {
+          "u": 10689415953,
+          "v": 13762387315,
+          "key": 0,
+          "ranges": [
+            [
+              0.912427808951,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "2faa063c63bc97ada6bf47ee058ec371fce539d3ef74a370594a7b30292abb6b"
+        },
+        {
+          "u": 13762387315,
+          "v": 13762387316,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.98307453397
+            ]
+          ],
+          "geometry_sha256": "0f705d2ac7241272971f762db4c1910a5c848f36e68eb1d1fdab0f1cd2a86e95"
+        },
+        {
+          "u": 13762387315,
+          "v": 13762387317,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "330d83b1cc2a063f5a7851f1b9e3cfe50d01c0fce12e01716b2e94d46f0e1540"
+        },
+        {
+          "u": 13762387315,
+          "v": 10689415953,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.087572191049
+            ]
+          ],
+          "geometry_sha256": "f0b62a280d0cc78ad15b99bfe1867975ba936f9c9dbba4d3cc243704990995f7"
+        },
+        {
+          "u": 13762387315,
+          "v": 10689415913,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              0.085219226229
+            ]
+          ],
+          "geometry_sha256": "32ce7d0d679e52950ea556dcf9a63713a61432272f754ad8d6d301321b5f6e8d"
+        },
+        {
+          "u": 13762387316,
+          "v": 13762387315,
+          "key": 0,
+          "ranges": [
+            [
+              0.01692546603,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "f5984d8e00d5d20aa675a415c28f6302f31517e8ee96567b2eb3fe98991445f9"
+        },
+        {
+          "u": 13762387317,
+          "v": 13762387315,
+          "key": 0,
+          "ranges": [
+            [
+              0.0,
+              1.0
+            ]
+          ],
+          "geometry_sha256": "828f1fb5fa3336ed0676a55a24b19ac06613c4e813eedfff3fec635a4ec3a109"
+        }
+      ]
+    }
+  ],
+  "coverage_summary": {
+    "checked": "2026-10-24",
+    "building_footprints_audited": 1584,
+    "named_buildings_audited": 354,
+    "matched_roof_records": 22,
+    "explicit_indoor_pedestrian_ways": 0
+  }
+}
