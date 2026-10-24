@@ -126,16 +126,19 @@ def endpoint(value, label):
 def shortest(src, dst, i, alpha):
     cost = lambda d: d["length"] * (1 + alpha * (1 - d["shade"][i]))
     _, path = nx.bidirectional_dijkstra(G, src, dst, weight=lambda u, v, ds: min(map(cost, ds.values())))
-    coords, length, shaded = [], 0.0, 0.0
+    coords, runs, length, shaded = [], [], 0.0, 0.0
     for u, v in zip(path, path[1:]):
         d = min(G[u][v].values(), key=cost)
+        first = max(len(coords) - 1, 0)
         coords += d["coords"] if not coords else d["coords"][1:]
+        runs.append([first, len(coords) - 1, round(d["shade"][i], 2)])  # coord range + shade of this edge
         length += d["length"]
         shaded += d["length"] * d["shade"][i]
     if not coords:  # both ends snapped to the same node
         n = G.nodes[src]
         coords = [[n["x"], n["y"]]]
-    return {"path": tuple(path), "coords": coords, "length": length, "shade": shaded / length if length else 1.0}
+    return {"path": tuple(path), "coords": coords, "runs": runs, "length": length,
+            "shade": shaded / length if length else 1.0}
 
 
 def extra(seconds):
@@ -156,6 +159,7 @@ def feature(route_id, label, r, fastest, sun):
             "shaded_pct": round(100 * r["shade"]),
             "sun_min": round(minutes * (1 - r["shade"]) * sun, 1),  # minutes in direct sun
             "same_as_fastest": r["path"] == fastest["path"],
+            "runs": r["runs"],  # [first coord, last coord, shade 0-1] per edge, for sun/shade coloring
         },
     }
 

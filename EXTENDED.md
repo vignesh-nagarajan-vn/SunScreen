@@ -50,7 +50,7 @@ curl "localhost:8000/api/route?time=14:00&from=msc&to=zachry"
 
 Every endpoint is served at both `/x` and `/api/x`.
 
-- **`/route`:** takes `time=HH:MM` (snapped to the nearest 30-minute slot), plus `from` and `to`. Each endpoint can be a place id from `/places` or `lat,lon`, and `from_name` and `to_name` label custom points. The response is GeoJSON with three LineStrings: `fastest`, `recommended` and `max_shade`. Each one includes `distance_m`, `time_min` (at 1.4 m/s), `extra_s`, `shaded_pct` and `sun_min`. The response also includes the sun's position and the weather for that slot.
+- **`/route`:** takes `time=HH:MM` (snapped to the nearest 30-minute slot), plus `from` and `to`. Each endpoint can be a place id from `/places` or `lat,lon`, and `from_name` and `to_name` label custom points. The response is GeoJSON with three LineStrings: `fastest`, `recommended` and `max_shade`. Each one includes `distance_m`, `time_min` (at 1.4 m/s), `extra_s`, `shaded_pct`, `sun_min`, and `runs`: one `[first coord, last coord, shade]` entry per path segment, which the app uses to color the route from shade (maroon) to sun (gold). The response also includes the sun's position and the weather for that slot.
 - **`/places`:** the campus places and the bounds of the routing area.
 - **`/search?q=`:** a Nominatim search limited to the routing area.
 

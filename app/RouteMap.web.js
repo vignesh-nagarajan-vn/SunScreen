@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { MAROON, ROUTES } from "./theme";
+import { MAROON, ROUTES, shadeColor, shadeRuns } from "./theme";
 
 // Browser version of RouteMap: react-native-maps has no web support, so use Leaflet from a CDN.
 const LEAFLET = "https://unpkg.com/leaflet@1.9.4/dist/leaflet";
@@ -19,7 +19,8 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress }
   const map = useRef(null);
   const press = useRef(onMapPress);
   press.current = picking ? onMapPress : null;
-  const lastFit = useRef(null); // bounds of the latest route, refit on resize
+  const lastFit = useRef(null); // bounds of the latest trip, refit on resize
+  const fittedTrip = useRef(null);
   const lock = useRef(() => {});
 
   // Create the map once, locked to the campus area: no panning or zooming out past it.
@@ -27,7 +28,7 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress }
     loadLeaflet().then((L) => {
       const area = L.latLngBounds([bounds.south, bounds.west], [bounds.north, bounds.east]);
       map.current = L.map(el.current, { zoomControl: false, attributionControl: false, maxBoundsViscosity: 1 });
-      L.control.attribution({ position: "topright", prefix: false }).addTo(map.current);
+      L.control.attribution({ position: "bottomleft", prefix: false }).addTo(map.current);
       L.tileLayer(TILES, { maxNativeZoom: 16, maxZoom: 19, attribution: "Tiles © Esri, © OpenStreetMap contributors" })
         .addTo(map.current);
       // Widest zoom = the whole area on screen; panning stops at its edges.
@@ -58,13 +59,22 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress }
       layers = L.layerGroup().addTo(map.current);
       const ordered = data.features.filter((f) => f.properties.id !== selected)
         .concat(data.features.filter((f) => f.properties.id === selected));
+      const toLL = (coords) => coords.map(([lon, lat]) => [lat, lon]);
       const lines = ordered.map((f) => {
-        const on = f.properties.id === selected;
-        const latlngs = f.geometry.coordinates.map(([lon, lat]) => [lat, lon]);
-        if (on) L.polyline(latlngs, { color: "white", weight: 11, opacity: 1 }).addTo(layers);
-        return L.polyline(latlngs, {
-          color: ROUTES[f.properties.id].color, weight: on ? 7 : 4, opacity: on ? 1 : 0.55,
-        }).addTo(layers);
+        const style = ROUTES[f.properties.id];
+        const latlngs = toLL(f.geometry.coordinates);
+        if (f.properties.id !== selected) {
+          if (style.outline) L.polyline(latlngs, { color: style.outline, weight: 6, opacity: 0.5 }).addTo(layers);
+          return L.polyline(latlngs, {
+            color: style.color, weight: style.outline ? 3 : 4, opacity: style.dash ? 0.9 : 0.6, dashArray: style.dash?.join(" "),
+          }).addTo(layers);
+        }
+        // Selected route: white casing, then each edge colored from shade (route color) to sun (gold).
+        const casing = L.polyline(latlngs, { color: "white", weight: 12, opacity: 1 }).addTo(layers);
+        for (const run of shadeRuns(f)) {
+          L.polyline(toLL(run.coords), { color: shadeColor(style.color, run.shade), weight: 7, opacity: 1, lineCap: "butt" }).addTo(layers);
+        }
+        return casing;
       });
       // Routes start and end at the nearest footpath node; dash the last few metres to each point.
       const path = data.features[0].geometry.coordinates;
@@ -77,16 +87,20 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress }
           .addTo(layers);
       pin(data.start, "white");
       pin(data.end, MAROON);
-      const pins = [data.start, data.end].map((p) => [p.lat, p.lon]);
-      lastFit.current = L.featureGroup(lines).getBounds().extend(pins);
-      lock.current(); // fit the new route
+      // Refit only when the trip changes, not when the time or selected route does.
+      const trip = [data.start.lat, data.start.lon, data.end.lat, data.end.lon].join();
+      if (trip !== fittedTrip.current) {
+        fittedTrip.current = trip;
+        lastFit.current = L.featureGroup(lines).getBounds().extend([data.start, data.end].map((p) => [p.lat, p.lon]));
+        lock.current();
+      }
     });
     return () => layers?.remove();
   }, [data, selected]);
 
   return (
     <>
-      <style>{`.pin-label{background:white;color:${MAROON};border:none;font:600 12px system-ui;box-shadow:0 1px 4px rgba(0,0,0,.25)}`}</style>
+      <style>{`.pin-label{background:white;color:${MAROON};border:none;font:600 12px system-ui;box-shadow:0 1px 4px rgba(0,0,0,.25)}.leaflet-control-attribution{font-size:9px!important;opacity:.75}`}</style>
       <div ref={el} style={{ position: "absolute", inset: 0 }} />
     </>
   );
