@@ -11,7 +11,7 @@ SunScreen finds the shadiest walking route between any two spots on Texas A&M's 
 
 ## Demo
 
-Try it live at **[sunscreen-psi.vercel.app](https://sunscreen-psi.vercel.app)**.
+Try it live at [sunscreen-walks.vercel.app](https://sunscreen-walks.vercel.app/).
 
 | Shade (maroon) vs. sun (gold) | Places grouped by type | Compare all three routes | How it works |
 |:-:|:-:|:-:|:-:|
