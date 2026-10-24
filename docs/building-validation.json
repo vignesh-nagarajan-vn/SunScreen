@@ -1,0 +1,45 @@
+{
+  "checked": "2026-10-24",
+  "environment": "Windows; Python 3.12; Node 22",
+  "backend_unit_tests": {
+    "passed": 41
+  },
+  "map_handoff_url_tests": {
+    "passed": 3
+  },
+  "browser_tests": {
+    "passed": 20,
+    "engines": [
+      "Chromium",
+      "WebKit"
+    ],
+    "scope": "Exported web app, phone viewports and desktop; deterministic actual-API fixtures; tile outage simulated"
+  },
+  "web_export": "passed",
+  "campus_route_audit": {
+    "cases": 14904,
+    "passed": 14904,
+    "unroutable": [],
+    "failures": [],
+    "building_routes": 2338,
+    "seconds": 212.15
+  },
+  "audit_weather": "Fixed clear sky, all 24*23 ordered place pairs at all 27 slots",
+  "input_sha256": {
+    "data/graph.pkl": "bbdbbcdcd64f0d89ffb69d3ef405751394cf9769400d1baf8b22e206e12f101a",
+    "data/building_passages.json": "1687b5886e26869995a2cedf52ef31e4d6681ac1d2aceb798150670fff3543f2"
+  },
+  "coverage": {
+    "building_footprints_audited": 1584,
+    "named_buildings_audited": 354,
+    "explicit_indoor_pedestrian_ways": 0,
+    "matched_roof_records": 22
+  },
+  "limits": [
+    "No physical door/corridor survey or real-device Expo Go test was performed.",
+    "Langford geometry and current access are provisional; unknown-hours access requires an explicit catalog policy and a visible notice.",
+    "Public data does not establish routable interiors for every campus building.",
+    "Max shade is the best evaluated Dijkstra candidate within the distance cap, not a proof of the global constrained optimum.",
+    "External maps can recalculate and omit building sections."
+  ]
+}
