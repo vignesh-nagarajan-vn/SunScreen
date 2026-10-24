@@ -216,7 +216,7 @@ def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destinat
 
 def places():
     return {"bounds": B, "default": DEFAULT,
-            "places": [{k: p[k] for k in ("id", "name", "lat", "lon")} for p in PLACES.values()]}
+            "places": [{k: p.get(k) for k in ("id", "name", "category", "lat", "lon")} for p in PLACES.values()]}
 
 
 _search = {}

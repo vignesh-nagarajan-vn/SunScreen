@@ -5,6 +5,7 @@ import {
 import Slider from "@react-native-community/slider";
 import RouteMap from "./RouteMap";
 import PlacePicker from "./PlacePicker";
+import About from "./About";
 import { API_BASE } from "./config";
 import { appleMapsUrl, googleMapsUrl, open } from "./openInMaps";
 import { INK, LINE, MAROON, MUTED, ROUTES, SUN, TINT } from "./theme";
@@ -21,6 +22,13 @@ const byId = Object.fromEntries(area.places.map((p) => [p.id, p]));
 const param = (p) => p.id ?? `${p.lat.toFixed(6)},${p.lon.toFixed(6)}`;
 const inBounds = (p, b) => p.lat >= b.south && p.lat <= b.north && p.lon >= b.west && p.lon <= b.east;
 const extraText = (s) => (s < 60 ? `+${s} s` : `+${(s / 60).toFixed(1)} min`);
+const tripKey = (a, b) => [a.lat, a.lon, b.lat, b.lon].map((v) => v.toFixed(5)).join();
+
+// Per-viewer conveniences (recent places, intro seen) persist in the browser; native keeps them for the session.
+const store = {
+  get: (k, d) => { try { return Platform.OS === "web" ? JSON.parse(localStorage.getItem(k)) ?? d : d; } catch { return d; } },
+  set: (k, v) => { try { if (Platform.OS === "web") localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+};
 
 // Start at the current time; on web, ?from=&to=&time=HH:MM&route= preselect a trip.
 const params = Platform.OS === "web" ? new URLSearchParams(window.location.search) : new URLSearchParams();
@@ -59,6 +67,9 @@ export default function App() {
   const [expanded, setExpanded] = useState(false); // phone card: all three routes vs. just the selected one
   const [playing, setPlaying] = useState(false);
   const [cardHeight, setCardHeight] = useState(300);
+  const [recents, setRecents] = useState(() => store.get("sunscreen-recents", []));
+  const [here, setHere] = useState(null); // last known GPS position, for distances in the picker
+  const [about, setAbout] = useState(() => Platform.OS === "web" && params.get("intro") !== "0" && !store.get("sunscreen-intro-seen", false));
 
   useEffect(() => {
     let cancelled = false;
@@ -102,6 +113,9 @@ export default function App() {
   };
   const choose = (which, place) => {
     (which === "from" ? setFrom : setTo)(place);
+    const next = [place, ...recents.filter((r) => r.name !== place.name)].slice(0, 5);
+    setRecents(next);
+    store.set("sunscreen-recents", next);
     setPicker(null);
     setPicking(null);
   };
@@ -110,18 +124,22 @@ export default function App() {
     choose(picking, { ...p, id: null, name: "Dropped pin" });
   };
   const showRoutes = data && !status.error;
+  // While a new trip loads, show placeholders instead of the previous trip's routes.
+  const stale = status.loading && (!data || tripKey(data.start, data.end) !== tripKey(from, to));
+  const closeAbout = () => { setAbout(false); store.set("sunscreen-intro-seen", true); };
 
   const controls = (
     <Controls
-      data={showRoutes ? data : null} status={status} selected={selected} setSelected={setSelected}
+      data={showRoutes && !stale ? data : null} stale={stale} status={status} selected={selected} setSelected={setSelected}
       preview={preview} minutes={minutes} setPreview={setPreview} setTime={setTime}
       playing={playing} togglePlay={togglePlay} expanded={wide || expanded} setExpanded={wide ? null : setExpanded}
     />
   );
   const mapPane = (
     <>
-      <RouteMap data={showRoutes ? data : null} selected={selected} bounds={area.bounds} picking={!!picking} onMapPress={onMapPress} />
-      {showRoutes && !picking && <Legend />}
+      <RouteMap data={showRoutes && !stale ? data : null} selected={selected} bounds={area.bounds} picking={!!picking} onMapPress={onMapPress}
+        layoutKey={picking ? 0 : cardHeight} />
+      {showRoutes && !stale && !picking && <Legend />}
       {picking && (
         <View style={styles.banner}>
           <Text style={styles.bannerText}>Tap the map to set your {picking === "from" ? "start" : "destination"}</Text>
@@ -133,11 +151,12 @@ export default function App() {
   const pickerSheet = picker && (
     <PlacePicker
       title={picker === "from" ? "Start" : "Destination"} places={area.places} bounds={area.bounds}
+      recents={recents} here={here} onLocated={setHere}
       onSelect={(p) => choose(picker, p)} onClose={() => setPicker(null)}
       onPickOnMap={() => { setPicking(picker); setPicker(null); }}
     />
   );
-  const header = <Header from={from} to={to} setPicker={setPicker} swap={() => { setFrom(to); setTo(from); }} />;
+  const header = <Header from={from} to={to} setPicker={setPicker} swap={() => { setFrom(to); setTo(from); }} onInfo={() => setAbout(true)} />;
 
   if (wide) {
     return (
@@ -148,6 +167,7 @@ export default function App() {
           {pickerSheet}
         </View>
         <View style={styles.map}>{mapPane}</View>
+        {about && <About onClose={closeAbout} />}
       </View>
     );
   }
@@ -161,16 +181,20 @@ export default function App() {
         <View style={styles.card} onLayout={(e) => setCardHeight(e.nativeEvent.layout.height)}>{controls}</View>
       )}
       {pickerSheet}
+      {about && <About onClose={closeAbout} />}
     </View>
   );
 }
 
-function Header({ from, to, setPicker, swap }) {
+function Header({ from, to, setPicker, swap, onInfo }) {
   return (
     <View style={styles.header}>
       <View style={styles.brandRow}>
         <Image source={require("./assets/logo.png")} style={styles.logo} />
         <Text style={styles.brand}>SunScreen</Text>
+        <Pressable onPress={onInfo} style={styles.info} hitSlop={8} accessibilityRole="button" accessibilityLabel="How SunScreen works">
+          <Text style={styles.infoText}>ⓘ</Text>
+        </Pressable>
       </View>
       <View style={styles.trip}>
         <View style={{ flex: 1 }}>
@@ -186,7 +210,7 @@ function Header({ from, to, setPicker, swap }) {
   );
 }
 
-function Controls({ data, status, selected, setSelected, preview, minutes, setPreview, setTime, playing, togglePlay, expanded, setExpanded }) {
+function Controls({ data, stale, status, selected, setSelected, preview, minutes, setPreview, setTime, playing, togglePlay, expanded, setExpanded }) {
   // Swipe the handle up/down (or tap it) to show all routes or just the selected one.
   const pan = useRef(PanResponder.create({
     onMoveShouldSetPanResponder: (_, g) => Math.abs(g.dy) > 8,
@@ -216,6 +240,7 @@ function Controls({ data, status, selected, setSelected, preview, minutes, setPr
         </View>
       )}
       <Slider
+        accessibilityLabel="Time of day"
         minimumValue={FIRST} maximumValue={LAST} step={30} value={minutes}
         onValueChange={setPreview} onSlidingComplete={setTime}
         minimumTrackTintColor={MAROON} maximumTrackTintColor="#d9cfcf" thumbTintColor={MAROON}
@@ -224,7 +249,8 @@ function Controls({ data, status, selected, setSelected, preview, minutes, setPr
         {["7 AM", "11 AM", "3 PM", "8 PM"].map((t) => <Text key={t} style={styles.tick}>{t}</Text>)}
       </View>
 
-      {status.error && <Text style={styles.error}>{status.error}</Text>}
+      {status.error && <Text style={styles.error} accessibilityLiveRegion="polite">{status.error}</Text>}
+      {stale && <Skeleton rows={expanded ? 3 : 1} />}
       {data && <Text style={styles.headline}>{headline(data)}</Text>}
       {routes.map(({ properties: p }) => (
         <RouteRow key={p.id} p={p} active={p.id === selected} onPress={() => setSelected(p.id)} />
@@ -236,6 +262,21 @@ function Controls({ data, status, selected, setSelected, preview, minutes, setPr
       )}
       {data && <Handoff data={data} selected={selected} />}
       {status.offline && <Text style={styles.offline}>Offline: showing saved routes for The Commons → Zachry</Text>}
+    </View>
+  );
+}
+
+// Gray placeholders while routes load.
+function Skeleton({ rows }) {
+  return (
+    <View accessibilityLabel="Loading routes">
+      <View style={[styles.skelLine, { width: "70%" }]} />
+      {Array.from({ length: rows }, (_, i) => (
+        <View key={i} style={[styles.row, styles.skelRow]}>
+          <View style={[styles.skelLine, { width: "45%", marginBottom: 0 }]} />
+          <View style={[styles.skelLine, { width: 48, height: 22, marginBottom: 0 }]} />
+        </View>
+      ))}
     </View>
   );
 }
@@ -259,7 +300,7 @@ function Legend() {
 
 function Endpoint({ label, place, onPress }) {
   return (
-    <Pressable onPress={onPress} style={styles.endpoint}>
+    <Pressable onPress={onPress} style={styles.endpoint} accessibilityRole="button" accessibilityLabel={`${label}: ${place.name}. Change`}>
       <Text style={styles.endpointLabel}>{label}</Text>
       <Text style={styles.endpointName} numberOfLines={1}>{place.name}</Text>
     </Pressable>
@@ -271,10 +312,12 @@ function Handoff({ data, selected }) {
   const feature = data.features.find((f) => f.properties.id === selected) ?? data.features[0];
   return (
     <View style={styles.handoff}>
-      <Pressable style={[styles.mapsButton, styles.mapsPrimary]} onPress={() => open(googleMapsUrl(feature, data.start, data.end))}>
+      <Pressable style={[styles.mapsButton, styles.mapsPrimary]} onPress={() => open(googleMapsUrl(feature, data.start, data.end))}
+        accessibilityRole="link" accessibilityLabel={`Open the ${feature.properties.label.toLowerCase()} route in Google Maps`}>
         <Text style={styles.mapsPrimaryText}>Open in Google Maps</Text>
       </Pressable>
-      <Pressable style={styles.mapsButton} onPress={() => open(appleMapsUrl(data.start, data.end))}>
+      <Pressable style={styles.mapsButton} onPress={() => open(appleMapsUrl(data.start, data.end))}
+        accessibilityRole="link" accessibilityLabel="Open in Apple Maps">
         <Text style={styles.mapsText}>Apple Maps</Text>
       </Pressable>
     </View>
@@ -285,7 +328,9 @@ function RouteRow({ p, active, onPress }) {
   const extra = p.extra_s > 0 ? ` · ${extraText(p.extra_s)}` : "";
   const style = ROUTES[p.id];
   return (
-    <Pressable onPress={onPress} style={[styles.row, active && styles.rowActive]}>
+    <Pressable onPress={onPress} style={[styles.row, active && styles.rowActive]} accessibilityRole="button"
+      accessibilityState={{ selected: active }}
+      accessibilityLabel={`${p.label}: ${p.time_min} minutes, ${p.shaded_pct} percent shaded`}>
       <View style={[styles.swatch, { backgroundColor: style.color }, style.dash && styles.swatchDashed]} />
       <View style={{ flex: 1 }}>
         <Text style={styles.rowTitle}>
@@ -310,7 +355,9 @@ const styles = StyleSheet.create({
   header: { backgroundColor: MAROON, paddingTop: topInset, paddingBottom: 12, paddingHorizontal: 16, gap: 10 },
   brandRow: { flexDirection: "row", alignItems: "center", gap: 8 },
   logo: { width: 28, height: 28 },
-  brand: { color: "white", fontSize: 20, fontWeight: "700", letterSpacing: 0.3 },
+  brand: { flex: 1, color: "white", fontSize: 20, fontWeight: "700", letterSpacing: 0.3 },
+  info: { width: 44, height: 36, alignItems: "flex-end", justifyContent: "center" },
+  infoText: { color: "white", fontSize: 22 },
   trip: { flexDirection: "row", alignItems: "center", backgroundColor: "white", borderRadius: 12, paddingLeft: 12 },
   tripDivider: { height: 1, backgroundColor: LINE },
   endpoint: { flexDirection: "row", alignItems: "center", paddingVertical: 10, gap: 10 },
@@ -355,6 +402,8 @@ const styles = StyleSheet.create({
   mapsPrimary: { flex: 1.6, backgroundColor: MAROON },
   mapsPrimaryText: { color: "white", fontWeight: "700", fontSize: 14 },
   mapsText: { color: MAROON, fontWeight: "700", fontSize: 14 },
+  skelRow: { justifyContent: "space-between", borderColor: "#eee" },
+  skelLine: { height: 14, borderRadius: 7, backgroundColor: "#eeeaea", marginBottom: 8 },
   error: { color: "#9a1b1b", fontSize: 14, marginVertical: 8, textAlign: "center" },
   offline: { marginTop: 6, fontSize: 12, color: "#9a5b00", textAlign: "center" },
 });

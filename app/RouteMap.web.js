@@ -14,7 +14,7 @@ function loadLeaflet() {
   return leaflet;
 }
 
-export default function RouteMap({ data, selected, bounds, picking, onMapPress }) {
+export default function RouteMap({ data, selected, bounds, picking, onMapPress, layoutKey }) {
   const el = useRef(null);
   const map = useRef(null);
   const press = useRef(onMapPress);
@@ -35,6 +35,7 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress }
       lock.current = () => {
         const m = map.current;
         m.invalidateSize();
+        m.setMinZoom(0); // getBoundsZoom clamps to the current minimum, so reset it first
         m.setMinZoom(m.getBoundsZoom(area));
         m.setMaxBounds(area.pad(0.03));
         if (lastFit.current) m.fitBounds(lastFit.current, { paddingTopLeft: [30, 70], paddingBottomRight: [30, 40], maxZoom: 18, animate: false });
@@ -50,6 +51,12 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress }
   useEffect(() => {
     if (el.current) el.current.style.cursor = picking ? "crosshair" : "";
   }, [picking]);
+
+  // The card above the map changed height: refit once the new size has been laid out.
+  useEffect(() => {
+    const t = setTimeout(() => map.current && lock.current(), 50);
+    return () => clearTimeout(t);
+  }, [layoutKey]);
 
   useEffect(() => {
     if (!data) return;

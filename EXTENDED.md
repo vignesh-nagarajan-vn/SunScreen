@@ -19,6 +19,15 @@ SunScreen finds shady walking routes anywhere on Texas A&M's main campus and the
    - **Max shade:** the shadiest route within +30% distance.
 7. **Open in Google Maps** hands the selected route to Google Maps for turn-by-turn walking directions. It passes three waypoints along the route, which is Google's limit on phones, so Google follows the shady path. **Apple Maps** URLs can't carry waypoints, so Apple gets the same start and destination and picks its own path.
 
+## Using the app
+
+- **From / To:** opens a picker with campus places grouped by type, your recent picks, distances once you've shared your location, address search, **My location** and **Pick on map**. The ⇅ button swaps the two.
+- **Map:** the selected route is colored segment by segment from shade (maroon) to sun (gold). The fastest route is dashed gray, and the third route is drawn thinner.
+- **Time:** drag the slider, tap **Now**, or tap **Play day** to step through the day while the routes redraw.
+- **Routes card:** on phones it shows the selected route; tap or swipe the handle to compare all three. Pick a route, then hand it off with **Open in Google Maps** or **Apple Maps**.
+- **ⓘ:** a short "How SunScreen works" explainer. It opens on the first visit to the website; add `?intro=0` to the URL to skip it.
+- **Wide screens** (900 px and up) put the controls in a side panel next to a full-height map.
+
 ## Setup
 
 You need [Miniforge](https://github.com/conda-forge/miniforge) (for PDAL and GDAL) and Node 20+ (for the app).

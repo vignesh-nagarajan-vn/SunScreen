@@ -12,32 +12,32 @@ BUFFER_M = 400
 # Geocodes outside this box are wrong matches (e.g. a "Haas Hall" in Germany) and are dropped.
 CAMPUS = {"south": 30.585, "north": 30.635, "west": -96.365, "east": -96.325}
 
-# id, display name, Nominatim query. Nominatim has no "The Commons", so it uses the dining hall.
+# id, category, display name, Nominatim query. Nominatim has no "The Commons", so it uses the dining hall.
 PLACES = [
-    ("commons", "The Commons", "Commons Dining Hall, College Station"),
-    ("zachry", "Zachry Engineering", "Zachry Engineering Education Complex"),
-    ("msc", "Memorial Student Center", "Memorial Student Center, College Station"),
-    ("evans", "Evans Library", "Sterling C. Evans Library"),
-    ("academic", "Academic Building", "Academic Building, College Station"),
-    ("century_tree", "Century Tree", "Century Tree, College Station"),
-    ("rudder", "Rudder Tower", "Rudder Tower"),
-    ("ssb", "Student Services Building", "Student Services Building, College Station"),
-    ("kyle", "Kyle Field", "Kyle Field"),
-    ("rec", "Student Rec Center", "Student Recreation Center, College Station"),
-    ("reed", "Reed Arena", "Reed Arena"),
-    ("sbisa", "Sbisa Dining Hall", "Sbisa Dining Hall"),
-    ("wehner", "Mays Business School", "Wehner Building, College Station"),
-    ("bell_tower", "Albritton Bell Tower", "Albritton Bell Tower"),
-    ("drill_field", "Simpson Drill Field", "Simpson Drill Field"),
-    ("corps", "Corps of Cadets Center", "Corps of Cadets Center"),
-    ("cushing", "Cushing Library", "Cushing Memorial Library"),
-    ("blocker", "Blocker Building", "Blocker Building, College Station"),
-    ("langford", "Langford Architecture", "Langford Architecture Center"),
-    ("agls", "AgriLife Sciences Building", "Agriculture and Life Sciences Building"),
-    ("aggie_park", "Aggie Park", "Aggie Park, College Station"),
-    ("spence_park", "Spence Park", "Spence Park, College Station"),
-    ("bush_library", "Bush Library", "George Bush Presidential Library"),
-    ("northgate", "Northgate", "Northgate, College Station"),
+    ("commons", "Dining", "The Commons", "Commons Dining Hall, College Station"),
+    ("zachry", "Academic", "Zachry Engineering", "Zachry Engineering Education Complex"),
+    ("msc", "Student life", "Memorial Student Center", "Memorial Student Center, College Station"),
+    ("evans", "Libraries", "Evans Library", "Sterling C. Evans Library"),
+    ("academic", "Academic", "Academic Building", "Academic Building, College Station"),
+    ("century_tree", "Landmarks", "Century Tree", "Century Tree, College Station"),
+    ("rudder", "Landmarks", "Rudder Tower", "Rudder Tower"),
+    ("ssb", "Student life", "Student Services Building", "Student Services Building, College Station"),
+    ("kyle", "Athletics", "Kyle Field", "Kyle Field"),
+    ("rec", "Athletics", "Student Rec Center", "Student Recreation Center, College Station"),
+    ("reed", "Athletics", "Reed Arena", "Reed Arena"),
+    ("sbisa", "Dining", "Sbisa Dining Hall", "Sbisa Dining Hall"),
+    ("wehner", "Academic", "Mays Business School", "Wehner Building, College Station"),
+    ("bell_tower", "Landmarks", "Albritton Bell Tower", "Albritton Bell Tower"),
+    ("drill_field", "Landmarks", "Simpson Drill Field", "Simpson Drill Field"),
+    ("corps", "Landmarks", "Corps of Cadets Center", "Corps of Cadets Center"),
+    ("cushing", "Libraries", "Cushing Library", "Cushing Memorial Library"),
+    ("blocker", "Academic", "Blocker Building", "Blocker Building, College Station"),
+    ("langford", "Academic", "Langford Architecture", "Langford Architecture Center"),
+    ("agls", "Academic", "AgriLife Sciences Building", "Agriculture and Life Sciences Building"),
+    ("aggie_park", "Parks & neighborhoods", "Aggie Park", "Aggie Park, College Station"),
+    ("spence_park", "Parks & neighborhoods", "Spence Park", "Spence Park, College Station"),
+    ("bush_library", "Libraries", "Bush Library", "George Bush Presidential Library"),
+    ("northgate", "Parks & neighborhoods", "Northgate", "Northgate, College Station"),
 ]
 DEFAULT = ("commons", "zachry")
 
@@ -54,7 +54,7 @@ args = p.parse_args()
 overrides = dict(args.place)
 
 places = []
-for pid, name, query in PLACES:
+for pid, category, name, query in PLACES:
     if pid in overrides:
         (lat, lon), source = overrides[pid], "cli"
     else:
@@ -67,7 +67,7 @@ for pid, name, query in PLACES:
     if not (CAMPUS["south"] <= lat <= CAMPUS["north"] and CAMPUS["west"] <= lon <= CAMPUS["east"]):
         print(f"SKIP {name}: geocoded to {lat:.5f}, {lon:.5f}, outside campus")
         continue
-    places.append({"id": pid, "name": name, "lat": lat, "lon": lon, "source": source})
+    places.append({"id": pid, "name": name, "category": category, "lat": lat, "lon": lon, "source": source})
     print(f"{name:28s} {lat:.6f}, {lon:.6f}  ({source})")
 ids = {pl["id"] for pl in places}
 if not set(DEFAULT) <= ids:

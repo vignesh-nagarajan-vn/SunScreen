@@ -3,6 +3,7 @@
     {
       "id": "commons",
       "name": "The Commons",
+      "category": "Dining",
       "lat": 30.6155193,
       "lon": -96.3361609,
       "source": "nominatim"
@@ -10,6 +11,7 @@
     {
       "id": "zachry",
       "name": "Zachry Engineering",
+      "category": "Academic",
       "lat": 30.6213752,
       "lon": -96.3402021,
       "source": "nominatim"
@@ -17,6 +19,7 @@
     {
       "id": "msc",
       "name": "Memorial Student Center",
+      "category": "Student life",
       "lat": 30.6122297,
       "lon": -96.3412229,
       "source": "nominatim"
@@ -24,6 +27,7 @@
     {
       "id": "evans",
       "name": "Evans Library",
+      "category": "Libraries",
       "lat": 30.6168208,
       "lon": -96.3391984,
       "source": "nominatim"
@@ -31,6 +35,7 @@
     {
       "id": "academic",
       "name": "Academic Building",
+      "category": "Academic",
       "lat": 30.6157404,
       "lon": -96.3407842,
       "source": "nominatim"
@@ -38,6 +43,7 @@
     {
       "id": "century_tree",
       "name": "Century Tree",
+      "category": "Landmarks",
       "lat": 30.6158806,
       "lon": -96.3413475,
       "source": "nominatim"
@@ -45,6 +51,7 @@
     {
       "id": "rudder",
       "name": "Rudder Tower",
+      "category": "Landmarks",
       "lat": 30.6128606,
       "lon": -96.3403448,
       "source": "nominatim"
@@ -52,6 +59,7 @@
     {
       "id": "ssb",
       "name": "Student Services Building",
+      "category": "Student life",
       "lat": 30.6141742,
       "lon": -96.3413579,
       "source": "nominatim"
@@ -59,6 +67,7 @@
     {
       "id": "kyle",
       "name": "Kyle Field",
+      "category": "Athletics",
       "lat": 30.6098548,
       "lon": -96.3403698,
       "source": "nominatim"
@@ -66,6 +75,7 @@
     {
       "id": "rec",
       "name": "Student Rec Center",
+      "category": "Athletics",
       "lat": 30.6071334,
       "lon": -96.3428624,
       "source": "nominatim"
@@ -73,6 +83,7 @@
     {
       "id": "reed",
       "name": "Reed Arena",
+      "category": "Athletics",
       "lat": 30.6056832,
       "lon": -96.3462955,
       "source": "nominatim"
@@ -80,6 +91,7 @@
     {
       "id": "sbisa",
       "name": "Sbisa Dining Hall",
+      "category": "Dining",
       "lat": 30.6171429,
       "lon": -96.3438025,
       "source": "nominatim"
@@ -87,6 +99,7 @@
     {
       "id": "wehner",
       "name": "Mays Business School",
+      "category": "Academic",
       "lat": 30.610444,
       "lon": -96.3512091,
       "source": "nominatim"
@@ -94,6 +107,7 @@
     {
       "id": "bell_tower",
       "name": "Albritton Bell Tower",
+      "category": "Landmarks",
       "lat": 30.6131298,
       "lon": -96.3446636,
       "source": "nominatim"
@@ -101,6 +115,7 @@
     {
       "id": "drill_field",
       "name": "Simpson Drill Field",
+      "category": "Landmarks",
       "lat": 30.6135004,
       "lon": -96.3427367,
       "source": "nominatim"
@@ -108,6 +123,7 @@
     {
       "id": "corps",
       "name": "Corps of Cadets Center",
+      "category": "Landmarks",
       "lat": 30.6120939,
       "lon": -96.3375242,
       "source": "nominatim"
@@ -115,6 +131,7 @@
     {
       "id": "cushing",
       "name": "Cushing Library",
+      "category": "Libraries",
       "lat": 30.6163551,
       "lon": -96.3399534,
       "source": "nominatim"
@@ -122,6 +139,7 @@
     {
       "id": "blocker",
       "name": "Blocker Building",
+      "category": "Academic",
       "lat": 30.6196311,
       "lon": -96.3421599,
       "source": "nominatim"
@@ -129,6 +147,7 @@
     {
       "id": "langford",
       "name": "Langford Architecture",
+      "category": "Academic",
       "lat": 30.6188047,
       "lon": -96.3376411,
       "source": "nominatim"
@@ -136,6 +155,7 @@
     {
       "id": "agls",
       "name": "AgriLife Sciences Building",
+      "category": "Academic",
       "lat": 30.6056395,
       "lon": -96.3507785,
       "source": "nominatim"
@@ -143,6 +163,7 @@
     {
       "id": "aggie_park",
       "name": "Aggie Park",
+      "category": "Parks & neighborhoods",
       "lat": 30.609532,
       "lon": -96.3365261,
       "source": "nominatim"
@@ -150,6 +171,7 @@
     {
       "id": "spence_park",
       "name": "Spence Park",
+      "category": "Parks & neighborhoods",
       "lat": 30.6127894,
       "lon": -96.3381439,
       "source": "nominatim"
@@ -157,6 +179,7 @@
     {
       "id": "bush_library",
       "name": "Bush Library",
+      "category": "Libraries",
       "lat": 30.5960994,
       "lon": -96.3534813,
       "source": "nominatim"
@@ -164,6 +187,7 @@
     {
       "id": "northgate",
       "name": "Northgate",
+      "category": "Parks & neighborhoods",
       "lat": 30.6256273,
       "lon": -96.3453931,
       "source": "nominatim"
