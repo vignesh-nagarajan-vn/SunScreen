@@ -11,10 +11,12 @@ SunScreen finds the shadiest walking routes across Texas A&M's campus for any ti
 
 ## Demo v1
 
+Try it live at **[sunscreen-psi.vercel.app](https://sunscreen-psi.vercel.app)**.
+
 | 2 PM, recommended | 2 PM, max shade | 10:30 AM | 7:30 PM, sun down |
 |:-:|:-:|:-:|:-:|
 | <img src="demo-v1/screenshots/1-afternoon-recommended.png" width="200"> | <img src="demo-v1/screenshots/2-afternoon-max-shade.png" width="200"> | <img src="demo-v1/screenshots/3-morning.png" width="200"> | <img src="demo-v1/screenshots/4-sun-down.png" width="200"> |
 
 Demo v1 routes a walk from The Commons to the Zachry Engineering Education Complex. A one-time pipeline turns LiDAR into 1 m height maps, casts shadows from every roof and tree for each half hour from 7 AM to 8 PM, and records how much of each footpath is shaded. The API weighs that shade against the cloud forecast. It returns the fastest route, a recommended route that adds about a minute for noticeably more shade, and a max-shade route; at 2 PM that's 45%, 67% and 81% shaded.
 
-The full pipeline, API and app run end to end on real data, and both the web and native builds compile. The app hasn't been tested on a phone in Expo Go yet. Tree shade is undercounted because the available LiDAR was flown in winter, so newer TxGIO tiles are the next upgrade.
+The full pipeline, API and app run end to end on real data, and both the web and native builds compile. The live web demo uses routes and weather saved on October 22, 2026, and the app hasn't been tested on a phone in Expo Go yet. Tree shade is undercounted because the available LiDAR was flown in winter, so newer TxGIO tiles are the next upgrade.

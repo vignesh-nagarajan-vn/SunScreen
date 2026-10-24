@@ -1,6 +1,6 @@
 PY ?= python
 
-.PHONY: data test api app web fallback
+.PHONY: data test api app web static fallback
 
 data: test
 	$(PY) pipeline/01_area.py
@@ -19,6 +19,10 @@ app:
 
 web:
 	cd app && npm install && npx expo start --web
+
+# Static web build that uses the bundled routes (no API), e.g. for Vercel: vercel deploy web-dist
+static:
+	cd app && EXPO_PUBLIC_STATIC_DEMO=1 npx expo export --platform web --output-dir ../web-dist
 
 # Re-bake app/fallback.json (every time slot) from the current graph and weather.
 fallback:

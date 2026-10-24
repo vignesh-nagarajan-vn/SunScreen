@@ -8,6 +8,8 @@ SunScreen finds a shady walk from The Commons to the Zachry Engineering Educatio
 |:-:|:-:|:-:|:-:|
 | <img src="screenshots/1-afternoon-recommended.png" width="200"> | <img src="screenshots/2-afternoon-max-shade.png" width="200"> | <img src="screenshots/3-morning.png" width="200"> | <img src="screenshots/4-sun-down.png" width="200"> |
 
+**Live demo:** [sunscreen-psi.vercel.app](https://sunscreen-psi.vercel.app). It's the static web build (`make static`) and uses the routes and weather saved in `app/fallback.json` for October 22, 2026, so it needs no API.
+
 These screenshots come from the web build (`make web`), which uses a Leaflet map. In Expo Go the same screen uses the phone's native map.
 
 ## How it works
@@ -37,6 +39,7 @@ make data   # ~5 min: geocode, LiDAR download, shadows, graph -> data/
 make api    # http://localhost:8000/route?time=14:00
 make app    # Expo dev server; scan the QR code with Expo Go
 make web    # the same app in a browser
+make static # static build in web-dist/ with saved routes; deploy with `npx vercel deploy web-dist --prod`
 ```
 
 Check the API with:

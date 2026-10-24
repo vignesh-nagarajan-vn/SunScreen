@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { Image, Platform, Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
 import Slider from "@react-native-community/slider";
 import RouteMap from "./RouteMap";
-import { API_BASE } from "./config";
+import { API_BASE, STATIC_DEMO } from "./config";
 import { INK, LINE, MAROON, MUTED, ROUTES, TINT } from "./theme";
 import fallback from "./fallback.json";
 
 const FIRST = 7 * 60, LAST = 20 * 60;
 const hhmm = (min) => `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
+const longDate = (iso) => new Date(`${iso}T12:00`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 const clock = (min) => `${((Math.floor(min / 60) + 11) % 12) + 1}:${String(min % 60).padStart(2, "0")} ${min < 720 ? "AM" : "PM"}`;
 
 // Start at the current time (or ?time=HH:MM&route=id on web), snapped to a 30-min slot.
@@ -35,6 +36,7 @@ export default function App() {
   const [cardHeight, setCardHeight] = useState(360);
 
   useEffect(() => {
+    if (STATIC_DEMO) return setData(fallback[hhmm(minutes)]);
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 4000);
     fetch(`${API_BASE}/route?time=${hhmm(minutes)}`, { signal: ctrl.signal })
@@ -79,7 +81,8 @@ export default function App() {
         ))}
 
         <Text style={styles.summary}>{data.summary}</Text>
-        {offline && <Text style={styles.offline}>Offline: showing saved routes for {data.date}</Text>}
+        {STATIC_DEMO && <Text style={styles.saved}>Hosted demo: saved routes and weather for {longDate(data.date)}</Text>}
+        {!STATIC_DEMO && offline && <Text style={styles.offline}>Offline: showing saved routes for {longDate(data.date)}</Text>}
       </View>
     </View>
   );
@@ -129,4 +132,5 @@ const styles = StyleSheet.create({
   shade: { fontSize: 20, fontWeight: "700", color: INK },
   summary: { marginTop: 4, fontSize: 13, color: INK, textAlign: "center" },
   offline: { marginTop: 4, fontSize: 12, color: "#9a5b00", textAlign: "center" },
+  saved: { marginTop: 4, fontSize: 12, color: MUTED, textAlign: "center" },
 });
