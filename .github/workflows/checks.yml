@@ -25,7 +25,7 @@ jobs:
       - run: python tests/make_browser_fixtures.py
       - run: npm ci --no-audit --no-fund
         working-directory: app
-      - run: npm run test:urls
+      - run: npm test
         working-directory: app
       - run: npx playwright install --with-deps chromium webkit
         working-directory: app
