@@ -1,0 +1,9 @@
+{
+  "expo": {
+    "name": "Shade Route",
+    "slug": "shade-route",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light"
+  }
+}

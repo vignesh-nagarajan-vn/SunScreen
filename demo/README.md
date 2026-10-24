@@ -36,10 +36,16 @@ Check the API with:
 curl "localhost:8000/route?time=14:00&alpha=1"
 ```
 
+### Data notes
+
+- **LiDAR source:** the default is the USGS 3DEP `TX_RedRiver_3Area_B2_2018` dataset, about 4 pts/m², flown January 8–10, 2017. It has no vegetation classes, so the CHM is zero. Trees still cast shade through the DSM, but they were mostly leafless in January, so tree shade is undercounted. TxGIO StratMap LiDAR tiles fix this (see Options).
+- **Geocoding:** Nominatim doesn't know "The Commons", so the start point is geocoded as "Commons Dining Hall".
+- **Windows:** keep the conda install path short. Deep package paths can exceed the 260-character limit.
+
 ### Options
 
 - **Endpoints:** check the coordinates `01_area` prints. To override them, run `python pipeline/01_area.py --start 30.61,-96.34 --end 30.62,-96.34`.
-- **Local LiDAR:** put TxGIO 2025 Brazos `.laz` tiles in `data/raw/` and `02_lidar` uses them instead of the 3DEP EPT.
+- **Local LiDAR:** put TxGIO StratMap Brazos point-cloud `.laz` tiles (from data.geographic.texas.gov) in `data/raw/` and `02_lidar` uses them instead of the 3DEP EPT.
 - **Date:** shadows default to today. Run `python pipeline/03_shade.py --date 2026-06-21` to use another date.
 - **Fallback:** after `make data`, run `make fallback` to re-bake `app/fallback.json`.
 
