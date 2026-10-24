@@ -1,0 +1,40 @@
+name: Building passage checks
+
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+
+jobs:
+  routes-and-phone-web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python -m unittest discover -s tests -p 'test_*.py'
+      - run: python scripts/audit_routes.py --all-slots
+      - run: python tests/make_browser_fixtures.py
+      - run: npm ci --no-audit --no-fund
+        working-directory: app
+      - run: npm run test:urls
+        working-directory: app
+      - run: npx playwright install --with-deps chromium webkit
+        working-directory: app
+      - run: npm run export:web && npm run test:web
+        working-directory: app
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: route-validation
+          path: |
+            tmp/reports/
+            app/test-results/
