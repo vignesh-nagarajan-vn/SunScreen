@@ -2,6 +2,7 @@
 data/*
 !data/area.json
 !data/graph.geojson
+!data/graph.pkl
 *.laz
 *.las
 *.tif
@@ -13,5 +14,7 @@ app/.expo/
 # osmnx HTTP cache
 cache/
 web-dist/
+dist/
+.vercel/
 deploy/
 .env*.local

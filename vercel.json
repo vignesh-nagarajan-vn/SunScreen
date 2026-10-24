@@ -1,0 +1,8 @@
+{
+  "framework": null,
+  "installCommand": "npm ci --prefix app",
+  "buildCommand": "cd app && npx expo export --platform web --output-dir ../dist",
+  "outputDirectory": "dist",
+  "rewrites": [{ "source": "/api/(.*)", "destination": "/api/index" }],
+  "functions": { "api/index.py": { "includeFiles": "data/graph.pkl", "maxDuration": 30 } }
+}

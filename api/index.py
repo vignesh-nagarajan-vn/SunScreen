@@ -1,4 +1,4 @@
-"""SunScreen routing API. Run: uvicorn main:app --host 0.0.0.0 --port 8000
+"""SunScreen routing API. Run: uvicorn index:app --host 0.0.0.0 --port 8000
 
 Every endpoint is served at /x and /api/x, so the same app runs locally and as a Vercel function.
 """

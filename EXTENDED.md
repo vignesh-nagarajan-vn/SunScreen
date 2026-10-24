@@ -46,7 +46,7 @@ make bake     # bundle app/places.json and the offline routes in app/fallback.js
 make api      # http://localhost:8000/api/route?time=14:00&from=commons&to=zachry
 make web      # the app in a browser, using the local API
 make app      # Expo dev server; scan the QR code with Expo Go
-make deploy   # web app + API to Vercel (link once: cd deploy && npx vercel link --project sunscreen)
+make deploy   # web app + API to Vercel (pushes to main also redeploy; link once: npx vercel link)
 ```
 
 Check the API with:
