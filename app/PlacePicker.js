@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Pressable, SectionList, StyleSheet, Text, TextInput, View } from "react-native";
 import { API_BASE } from "./config";
 import { currentPosition } from "./location";
-import { INK, LINE, MAROON, MUTED, TINT } from "./theme";
+import { useTheme, useThemedStyles } from "./ThemeContext";
 
 const CATEGORIES = ["Academic", "Libraries", "Dining", "Student life", "Athletics", "Landmarks", "Parks & neighborhoods"];
 const ICONS = {
@@ -17,6 +17,8 @@ function distance(a, b) {
 
 // Full-screen chooser for a route endpoint: grouped campus places, recents, address search, GPS, or a map tap.
 export default function PlacePicker({ title, places, bounds, recents, here, onLocated, onSelect, onPickOnMap, onClose }) {
+  const styles = useThemedStyles(createStyles);
+  const { colors: { MUTED } } = useTheme();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState(null);
   const [status, setStatus] = useState("");
@@ -90,6 +92,7 @@ export default function PlacePicker({ title, places, bounds, recents, here, onLo
 }
 
 function Action({ label, onPress }) {
+  const styles = useThemedStyles(createStyles);
   return (
     <Pressable onPress={onPress} style={styles.action} accessibilityRole="button">
       <Text style={styles.actionText}>{label}</Text>
@@ -97,8 +100,8 @@ function Action({ label, onPress }) {
   );
 }
 
-const styles = StyleSheet.create({
-  sheet: { ...StyleSheet.absoluteFillObject, backgroundColor: "white", paddingHorizontal: 16, paddingTop: 16, zIndex: 2000 },
+const createStyles = ({ INK, LINE, MAROON, MUTED, SUN, TINT, surface, header, onAccent, track, handle, skeleton, error, warning, overlay }) => StyleSheet.create({
+  sheet: { ...StyleSheet.absoluteFillObject, backgroundColor: surface, paddingHorizontal: 16, paddingTop: 16, zIndex: 2000 },
   top: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 },
   title: { fontSize: 20, fontWeight: "700", color: MAROON },
   closeButton: { minHeight: 44, justifyContent: "center", paddingHorizontal: 4 },

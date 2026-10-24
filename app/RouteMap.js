@@ -1,13 +1,16 @@
 import { useEffect, useRef } from "react";
 import { Platform, StyleSheet, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
-import { MAROON, ROUTES, shadeColor, shadeRuns } from "./theme";
+import { routeRuns } from "./theme";
+import { useTheme, useThemedStyles } from "./ThemeContext";
 
 const toLatLng = (coords) => coords.map(([longitude, latitude]) => ({ latitude, longitude }));
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
 // Native map (Expo Go). RouteMap.web.js is the browser version.
 export default function RouteMap({ data, selected, bounds, picking, onMapPress }) {
+  const styles = useThemedStyles(createStyles);
+  const { colors: { MAROON, surface }, routes: ROUTES, night } = useTheme();
   const map = useRef(null);
   const fittedTrip = useRef(null);
   const area = {
@@ -61,6 +64,7 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress }
       onRegionChangeComplete={keepInside}
       onPress={(e) => picking && onMapPress({ lat: e.nativeEvent.coordinate.latitude, lon: e.nativeEvent.coordinate.longitude })}
       toolbarEnabled={false}
+      userInterfaceStyle={night ? "dark" : "light"}
     >
       {others.map((f) => {
         const style = ROUTES[f.properties.id];
@@ -75,9 +79,9 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress }
         );
       })}
       {/* Selected route: white casing, then each edge colored from shade (route color) to sun (gold). */}
-      {chosen && <Polyline coordinates={toLatLng(chosen.geometry.coordinates)} strokeColor="white" strokeWidth={11} />}
-      {chosen && shadeRuns(chosen).map((run, i) => (
-        <Polyline key={`run${i}`} coordinates={toLatLng(run.coords)} strokeColor={shadeColor(ROUTES[selected].color, run.shade)} strokeWidth={7} />
+      {chosen && <Polyline coordinates={toLatLng(chosen.geometry.coordinates)} strokeColor={surface} strokeWidth={11} />}
+      {chosen && routeRuns(chosen, ROUTES[selected].color).map((run, i) => (
+        <Polyline key={`run${i}`} coordinates={toLatLng(run.coords)} strokeColor={run.color} strokeWidth={7} />
       ))}
       {data && (
         <>
@@ -97,8 +101,8 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress }
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = ({ INK, LINE, MAROON, MUTED, SUN, TINT, surface, header, onAccent, track, handle, skeleton, error, warning, overlay }) => StyleSheet.create({
   pin: { width: 18, height: 18, borderRadius: 9, borderWidth: 3, borderColor: MAROON },
-  pinStart: { backgroundColor: "white" },
-  pinEnd: { backgroundColor: MAROON, borderColor: "white" },
+  pinStart: { backgroundColor: surface },
+  pinEnd: { backgroundColor: MAROON, borderColor: surface },
 });
