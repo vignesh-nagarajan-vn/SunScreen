@@ -85,7 +85,7 @@ def category(kind, name):
             'TAMU FOUNDATION': 'Student life'}.get(kind, 'Campus facilities')
 
 
-def build(raw, graph):
+def build(raw, graph, reviewed_approaches=None):
     by_number = {number: pid for pid, number in LEGACY.items()}
     records = {p['id']: dict(p, aliases=ALIASES.get(p['id'], [])) for p in graph.graph['places']}
     excluded, reasons, seen_numbers = [], Counter(), set()
@@ -137,6 +137,9 @@ def build(raw, graph):
                         'building_code': code, 'building_number': number,
                         'aliases': list(dict.fromkeys(x for x in aliases if x)),
                         'source_object_id': a['OBJECTID']}
+    for pid, approach in (reviewed_approaches or {}).items():
+        if pid in records:
+            records[pid]['routing_anchor'] = approach
     places, diagnostics = attach_places(graph, list(records.values()))
     for item in diagnostics:
         reasons[item['reason']] += 1
@@ -159,7 +162,13 @@ if __name__ == '__main__':
     if args.download:
         download(graph.graph['bounds'], snapshot)
     raw_bytes = snapshot.read_bytes()
-    places, report = build(json.loads(raw_bytes.decode('utf-8-sig')), graph)
+    # Preserve manually reviewed entrances instead of restoring centroid snaps.
+    try:
+        saved = json.loads((ROOT / 'data/campus_places.json').read_text(encoding='utf-8'))
+        approaches = {p['id']: p['routing_anchor'] for p in saved['places'] if p.get('routing_anchor')}
+    except (OSError, ValueError, KeyError, TypeError):
+        approaches = {}
+    places, report = build(json.loads(raw_bytes.decode('utf-8-sig')), graph, approaches)
     catalog = {'schema_version': 1, 'retrieved_at': datetime.now(timezone.utc).isoformat(),
                'source': {'name': 'Texas A&M Aggie Map, University Building layer', 'url': SOURCE,
                           'snapshot_sha256': hashlib.sha256(raw_bytes).hexdigest(),

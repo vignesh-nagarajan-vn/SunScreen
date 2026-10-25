@@ -89,19 +89,26 @@ def attach_places(graph, records):
             aliases = record.get('aliases', [])
             if not isinstance(aliases, list) or len(aliases) > 60 or any(not isinstance(a, str) or len(a) > 200 for a in aliases):
                 raise ValueError('Invalid aliases')
+            approach = record.get('routing_anchor')
+            if approach is not None:
+                node = approach['node']
+                if node not in covered_component or approach['node_coordinates'] != [graph.nodes[node]['x'], graph.nodes[node]['y']]:
+                    raise ValueError('Reviewed entrance approach changed; needs review')
             if pid in legacy:
                 result[pid] = {**record, **legacy[pid], 'aliases': aliases,
                                'building_code': record.get('building_code', ''),
                                'building_number': record.get('building_number', '')}
+                if approach is not None:
+                    result[pid].update(node=node, node_coordinates=approach['node_coordinates'])
                 continue
             lat, lon = record['lat'], record['lon']
             if any(isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v) for v in (lat, lon)):
                 raise ValueError('Non-finite coordinates')
             if not bounds['south'] <= lat <= bounds['north'] or not bounds['west'] <= lon <= bounds['east']:
                 raise ValueError('Outside the existing routing area')
-            node = record.get('node')
+            node = (approach or record).get('node')
             current = [graph.nodes[node]['x'], graph.nodes[node]['y']] if node in component else None
-            if current is None or current != record.get('node_coordinates'):
+            if current is None or current != (approach or record).get('node_coordinates'):
                 node, current = min(nodes, key=lambda item: metres([lon, lat], item[1]))
             snap = metres([lon, lat], current)
             if snap > 250:

@@ -404,6 +404,331 @@
         ],
         "note": "Boundary/courtyard validation only; not proof that all walls or doors are current."
       }
+    },
+    {
+      "id": "msc-honor-integrity-first-floor",
+      "building": "Memorial Student Center",
+      "enabled": true,
+      "access": "public",
+      "access_verified": false,
+      "weekly_hours": {
+        "mon": [
+          [
+            "07:00",
+            "24:00"
+          ]
+        ],
+        "tue": [
+          [
+            "07:00",
+            "24:00"
+          ]
+        ],
+        "wed": [
+          [
+            "07:00",
+            "24:00"
+          ]
+        ],
+        "thu": [
+          [
+            "07:00",
+            "24:00"
+          ]
+        ],
+        "fri": [
+          [
+            "07:00",
+            "24:00"
+          ]
+        ],
+        "sat": [
+          [
+            "07:00",
+            "24:00"
+          ]
+        ],
+        "sun": [
+          [
+            "10:00",
+            "24:00"
+          ]
+        ]
+      },
+      "verification": "Plan-derived northwestern Honor entrance to Integrity entrance via Hall of Honor and the shared corridor west of the Flag Room. Door positions and current access remain unconfirmed; the unmapped Honor approach receives no shade credit.",
+      "sources": [
+        {
+          "url": "https://ucenter.tamu.edu/wp-content/uploads/2024/12/MSC_FirstFloor_FloorPlan.jpg",
+          "detail": "Official plan: Honor entrance, Hall of Honor, and shared north-south corridor between dining and the Flag Room."
+        },
+        {
+          "url": "https://ucenter.tamu.edu/facilities/memorial-student-center/points-of-interest/",
+          "detail": "Current official description places the Veterans Lounge beside Honor entrance and Hall of Honor."
+        },
+        {
+          "url": "https://students.ans.org/wp-content/uploads/2016/12/2015TAMU.pdf",
+          "detail": "PDF page 29, first level: Leadership entrance (14), Retail Hall (13), shared corridor beside Respect entrance (15), cross hall by the Flag Room (7), 12th Man Hall (2), Integrity entrance (1). Organizer-published plan; schematic trace, not a survey."
+        },
+        {
+          "url": "https://ucenter.tamu.edu/wp-content/uploads/2024/12/MSC_FirstFloor_FloorPlan.jpg",
+          "detail": "Current official event-space detail confirms the dining/Flag Room corridor arrangement."
+        },
+        {
+          "url": "https://ucenter.tamu.edu/facilities/memorial-student-center/",
+          "detail": "Current public building hours."
+        },
+        {
+          "url": "https://www.openstreetmap.org/relation/2083295",
+          "detail": "Building outline used for alignment; has no entrance-tagged boundary nodes. OSM contributors, ODbL-1.0."
+        },
+        {
+          "url": "https://www.openstreetmap.org/node/13100037023",
+          "detail": "Connected public walkway north of the Honor entrance. The short plan-derived doorway approach is provisional and unshaded."
+        },
+        {
+          "url": "https://www.openstreetmap.org/node/5133673833",
+          "detail": "Existing graph-connected footway endpoint on the northeast building boundary near the Integrity entrance; entrance is not explicitly tagged."
+        }
+      ],
+      "doors": [
+        {
+          "node": 13100037023,
+          "name": "Northwest pedestrian approach to Honor entrance",
+          "coordinates": [
+            -96.3422862,
+            30.612818
+          ]
+        },
+        {
+          "node": 5133673833,
+          "name": "Northeast pedestrian approach at Integrity entrance",
+          "coordinates": [
+            -96.3410738,
+            30.613117
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "environment": "outdoor",
+          "description": "Unverified unshaded approach from north walkway to Honor doorway",
+          "coordinates": [
+            [
+              -96.3422862,
+              30.612818
+            ],
+            [
+              -96.342038522,
+              30.61280314
+            ]
+          ]
+        },
+        {
+          "environment": "indoor",
+          "description": "Honor entrance to Hall of Honor, avoiding the meeting rooms",
+          "coordinates": [
+            [
+              -96.342038522,
+              30.61280314
+            ],
+            [
+              -96.341814223,
+              30.612553218
+            ],
+            [
+              -96.34148467,
+              30.61277539
+            ]
+          ]
+        },
+        {
+          "environment": "indoor",
+          "description": "Shared corridor between dining and the Flag Room",
+          "coordinates": [
+            [
+              -96.34148467,
+              30.61277539
+            ],
+            [
+              -96.341108703,
+              30.612356473
+            ],
+            [
+              -96.340606135,
+              30.612695286
+            ]
+          ]
+        },
+        {
+          "environment": "indoor",
+          "description": "12th Man Hall to the Integrity entrance",
+          "coordinates": [
+            [
+              -96.340606135,
+              30.612695286
+            ],
+            [
+              -96.340973558,
+              30.613104683
+            ],
+            [
+              -96.3410738,
+              30.613117
+            ]
+          ]
+        }
+      ],
+      "footprint_review": {
+        "source": "https://www.openstreetmap.org/relation/2083295",
+        "license": "ODbL-1.0",
+        "outer": [
+          [
+            -96.3425496,
+            30.6121693
+          ],
+          [
+            -96.3419456,
+            30.6125891
+          ],
+          [
+            -96.3420965,
+            30.61276
+          ],
+          [
+            -96.3420409,
+            30.6127996
+          ],
+          [
+            -96.3419791,
+            30.6128432
+          ],
+          [
+            -96.34179,
+            30.6126288
+          ],
+          [
+            -96.341401,
+            30.6128963
+          ],
+          [
+            -96.3413008,
+            30.6127789
+          ],
+          [
+            -96.3411977,
+            30.6128546
+          ],
+          [
+            -96.3412493,
+            30.6129102
+          ],
+          [
+            -96.3410481,
+            30.613042
+          ],
+          [
+            -96.3410946,
+            30.6131028
+          ],
+          [
+            -96.3410738,
+            30.613117
+          ],
+          [
+            -96.3409839,
+            30.6131784
+          ],
+          [
+            -96.340965,
+            30.6131913
+          ],
+          [
+            -96.340643,
+            30.612819
+          ],
+          [
+            -96.3404074,
+            30.61257
+          ],
+          [
+            -96.3405785,
+            30.6124681
+          ],
+          [
+            -96.3404708,
+            30.6123648
+          ],
+          [
+            -96.3410469,
+            30.611982
+          ],
+          [
+            -96.3409871,
+            30.6119201
+          ],
+          [
+            -96.3418292,
+            30.6113761
+          ],
+          [
+            -96.3420073,
+            30.6115723
+          ],
+          [
+            -96.3425496,
+            30.6121693
+          ]
+        ],
+        "holes": [
+          [
+            [
+              -96.3418916,
+              30.61229
+            ],
+            [
+              -96.3418519,
+              30.612317
+            ],
+            [
+              -96.3416884,
+              30.6121391
+            ],
+            [
+              -96.3418582,
+              30.6120234
+            ],
+            [
+              -96.3417933,
+              30.6119513
+            ],
+            [
+              -96.3419088,
+              30.6118743
+            ],
+            [
+              -96.3421306,
+              30.6121207
+            ],
+            [
+              -96.3421729,
+              30.6120928
+            ],
+            [
+              -96.3422384,
+              30.6121665
+            ],
+            [
+              -96.3419505,
+              30.6123562
+            ],
+            [
+              -96.3418916,
+              30.61229
+            ]
+          ]
+        ],
+        "note": "Boundary/courtyard validation only; not proof that all walls or doors are current."
+      }
     }
   ],
   "covered_walkways": [

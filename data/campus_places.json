@@ -8775,12 +8775,24 @@
         "bldg 1500"
       ],
       "source_object_id": 1594,
-      "node": 11693047232,
+      "node": 11693047228,
       "node_coordinates": [
-        -96.3461465,
-        30.6110882
+        -96.3462673,
+        30.6112719
       ],
-      "snap_m": 7.0
+      "snap_m": 19.7,
+      "routing_anchor": {
+        "node": 11693047228,
+        "node_coordinates": [
+          -96.3462673,
+          30.6112719
+        ],
+        "description": "North entrance approach beside Old Main Drive; replaces the southeast approach that forced a trip around the building.",
+        "sources": [
+          "https://today.tamu.edu/news/2023/02/03/art-and-science-collide-at-instructional-laboratory-innovative-learning-building/",
+          "https://www.openstreetmap.org/node/11693047228"
+        ]
+      }
     },
     {
       "id": "kyle",
