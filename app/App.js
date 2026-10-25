@@ -3,6 +3,8 @@ import {
   ActivityIndicator, Image, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Switch, Text, useWindowDimensions, View,
 } from "react-native";
 import RouteMap from "./RouteMap";
+import RouteSheet from "./RouteSheet";
+import { sheetLimits } from "./viewGeometry";
 import PlacePicker from "./PlacePicker";
 import IndoorDirections from "./IndoorDirections";
 import indoorPlaces from "./indoorPlaces.json";
@@ -149,8 +151,9 @@ function AppContent({ toggleNight, currentMinutes, returnToNow }) {
   const highlightedPlace = mapPlaceById[highlightedId];
   useEffect(() => { if (picker || picking) setHighlightedId(null); }, [picker, picking]);
   const [playing, setPlaying] = useState(false);
-  const [cardHeight, setCardHeight] = useState(300);
+  const [cardHeight, setCardHeight] = useState(() => sheetLimits(dimensions.height, topInset, 110, docked).initial);
   const [tripHeight, setTripHeight] = useState(110);
+  const panelLimits = sheetLimits(dimensions.height, topInset, tripHeight, docked);
   const [recents, setRecents] = useState(() => store.get("sunscreen-recents", []));
   const [here, setHere] = useState(null); // last known GPS position, for distances in the picker
   const [about, setAbout] = useState(() => Platform.OS === "web" && params.get("intro") !== "0" && !store.get("sunscreen-intro-seen", false));
@@ -300,8 +303,8 @@ function AppContent({ toggleNight, currentMinutes, returnToNow }) {
         onPlacePress={place => { if (!picking && mapPlaceById[place.id]) { setPlaying(false); setHighlightedId(place.id); } }}
         onBackgroundPress={() => setHighlightedId(null)}
         from={mapEndpoint(from)} to={mapEndpoint(to)} onEndpointDragStart={() => { setPlaying(false); setHighlightedId(null); }} onEndpointDragEnd={onEndpointDragEnd}
-        insets={wide ? { top: 70, right: 70 } : { top: docked ? 30 : topInset + tripHeight + 24, right: 70, bottom: 64 }} />
-      {showRoutes && !stale && !picking && <Legend style={wide ? { bottom: 24 } : { bottom: 36 }} />}
+        insets={wide ? { top: 70, right: 70 } : { top: docked ? 30 : topInset + tripHeight + 24, right: 70, bottom: picking ? 40 : cardHeight + 24 }} />
+      {showRoutes && !stale && !picking && <Legend style={wide ? { bottom: 24 } : { bottom: cardHeight + 12 }} />}
       {picking && (
         <View style={[styles.banner, { top: wide ? 12 : topInset }]}>
           <Text style={styles.bannerText}>Tap the map to set your {picking === "from" ? "start" : "destination"}</Text>
@@ -343,18 +346,14 @@ function AppContent({ toggleNight, currentMinutes, returnToNow }) {
       {docked && !picking && (
         <View style={[styles.tripDock, { paddingTop: topInset }]} onLayout={(e) => setTripHeight(e.nativeEvent.layout.height - topInset - 8)}>{trip}</View>
       )}
-      {/* The map ends where the sheet starts (minus its rounded corner), so fits and limits use what is visible. */}
-      <View style={[styles.map, { marginBottom: picking ? 0 : cardHeight - 24 }]}>{mapPane}</View>
+      {/* Keep the map viewport stable while the panel moves over it. */}
+      <View style={styles.map}>{mapPane}</View>
       {!docked && !picking && (
         <View style={[styles.tripFloat, { top: topInset }]} onLayout={(e) => setTripHeight(e.nativeEvent.layout.height)}>{trip}</View>
       )}
-      {/* The sheet stays near half the screen so the map stays useful; longer night content scrolls. */}
+      {/* Drag the grip to resize; controls scroll independently below it. */}
       {!picking && (
-        <View style={[styles.card, { maxHeight: Math.max(220, Math.min(dimensions.height * 0.56, dimensions.height - topInset - tripHeight - (docked ? 158 : 90))) }]}
-          onLayout={(e) => setCardHeight(e.nativeEvent.layout.height)}>
-          <View style={styles.handle} />
-          <ScrollView style={{ flexGrow: 0 }} keyboardShouldPersistTaps="handled">{controls}</ScrollView>
-        </View>
+        <RouteSheet style={styles.card} limits={panelLimits} onHeightChange={setCardHeight}>{controls}</RouteSheet>
       )}
       {pickerSheet}
       {about && <About onClose={closeAbout} />}

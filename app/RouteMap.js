@@ -4,6 +4,7 @@ import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
 import { routeRuns } from "./theme";
 import { useTheme, useThemedStyles } from "./ThemeContext";
 import { endpointReservations, markerWidth, PLACE_KINDS, projectRegion, visibleMapPlaces } from "./mapPlaces";
+import { routeFitKey } from "./viewGeometry";
 
 const toLatLng = (coords) => coords.map(([longitude, latitude]) => ({ latitude, longitude }));
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
@@ -17,9 +18,12 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
   const map = useRef(null);
   const fittedTrip = useRef(null);
   const draggedTrip = useRef(null);
+  const ready = useRef(false);
+  const latest = useRef(null);
   const [pinRevision, setPinRevision] = useState(0);
   const [viewRegion, setViewRegion] = useState(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
+  latest.current = { data, insets, size };
   const finishDrag = (which, e) => {
     const { latitude: lat, longitude: lon } = e.nativeEvent.coordinate;
     if (onEndpointDragEnd(which, { lat, lon }) === false) {
@@ -38,21 +42,28 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
     longitudeDelta: bounds.east - bounds.west,
   };
 
-  const fit = () => data && map.current?.fitToCoordinates(data.features.flatMap((f) => toLatLng(f.geometry.coordinates)), {
-    edgePadding: { top: insets?.top ?? 60, left: 40, right: insets?.right ?? 40, bottom: insets?.bottom ?? 40 },
-    animated: true,
-  });
+  const fit = () => {
+    const { data: route, insets: padding, size: layout } = latest.current;
+    const trip = routeFitKey(route, ready.current, layout, fittedTrip.current);
+    if (!trip || !map.current) return;
+    if (trip === draggedTrip.current) { fittedTrip.current = trip; return; }
+    const animated = fittedTrip.current !== null;
+    map.current.fitToCoordinates([
+      ...route.features.flatMap(f => toLatLng(f.geometry.coordinates)),
+      ...[route.start, route.end].map(p => ({ latitude: p.lat, longitude: p.lon })),
+    ], {
+      edgePadding: { top: padding?.top ?? 60, left: 40, right: padding?.right ?? 40, bottom: padding?.bottom ?? 40 },
+      animated,
+    });
+    fittedTrip.current = trip;
+  };
   // Refit only when the trip changes, not when the time or selected route does.
   useEffect(() => {
-    if (!data) return;
-    const trip = [data.start.lat, data.start.lon, data.end.lat, data.end.lon].map(v => v.toFixed(5)).join();
-    if (trip !== fittedTrip.current) {
-      fittedTrip.current = trip;
-      if (trip !== draggedTrip.current) fit();
-    }
+    fit();
   }, [data]);
 
   const onReady = () => {
+    ready.current = true;
     // Google Maps (Android) can hard-limit panning; elsewhere onRegionChangeComplete snaps back.
     if (Platform.OS === "android") {
       map.current?.setMapBoundaries({ latitude: bounds.north, longitude: bounds.east }, { latitude: bounds.south, longitude: bounds.west });
@@ -61,14 +72,17 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
   };
 
   // Keep the view inside the campus area: no zooming out past it or panning away from it.
-  const keepInside = (r) => {
+  const keepInside = (r, details) => {
+    setViewRegion(r);
+    // Google Maps already enforces its camera bounds. A second JS correction
+    // fights route fitting and can repeatedly snap the camera after layout changes.
+    if (Platform.OS === "android" || details?.isGesture === false) return;
     const latitudeDelta = Math.min(r.latitudeDelta, area.latitudeDelta);
     const longitudeDelta = Math.min(r.longitudeDelta, area.longitudeDelta);
     const latitude = clamp(r.latitude, bounds.south + latitudeDelta / 2, bounds.north - latitudeDelta / 2);
     const longitude = clamp(r.longitude, bounds.west + longitudeDelta / 2, bounds.east - longitudeDelta / 2);
     const moved = Math.abs(latitude - r.latitude) > 1e-6 || Math.abs(longitude - r.longitude) > 1e-6;
     if (moved || latitudeDelta < r.latitudeDelta) map.current?.animateToRegion({ latitude, longitude, latitudeDelta, longitudeDelta }, 200);
-    else setViewRegion(r);
   };
 
   const others = data ? data.features.filter((f) => f.properties.id !== selected) : [];
@@ -92,7 +106,12 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
       initialRegion={area}
       minZoomLevel={13.5}
       onMapReady={onReady}
-      onLayout={e => { setSize(e.nativeEvent.layout); if (!highlightedId) fit(); }}
+      onLayout={e => {
+        const layout = e.nativeEvent.layout;
+        latest.current.size = layout;
+        setSize(layout);
+        fit();
+      }}
       onRegionChangeComplete={keepInside}
       onPress={e => {
         if (e.nativeEvent.action?.includes("marker")) return;

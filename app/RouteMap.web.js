@@ -36,13 +36,10 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
       attribution: "Tiles &copy; Esri, &copy; OpenStreetMap contributors" }).addTo(instance);
     lock.current = () => {
       if (map.current !== instance) return;
-      instance.invalidateSize();
+      instance.invalidateSize({ pan: false });
       instance.setMinZoom(0);
       instance.setMinZoom(instance.getBoundsZoom(area));
       instance.setMaxBounds(area.pad(0.03));
-      if (lastFit.current && !highlights.current.highlightedId) instance.fitBounds(lastFit.current, {
-        paddingTopLeft: [30, pad.current?.top ?? 70], paddingBottomRight: [pad.current?.right ?? 30, pad.current?.bottom ?? 40], maxZoom: 18, animate: false,
-      });
     };
     // Actual size changes drive layout. A delayed refit on picker state changes
     // can otherwise override a zoom/pan that the user has just made.
@@ -139,7 +136,12 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
     lastFit.current = L.featureGroup(lines).getBounds().extend([data.start, data.end].map((p) => [p.lat, p.lon]));
     if (trip !== fittedTrip.current) {
       fittedTrip.current = trip;
-      if (trip !== draggedTrip.current) lock.current();
+      if (trip !== draggedTrip.current) {
+        lock.current();
+        map.current.fitBounds(lastFit.current, {
+          paddingTopLeft: [30, pad.current?.top ?? 70], paddingBottomRight: [pad.current?.right ?? 30, pad.current?.bottom ?? 40], maxZoom: 18, animate: false,
+        });
+      }
     }
     return () => layers.remove();
   }, [data, selected, ROUTES, MAROON, surface]);
