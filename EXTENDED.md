@@ -26,7 +26,7 @@ SunScreen finds shady walking routes anywhere on Texas A&M's main campus and the
   Each limit can range from 0% to 100%; the maximum route's allowance must be at
   least Recommended's. Apply recalculates routes, Cancel discards edits, and
   Reset restores the defaults. Settings persist in this browser; native keeps
-  them for the current session. See [route settings](docs/route-settings.md).
+  them for the current session. See [route settings](docs-misc/route-settings.md).
 - **From / To:** opens a picker with campus places grouped by type, your recent picks, distances once you've shared your location, address search, **My location** and **Pick on map**. The ⇅ button swaps the two.
 - **Map:** the selected route is colored segment by segment from shade (maroon) to sun (gold). The fastest route is dashed gray, and the third route is drawn thinner.
 - **Custom endpoints:** drag either endpoint pin to choose a custom start or destination; routes recalculate when you release it. In the native app, long-press a pin to drag it. Pins stay available while routing loads or fails, so you can adjust an unroutable location. Drops must stay inside the mapped campus area, and each endpoint must be within 250 m of a mapped walkway node with a connected walking route between them.
@@ -58,7 +58,7 @@ npx expo start --web
 Open the local URL printed by Expo. Local web uses the API on port 8000.
 The feature is in the normal route choices, so choose endpoints and a time as
 usual. Building coverage, validation commands and limitations are documented in
-[building passages](docs/building-shortcuts.md). A remote feature branch is not
+[building passages](docs-misc/building-shortcuts.md). A remote feature branch is not
 automatically the production Vercel site; use its Vercel preview if configured.
 
 Rebuilding the LiDAR data additionally needs
@@ -102,7 +102,7 @@ geometry and opening hours are unverified; a compact access notice appears if
 it is selected. Scheduled closures are checked through estimated traversal.
 Offline routes exclude enclosed door-dependent passages. More interiors require
 documented entrance-to-exit paths before being added.
-See [building passages](docs/building-shortcuts.md) for sources and tests.
+See [building passages](docs-misc/building-shortcuts.md) for sources and tests.
 
 ### Existing endpoints
 
@@ -240,7 +240,7 @@ directed walkway length, with 60.00% unknown. Sbisa-to-MSC improves from 71%
 on fastest to 89% on recommended for +25 seconds. The initial 15 m calibration
 covered 49.45% of walkway length and showed 82% versus 93% on that trip.
 These are modeled proximity estimates, not measured light levels or live uptime.
-See [the full source audit](research/lighting/SOURCES.md) for all evaluated source
+See [the full source audit](docs-misc/research/lighting/SOURCES.md) for all evaluated source
 families, URLs, actual contribution measurements, rejected sources and access limits.
 
 Data attribution: TAMU campus GIS and

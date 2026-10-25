@@ -2,7 +2,7 @@
 
 # SunScreen
 
-SunScreen finds the optimal walking route between any two spots on Texas A&M's campus and the nearby neighborhoods, optimized for shade coverage. It builds a 3D shadow map from LiDAR using PDAL and pvlib, scores every footpath for shade, adjusts for live cloud cover, and shows routes in an Expo (React Native) app backed by a FastAPI router. Routes also cut through mapped building pass-throughs and covered walkways when that's shadier (see [building passages](docs/building-shortcuts.md)). Built for Aggies during Howdy Hacks 2026.
+SunScreen finds the optimal walking route between any two spots on Texas A&M's campus and the nearby neighborhoods, optimized for shade coverage. It builds a 3D shadow map from LiDAR using PDAL and pvlib, scores every footpath for shade, adjusts for live cloud cover, and shows routes in an Expo (React Native) app backed by a FastAPI router. Routes also cut through mapped building pass-throughs and covered walkways when that's shadier (see [building passages](docs-misc/building-shortcuts.md)). Built for Aggies during Howdy Hacks 2026.
 
 - **Team:** Vignesh Nagarajan, Amulya Bisaria, Abhi Thatavarthi, Jayin Palicha
 - **Datasets:** [TxGIO StratMap 2025 LiDAR](https://data.geographic.texas.gov/) (Brazos basins, with [USGS 3DEP](https://registry.opendata.aws/usgs-lidar/) as a fallback), [OpenStreetMap](https://www.openstreetmap.org/) walking paths (via osmnx), [Open-Meteo](https://open-meteo.com/) cloud and sunlight forecast
@@ -15,9 +15,9 @@ Try it live at [sunscreen-walks.vercel.app](https://sunscreen-walks.vercel.app/)
 
 | Shade (maroon) vs. sun (gold) | Places grouped by type | Compare all three routes | How it works |
 |:-:|:-:|:-:|:-:|
-| <img src="screenshots/1-recommended.png" width="200"> | <img src="screenshots/2-pick-a-place.png" width="200"> | <img src="screenshots/3-compare-routes.png" width="200"> | <img src="screenshots/4-how-it-works.png" width="200"> |
+| <img src="docs-misc/screenshots/1-recommended.png" width="200"> | <img src="docs-misc/screenshots/2-pick-a-place.png" width="200"> | <img src="docs-misc/screenshots/3-compare-routes.png" width="200"> | <img src="docs-misc/screenshots/4-how-it-works.png" width="200"> |
 
-<img src="screenshots/desktop.png" width="820" alt="SunScreen on a laptop: controls in a side panel, map on the right">
+<img src="docs-misc/screenshots/desktop.png" width="820" alt="SunScreen on a laptop: controls in a side panel, map on the right">
 
 You can route between 24 campus places, any searched address, a dropped pin, or your current location, and the map stays locked to campus, Northgate, Southside and West Campus. A one-time pipeline turns **65 million LiDAR points** into 1 m height maps, casts shadows from every roof and tree for each half hour from 7 AM to 8 PM, and records how much of each footpath is shaded. The API weighs that shade against today's cloud forecast. It returns three routes: **Fastest**, **Recommended** (about a minute longer for noticeably more shade) and **Max shade**, and any of them can be opened in Google Maps or Apple Maps for turn-by-turn directions. The selected route is colored segment by segment from shade (maroon) to sun (gold), and `Play day` animates the routes from 7 AM to 8 PM as the sun moves. For The Commons to Zachry at 2 PM, that's **42%, 73% and 82% shaded**. After dark, **Night mode** switches to routing by streetlight coverage from TAMU's lamp inventory and OpenStreetMap, comparing Fastest, Recommended and Most lit routes.
 
