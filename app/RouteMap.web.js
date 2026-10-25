@@ -7,7 +7,7 @@ import { endpointReservations, markerWidth, PLACE_KINDS, visibleMapPlaces } from
 
 const TILES = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}";
 
-export default function RouteMap({ data, selected, bounds, picking, onMapPress, layoutKey, from, to, onEndpointDragStart, onEndpointDragEnd,
+export default function RouteMap({ data, selected, bounds, picking, onMapPress, from, to, onEndpointDragStart, onEndpointDragEnd,
   places = [], highlightedId, onPlacePress, onBackgroundPress }) {
   const { night, colors: { MAROON, surface, INK, LINE }, routes: ROUTES } = useTheme();
   const el = useRef(null);
@@ -41,6 +41,8 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
         paddingTopLeft: [30, 70], paddingBottomRight: [30, 40], maxZoom: 18, animate: false,
       });
     };
+    // Actual size changes drive layout. A delayed refit on picker state changes
+    // can otherwise override a zoom/pan that the user has just made.
     const observer = new ResizeObserver(() => lock.current());
     observer.observe(el.current);
     instance.fitBounds(area);
@@ -60,10 +62,6 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
   }, [bounds]);
 
   useEffect(() => { if (el.current) el.current.style.cursor = picking ? "crosshair" : ""; }, [picking]);
-  useEffect(() => {
-    const timer = setTimeout(() => lock.current(), 50);
-    return () => clearTimeout(timer);
-  }, [layoutKey]);
 
   useEffect(() => {
     const instance = map.current;

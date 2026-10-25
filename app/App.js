@@ -249,8 +249,7 @@ function AppContent({ toggleNight }) {
         places={mapPlaceCatalog} highlightedId={highlightedId}
         onPlacePress={place => { if (!picking && mapPlaceById[place.id]) { setPlaying(false); setHighlightedId(place.id); } }}
         onBackgroundPress={() => setHighlightedId(null)}
-        from={from} to={to} onEndpointDragStart={() => { setPlaying(false); setHighlightedId(null); }} onEndpointDragEnd={onEndpointDragEnd}
-        layoutKey={picking ? 0 : cardHeight} />
+        from={from} to={to} onEndpointDragStart={() => { setPlaying(false); setHighlightedId(null); }} onEndpointDragEnd={onEndpointDragEnd} />
       {showRoutes && !stale && !picking && <Legend />}
       {picking && (
         <View style={styles.banner}>
