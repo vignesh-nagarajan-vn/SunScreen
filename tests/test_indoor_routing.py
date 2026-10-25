@@ -85,7 +85,7 @@ class IndoorRoutingTests(unittest.TestCase):
     def test_missing_malformed_stale_emergency_and_raised_room_anchors_are_isolated(self):
         original = json.loads((ROOT / 'data/indoor_destinations.json').read_text())
         inventory = json.loads((ROOT / 'data/building_entrances.json').read_text())
-        with tempfile.TemporaryDirectory(dir=ROOT / 'tmp') as tmp:
+        with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / 'rooms.json'
             path.write_text('{broken')
             self.assertEqual(load_destinations(index.G, path), [])
