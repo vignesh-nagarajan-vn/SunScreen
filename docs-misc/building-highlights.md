@@ -16,6 +16,9 @@ same place is disabled. Close, Back to routes, Escape on the web, or a backgroun
 map tap dismisses inspection. Existing named endpoint pins can also be inspected.
 Dragging pins or opening the endpoint picker exits inspection; highlights are
 hidden while Pick on map is active.
+Cancelling Pick on map on desktop preserves the browsed view. The web map reacts
+to actual container resizes rather than scheduling a delayed refit when picker
+state changes. A virtual-clock regression checks the former refit timing window.
 
 The building catalog is the same bundled [campus destination data](campus-places.md)
 used by search. `app/placeHighlights.json` adds short labels, display priorities and

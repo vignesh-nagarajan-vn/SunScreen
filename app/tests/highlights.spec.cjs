@@ -87,19 +87,25 @@ test('closing or escaping a highlight restores routes and repeated taps do not a
   await page.screenshot({ path: '../tmp/reports/building-highlights-desktop.png' });
 });
 
-test('pick-on-map hides highlights and closes inspection without changing map-pick behavior', async ({ page }) => {
+test('pick-on-map preserves the browsed view and hides highlights until cancelled', async ({ page }) => {
   await setup(page);
   await showMSC(page);
+  await expect(page.locator('.leaflet-container')).not.toHaveClass(/leaflet-zoom-anim/);
   await page.getByRole('button', { name: 'About Memorial Student Center', exact: true }).click();
   await page.getByRole('button', { name: /^To:/ }).click();
+  await page.clock.install();
   await page.getByRole('button', { name: /Pick on map/ }).click();
+  await page.clock.runFor(100);
   await expect(page.getByText('Tap the map to set your destination')).toBeVisible();
   await expect(page.locator('.place-marker')).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Memorial Student Center' })).toHaveCount(0);
   await page.getByText('Cancel', { exact: true }).click();
+  // Flush the old 50 ms layout-refit window deterministically. Cancelling a
+  // picker on desktop does not resize the map or change the trip.
+  await page.clock.runFor(100);
   await expect(page.getByRole('button', { name: /^Recommended:/ })).toBeVisible();
-  await showMSC(page);
   await expect(page.getByRole('button', { name: 'About Memorial Student Center', exact: true })).toBeVisible();
+  await page.clock.resume();
   await page.getByRole('button', { name: /^To:/ }).click();
   await page.getByRole('button', { name: /Pick on map/ }).click();
   const map = page.locator('.leaflet-container'), box = await map.boundingBox();
