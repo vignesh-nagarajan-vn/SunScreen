@@ -15,10 +15,6 @@ Search names or official building codes such as **ILSQ**, **ILCB**, **ASTO** and
 **BEUT**. Common spellings such as **Buetul** work too. The preloaded list includes
 dorms and dining halls; see [campus destinations](docs/campus-places.md).
 
-Drag either endpoint pin on the map to choose a custom start or destination; routes recalculate when you release it. In the native app, long-press a pin to drag it. Pins remain available while routing loads or fails, so you can adjust an unroutable location. Drops must stay inside the mapped campus area, and the server requires a connected walking route with each endpoint within 250 metres of a mapped walkway node.
-
-Night mode uses `#A00000` UI accents and lighter red/copper walking paths. Its **Call Corps escort** button opens the phone app for **979-845-6789**, even when routing is unavailable. Texas A&M lists service hours as weekdays 6 p.m.–7 a.m. and all day on weekends during fall and spring semesters ([official campus safety information](https://www.tamu.edu/campus-community/campus-safety.html)).
-
 Try it live at [sunscreen-walks.vercel.app](https://sunscreen-walks.vercel.app/).
 
 | Shade (maroon) vs. sun (gold) | Places grouped by type | Compare all three routes | How it works |
