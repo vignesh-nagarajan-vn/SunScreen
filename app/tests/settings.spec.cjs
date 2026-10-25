@@ -30,14 +30,17 @@ async function customize(page, night = false) {
   await expect(maximum).toHaveAttribute('aria-valuenow', '50');
 }
 
-test('small phone keeps settings beside Night mode and opens only on demand', async ({ page }) => {
+test('small phone keeps settings with Night mode on the map and opens only on demand', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 568 });
   await mock(page); await page.goto('/?intro=0&time=14:00');
   await expect(page.getByRole('heading', { name: 'Route settings' })).toHaveCount(0);
   const gear = page.getByRole('button', { name: 'Route settings', exact: true });
   await expect(gear).toBeVisible();
   const [g, toggle] = await Promise.all([gear.boundingBox(), page.getByRole('switch', { name: 'Night mode' }).boundingBox()]);
-  expect(Math.abs(g.y - toggle.y)).toBeLessThan(30);
+  // Both sit in the column of round buttons floating over the map.
+  expect(Math.abs(g.x - toggle.x)).toBeLessThan(2);
+  expect(g.y - toggle.y).toBeGreaterThan(0);
+  expect(g.y - toggle.y).toBeLessThan(70);
   expect((await page.locator('.leaflet-container').boundingBox()).height).toBeGreaterThan(60);
   await open(page);
   await expect(page.getByText(/Higher limits can mean longer walks/)).toBeVisible();
@@ -55,7 +58,6 @@ test('Apply sends custom limits, persists them and retains three normal choices'
   const applied = page.waitForRequest(r => r.url().includes('recommended_pct=20') && r.url().includes('max_detour_pct=50'));
   await page.getByRole('button', { name: 'Apply', exact: true }).click(); await applied;
   await expect(page.getByText(/Custom limits: Recommended \+20%; Max shade \+50%/)).toBeVisible();
-  await page.getByText('Compare all 3 routes', { exact: false }).click();
   for (const label of ['Fastest', 'Recommended', 'Max shade'])
     await expect(page.getByRole('button', { name: new RegExp('^' + label + ':') })).toBeVisible();
   await page.reload(); await open(page);
@@ -99,7 +101,6 @@ test('night settings retain theme and update lighting routes', async ({ page }) 
   await page.screenshot({ path: '../tmp/reports/route-settings-dark.png' });
   await page.getByRole('button', { name: 'Apply', exact: true }).click();
   await expect(page.getByText(/Custom limits: Recommended \+20%; Most lit \+50%/)).toBeVisible();
-  await page.getByText('Compare all 3 routes', { exact: false }).click();
   await expect(page.getByRole('button', { name: /^Most lit:/ })).toBeVisible();
 });
 
