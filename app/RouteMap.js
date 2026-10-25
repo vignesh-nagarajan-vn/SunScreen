@@ -1,20 +1,24 @@
 import { useEffect, useRef, useState } from "react";
-import { Platform, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { routeRuns } from "./theme";
 import { useTheme, useThemedStyles } from "./ThemeContext";
+import { endpointReservations, markerWidth, PLACE_KINDS, projectRegion, visibleMapPlaces } from "./mapPlaces";
 
 const toLatLng = (coords) => coords.map(([longitude, latitude]) => ({ latitude, longitude }));
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
 // Native map (Expo Go). RouteMap.web.js is the browser version.
-export default function RouteMap({ data, selected, bounds, picking, onMapPress, from, to, onEndpointDragStart, onEndpointDragEnd }) {
+export default function RouteMap({ data, selected, bounds, picking, onMapPress, from, to, onEndpointDragStart, onEndpointDragEnd,
+  places = [], highlightedId, onPlacePress, onBackgroundPress }) {
   const styles = useThemedStyles(createStyles);
   const { colors: { MAROON, surface }, routes: ROUTES, night } = useTheme();
   const map = useRef(null);
   const fittedTrip = useRef(null);
   const draggedTrip = useRef(null);
   const [pinRevision, setPinRevision] = useState(0);
+  const [viewRegion, setViewRegion] = useState(null);
+  const [size, setSize] = useState({ width: 0, height: 0 });
   const finishDrag = (which, e) => {
     const { latitude: lat, longitude: lon } = e.nativeEvent.coordinate;
     if (onEndpointDragEnd(which, { lat, lon }) === false) {
@@ -63,11 +67,21 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
     const longitude = clamp(r.longitude, bounds.west + longitudeDelta / 2, bounds.east - longitudeDelta / 2);
     const moved = Math.abs(latitude - r.latitude) > 1e-6 || Math.abs(longitude - r.longitude) > 1e-6;
     if (moved || latitudeDelta < r.latitudeDelta) map.current?.animateToRegion({ latitude, longitude, latitudeDelta, longitudeDelta }, 200);
+    else setViewRegion(r);
   };
 
   const others = data ? data.features.filter((f) => f.properties.id !== selected) : [];
   const chosen = data?.features.find((f) => f.properties.id === selected);
   const path = data ? toLatLng(data.features[0].geometry.coordinates) : [];
+  const region = viewRegion ?? area;
+  const project = p => projectRegion(p, region, size);
+  const shown = picking ? [] : visibleMapPlaces(places, { project,
+    zoom: Math.log2(360 * Math.max(1, size.width) / (256 * region.longitudeDelta)), ...size,
+    excludedIds: [from.id, to.id], reserved: endpointReservations([from, to], project), selectedId: highlightedId });
+  const inspect = (e, place) => {
+    e.stopPropagation?.();
+    if (!picking && place.id) onPlacePress?.(place);
+  };
 
   return (
     <MapView
@@ -76,12 +90,27 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
       initialRegion={area}
       minZoomLevel={13.5}
       onMapReady={onReady}
-      onLayout={fit}
+      onLayout={e => { setSize(e.nativeEvent.layout); if (!highlightedId) fit(); }}
       onRegionChangeComplete={keepInside}
-      onPress={(e) => picking && onMapPress({ lat: e.nativeEvent.coordinate.latitude, lon: e.nativeEvent.coordinate.longitude })}
+      onPress={e => {
+        if (e.nativeEvent.action?.includes("marker")) return;
+        if (picking) onMapPress({ lat: e.nativeEvent.coordinate.latitude, lon: e.nativeEvent.coordinate.longitude });
+        else onBackgroundPress?.();
+      }}
       toolbarEnabled={false}
       userInterfaceStyle={night ? "dark" : "light"}
     >
+      {shown.map(p => <Marker key={`place-${p.id}`} coordinate={{ latitude: p.lat, longitude: p.lon }}
+        anchor={{ x: 10 / markerWidth(p), y: 0.5 }} zIndex={highlightedId === p.id ? 100 : -500}
+        accessible accessibilityRole="button" accessibilityLabel={`About ${p.name}`}
+        accessibilityState={{ selected: highlightedId === p.id }} onPress={e => inspect(e, p)}>
+        <View style={[styles.placeHit, { width: markerWidth(p) }]}>
+          <View style={[styles.placeLabel, highlightedId === p.id && styles.placeSelected]}>
+            <Text style={[styles.placeSymbol, { backgroundColor: PLACE_KINDS[p.kind].color }]}>{PLACE_KINDS[p.kind].symbol}</Text>
+            <Text numberOfLines={1} style={styles.placeName}>{p.label}</Text>
+          </View>
+        </View>
+      </Marker>)}
       {others.map((f) => {
         const style = ROUTES[f.properties.id];
         return (
@@ -109,6 +138,7 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
       )}
       {[["from", from, styles.pinStart], ["to", to, styles.pinEnd]].map(([which, p, style]) => (
         <Marker key={`${which}-${pinRevision}`} coordinate={{ latitude: p.lat, longitude: p.lon }}
+          zIndex={1000} onPress={e => inspect(e, p)}
           title={p.name} accessibilityLabel={which === "from" ? "Drag start" : "Drag destination"}
           anchor={{ x: 0.5, y: 0.5 }} draggable onDragStart={onEndpointDragStart}
           onDragEnd={e => finishDrag(which, e)}>
@@ -123,4 +153,10 @@ const createStyles = ({ INK, LINE, MAROON, MUTED, SUN, TINT, surface, header, on
   pin: { width: 18, height: 18, borderRadius: 9, borderWidth: 3, borderColor: MAROON },
   pinStart: { backgroundColor: surface },
   pinEnd: { backgroundColor: MAROON, borderColor: surface },
+  placeHit: { height: 44, justifyContent: "center" },
+  placeLabel: { flexDirection: "row", alignItems: "center", gap: 5, paddingVertical: 3, paddingLeft: 3, paddingRight: 7,
+    borderRadius: 16, backgroundColor: surface, borderColor: LINE, borderWidth: 1 },
+  placeSelected: { borderColor: MAROON, borderWidth: 2 },
+  placeSymbol: { width: 19, height: 19, borderRadius: 10, color: "#ffffff", textAlign: "center", fontSize: 12 },
+  placeName: { flexShrink: 1, color: INK, fontSize: 11, fontWeight: "600" },
 });

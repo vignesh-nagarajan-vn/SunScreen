@@ -5,6 +5,9 @@ import {
 import Slider from "@react-native-community/slider";
 import RouteMap from "./RouteMap";
 import PlacePicker from "./PlacePicker";
+import PlaceDetails from "./PlaceDetails";
+import { mapPlaces } from "./mapPlaces";
+import highlights from "./placeHighlights.json";
 import About from "./About";
 import RouteSettings from "./RouteSettings";
 import CorpsEscort from "./CorpsEscort";
@@ -27,6 +30,8 @@ const nowMin = () => {
   return snap(Number(parts.find((p) => p.type === "hour").value) * 60 + Number(parts.find((p) => p.type === "minute").value));
 };
 const byId = Object.fromEntries(area.places.map((p) => [p.id, p]));
+const mapPlaceCatalog = mapPlaces(area.places, highlights);
+const mapPlaceById = Object.fromEntries(mapPlaceCatalog.map(p => [p.id, p]));
 const param = (p) => p.id ?? `${p.lat.toFixed(6)},${p.lon.toFixed(6)}`;
 const inBounds = (p, b) => p.lat >= b.south && p.lat <= b.north && p.lon >= b.west && p.lon <= b.east;
 const extraText = (s) => (s < 60 ? `+${s} s` : `+${(s / 60).toFixed(1)} min`);
@@ -85,6 +90,9 @@ function AppContent({ toggleNight }) {
   useEffect(() => setEndpointError(null), [from, to]);
   const [picker, setPicker] = useState(null); // "from" | "to" while choosing an endpoint
   const [picking, setPicking] = useState(null); // "from" | "to" while waiting for a map tap
+  const [highlightedId, setHighlightedId] = useState(null);
+  const highlightedPlace = mapPlaceById[highlightedId];
+  useEffect(() => { if (picker || picking) setHighlightedId(null); }, [picker, picking]);
   const [expanded, setExpanded] = useState(false); // phone card: all three routes vs. just the selected one
   const [playing, setPlaying] = useState(false);
   const [cardHeight, setCardHeight] = useState(300);
@@ -172,6 +180,7 @@ function AppContent({ toggleNight }) {
     setPlaying(!playing);
   };
   const choose = (which, place) => {
+    setHighlightedId(null);
     setEndpointError(null);
     (which === "from" ? setFrom : setTo)(place);
     const next = [place, ...recents.filter((r) => r.name !== place.name)].slice(0, 5);
@@ -220,7 +229,13 @@ function AppContent({ toggleNight }) {
     </View>
   );
 
-  const controls = (
+  const controls = highlightedPlace ? (
+    <PlaceDetails place={highlightedPlace} from={from} to={to} onClose={() => setHighlightedId(null)}
+      onChoose={(which, place) => {
+        if ((which === "from" ? to : from).id === place.id) return;
+        choose(which, byId[place.id]);
+      }} />
+  ) : (
     <Controls
       data={showRoutes && !stale ? data : null} stale={stale} status={{ ...status, error: endpointError || status.error }} selected={selected} setSelected={setSelected}
       preview={preview} minutes={minutes} setPreview={setPreview} setTime={setTime}
@@ -231,8 +246,10 @@ function AppContent({ toggleNight }) {
   const mapPane = (
     <>
       <RouteMap data={showRoutes && !stale ? data : null} selected={selected} bounds={area.bounds} picking={!!picking} onMapPress={onMapPress}
-        from={from} to={to} onEndpointDragStart={() => setPlaying(false)} onEndpointDragEnd={onEndpointDragEnd}
-        layoutKey={picking ? 0 : cardHeight} />
+        places={mapPlaceCatalog} highlightedId={highlightedId}
+        onPlacePress={place => { if (!picking && mapPlaceById[place.id]) { setPlaying(false); setHighlightedId(place.id); } }}
+        onBackgroundPress={() => setHighlightedId(null)}
+        from={from} to={to} onEndpointDragStart={() => { setPlaying(false); setHighlightedId(null); }} onEndpointDragEnd={onEndpointDragEnd} />
       {showRoutes && !stale && !picking && <Legend />}
       {picking && (
         <View style={styles.banner}>

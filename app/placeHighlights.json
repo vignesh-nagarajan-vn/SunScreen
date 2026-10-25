@@ -1,0 +1,20 @@
+{
+  "commons": { "label": "Commons", "priority": 100 },
+  "msc": { "label": "MSC", "priority": 99, "detail": "Student gathering spaces and MSC dining." },
+  "langford": {
+    "label": "Langford · Café", "kind": "cafe", "priority": 98,
+    "detail": "Azimuth Café is inside Langford A. Directions go to Langford Architecture.",
+    "source": "https://www.arch.tamu.edu/about/facilities/langford-a/"
+  },
+  "sbisa": { "label": "Sbisa", "priority": 97 },
+  "evans": { "label": "Evans Library", "priority": 96 },
+  "zachry": { "label": "Zachry", "priority": 95 },
+  "ilcb": { "label": "ILCB", "priority": 94 },
+  "ilsq": { "label": "ILSQ", "priority": 93 },
+  "hullabaloo": { "label": "Hullabaloo", "priority": 92 },
+  "beutel": { "label": "Beutel", "priority": 91 },
+  "duncan": { "label": "Duncan", "priority": 90 },
+  "west_campus_dining": { "label": "West Campus Dining", "priority": 89 },
+  "ssb": { "label": "Student Services", "priority": 88 },
+  "bush_library": { "label": "Bush Library", "priority": 87 }
+}

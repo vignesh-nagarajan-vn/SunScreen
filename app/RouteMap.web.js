@@ -3,15 +3,20 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { routeRuns } from "./theme";
 import { useTheme } from "./ThemeContext";
+import { endpointReservations, markerWidth, PLACE_KINDS, visibleMapPlaces } from "./mapPlaces";
 
 const TILES = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}";
 
-export default function RouteMap({ data, selected, bounds, picking, onMapPress, layoutKey, from, to, onEndpointDragStart, onEndpointDragEnd }) {
+export default function RouteMap({ data, selected, bounds, picking, onMapPress, from, to, onEndpointDragStart, onEndpointDragEnd,
+  places = [], highlightedId, onPlacePress, onBackgroundPress }) {
   const { night, colors: { MAROON, surface, INK, LINE }, routes: ROUTES } = useTheme();
   const el = useRef(null);
   const map = useRef(null);
   const press = useRef(null);
   press.current = picking ? onMapPress : null;
+  const highlights = useRef(null);
+  highlights.current = { highlightedId, onPlacePress, onBackgroundPress };
+  const refreshPlaces = useRef(() => {});
   const drag = useRef(null);
   drag.current = { onEndpointDragStart, onEndpointDragEnd };
   const draggedTrip = useRef(null);
@@ -32,15 +37,20 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
       instance.setMinZoom(0);
       instance.setMinZoom(instance.getBoundsZoom(area));
       instance.setMaxBounds(area.pad(0.03));
-      if (lastFit.current) instance.fitBounds(lastFit.current, {
+      if (lastFit.current && !highlights.current.highlightedId) instance.fitBounds(lastFit.current, {
         paddingTopLeft: [30, 70], paddingBottomRight: [30, 40], maxZoom: 18, animate: false,
       });
     };
+    // Actual size changes drive layout. A delayed refit on picker state changes
+    // can otherwise override a zoom/pan that the user has just made.
     const observer = new ResizeObserver(() => lock.current());
     observer.observe(el.current);
     instance.fitBounds(area);
     lock.current();
-    instance.on("click", (e) => press.current?.({ lat: e.latlng.lat, lon: e.latlng.lng }));
+    instance.on("click", (e) => {
+      if (press.current) press.current({ lat: e.latlng.lat, lon: e.latlng.lng });
+      else highlights.current.onBackgroundPress?.();
+    });
     return () => {
       observer.disconnect();
       lock.current = () => {};
@@ -52,10 +62,50 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
   }, [bounds]);
 
   useEffect(() => { if (el.current) el.current.style.cursor = picking ? "crosshair" : ""; }, [picking]);
+
   useEffect(() => {
-    const timer = setTimeout(() => lock.current(), 50);
-    return () => clearTimeout(timer);
-  }, [layoutKey]);
+    const instance = map.current;
+    if (!instance || picking) return;
+    const layer = L.layerGroup().addTo(instance);
+    const markers = new Map();
+    const update = () => {
+      const { x: width, y: height } = instance.getSize();
+      const project = p => instance.latLngToContainerPoint([p.lat, p.lon]);
+      const shown = visibleMapPlaces(places, { project, zoom: instance.getZoom(), width, height,
+        excludedIds: [from.id, to.id], reserved: endpointReservations([from, to], project), selectedId: highlights.current.highlightedId });
+      const ids = new Set(shown.map(p => p.id));
+      for (const [id, marker] of markers) if (!ids.has(id)) { layer.removeLayer(marker); markers.delete(id); }
+      for (const p of shown) {
+        if (!markers.has(p.id)) {
+          const chip = document.createElement("span"); chip.className = "place-label";
+          const icon = document.createElement("span"); icon.className = "place-symbol";
+          icon.textContent = PLACE_KINDS[p.kind].symbol; icon.style.background = PLACE_KINDS[p.kind].color;
+          const text = document.createElement("span"); text.className = "place-name"; text.textContent = p.label;
+          chip.append(icon, text);
+          const marker = L.marker([p.lat, p.lon], { title: `About ${p.name}`, keyboard: true, bubblingMouseEvents: false,
+            icon: L.divIcon({ html: chip, className: "place-marker", iconSize: [markerWidth(p), 44], iconAnchor: [10, 22] }), zIndexOffset: -500 })
+            .on("click", () => highlights.current.onPlacePress?.(p)).addTo(layer);
+          marker.getElement().setAttribute("aria-label", `About ${p.name}`);
+          marker.getElement().dataset.placeId = p.id;
+          marker.on("keydown", e => {
+            if (e.originalEvent.key === "Enter" || e.originalEvent.key === " ") {
+              L.DomEvent.stop(e.originalEvent);
+              highlights.current.onPlacePress?.(p);
+            }
+          });
+          markers.set(p.id, marker);
+        }
+        const active = p.id === highlights.current.highlightedId;
+        markers.get(p.id).getElement().classList.toggle("place-selected", active);
+        markers.get(p.id).getElement().setAttribute("aria-pressed", String(active));
+      }
+    };
+    refreshPlaces.current = update;
+    instance.on("moveend zoomend resize", update);
+    update();
+    return () => { instance.off("moveend zoomend resize", update); refreshPlaces.current = () => {}; layer.remove(); };
+  }, [places, bounds, picking, from, to]);
+  useEffect(() => { refreshPlaces.current(); }, [highlightedId]);
 
   useEffect(() => {
     if (!data || !map.current) return;
@@ -107,6 +157,13 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
         alt: which === "from" ? "Drag start" : "Drag destination",
         icon: L.divIcon({ html: dot, className: "endpoint-pin", iconSize: [32, 32], iconAnchor: [16, 16] }),
       }).bindTooltip(label, { permanent: true, direction: "top", offset: [0, -12], className: "pin-label" }).addTo(layers);
+      marker.on("click", () => { if (!press.current && p.id) highlights.current.onPlacePress?.(p); });
+      marker.on("keydown", e => {
+        if (e.originalEvent.key === "Enter" || e.originalEvent.key === " ") {
+          L.DomEvent.stop(e.originalEvent);
+          if (!press.current && p.id) highlights.current.onPlacePress?.(p);
+        }
+      });
       marker.on("dragstart", () => drag.current.onEndpointDragStart?.());
       marker.on("dragend", () => {
         const { lat, lng: lon } = marker.getLatLng();
@@ -124,6 +181,7 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
 
   return <>
     <style>{`.sunscreen-map .pin-label{background:${surface};color:${INK};border:1px solid ${LINE};font:600 12px system-ui;box-shadow:0 1px 4px rgba(0,0,0,.25)}.sunscreen-map .leaflet-tooltip-top:before{border-top-color:${surface}}.sunscreen-map .leaflet-control-attribution{background:${surface};color:${INK};font-size:9px!important;opacity:.85}.sunscreen-map .leaflet-control-attribution a{color:${MAROON}}.sunscreen-map .leaflet-tile-pane{filter:${night ? "invert(1) hue-rotate(180deg) brightness(.8)" : "none"}}`}</style>
+    <style>{`.sunscreen-map .place-marker{display:flex;align-items:center;border:0;background:none;font:600 11px system-ui;outline-offset:-3px}.sunscreen-map .place-label{display:flex;align-items:center;gap:5px;max-width:100%;padding:3px 7px 3px 3px;box-sizing:border-box;border-radius:16px;border:1px solid ${LINE};background:${surface};color:${INK};box-shadow:0 1px 3px #0002;pointer-events:none}.sunscreen-map .place-symbol{width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;flex-shrink:0}.sunscreen-map .place-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sunscreen-map .place-selected .place-label,.sunscreen-map .place-marker:focus-visible .place-label{outline:2px solid ${MAROON};outline-offset:2px}.sunscreen-map .place-marker:hover .place-label{border-color:${MAROON}}`}</style>
     <div ref={el} className="sunscreen-map" aria-label="Campus walking routes"
       style={{ position: "absolute", inset: 0, background: night ? "#22252a" : "#ddd", colorScheme: night ? "dark" : "light" }} />
   </>;
