@@ -17,6 +17,11 @@
   {"query":"white creek","first":"white_creek_a","exact":null},
   {"query":"Rudder Hall","first":"building_0291","exact":"building_0291"},
   {"query":"ILSB","first":"building_1530","exact":"building_1530"},
+  {"query":"Zach 596","first":"zachry_596","exact":"zachry_596"},
+  {"query":"ZACH596","first":"zachry_596","exact":"zachry_596"},
+  {"query":"Zachry room 596","first":"zachry_596","exact":"zachry_596"},
+  {"query":"596 ZACH","first":"zachry_596","exact":"zachry_596"},
+  {"query":"ZACH 999","first":null,"exact":null},
   {"query":" ","first":null,"exact":null},
   {"query":"no such campus destination qzx","first":null,"exact":null}
 ]

@@ -97,6 +97,7 @@ class CampusPlaceTests(unittest.TestCase):
 
     def test_baked_picker_catalog_matches_api_and_omits_internal_node_ids(self):
         bundled = json.loads((ROOT / 'app/places.json').read_text(encoding='utf-8'))
+        bundled['places'] += json.loads((ROOT / 'app/indoorPlaces.json').read_text(encoding='utf-8'))
         actual = index.places()
         self.assertEqual({p['id']: p for p in bundled['places']}, {p['id']: p for p in actual['places']})
         self.assertTrue(all('node' not in p for p in actual['places']))
