@@ -7,9 +7,10 @@ import { endpointReservations, markerWidth, PLACE_KINDS, visibleMapPlaces } from
 
 const TILES = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}";
 
-export default function RouteMap({ data, selected, bounds, picking, onMapPress, from, to, onEndpointDragStart, onEndpointDragEnd,
+// `insets` keeps fitted routes clear of panels floating over the map ({ top, right, bottom } in px).
+export default function RouteMap({ data, selected, bounds, picking, onMapPress, insets, from, to, onEndpointDragStart, onEndpointDragEnd,
   places = [], highlightedId, onPlacePress, onBackgroundPress }) {
-  const { night, colors: { MAROON, surface, INK, LINE }, routes: ROUTES } = useTheme();
+  const { night, colors: { MAROON, surface, card, INK, LINE }, routes: ROUTES } = useTheme();
   const el = useRef(null);
   const map = useRef(null);
   const press = useRef(null);
@@ -23,6 +24,8 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
   const lastFit = useRef(null);
   const fittedTrip = useRef(null);
   const lock = useRef(() => {});
+  const pad = useRef(insets);
+  pad.current = insets;
 
   useEffect(() => {
     const area = L.latLngBounds([bounds.south, bounds.west], [bounds.north, bounds.east]);
@@ -38,7 +41,7 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
       instance.setMinZoom(instance.getBoundsZoom(area));
       instance.setMaxBounds(area.pad(0.03));
       if (lastFit.current && !highlights.current.highlightedId) instance.fitBounds(lastFit.current, {
-        paddingTopLeft: [30, 70], paddingBottomRight: [30, 40], maxZoom: 18, animate: false,
+        paddingTopLeft: [30, pad.current?.top ?? 70], paddingBottomRight: [pad.current?.right ?? 30, pad.current?.bottom ?? 40], maxZoom: 18, animate: false,
       });
     };
     // Actual size changes drive layout. A delayed refit on picker state changes
@@ -180,7 +183,7 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
   }, [from, to, MAROON, surface, bounds]);
 
   return <>
-    <style>{`.sunscreen-map .pin-label{background:${surface};color:${INK};border:1px solid ${LINE};font:600 12px system-ui;box-shadow:0 1px 4px rgba(0,0,0,.25)}.sunscreen-map .leaflet-tooltip-top:before{border-top-color:${surface}}.sunscreen-map .leaflet-control-attribution{background:${surface};color:${INK};font-size:9px!important;opacity:.85}.sunscreen-map .leaflet-control-attribution a{color:${MAROON}}.sunscreen-map .leaflet-tile-pane{filter:${night ? "invert(1) hue-rotate(180deg) brightness(.8)" : "none"}}`}</style>
+    <style>{`.sunscreen-map .pin-label{background:${card};color:${MAROON};border:0;border-radius:10px;padding:5px 10px;font:700 12px system-ui;box-shadow:0 2px 8px rgba(0,0,0,.18)}.sunscreen-map .leaflet-tooltip-top:before{display:none}.sunscreen-map .leaflet-control-attribution{background:${surface};color:${INK};font-size:9px!important;opacity:.85}.sunscreen-map .leaflet-control-attribution a{color:${MAROON}}.sunscreen-map .leaflet-tile-pane{filter:${night ? "invert(1) hue-rotate(180deg) brightness(.8)" : "none"}}`}</style>
     <style>{`.sunscreen-map .place-marker{display:flex;align-items:center;border:0;background:none;font:600 11px system-ui;outline-offset:-3px}.sunscreen-map .place-label{display:flex;align-items:center;gap:5px;max-width:100%;padding:3px 7px 3px 3px;box-sizing:border-box;border-radius:16px;border:1px solid ${LINE};background:${surface};color:${INK};box-shadow:0 1px 3px #0002;pointer-events:none}.sunscreen-map .place-symbol{width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;flex-shrink:0}.sunscreen-map .place-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sunscreen-map .place-selected .place-label,.sunscreen-map .place-marker:focus-visible .place-label{outline:2px solid ${MAROON};outline-offset:2px}.sunscreen-map .place-marker:hover .place-label{border-color:${MAROON}}`}</style>
     <div ref={el} className="sunscreen-map" aria-label="Campus walking routes"
       style={{ position: "absolute", inset: 0, background: night ? "#22252a" : "#ddd", colorScheme: night ? "dark" : "light" }} />
