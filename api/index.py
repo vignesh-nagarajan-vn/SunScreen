@@ -25,6 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from campus_routing.passages import add_passages, load_catalog, traversal_available
 from campus_routing.geometry import route_key
 from api.lighting import routes as lighting_routes
+from campus_routing.places import load_places, public_place, resolve_place, search_places
 
 WALK_MPS = 1.4
 ALPHAS = [0, 0.25, 0.5, 1, 2, 4, 8, 16]  # shade weights tried when generating candidate routes
@@ -43,7 +44,7 @@ with open(GRAPH, "rb") as f:
 SLOTS = G.graph["slots"]  # ["0700", "0730", ...]
 SUN = G.graph["sun"]  # slot -> altitude, azimuth, clearsky_dni
 SHADOW_DATE = G.graph["date"]  # shade masks were cast for this date
-PLACES = {p["id"]: p for p in G.graph["places"]}
+PLACES = {p["id"]: p for p in load_places(G)}
 DEFAULT = G.graph["default"]
 B = G.graph["bounds"]
 NODES = [(n, d["y"], d["x"]) for n, d in G.nodes(data=True)]
@@ -134,8 +135,8 @@ def nearest_slot(hhmm):
 
 def endpoint(value, label):
     """A place id or "lat,lon" -> {name, lat, lon, node}."""
-    if value in PLACES:
-        p = PLACES[value]
+    p = PLACES.get(value) or resolve_place(PLACES.values(), value)
+    if p is not None:
         return {"id": p["id"], "name": p["name"], "lat": p["lat"], "lon": p["lon"], "node": p["node"]}
     try:
         lat, lon = (float(v) for v in value.split(","))
@@ -225,6 +226,8 @@ def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destinat
     a = endpoint(src or DEFAULT[0], src_name)
     b = endpoint(dst or DEFAULT[1], dst_name)
     if a["node"] == b["node"]:
+        if a['id'] and b['id'] and a['id'] != b['id']:
+            raise HTTPException(400, "These buildings share the same mapped walkway point. Try adjusting a pin on the map.")
         raise HTTPException(400, "Start and destination are the same spot.")
     if mode not in ("shade", "lighting"):
         raise HTTPException(400, "Unknown routing mode")
@@ -307,14 +310,19 @@ def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destinat
 
 def places():
     return {"bounds": B, "default": DEFAULT,
-            "places": [{k: p.get(k) for k in ("id", "name", "category", "lat", "lon")} for p in PLACES.values()]}
+            "places": [public_place(p) for p in PLACES.values()]}
 
 
 _search = {}
 
 
 def search(q):
-    """Nominatim search limited to the campus box (cached; Nominatim allows ~1 request/s)."""
+    """Known campus codes/names resolve offline; other addresses use Nominatim."""
+    local = search_places(PLACES.values(), q)
+    if local:
+        return {"results": [public_place(p) for p in local]}
+    if not q.strip():
+        return {"results": []}
     key = q.strip().lower()
     if key not in _search:
         params = urllib.parse.urlencode({
