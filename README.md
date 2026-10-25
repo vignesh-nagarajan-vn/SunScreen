@@ -14,6 +14,9 @@ SunScreen finds the optimal walking route between any two spots on Texas A&M's c
 Search names or official building codes such as **ILSQ**, **ILCB**, **ASTO** and
 **BEUT**. Common spellings such as **Buetul** work too. The preloaded list includes
 dorms and dining halls; see [campus destinations](docs-misc/campus-places.md).
+Search **Zach 596** for documented room guidance, or compare **ILSQ → Commons**
+with Max shade to evaluate the provisional MSC passage. See [indoor routing](docs-misc/indoor-routing.md)
+for entrance sources, schedules and field-verification limits.
 
 Try it live at [sunscreen-walks.vercel.app](https://sunscreen-walks.vercel.app/).
 

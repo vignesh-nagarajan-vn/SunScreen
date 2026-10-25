@@ -1,0 +1,88 @@
+{
+  "backend_tests": 94,
+  "javascript_tests": 14,
+  "browser_checks": {
+    "existing_passed": 64,
+    "indoor_final_recheck_passed": 10,
+    "unique_total_passed": 74
+  },
+  "web_export": "passed",
+  "android_export": "passed",
+  "route_audit": {
+    "cases": 15660,
+    "passed": 15660,
+    "unroutable": [],
+    "failures": [],
+    "building_routes": 6705,
+    "seconds": 797.28
+  },
+  "msc_example": {
+    "departure": "2026-10-26T14:00:00-05:00",
+    "weather": "clear sky",
+    "from": "ilsq",
+    "to": "commons",
+    "choices": [
+      {
+        "id": "fastest",
+        "distance_m": 1386,
+        "time_min": 16.5,
+        "shaded_pct": 39,
+        "indoor_m": 0.0,
+        "via_buildings": [],
+        "access_unconfirmed": false
+      },
+      {
+        "id": "recommended",
+        "distance_m": 1407,
+        "time_min": 16.8,
+        "shaded_pct": 55,
+        "indoor_m": 0.0,
+        "via_buildings": [],
+        "access_unconfirmed": false
+      },
+      {
+        "id": "max_shade",
+        "distance_m": 1786,
+        "time_min": 21.3,
+        "shaded_pct": 68,
+        "indoor_m": 283.9,
+        "via_buildings": [
+          "Memorial Student Center"
+        ],
+        "access_unconfirmed": true
+      }
+    ]
+  },
+  "input_sha256": {
+    "data/graph.pkl": "8ef00c5c7fbe84e55c923cac063a358a19f5e6d299fbc0d0be8c4683b697ed5e",
+    "data/building_passages.json": "fd2c5db2fb40ce72841d7548d4d8d43cab0ae33891548bcae6065d93240e2774",
+    "data/building_entrances.json": "02fdf30e960320087f42d7dfaa4b956851994457d29425b53345307434cf39bb",
+    "data/indoor_destinations.json": "13fef069aa982abb4338e87d70a7c9801afbfbd5f25a9e123c4c39fe18ce0eff",
+    "app/indoorPlaces.json": "fd067e206d67a48a62dae9f6ba2de43c519f34e99e2752ab07dc86fcc326cabf"
+  },
+  "source_plans": [
+    {
+      "url": "https://zachry.tamu.edu/wp-content/uploads/2018/08/ZACH-Tour-Book-web-accessible.pdf",
+      "sha256": "8328c996d99b67f26fd037485f1b96c9cf3d913efbe3d440603de95a36e50e3f",
+      "pages": [
+        7,
+        11
+      ]
+    },
+    {
+      "url": "https://students.ans.org/wp-content/uploads/2016/12/2015TAMU.pdf",
+      "sha256": "b45e1503ca4a50ffa2d268a6f99a9033757c610679777d434cece9d6a205d734",
+      "pages": [
+        29
+      ]
+    }
+  ],
+  "scope": "Original 24-place ordered-pair matrix at 27 time slots, plus every added building and documented room to/from Commons at 14:00; fixed clear-sky weather. Not an exhaustive 402-place all-pairs test.",
+  "limitations": [
+    "Only Zachry 596 has documented room guidance.",
+    "MSC entrance positions and interior trace are schematic and require a physical check; OSM has no explicitly entrance-tagged MSC nodes.",
+    "Room ETAs and distances cover the outdoor trip to the entrance. No live indoor positioning, measured room distances or elevator wait prediction.",
+    "Native bundle compiled; physical phone and door/corridor verification remain outstanding."
+  ],
+  "hash_policy": "SHA-256 of raw graph/PDF bytes; JSON inputs normalized to UTF-8 with LF line endings."
+}

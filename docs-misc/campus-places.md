@@ -87,7 +87,8 @@ the catalog alongside the graph.
 `/api/places` returns the same public names/codes/aliases as the picker.
 `/api/search?q=ILCB` resolves locally. `/api/route?from=ILSQ&to=ILCB` accepts unique
 exact names/codes as well as canonical IDs; ambiguous aliases are never silently
-resolved to the first match. Room numbers are outside this feature's scope.
+resolved to the first match. The building catalog is supplemented by a separate
+[indoor destination catalog](indoor-routing.md), starting with Zachry 596.
 
 Tests share alias/ranking fixtures between Python and JavaScript, check every
 catalog point against bounds/connectivity, preserve original anchors, exercise

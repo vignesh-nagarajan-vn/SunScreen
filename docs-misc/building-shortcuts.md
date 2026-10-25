@@ -1,9 +1,9 @@
 # Building passages in campus routes
 
 Mapped building passages participate automatically in the existing Fastest,
-Recommended and Max shade choices. There is no fourth route, building toggle,
-floor-plan viewer or room navigation. The map and route cards remain the normal
-phone navigation interface.
+Recommended and Max shade choices. There is no fourth route or building toggle.
+The map and route cards remain the normal phone navigation interface. Documented
+room destinations use a compact [indoor guide](indoor-routing.md).
 
 ## Search and access
 
@@ -15,7 +15,8 @@ closed. A building can also connect otherwise disconnected outdoor components.
 
 Recommended retains the existing +10% distance allowance, scaled by sunlight;
 Max shade retains +30%. The search evaluates several Dijkstra shade weights on
-both networks. It chooses the best evaluated candidate within each limit;
+both networks, adding bounded, loop-free passage candidates when necessary.
+It chooses the best evaluated candidate within each limit;
 this is not a proof of the global optimum under a distance constraint. A
 building passage is selected when it improves a normal choice, not forced into
 every trip. Commons to Zachry can still favor an outdoor alternative.
@@ -24,8 +25,8 @@ Weekly schedules, overnight windows, dated closures, expiry and one-way passages
 are supported. Availability is checked at departure and over the estimated
 arrival/traversal interval. Restricted or expired records are excluded. Unknown
 hours are excluded unless a record explicitly uses `allow_with_notice`.
-Langford uses that provisional policy, so a selected Langford route displays
-the compact **Check building access** handoff note. Its doors are not asserted
+Langford uses that provisional policy; MSC uses published hours with unconfirmed
+door access. Selected provisional passages display **Check building access**. Their doors are not asserted
 to be open. There is no live door-status service.
 
 Covered fractions are clipped to their actual portion of an existing edge,
@@ -44,7 +45,8 @@ The October 24, 2026 public OSM snapshot contains 1,584 building footprints,
 including roof structures, of which 354 have names. It contains **zero explicitly
 mapped indoor pedestrian ways**. The importer matched 22 covered-walkway/roof
 records to the saved campus pedestrian graph. The hand-authored provisional
-Langford A corridor remains in the catalog alongside them.
+Langford A corridor remains in the catalog alongside them. A provisional MSC
+first-floor route and its limits are documented in [indoor routing](indoor-routing.md).
 
 This implements building-aware routing throughout the app, with the available
 documented data. It does not provide every building's interior. Footprints alone
