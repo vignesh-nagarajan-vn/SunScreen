@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
-import MapView, { Marker, Polyline } from "react-native-maps";
+import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
 import { routeRuns } from "./theme";
 import { useTheme, useThemedStyles } from "./ThemeContext";
 import { endpointReservations, markerWidth, PLACE_KINDS, projectRegion, visibleMapPlaces } from "./mapPlaces";
@@ -86,6 +86,7 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
 
   return (
     <MapView
+      provider={Platform.OS === "android" ? PROVIDER_GOOGLE : undefined}
       ref={map}
       style={StyleSheet.absoluteFill}
       initialRegion={area}

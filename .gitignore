@@ -23,6 +23,18 @@ dist/
 .vercel/
 deploy/
 .env*.local
+.env
+.env.*
+!.env.example
+!.env.android.example
+*.apk
+*.aab
+*.jks
+*.keystore
+credentials.json
+dist-android/
+app/android/
+app/ios/
 
 # Local floor-plan inspection and development artifacts
 tmp/

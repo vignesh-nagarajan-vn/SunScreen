@@ -1,0 +1,17 @@
+{
+  "cli": { "appVersionSource": "remote" },
+  "build": {
+    "preview": {
+      "distribution": "internal",
+      "environment": "preview",
+      "env": { "EXPO_PUBLIC_API_BASE_URL": "https://sunscreen-walks.vercel.app" },
+      "android": { "buildType": "apk" }
+    },
+    "production": {
+      "environment": "production",
+      "autoIncrement": true,
+      "env": { "EXPO_PUBLIC_API_BASE_URL": "https://sunscreen-walks.vercel.app" },
+      "android": { "buildType": "app-bundle" }
+    }
+  }
+}
