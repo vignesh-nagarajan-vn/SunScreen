@@ -8,10 +8,10 @@ const light = {
   error: "#9a1b1b", warning: "#9a5b00", overlay: "rgba(255,255,255,0.92)",
 };
 const dark = {
-  INK: "#f5edef", LINE: "#44383e", MAROON: "#f0a5b1", MUTED: "#c0b2b9",
-  SUN: "#e0a21b", TINT: "#35252e", surface: "#1b181e", header: "#291820",
-  onAccent: "#29121b", track: "#54434d", handle: "#67545f", skeleton: "#393039",
-  error: "#ffaaa8", warning: "#f2c37c", overlay: "rgba(27,24,30,0.94)",
+  INK: "#f5f2ef", LINE: "#443d3b", MAROON: "#A00000", MUTED: "#c0b9b5",
+  SUN: "#e0a21b", TINT: "#302020", surface: "#1b1b1e", header: "#291818",
+  onAccent: "#ffffff", track: "#544744", handle: "#675955", skeleton: "#393433",
+  error: "#f1a078", warning: "#f2c37c", overlay: "rgba(27,27,30,0.94)",
 };
 const ThemeContext = createContext({ night: false, colors: light, routes: ROUTES });
 
@@ -20,10 +20,10 @@ export function ThemeProvider({ night, children }) {
     night,
     colors: night ? dark : light,
     routes: night ? {
-      fastest: { ...ROUTES.fastest, color: "#b9b0b8" },
-      recommended: { ...ROUTES.recommended, color: dark.MAROON },
-      max_shade: { ...ROUTES.max_shade, color: "#cc849c", outline: "#edbbcc" },
-      max_lit: { ...ROUTES.max_lit, color: "#cc849c", outline: "#edbbcc" },
+      fastest: { ...ROUTES.fastest, color: "#b9b9be" },
+      recommended: { ...ROUTES.recommended, color: "#c64b32" },
+      max_shade: { ...ROUTES.max_shade, color: "#da7943", outline: "#f1ad73" },
+      max_lit: { ...ROUTES.max_lit, color: "#da7943", outline: "#f1ad73" },
     } : ROUTES,
   }), [night]);
   return createElement(ThemeContext.Provider, { value }, children);
