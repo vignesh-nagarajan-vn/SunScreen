@@ -5,6 +5,7 @@ data/*
 !data/graph.pkl
 !data/building_passages.json
 !data/building_coverage.json
+!data/campus_places.json
 *.laz
 *.las
 *.tif
