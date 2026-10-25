@@ -66,12 +66,19 @@ if __name__ == '__main__':
     parser.add_argument('--workers', type=int, default=4)
     args = parser.parse_args()
     started = time.perf_counter()
-    pairs = [(a, b) for a in index.PLACES for b in index.PLACES if a != b]
+    # Keep the original all-pairs/day matrix bounded as the destination catalog
+    # grows. Audit every added destination in both directions at 14:00 too.
+    legacy = [p['id'] for p in index.G.graph['places']]
+    pairs = [(a, b) for a in legacy for b in legacy if a != b]
     if args.all_slots:
         batches = [[(a, b, f'{s[:2]}:{s[2:]}') for a, b in pairs] for s in index.SLOTS]
     else:
         batches = [[(a, b, '14:00') for a, b in pairs],
                    [(index.DEFAULT[0], index.DEFAULT[1], f'{s[:2]}:{s[2:]}') for s in index.SLOTS]]
+    additions = [pid for pid in index.PLACES if pid not in legacy]
+    for start in range(0, len(additions), 80):
+        batches.append([(a, b, '14:00') for pid in additions[start:start + 80]
+                        for a, b in ((index.DEFAULT[0], pid), (pid, index.DEFAULT[0]))])
     report = {'cases': 0, 'passed': 0, 'unroutable': [], 'failures': [], 'building_routes': 0}
     with ProcessPoolExecutor(max_workers=max(1, min(4, args.workers))) as pool:
         for future in as_completed([pool.submit(audit_cases, batch) for batch in batches]):
