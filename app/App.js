@@ -7,6 +7,8 @@ import RouteMap from "./RouteMap";
 import PlacePicker from "./PlacePicker";
 import About from "./About";
 import RouteSettings from "./RouteSettings";
+import CorpsEscort from "./CorpsEscort";
+import { LIGHTING_COLORS } from "./theme";
 import { defaultLimits, matchesLimits, savedLimits, sameLimits } from "./routePreferences";
 import { API_BASE } from "./config";
 import { appleMapsUrl, googleMapsUrl, open } from "./openInMaps";
@@ -359,6 +361,7 @@ function Controls({ data, stale, status, selected, setSelected, preview, minutes
       </View>
       </>}
 
+      {night && <CorpsEscort />}
       {night && data && <>
         <View style={styles.pills}>
           <Text style={styles.pill}>{data.lighting?.source ?? "OpenStreetMap"}</Text>
@@ -420,7 +423,7 @@ function Legend() {
   const { colors: { MAROON, SUN }, night } = useTheme();
   return (
     <View style={styles.legend} pointerEvents="none">
-      {night ? [["#f5d76e", "Mapped lit"], ["#d0a85c", "Estimated"], ["#94a3b8", "Unknown"], ["#d77887", "Unlit / conflict"]].map(([color, label]) => (
+      {night ? [[LIGHTING_COLORS.mapped, "Mapped lit"], [LIGHTING_COLORS.estimated, "Estimated"], [LIGHTING_COLORS.unknown, "Unknown"], [LIGHTING_COLORS.unlit, "Unlit / conflict"]].map(([color, label]) => (
         <View key={label} style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
           <View style={[styles.legendSwatch, { backgroundColor: color }]} /><Text style={styles.legendText}>{label}</Text>
         </View>

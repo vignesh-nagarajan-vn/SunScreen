@@ -28,7 +28,8 @@ export function shadeRuns(feature) {
     .map(([a, b, shade]) => ({ coords: c.slice(a, b + 1), shade }));
 }
 
-export const LIGHTING_COLORS = { mapped: "#f5d76e", estimated: "#d0a85c", unknown: "#94a3b8", unlit: "#d77887", conflict: "#d77887" };
+// Lighter red/copper echoes the daytime maroon; gray distinguishes unknown coverage.
+export const LIGHTING_COLORS = { mapped: "#da7943", estimated: "#c64b32", unknown: "#94a3b8", unlit: "#8f3026", conflict: "#8f3026" };
 
 export function routeRuns(feature, routeColor) {
   if (feature.properties.mode === "lighting") {
