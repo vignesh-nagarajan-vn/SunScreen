@@ -1,0 +1,37 @@
+{
+  "destinations": 401,
+  "added_destinations": 377,
+  "residence_destinations": 58,
+  "dining_destinations": 4,
+  "backend_tests": 81,
+  "javascript_tests": 8,
+  "browser_tests": 52,
+  "final_catalog_search_recheck": 10,
+  "route_audit": {
+    "cases": 15658,
+    "passed": 15658,
+    "unroutable": [],
+    "failures": [],
+    "building_routes": 2507,
+    "seconds": 358.66
+  },
+  "source": {
+    "name": "Texas A&M Aggie Map, University Building layer",
+    "url": "https://gis.tamu.edu/arcgis/rest/services/FCOR/TAMU_Basemap_20261008/MapServer/2",
+    "snapshot_sha256": "809d55c8c334e769b7d3049b53e20a3078eb997d2c968ffb69b60a74af611376",
+    "attribution": "Texas A&M University Facilities Analytics & Mapping",
+    "license_note": "Public map data; no open license declared by the service. Not an OSM import."
+  },
+  "input_sha256": {
+    "data/graph.pkl": "8ef00c5c7fbe84e55c923cac063a358a19f5e6d299fbc0d0be8c4683b697ed5e",
+    "data/campus_places.json": "c45872e11baca6571c09794272419c8356e233bf0db962738482dd4a3c725567",
+    "app/places.json": "0f104583e031ebca1b124f096b3596bafb622f8a74d097e89faca9adafd3fc49"
+  },
+  "scope": "Original 24-place ordered-pair matrix at all 27 slots plus every added destination to/from Commons at 14:00; clear-sky test weather.",
+  "limitations": [
+    "Only the current graph/raster bounds are covered.",
+    "Building pins connect to mapped outdoor walkways; entrances, opening hours and rooms are not surveyed.",
+    "Nearby buildings may share a walkway anchor and require adjusting a pin.",
+    "Native hardware was not tested."
+  ]
+}
