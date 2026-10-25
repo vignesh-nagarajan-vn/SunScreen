@@ -5,12 +5,13 @@ export const LINE = "#e6dddd";
 export const TINT = "#f8eeee";
 export const SUN = "#e0a21b"; // stretches of the selected route in direct sun
 
-// Route styling, shared by the map and the route cards. `dash` applies when the route isn't selected.
+// Route styling, shared by the map and the route cards. `dash` applies when the route isn't selected;
+// `tone` is the darker shade the route cards use for their dot and shade bar.
 export const ROUTES = {
-  fastest: { color: "#8c8c8c", label: "Fastest", dash: [6, 8] },
-  recommended: { color: MAROON, label: "Recommended" },
-  max_shade: { color: "#b0636b", label: "Max shade", outline: "#6e2f35" },
-  max_lit: { color: "#b0636b", label: "Most lit", outline: "#6e2f35" },
+  fastest: { color: "#8c8c8c", tone: "#6b6b6b", label: "Fastest", dash: [6, 8] },
+  recommended: { color: MAROON, tone: MAROON, label: "Recommended" },
+  max_shade: { color: "#b0636b", tone: "#8e3f48", label: "Max shade", outline: "#6e2f35" },
+  max_lit: { color: "#b0636b", tone: "#8e3f48", label: "Most lit", outline: "#6e2f35" },
 };
 
 // Blend from the route's own color (fully shaded) to SUN (fully in sun).

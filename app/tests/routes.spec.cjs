@@ -16,7 +16,6 @@ test('phone shows one map and exactly three normal route choices', async ({ page
   const errors = []; page.on('pageerror', e => errors.push(e.message));
   await mock(page); await page.goto('/?intro=0&time=14:00');
   await expect(page.getByRole('button', { name: /^Recommended:/ })).toBeVisible();
-  await page.getByText('Compare all 3 routes', { exact: false }).click();
   for (const label of ['Fastest', 'Recommended', 'Max shade'])
     await expect(page.getByRole('button', { name: new RegExp('^' + label + ':') })).toBeVisible();
   // The night mode toggle is the only switch; no indoor routing controls.
@@ -33,7 +32,6 @@ test('phone shows one map and exactly three normal route choices', async ({ page
 test('small phone keeps the map and endpoints accessible', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 568 });
   await mock(page); await page.goto('/?intro=0&time=14:00');
-  await page.getByText('Compare all 3 routes', { exact: false }).click();
   await expect(page.getByRole('button', { name: /^From:/ })).toBeVisible();
   const map = await page.locator('.leaflet-container').boundingBox();
   expect(map.height).toBeGreaterThan(60);
@@ -57,14 +55,13 @@ test('offline and malformed API responses retain three cached choices', async ({
     await page.unroute('**/api/route?**');
     await mock(page, kind); await page.goto('/?intro=0&time=14:00');
     await expect(page.getByText(/Offline: showing saved routes/)).toBeVisible();
-    await page.getByText('Compare all 3 routes', { exact: false }).click();
     await expect(page.getByRole('button', { name: /^Fastest:/ })).toBeVisible();
   }
 });
 
 test('repeated selection does not accumulate old map paths', async ({ page }) => {
   await mock(page); await page.goto('/?intro=0&time=14:00');
-  await page.getByText('Compare all 3 routes', { exact: false }).click();
+  await expect(page.getByRole('button', { name: /^Max shade:/ })).toBeVisible();
   const before = await page.locator('.leaflet-overlay-pane path').count();
   for (let i = 0; i < 4; i++) {
     await page.getByRole('button', { name: /^Max shade:/ }).click();

@@ -9,7 +9,8 @@ const toLatLng = (coords) => coords.map(([longitude, latitude]) => ({ latitude, 
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
 // Native map (Expo Go). RouteMap.web.js is the browser version.
-export default function RouteMap({ data, selected, bounds, picking, onMapPress, from, to, onEndpointDragStart, onEndpointDragEnd,
+// `insets` keeps fitted routes clear of panels floating over the map ({ top, right, bottom } in px).
+export default function RouteMap({ data, selected, bounds, picking, onMapPress, insets, from, to, onEndpointDragStart, onEndpointDragEnd,
   places = [], highlightedId, onPlacePress, onBackgroundPress }) {
   const styles = useThemedStyles(createStyles);
   const { colors: { MAROON, surface }, routes: ROUTES, night } = useTheme();
@@ -38,7 +39,7 @@ export default function RouteMap({ data, selected, bounds, picking, onMapPress, 
   };
 
   const fit = () => data && map.current?.fitToCoordinates(data.features.flatMap((f) => toLatLng(f.geometry.coordinates)), {
-    edgePadding: { top: 60, left: 40, right: 40, bottom: 40 },
+    edgePadding: { top: insets?.top ?? 60, left: 40, right: insets?.right ?? 40, bottom: insets?.bottom ?? 40 },
     animated: true,
   });
   // Refit only when the trip changes, not when the time or selected route does.

@@ -9,7 +9,7 @@ async function mock(page) {
   });
 }
 
-test('night mode uses red accents and offers the official Corps telephone link', async ({ page }) => {
+test('night mode uses copper accents and offers the official Corps telephone link', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
   await mock(page);
   await page.goto('/?intro=0&time=14:00');
@@ -19,8 +19,9 @@ test('night mode uses red accents and offers the official Corps telephone link',
   await expect(escort).toBeVisible();
   // Inspect the dial target without placing an actual call.
   await expect(escort).toHaveAttribute('href', 'tel:+19798456789');
-  await expect(escort).toHaveCSS('background-color', 'rgb(160, 0, 0)');
-  await expect(page.getByText('Streetlight routing', { exact: true })).toHaveCSS('color', 'rgb(160, 0, 0)');
+  await expect(escort).toHaveCSS('background-color', 'rgb(51, 41, 42)');
+  await expect(page.getByRole('switch', { name: 'Night mode' })).toHaveCSS('background-color', 'rgb(229, 154, 114)');
+  await expect(page.getByText('Streetlight routing', { exact: true })).toHaveCSS('color', 'rgb(243, 238, 238)');
   await expect(page.getByRole('button', { name: /^Most lit:/ })).toBeVisible();
   await expect(page.locator('.leaflet-overlay-pane path[stroke="#c64b32"]').first()).toBeVisible();
   await expect(page.locator('.leaflet-overlay-pane path[stroke="#d77887"]')).toHaveCount(0);

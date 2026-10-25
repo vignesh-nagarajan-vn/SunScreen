@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Pressable, SectionList, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, SectionList, StyleSheet, Text, TextInput, View } from "react-native";
 import { API_BASE } from "./config";
+import Icon from "./Icon";
 import { currentPosition } from "./location";
 import { useTheme, useThemedStyles } from "./ThemeContext";
 import { exactPlace, searchPlaces } from "./placeSearch";
 
 const CATEGORIES = ["Academic", "Residence halls", "Dining", "Libraries", "Health & services", "Student life", "Athletics", "Landmarks", "Parks & neighborhoods", "Campus facilities"];
 const ICONS = {
-  Recent: "🕘", Academic: "🎓", Libraries: "📚", Dining: "🍽️", "Student life": "⭐", Athletics: "🏟️",
-  Landmarks: "📍", "Parks & neighborhoods": "🌳", Search: "🔎",
-  "Residence halls": "🏠", "Health & services": "🏥", "Campus facilities": "🏢",
+  Recent: "clock", Academic: "cap", Libraries: "book", Dining: "dining", "Student life": "star", Athletics: "stadium",
+  Landmarks: "landmark", "Parks & neighborhoods": "tree", Search: "pin",
+  "Residence halls": "home", "Health & services": "health", "Campus facilities": "building",
 };
 const inBounds = (p, b) => p.lat >= b.south && p.lat <= b.north && p.lon >= b.west && p.lon <= b.east;
 function distance(a, b) {
@@ -18,12 +19,13 @@ function distance(a, b) {
 }
 
 // Full-screen chooser for a route endpoint: grouped campus places, recents, address search, GPS, or a map tap.
-export default function PlacePicker({ title, places, bounds, recents, here, onLocated, onSelect, onPickOnMap, onClose }) {
+export default function PlacePicker({ title, current, places, bounds, recents, here, onLocated, onSelect, onPickOnMap, onClose }) {
   const styles = useThemedStyles(createStyles);
-  const { colors: { MUTED } } = useTheme();
+  const { colors: { INK, MAROON, MUTED, onAccent } } = useTheme();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState(null);
   const [status, setStatus] = useState("");
+  const [category, setCategory] = useState(null); // null shows every group
   const request = useRef({ sequence: 0, controller: null });
   useEffect(() => () => { request.current.sequence++; request.current.controller?.abort(); }, []);
 
@@ -36,8 +38,9 @@ export default function PlacePicker({ title, places, bounds, recents, here, onLo
           .map((p) => ({ ...p, id: p.id ?? null, category: p.category ?? "Search" })) },
       ]
     : [
-        { title: "Recent", data: recents },
-        ...CATEGORIES.map((c) => ({ title: c, data: places.filter((p) => p.category === c).sort((a, b) => a.name.localeCompare(b.name)) })),
+        ...(category ? [] : [{ title: "Recent", data: recents }]),
+        ...CATEGORIES.filter((c) => !category || c === category)
+          .map((c) => ({ title: c, data: places.filter((p) => p.category === c).sort((a, b) => a.name.localeCompare(b.name)) })),
       ];
 
   const searchAddresses = () => {
@@ -90,21 +93,38 @@ export default function PlacePicker({ title, places, bounds, recents, here, onLo
     <View style={styles.sheet} accessibilityViewIsModal>
       <View style={styles.top}>
         <Text style={styles.title} accessibilityRole="header">{title}</Text>
-        <Pressable onPress={onClose} hitSlop={12} style={styles.closeButton} accessibilityRole="button">
-          <Text style={styles.close}>Cancel</Text>
+        <Pressable onPress={onClose} hitSlop={8} style={styles.closeButton} accessibilityRole="button" accessibilityLabel="Close">
+          <Icon name="close" size={18} color={INK} strokeWidth={2.4} />
         </Pressable>
       </View>
-      <TextInput
-        style={styles.input} value={query} autoFocus placeholder="Name, building code or address"
-        placeholderTextColor={MUTED} returnKeyType="search" accessibilityLabel="Search buildings or addresses"
-        onChangeText={changeQuery}
-        onSubmitEditing={submit}
-      />
-      <View style={styles.actions}>
-        <Action label="📍 My location" onPress={useMyLocation} />
-        <Action label="🗺️ Pick on map" onPress={onPickOnMap} />
-        {q.length >= 2 && !campusMatches.length && results === null && <Action label={`🔎 Search addresses for "${query.trim()}"`} onPress={searchAddresses} />}
+      <View style={styles.search}>
+        <Icon name="search" size={18} color={MUTED} strokeWidth={2.2} />
+        <TextInput
+          style={styles.input} value={query} autoFocus placeholder="Name, building code or address"
+          placeholderTextColor={MUTED} returnKeyType="search" accessibilityLabel="Search buildings or addresses"
+          onChangeText={changeQuery}
+          onSubmitEditing={submit}
+        />
       </View>
+      <View style={styles.actions}>
+        <Action icon="locate" label="My location" onPress={useMyLocation} />
+        <Action icon="pin" label="Pick on map" onPress={onPickOnMap} />
+      </View>
+      {q.length >= 2 && !campusMatches.length && results === null &&
+        <Action icon="search" label={`Search addresses for "${query.trim()}"`} onPress={searchAddresses} />}
+      {!q && (
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.chipScroll} contentContainerStyle={styles.chips}>
+          {[null, ...CATEGORIES].map((c) => {
+            const active = c === category;
+            return (
+              <Pressable key={c ?? "All"} onPress={() => setCategory(c)} style={[styles.chip, active && styles.chipActive]}
+                accessibilityRole="button" accessibilityState={{ selected: active }}>
+                <Text style={[styles.chipText, active && { color: onAccent }]}>{c ?? "All"}</Text>
+              </Pressable>
+            );
+          })}
+        </ScrollView>
+      )}
       {!!status && <Text style={styles.status} accessibilityLiveRegion="polite">{status}</Text>}
       <SectionList
         sections={sections.filter((s) => s.data.length)}
@@ -113,46 +133,67 @@ export default function PlacePicker({ title, places, bounds, recents, here, onLo
         stickySectionHeadersEnabled={false}
         ListEmptyComponent={q && !status && results === null ? <Text style={styles.status}>No saved campus matches. Search addresses or pick on the map.</Text> : null}
         renderSectionHeader={({ section }) => <Text style={styles.section}>{section.title}</Text>}
-        renderItem={({ item, section }) => (
-          <Pressable style={styles.row} onPress={() => onSelect(item)} accessibilityRole="button"
-            accessibilityLabel={`${item.name}${item.building_code ? ` (${item.building_code})` : item.building_number ? ` (Building ${item.building_number})` : ""}`}>
-            <Text style={styles.icon}>{ICONS[section.title === "Recent" ? "Recent" : item.category] ?? "📍"}</Text>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.rowText} numberOfLines={1}>{item.name}</Text>
-              {(item.building_code || item.building_number) && <Text style={styles.placeMeta}>{item.building_code || `Building ${item.building_number}`} · {item.category}</Text>}
-            </View>
-            {here && <Text style={styles.distance}>{distance(here, item)}</Text>}
-          </Pressable>
-        )}
+        renderItem={({ item, section }) => {
+          const recent = section.title === "Recent";
+          const chosen = !recent && current?.name === item.name;
+          const code = item.building_code || (item.building_number && `Building ${item.building_number}`);
+          const meta = [code, item.category !== "Search" && item.category].filter(Boolean).join(" · ");
+          return (
+            <Pressable style={[styles.row, chosen && styles.rowChosen]} onPress={() => onSelect(item)} accessibilityRole="button"
+              accessibilityState={{ selected: chosen }}
+              accessibilityLabel={`${item.name}${item.building_code ? ` (${item.building_code})` : item.building_number ? ` (Building ${item.building_number})` : ""}`}>
+              <View style={[styles.tile, recent && styles.tileRecent, chosen && { backgroundColor: MAROON }]}>
+                <Icon name={ICONS[recent ? "Recent" : item.category] ?? "pin"} size={18}
+                  color={chosen ? onAccent : recent ? MUTED : MAROON} strokeWidth={2.1} />
+              </View>
+              <View style={{ flex: 1, gap: 2 }}>
+                <Text style={styles.rowText} numberOfLines={1}>{item.name}</Text>
+                {!!meta && <Text style={styles.meta} numberOfLines={1}>{meta}</Text>}
+              </View>
+              {here && <Text style={styles.distance}>{distance(here, item)}</Text>}
+              {chosen && <Icon name="check" size={20} color={MAROON} strokeWidth={2.6} />}
+            </Pressable>
+          );
+        }}
       />
     </View>
   );
 }
 
-function Action({ label, onPress }) {
+function Action({ icon, label, onPress }) {
   const styles = useThemedStyles(createStyles);
+  const { colors: { MAROON } } = useTheme();
   return (
     <Pressable onPress={onPress} style={styles.action} accessibilityRole="button">
-      <Text style={styles.actionText}>{label}</Text>
+      <Icon name={icon} size={17} color={MAROON} strokeWidth={2.2} />
+      <Text style={styles.actionText} numberOfLines={1}>{label}</Text>
     </Pressable>
   );
 }
 
-const createStyles = ({ INK, LINE, MAROON, MUTED, SUN, TINT, surface, header, onAccent, track, handle, skeleton, error, warning, overlay }) => StyleSheet.create({
-  sheet: { ...StyleSheet.absoluteFillObject, backgroundColor: surface, paddingHorizontal: 16, paddingTop: 16, zIndex: 2000 },
-  top: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 },
-  title: { fontSize: 20, fontWeight: "700", color: MAROON },
-  closeButton: { minHeight: 44, justifyContent: "center", paddingHorizontal: 4 },
-  close: { fontSize: 15, color: MAROON, fontWeight: "600" },
-  input: { borderWidth: 1.5, borderColor: LINE, borderRadius: 12, paddingHorizontal: 12, paddingVertical: 11, fontSize: 16, color: INK },
-  actions: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginVertical: 10 },
-  action: { backgroundColor: TINT, borderRadius: 18, paddingHorizontal: 12, paddingVertical: 8, minHeight: 36, justifyContent: "center" },
-  actionText: { color: MAROON, fontWeight: "600", fontSize: 13 },
-  status: { color: MUTED, marginBottom: 6 },
-  section: { fontSize: 12, fontWeight: "700", color: MUTED, textTransform: "uppercase", letterSpacing: 0.6, marginTop: 14, marginBottom: 2 },
-  row: { flexDirection: "row", alignItems: "center", gap: 12, minHeight: 48, borderBottomWidth: 1, borderBottomColor: LINE },
-  icon: { fontSize: 18, width: 26, textAlign: "center" },
-  rowText: { fontSize: 16, color: INK },
-  placeMeta: { fontSize: 12, color: MUTED, marginTop: 2 },
+const createStyles = ({ INK, LINE, MAROON, MUTED, TINT, surface, chip, divider }) => StyleSheet.create({
+  sheet: { ...StyleSheet.absoluteFillObject, backgroundColor: surface, paddingHorizontal: 20, paddingTop: 16, zIndex: 2000 },
+  top: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 14 },
+  title: { fontSize: 22, fontWeight: "800", color: INK, letterSpacing: -0.3 },
+  closeButton: { width: 44, height: 44, borderRadius: 22, backgroundColor: chip, alignItems: "center", justifyContent: "center" },
+  search: { flexDirection: "row", alignItems: "center", gap: 10, height: 50, paddingHorizontal: 14, borderWidth: 1.5, borderColor: MAROON, borderRadius: 14 },
+  input: { flex: 1, minWidth: 0, alignSelf: "stretch", fontSize: 15, fontWeight: "500", color: INK, outlineStyle: "none" },
+  actions: { flexDirection: "row", gap: 8, marginTop: 12, marginBottom: 8 },
+  action: { flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, minHeight: 44, paddingHorizontal: 12,
+    borderWidth: 1.5, borderColor: LINE, borderRadius: 12 },
+  actionText: { flexShrink: 1, color: MAROON, fontWeight: "700", fontSize: 14 },
+  chipScroll: { flexGrow: 0, flexShrink: 0, marginHorizontal: -20, marginTop: 4 },
+  chips: { gap: 8, paddingHorizontal: 20 },
+  chip: { height: 36, paddingHorizontal: 14, borderRadius: 18, borderWidth: 1.5, borderColor: LINE, justifyContent: "center" },
+  chipActive: { backgroundColor: MAROON, borderColor: MAROON },
+  chipText: { color: INK, fontSize: 13, fontWeight: "600" },
+  status: { color: MUTED, marginTop: 8 },
+  section: { fontSize: 12, fontWeight: "700", color: MUTED, textTransform: "uppercase", letterSpacing: 0.8, marginTop: 16, marginBottom: 4 },
+  row: { flexDirection: "row", alignItems: "center", gap: 12, minHeight: 64, borderBottomWidth: 1, borderBottomColor: divider },
+  rowChosen: { backgroundColor: TINT, borderRadius: 14, borderBottomWidth: 0, marginHorizontal: -10, paddingHorizontal: 10 },
+  tile: { width: 40, height: 40, borderRadius: 12, backgroundColor: TINT, alignItems: "center", justifyContent: "center" },
+  tileRecent: { backgroundColor: chip },
+  rowText: { fontSize: 15, fontWeight: "700", color: INK },
+  meta: { fontSize: 12, fontWeight: "500", color: MUTED },
   distance: { fontSize: 13, color: MUTED },
 });

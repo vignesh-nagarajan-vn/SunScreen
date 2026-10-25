@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { open } from "./openInMaps";
-import { useThemedStyles } from "./ThemeContext";
+import Icon from "./Icon";
+import { useTheme, useThemedStyles } from "./ThemeContext";
 
 // Number and service hours: https://www.tamu.edu/campus-community/campus-safety.html
 const PHONE = "979-845-6789";
@@ -9,30 +10,36 @@ const CALL_URL = "tel:+19798456789";
 
 export default function CorpsEscort() {
   const styles = useThemedStyles(createStyles);
+  const { colors: { onAccent } } = useTheme();
   const [error, setError] = useState(false);
   const call = () => {
     setError(false);
     open(CALL_URL).catch(() => setError(true));
   };
-  return <View style={styles.section}>
-    <Pressable style={styles.button} accessibilityRole="link"
+  return <View>
+    <Pressable style={styles.card} accessibilityRole="link"
       accessibilityLabel={`Call Texas A&M Corps escort at ${PHONE}`}
       accessibilityHint="Opens your phone app to request a campus walking escort"
       {...(Platform.OS === "web" ? { href: CALL_URL } : { onPress: call })}>
-      <Text style={styles.title}>Call Corps escort</Text>
-      <Text style={styles.number}>{PHONE}</Text>
+      <View style={styles.icon}><Icon name="phone" size={17} color={onAccent} /></View>
+      <View style={{ flex: 1, gap: 2 }}>
+        <View style={styles.titleRow}>
+          <Text style={styles.title}>Call Corps escort</Text>
+          <Text style={styles.number}>{PHONE}</Text>
+        </View>
+        <Text style={styles.hours}>Weekdays 6 p.m.–7 a.m. · Weekends all day · Fall and spring semesters</Text>
+      </View>
     </Pressable>
-    <Text style={styles.hours}>Weekdays 6 p.m.–7 a.m. · Weekends all day{"\n"}Fall and spring semesters</Text>
     {error && <Text style={styles.error} accessibilityLiveRegion="polite">Couldn’t open your phone app. Call {PHONE} directly.</Text>}
   </View>;
 }
 
-const createStyles = ({ MAROON, onAccent, MUTED, error }) => StyleSheet.create({
-  section: { marginTop: 4, marginBottom: 12 },
-  button: { backgroundColor: MAROON, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, minHeight: 48,
-    flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 6 },
-  title: { color: onAccent, fontSize: 15, fontWeight: "700" },
-  number: { color: onAccent, fontSize: 14, fontWeight: "600" },
-  hours: { color: MUTED, fontSize: 12, lineHeight: 18, marginTop: 6 },
+const createStyles = ({ INK, MAROON, MUTED, chip, error }) => StyleSheet.create({
+  card: { flexDirection: "row", alignItems: "center", gap: 12, padding: 12, borderRadius: 14, backgroundColor: chip, minHeight: 48 },
+  icon: { width: 36, height: 36, borderRadius: 18, backgroundColor: MAROON, alignItems: "center", justifyContent: "center" },
+  titleRow: { flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", columnGap: 8 },
+  title: { color: INK, fontSize: 15, fontWeight: "700" },
+  number: { color: MAROON, fontSize: 15, fontWeight: "700" },
+  hours: { color: MUTED, fontSize: 12, lineHeight: 17 },
   error: { color: error, fontSize: 13, marginTop: 6 },
 });
