@@ -8,6 +8,7 @@ SunScreen finds the optimal walking route between any two spots on Texas A&M's c
 - **Datasets:** [TxGIO StratMap 2025 LiDAR](https://data.geographic.texas.gov/) (Brazos basins, with [USGS 3DEP](https://registry.opendata.aws/usgs-lidar/) as a fallback), [OpenStreetMap](https://www.openstreetmap.org/) walking paths (via osmnx), [Open-Meteo](https://open-meteo.com/) cloud and sunlight forecast
 - **Stack:** Python (PDAL, rasterio, numpy, osmnx, networkx, pvlib), FastAPI, Expo / React Native, Leaflet for web
 - **Run it:** see [EXTENDED.md](EXTENDED.md) for setup, then `make data`, `make api` and `make app`
+- **Android APK:** see [ANDROID.md](ANDROID.md) for Expo account setup, Google Maps configuration, building, and installation.
 
 ## Demo
 
