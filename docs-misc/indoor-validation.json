@@ -1,4 +1,5 @@
 {
+  "snapshot_note": "Historical full-feature validation at 043e3bf, before the building-pin and north-entrance follow-up. Original input hashes and route figures are retained; see indoor-routing.md for the corrected examples and focused follow-up checks.",
   "backend_tests": 95,
   "javascript_tests": 14,
   "browser_checks": {
