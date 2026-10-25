@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Pressable, ScrollView, SectionList, StyleSheet, Text, TextInput, View } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, SectionList, StyleSheet, Text, TextInput, View } from "react-native";
 import { API_BASE } from "./config";
 import Icon from "./Icon";
 import { currentPosition } from "./location";
@@ -29,6 +29,8 @@ export default function PlacePicker({ title, current, places, bounds, recents, h
   const [category, setCategory] = useState(null); // null shows every group
   const request = useRef({ sequence: 0, controller: null });
   useEffect(() => () => { request.current.sequence++; request.current.controller?.abort(); }, []);
+  const select = place => { Keyboard.dismiss(); onSelect(place); };
+  const close = () => { Keyboard.dismiss(); onClose(); };
 
   const q = query.trim().toLowerCase();
   const campusMatches = useMemo(() => searchPlaces(places, q), [places, q]);
@@ -74,7 +76,7 @@ export default function PlacePicker({ title, current, places, bounds, recents, h
   const submit = () => {
     if (q.length < 2) return;
     const exact = exactPlace(places, q);
-    if (exact || campusMatches.length === 1) onSelect(exact ?? campusMatches[0]);
+    if (exact || campusMatches.length === 1) select(exact ?? campusMatches[0]);
     else if (campusMatches.length) setStatus("Choose a campus place below.");
     else if (isRoomQuery(q)) setStatus("Indoor directions aren't mapped for this room yet. Search the building name for an outdoor route.");
     else searchAddresses();
@@ -85,17 +87,17 @@ export default function PlacePicker({ title, current, places, bounds, recents, h
     currentPosition()
       .then((p) => {
         onLocated(p);
-        if (inBounds(p, bounds)) onSelect({ ...p, id: null, name: "My location" });
+        if (inBounds(p, bounds)) select({ ...p, id: null, name: "My location" });
         else setStatus("You're outside the Texas A&M area SunScreen covers.");
       })
       .catch((e) => setStatus(e.message));
   };
 
-  return (
+  const content = (
     <View style={styles.sheet} accessibilityViewIsModal>
       <View style={styles.top}>
         <Text style={styles.title} accessibilityRole="header">{title}</Text>
-        <Pressable onPress={onClose} hitSlop={8} style={styles.closeButton} accessibilityRole="button" accessibilityLabel="Close">
+        <Pressable onPress={close} hitSlop={8} style={styles.closeButton} accessibilityRole="button" accessibilityLabel="Close">
           <Icon name="close" size={18} color={INK} strokeWidth={2.4} />
         </Pressable>
       </View>
@@ -109,8 +111,8 @@ export default function PlacePicker({ title, current, places, bounds, recents, h
         />
       </View>
       <View style={styles.actions}>
-        <Action icon="locate" label="My location" onPress={useMyLocation} />
-        <Action icon="pin" label="Pick on map" onPress={onPickOnMap} />
+        <Action icon="locate" label="My location" onPress={useMyLocation} fill />
+        <Action icon="pin" label="Pick on map" onPress={() => { Keyboard.dismiss(); onPickOnMap(); }} fill />
       </View>
       {q.length >= 2 && !campusMatches.length && !isRoomQuery(q) && results === null &&
         <Action icon="search" label={`Search addresses for "${query.trim()}"`} onPress={searchAddresses} />}
@@ -129,9 +131,12 @@ export default function PlacePicker({ title, current, places, bounds, recents, h
       )}
       {!!status && <Text style={styles.status} accessibilityLiveRegion="polite">{status}</Text>}
       <SectionList
+        style={styles.results}
+        contentContainerStyle={{ paddingBottom: 24 }}
         sections={sections.filter((s) => s.data.length)}
         keyExtractor={(p, i) => `${p.id ?? p.name}-${i}`}
         keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
         stickySectionHeadersEnabled={false}
         ListEmptyComponent={q && !status && results === null ? <Text style={styles.status}>No saved campus matches. Search addresses or pick on the map.</Text> : null}
         renderSectionHeader={({ section }) => <Text style={styles.section}>{section.title}</Text>}
@@ -141,7 +146,7 @@ export default function PlacePicker({ title, current, places, bounds, recents, h
           const code = item.building_code || (item.building_number && `Building ${item.building_number}`);
           const meta = [code, item.floor && `Level ${item.floor}`, item.category !== "Search" && item.category].filter(Boolean).join(" · ");
           return (
-            <Pressable style={[styles.row, chosen && styles.rowChosen]} onPress={() => onSelect(item)} accessibilityRole="button"
+            <Pressable style={[styles.row, chosen && styles.rowChosen]} onPress={() => select(item)} accessibilityRole="button"
               accessibilityState={{ selected: chosen }}
               accessibilityLabel={`${item.name}${item.building_code ? ` (${item.building_code})` : item.building_number ? ` (Building ${item.building_number})` : ""}`}>
               <View style={[styles.tile, recent && styles.tileRecent, chosen && { backgroundColor: MAROON }]}>
@@ -160,13 +165,19 @@ export default function PlacePicker({ title, current, places, bounds, recents, h
       />
     </View>
   );
+  if (Platform.OS === "web") return content;
+  return <Modal visible animationType="slide" onRequestClose={close}>
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+      {content}
+    </KeyboardAvoidingView>
+  </Modal>;
 }
 
-function Action({ icon, label, onPress }) {
+function Action({ icon, label, onPress, fill = false }) {
   const styles = useThemedStyles(createStyles);
   const { colors: { MAROON } } = useTheme();
   return (
-    <Pressable onPress={onPress} style={styles.action} accessibilityRole="button">
+    <Pressable onPress={onPress} style={[styles.action, fill && { flex: 1 }]} accessibilityRole="button">
       <Icon name={icon} size={17} color={MAROON} strokeWidth={2.2} />
       <Text style={styles.actionText} numberOfLines={1}>{label}</Text>
     </Pressable>
@@ -178,13 +189,14 @@ const createStyles = ({ INK, LINE, MAROON, MUTED, TINT, surface, chip, divider }
   top: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 14 },
   title: { fontSize: 22, fontWeight: "800", color: INK, letterSpacing: -0.3 },
   closeButton: { width: 44, height: 44, borderRadius: 22, backgroundColor: chip, alignItems: "center", justifyContent: "center" },
-  search: { flexDirection: "row", alignItems: "center", gap: 10, height: 50, paddingHorizontal: 14, borderWidth: 1.5, borderColor: MAROON, borderRadius: 14 },
+  search: { flexDirection: "row", flexShrink: 0, alignItems: "center", gap: 10, height: 50, paddingHorizontal: 14, borderWidth: 1.5, borderColor: MAROON, borderRadius: 14 },
   input: { flex: 1, minWidth: 0, alignSelf: "stretch", fontSize: 15, fontWeight: "500", color: INK, outlineStyle: "none" },
   actions: { flexDirection: "row", gap: 8, marginTop: 12, marginBottom: 8 },
-  action: { flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, minHeight: 44, paddingHorizontal: 12,
+  action: { flexShrink: 0, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, minHeight: 44, paddingHorizontal: 12,
     borderWidth: 1.5, borderColor: LINE, borderRadius: 12 },
   actionText: { flexShrink: 1, color: MAROON, fontWeight: "700", fontSize: 14 },
-  chipScroll: { flexGrow: 0, flexShrink: 0, marginHorizontal: -20, marginTop: 4 },
+  chipScroll: { height: 44, flexGrow: 0, flexShrink: 0, marginHorizontal: -20, marginTop: 4 },
+  results: { flex: 1, minHeight: 0 },
   chips: { gap: 8, paddingHorizontal: 20 },
   chip: { height: 36, paddingHorizontal: 14, borderRadius: 18, borderWidth: 1.5, borderColor: LINE, justifyContent: "center" },
   chipActive: { backgroundColor: MAROON, borderColor: MAROON },
