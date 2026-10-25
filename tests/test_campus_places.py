@@ -30,6 +30,10 @@ class CampusPlaceTests(unittest.TestCase):
                 self.assertEqual(index.search(query)['results'][0]['id'], pid)
                 self.assertEqual(index.endpoint(query, 'Destination')['id'], pid)
 
+    def test_ilsq_uses_the_reviewed_north_entrance_approach(self):
+        self.assertEqual(index.PLACES['ilsq']['node'], 11693047228)
+        self.assertNotEqual(index.PLACES['ilsq']['node'], 11693047232)
+
     def test_catalog_is_bounded_unique_and_connected_in_both_directions(self):
         records = list(index.PLACES.values())
         self.assertGreaterEqual(len(records), 350)

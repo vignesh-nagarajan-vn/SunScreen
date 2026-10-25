@@ -31,6 +31,8 @@ test('room shorthand routes to a canonical entrance and expands only the request
   const request = page.waitForRequest(r => r.url().includes('/api/route?') && new URL(r.url()).searchParams.get('to') === 'zachry_596');
   await room(page); await request;
   await expect(page.getByRole('button', { name: /^To: Zachry 596/ })).toBeVisible();
+  await expect(page.locator('.pin-label').filter({ hasText: 'Zachry Engineering' })).toHaveCount(1);
+  await expect(page.locator('.pin-label').filter({ hasText: 'Zachry 596' })).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'Indoor directions', exact: true })).toHaveAttribute('aria-expanded', 'false');
   await page.getByRole('button', { name: 'Indoor directions', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Indoor directions', exact: true })).toHaveAttribute('aria-expanded', 'true');

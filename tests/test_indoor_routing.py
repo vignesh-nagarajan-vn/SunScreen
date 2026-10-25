@@ -53,19 +53,20 @@ class IndoorRoutingTests(unittest.TestCase):
         self.assertFalse(is_room_query('Zachry Engineering'))
         self.assertFalse(is_room_query('596 Main Street'))
 
-    def test_room_routes_use_one_level_1_entrance_in_both_modes_and_directions(self):
+    def test_room_routes_keep_the_building_pin_and_use_a_level_1_approach_in_both_directions(self):
         for mode in ('shade', 'lighting'):
             for source, target, which in [('commons', 'Zach 596', 'to'), ('Zach 596', 'commons', 'from')]:
                 with self.subTest(mode=mode, source=source):
                     data = route_at(source=source, target=target, mode=mode)
                     room = data['end' if which == 'to' else 'start']
                     self.assertEqual(room['id'], 'zachry_596')
-                    self.assertEqual((room['lon'], room['lat']), (-96.3398443, 30.6209274))
+                    self.assertEqual((room['lon'], room['lat']), (index.PLACES['zachry']['lon'], index.PLACES['zachry']['lat']))
                     self.assertEqual(len(data['features']), 3)
                     self.assertEqual(data['indoor_guidance'][0]['endpoint'], which)
                     self.assertEqual(data['indoor_guidance'][0]['floor'], '5')
                     self.assertEqual(data['walking_estimate_scope'], 'outdoor_to_entrance')
-                    self.assertTrue(all(f['geometry']['coordinates'][-1 if which == 'to' else 0] == [room['lon'], room['lat']] for f in data['features']))
+                    self.assertTrue(all(f['geometry']['coordinates'][-1 if which == 'to' else 0] == [-96.3398443, 30.6209274] for f in data['features']))
+                    self.assertEqual(data['indoor_guidance'][0]['building_name'], index.PLACES['zachry']['name'])
 
     def test_room_building_closure_is_checked_at_departure_and_arrival(self):
         cases = [(datetime.fromisoformat('2026-10-24T08:00:00-05:00'), 'zachry_596', 'commons', 'starting building'),
@@ -127,10 +128,14 @@ class IndoorRoutingTests(unittest.TestCase):
             data = route_at(source=a, target=b)
             fastest, recommended, most_shade = [f['properties'] for f in data['features']]
             self.assertNotIn('Memorial Student Center', recommended['via_buildings'])
-            self.assertIn('Memorial Student Center', most_shade['via_buildings'])
             self.assertLessEqual(most_shade['distance_m'], fastest['distance_m'] * 1.3 + 2)
             self.assertGreater(most_shade['shaded_pct'], recommended['shaded_pct'])
-            self.assertTrue(most_shade['access_unconfirmed'])
+            if a == 'ilsq':
+                self.assertIn('msc-honor-integrity-first-floor', [r['passage_id'] for r in most_shade['building_runs']])
+                self.assertTrue(most_shade['access_unconfirmed'])
+                self.assertLess(most_shade['distance_m'], 1600)
+            else:
+                self.assertNotIn('Memorial Student Center', most_shade['via_buildings'])
         strict = route_at(source='ilsq', target='commons', recommended_pct=0, max_detour_pct=0)
         self.assertTrue(all(f['properties']['distance_m'] == strict['features'][0]['properties']['distance_m'] for f in strict['features']))
 
@@ -140,7 +145,9 @@ class IndoorRoutingTests(unittest.TestCase):
         self.assertNotIn(MSC, data['building_routing']['available_passages'])
         for restrictions in ({'closed': True}, {'access': 'private'}, {'weekly_hours': {'mon': [['13:00', '14:01']]}}):
             catalog = copy.deepcopy(index.PASSAGES)
-            next(r for r in catalog['passages'] if r['id'] == MSC).update(restrictions)
+            for record in catalog['passages']:
+                if record['building'] == 'Memorial Student Center':
+                    record.update(restrictions)
             with patch.object(index, 'PASSAGES', catalog):
                 result = route_at(source='ilsq', target='commons')
             self.assertTrue(all('Memorial Student Center' not in f['properties']['via_buildings'] for f in result['features']))
@@ -155,12 +162,14 @@ class IndoorRoutingTests(unittest.TestCase):
 
     def test_msc_indoor_sections_stay_in_the_footprint_and_out_of_the_courtyard(self):
         from shapely.geometry import Polygon, LineString
-        record = next(r for r in index.PASSAGES['passages'] if r['id'] == MSC)
-        boundary = record['footprint_review']
-        polygon = Polygon(boundary['outer'], boundary['holes']).buffer(0.000008)
-        for section in record['sections']:
-            if section['environment'] == 'indoor':
-                self.assertTrue(polygon.covers(LineString(section['coordinates'])), section['description'])
+        for record in index.PASSAGES['passages']:
+            if record['building'] != 'Memorial Student Center':
+                continue
+            boundary = record['footprint_review']
+            polygon = Polygon(boundary['outer'], boundary['holes']).buffer(0.000008)
+            for section in record['sections']:
+                if section['environment'] == 'indoor':
+                    self.assertTrue(polygon.covers(LineString(section['coordinates'])), section['description'])
 
     def test_explicit_candidate_respects_oneway_and_keeps_source_graph_immutable(self):
         base, catalog = fixture(); record = catalog['passages'][0]; record['oneway'] = True
