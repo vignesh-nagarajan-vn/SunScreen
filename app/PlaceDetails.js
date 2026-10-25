@@ -1,13 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { PLACE_KINDS } from "./mapPlaces";
 import { useThemedStyles } from "./ThemeContext";
 
 export default function PlaceDetails({ place, from, to, onChoose, onClose }) {
   const styles = useThemedStyles(createStyles);
+  const closeButton = useRef(null);
+  const previousFocus = useRef(null);
   useEffect(() => {
     if (Platform.OS !== "web") return;
-    const escape = e => { if (e.key === "Escape") onClose(); };
+    previousFocus.current = document.activeElement;
+    closeButton.current?.focus();
+  }, [place.id]);
+  const dismiss = () => {
+    onClose();
+    if (Platform.OS === "web" && previousFocus.current?.isConnected) previousFocus.current.focus({ preventScroll: true });
+  };
+  useEffect(() => {
+    if (Platform.OS !== "web") return;
+    const escape = e => { if (e.key === "Escape") dismiss(); };
     document.addEventListener("keydown", escape);
     return () => document.removeEventListener("keydown", escape);
   }, [onClose]);
@@ -18,7 +29,7 @@ export default function PlaceDetails({ place, from, to, onChoose, onClose }) {
         <Text style={styles.meta}>{PLACE_KINDS[place.kind].symbol}  {place.kind === "cafe" ? "Café" : place.category}{place.building_code ? ` · ${place.building_code}` : ""}</Text>
         <Text accessibilityRole="header" style={styles.title}>{place.name}</Text>
       </View>
-      <Pressable onPress={onClose} accessibilityRole="button" accessibilityLabel="Close place details" style={styles.close}>
+      <Pressable ref={closeButton} onPress={dismiss} accessibilityRole="button" accessibilityLabel="Close place details" style={styles.close}>
         <Text style={styles.closeText}>×</Text>
       </Pressable>
     </View>
@@ -36,7 +47,7 @@ export default function PlaceDetails({ place, from, to, onChoose, onClose }) {
         <Text style={styles.primaryText}>Directions</Text>
       </Pressable>
     </View>
-    <Pressable onPress={onClose} accessibilityRole="button" style={styles.back}>
+    <Pressable onPress={dismiss} accessibilityRole="button" style={styles.back}>
       <Text style={styles.backText}>Back to routes</Text>
     </Pressable>
   </View>;
