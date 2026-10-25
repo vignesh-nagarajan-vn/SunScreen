@@ -4,13 +4,14 @@ import { API_BASE } from "./config";
 import Icon from "./Icon";
 import { currentPosition } from "./location";
 import { useTheme, useThemedStyles } from "./ThemeContext";
-import { exactPlace, searchPlaces } from "./placeSearch";
+import { exactPlace, isRoomQuery, searchPlaces } from "./placeSearch";
 
-const CATEGORIES = ["Academic", "Residence halls", "Dining", "Libraries", "Health & services", "Student life", "Athletics", "Landmarks", "Parks & neighborhoods", "Campus facilities"];
+const CATEGORIES = ["Academic", "Rooms", "Residence halls", "Dining", "Libraries", "Health & services", "Student life", "Athletics", "Landmarks", "Parks & neighborhoods", "Campus facilities"];
 const ICONS = {
   Recent: "clock", Academic: "cap", Libraries: "book", Dining: "dining", "Student life": "star", Athletics: "stadium",
   Landmarks: "landmark", "Parks & neighborhoods": "tree", Search: "pin",
   "Residence halls": "home", "Health & services": "health", "Campus facilities": "building",
+  Rooms: "building",
 };
 const inBounds = (p, b) => p.lat >= b.south && p.lat <= b.north && p.lon >= b.west && p.lon <= b.east;
 function distance(a, b) {
@@ -75,6 +76,7 @@ export default function PlacePicker({ title, current, places, bounds, recents, h
     const exact = exactPlace(places, q);
     if (exact || campusMatches.length === 1) onSelect(exact ?? campusMatches[0]);
     else if (campusMatches.length) setStatus("Choose a campus place below.");
+    else if (isRoomQuery(q)) setStatus("Indoor directions aren't mapped for this room yet. Search the building name for an outdoor route.");
     else searchAddresses();
   };
 
@@ -100,7 +102,7 @@ export default function PlacePicker({ title, current, places, bounds, recents, h
       <View style={styles.search}>
         <Icon name="search" size={18} color={MUTED} strokeWidth={2.2} />
         <TextInput
-          style={styles.input} value={query} autoFocus placeholder="Name, building code or address"
+          style={styles.input} value={query} autoFocus placeholder="Building, room (Zach 596) or address"
           placeholderTextColor={MUTED} returnKeyType="search" accessibilityLabel="Search buildings or addresses"
           onChangeText={changeQuery}
           onSubmitEditing={submit}
@@ -110,7 +112,7 @@ export default function PlacePicker({ title, current, places, bounds, recents, h
         <Action icon="locate" label="My location" onPress={useMyLocation} />
         <Action icon="pin" label="Pick on map" onPress={onPickOnMap} />
       </View>
-      {q.length >= 2 && !campusMatches.length && results === null &&
+      {q.length >= 2 && !campusMatches.length && !isRoomQuery(q) && results === null &&
         <Action icon="search" label={`Search addresses for "${query.trim()}"`} onPress={searchAddresses} />}
       {!q && (
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.chipScroll} contentContainerStyle={styles.chips}>
@@ -137,7 +139,7 @@ export default function PlacePicker({ title, current, places, bounds, recents, h
           const recent = section.title === "Recent";
           const chosen = !recent && current?.name === item.name;
           const code = item.building_code || (item.building_number && `Building ${item.building_number}`);
-          const meta = [code, item.category !== "Search" && item.category].filter(Boolean).join(" · ");
+          const meta = [code, item.floor && `Level ${item.floor}`, item.category !== "Search" && item.category].filter(Boolean).join(" · ");
           return (
             <Pressable style={[styles.row, chosen && styles.rowChosen]} onPress={() => onSelect(item)} accessibilityRole="button"
               accessibilityState={{ selected: chosen }}

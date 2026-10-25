@@ -4,6 +4,8 @@ import {
 } from "react-native";
 import RouteMap from "./RouteMap";
 import PlacePicker from "./PlacePicker";
+import IndoorDirections from "./IndoorDirections";
+import indoorPlaces from "./indoorPlaces.json";
 import PlaceDetails from "./PlaceDetails";
 import { mapPlaces } from "./mapPlaces";
 import highlights from "./placeHighlights.json";
@@ -33,7 +35,8 @@ const nowMin = () => {
   const parts = campusParts(new Date());
   return snap(parts.hour * 60 + parts.minute);
 };
-const byId = Object.fromEntries(area.places.map((p) => [p.id, p]));
+const destinations = [...area.places, ...indoorPlaces];
+const byId = Object.fromEntries(destinations.map((p) => [p.id, p]));
 const mapPlaceCatalog = mapPlaces(area.places, highlights);
 const mapPlaceById = Object.fromEntries(mapPlaceCatalog.map(p => [p.id, p]));
 const param = (p) => p.id ?? `${p.lat.toFixed(6)},${p.lon.toFixed(6)}`;
@@ -261,7 +264,7 @@ function AppContent({ toggleNight }) {
   ) : (
     <Controls
       data={showRoutes && !stale ? data : null} stale={stale} status={{ ...status, error: endpointError || status.error }} selected={selected} setSelected={setSelected}
-      preview={preview} setPreview={setPreview} setTime={setTime} playing={playing} togglePlay={togglePlay} limits={limits} fill={wide}
+      preview={preview} setPreview={setPreview} setTime={setTime} playing={playing} togglePlay={togglePlay} limits={limits} fill={wide} from={from} to={to}
     />
   );
   const mapPane = (
@@ -285,7 +288,7 @@ function AppContent({ toggleNight }) {
   const pickerSheet = picker && (
     <PlacePicker
       title={picker === "from" ? "Choose start" : "Choose destination"} current={picker === "from" ? from : to}
-      places={area.places} bounds={area.bounds} recents={recents} here={here} onLocated={setHere}
+      places={destinations} bounds={area.bounds} recents={recents} here={here} onLocated={setHere}
       onSelect={(p) => choose(picker, p)} onClose={() => setPicker(null)}
       onPickOnMap={() => { setPicking(picker); setPicker(null); }}
     />
@@ -393,7 +396,7 @@ function MapControls({ style, onNight, onSettings, onInfo }) {
 
 // `fill` spreads the controls down a tall side panel in three groups (time, routes, actions)
 // and lets the sun timeline grow with the window. Night has no timeline, so its actions sit at the bottom.
-function Controls({ data, stale, status, selected, setSelected, preview, setPreview, setTime, playing, togglePlay, limits, fill }) {
+function Controls({ data, stale, status, selected, setSelected, preview, setPreview, setTime, playing, togglePlay, limits, fill, from, to }) {
   const styles = useThemedStyles(createStyles);
   const { colors: { MAROON, SUN, sunInk, sunTint, onAccent }, night } = useTheme();
   const { height } = useWindowDimensions();
@@ -402,6 +405,7 @@ function Controls({ data, stale, status, selected, setSelected, preview, setPrev
   return (
     <View style={fill ? [styles.fill, night && styles.fillNight] : { gap: 14 }}>
       <View style={{ gap: 14 }}>
+        <IndoorDirections key={`${from.id}-${to.id}`} from={from} to={to} />
         {night ? <Text style={styles.nightTitle}>Streetlight routing</Text> : <>
           <View style={styles.timeRow}>
             <View style={{ flex: 1, minWidth: 0, gap: 2 }}>

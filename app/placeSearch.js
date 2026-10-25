@@ -4,6 +4,10 @@ export function normalize(value) {
     .replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
+export function isRoomQuery(value) {
+  return /^(?:(?:zach|zachry)(?:room)?\d{3}[a-z]?|\d{3}[a-z]?(?:zach|zachry))$/.test(normalize(value).replace(/ /g, ''));
+}
+
 export function matchScore(place, query) {
   const q = normalize(query);
   if (!q) return null;
