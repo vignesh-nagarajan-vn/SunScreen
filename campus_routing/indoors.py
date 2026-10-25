@@ -10,7 +10,7 @@ from pathlib import Path
 
 from .geometry import metres
 from .passages import available
-from .places import normalize, public_place
+from .places import load_places, normalize, public_place
 
 CATALOG = Path(__file__).resolve().parents[1] / 'data/indoor_destinations.json'
 ENTRANCES = CATALOG.with_name('building_entrances.json')
@@ -20,7 +20,7 @@ def is_room_query(value):
     return bool(re.fullmatch(r'(?:(?:zach|zachry)(?:room)?\d{3}[a-z]?|\d{3}[a-z]?(?:zach|zachry))', normalize(value).replace(' ', '')))
 
 
-def load_destinations(graph, path=CATALOG, entrances_path=ENTRANCES):
+def load_destinations(graph, path=CATALOG, entrances_path=ENTRANCES, building_places=None):
     try:
         records = json.loads(Path(path).read_text(encoding='utf-8'))['destinations']
         if not isinstance(records, list):
@@ -28,6 +28,7 @@ def load_destinations(graph, path=CATALOG, entrances_path=ENTRANCES):
         buildings = json.loads(Path(entrances_path).read_text(encoding='utf-8'))['buildings']
     except (OSError, ValueError, KeyError, TypeError):
         return []
+    parents = {p['id']: p for p in (load_places(graph) if building_places is None else building_places)}
     result, seen = [], set()
     for r in records:
         try:
@@ -66,9 +67,13 @@ def load_destinations(graph, path=CATALOG, entrances_path=ENTRANCES):
             available(rule, datetime.fromisoformat('2026-10-26T12:00:00-05:00'))  # validates the whole weekly schedule
             guidance = {key: r[key] for key in ('room', 'floor', 'plan_page', 'building_id', 'entrance_name', 'arrival_steps',
                                                'departure_steps', 'guidance_note', 'sources')}
+            building = parents[r['building_id']]
+            guidance['building_name'] = building['name']
             result.append({**{key: r[key] for key in ('id', 'name', 'category', 'aliases', 'building_code', 'room', 'floor', 'building_id')},
-                           'lat': coordinates[1], 'lon': coordinates[0], 'node': node,
-                           'node_coordinates': coordinates, 'snap_m': 0, 'indoor': guidance, '_indoor_rule': rule})
+                           'lat': building['lat'], 'lon': building['lon'], 'node': node,
+                           'node_coordinates': coordinates,
+                           'snap_m': round(metres([building['lon'], building['lat']], coordinates), 1),
+                           'indoor': guidance, '_indoor_rule': rule})
         except (KeyError, ValueError, TypeError, IndexError, OverflowError):
             continue
     return result

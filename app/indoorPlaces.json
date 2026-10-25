@@ -3,8 +3,8 @@
     "id": "zachry_596",
     "name": "Zachry 596",
     "category": "Rooms",
-    "lat": 30.6209274,
-    "lon": -96.3398443,
+    "lat": 30.6213752,
+    "lon": -96.3402021,
     "aliases": [
       "Zach 596",
       "ZACH596",
@@ -47,7 +47,8 @@
           "url": "https://www.openstreetmap.org/node/6193744746",
           "detail": "Mapped entrance, level=0 and level:ref=1, with an exact saved walking-graph connection. Other Zachry doors include raised entries and emergency exits."
         }
-      ]
+      ],
+      "building_name": "Zachry Engineering"
     }
   }
 ]

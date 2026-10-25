@@ -47,7 +47,7 @@ SLOTS = G.graph["slots"]  # ["0700", "0730", ...]
 SUN = G.graph["sun"]  # slot -> altitude, azimuth, clearsky_dni
 SHADOW_DATE = G.graph["date"]  # shade masks were cast for this date
 PLACES = {p["id"]: p for p in load_places(G)}
-PLACES.update({p['id']: p for p in load_destinations(G)})
+PLACES.update({p['id']: p for p in load_destinations(G, building_places=PLACES.values())})
 DEFAULT = G.graph["default"]
 B = G.graph["bounds"]
 NODES = [(n, d["y"], d["x"]) for n, d in G.nodes(data=True)]

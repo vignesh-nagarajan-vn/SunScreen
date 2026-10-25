@@ -16,7 +16,7 @@ export default function IndoorDirections({ from, to }) {
       {...(Platform.OS === 'web' ? { 'aria-expanded': expanded } : {})}>
       <Icon name="building" size={18} color={MAROON} />
       <View style={{ flex: 1 }}>
-        <Text style={styles.title}>{entries.map(([, p]) => `${p.name} · Level ${p.indoor.floor}`).join(' → ')}</Text>
+        <Text style={styles.title}>{entries.map(([, p]) => `${p.indoor.building_name ?? p.name} · Room ${p.indoor.room} · Level ${p.indoor.floor}`).join(' → ')}</Text>
         <Text style={styles.meta}>{expanded ? 'Hide indoor directions · Outdoor ETA' : 'Outdoor ETA · Tap for indoor directions'}</Text>
       </View>
       <Text style={styles.arrow}>{expanded ? '−' : '+'}</Text>

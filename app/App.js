@@ -39,6 +39,8 @@ const destinations = [...area.places, ...indoorPlaces];
 const byId = Object.fromEntries(destinations.map((p) => [p.id, p]));
 const mapPlaceCatalog = mapPlaces(area.places, highlights);
 const mapPlaceById = Object.fromEntries(mapPlaceCatalog.map(p => [p.id, p]));
+// Room details belong in the guide; outdoor maps use the containing building pin.
+const mapEndpoint = p => p.indoor ? (byId[p.building_id] ?? p) : p;
 const param = (p) => p.id ?? `${p.lat.toFixed(6)},${p.lon.toFixed(6)}`;
 const inBounds = (p, b) => p.lat >= b.south && p.lat <= b.north && p.lon >= b.west && p.lon <= b.east;
 const extraText = (s) => (s < 60 ? `+${s} s` : `+${(s / 60).toFixed(1)} min`);
@@ -273,7 +275,7 @@ function AppContent({ toggleNight }) {
         places={mapPlaceCatalog} highlightedId={highlightedId}
         onPlacePress={place => { if (!picking && mapPlaceById[place.id]) { setPlaying(false); setHighlightedId(place.id); } }}
         onBackgroundPress={() => setHighlightedId(null)}
-        from={from} to={to} onEndpointDragStart={() => { setPlaying(false); setHighlightedId(null); }} onEndpointDragEnd={onEndpointDragEnd}
+        from={mapEndpoint(from)} to={mapEndpoint(to)} onEndpointDragStart={() => { setPlaying(false); setHighlightedId(null); }} onEndpointDragEnd={onEndpointDragEnd}
         insets={wide ? { top: 70, right: 70 } : { top: docked ? 30 : topInset + tripHeight + 24, right: 70, bottom: 64 }} />
       {showRoutes && !stale && !picking && <Legend style={wide ? { bottom: 24 } : { bottom: 36 }} />}
       {picking && (
