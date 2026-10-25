@@ -26,7 +26,7 @@ SunScreen finds shady walking routes anywhere on Texas A&M's main campus and the
   Enter selects a unique match. There are 401 preloaded destinations, including
   58 residence destinations and Commons/Sbisa/Duncan/West Campus dining. See
   [campus destinations](docs-misc/campus-places.md) for coverage and refresh commands.
-- **Route settings:** tap the gear beside Night mode to adjust extra walking
+- **Route settings:** tap the sliders button on the map to adjust extra walking
   distance for Recommended and Max shade / Most lit. Defaults are 10% / 30%.
   Each limit can range from 0% to 100%; the maximum route's allowance must be at
   least Recommended's. Apply recalculates routes, Cancel discards edits, and
@@ -38,7 +38,8 @@ SunScreen finds shady walking routes anywhere on Texas A&M's main campus and the
 - **Room guidance:** search **Zach 596** for a reviewed level-1 entrance and compact elevator/level-5 directions. Outdoor ETAs stop at the entrance; the guide does not provide indoor positioning. The provisional MSC passage participates in the normal shade choices when it fits the distance allowance. See [indoor routing](docs-misc/indoor-routing.md) for source and access limits.
 - **Custom endpoints:** drag either endpoint pin to choose a custom start or destination; routes recalculate when you release it. In the native app, long-press a pin to drag it. Pins stay available while routing loads or fails, so you can adjust an unroutable location. Drops must stay inside the mapped campus area, and each endpoint must be within 250 m of a mapped walkway node with a connected walking route between them.
 - **Night mode:** routes by streetlight coverage (see [night routing](#night-routing-with-public-lighting-data)), with `#A00000` UI accents and lighter red/copper walking paths. Its **Call Corps escort** button opens the phone app for **979-845-6789**, even when routing is unavailable. Texas A&M lists service hours as weekdays 6 p.m.–7 a.m. and all day on weekends during fall and spring semesters ([official campus safety information](https://www.tamu.edu/campus-community/campus-safety.html)).
-- **Time:** drag the slider, tap **Now**, or tap **Play day** to step through the day while the routes redraw.
+- **Campus clock:** the time beside the logo uses America/Chicago time and refreshes automatically. Outside the calculated 7 AM–8 PM range, the app starts in dark mode with streetlight routing and switches modes when the clock crosses that range. The labeled **Night mode** switch in the controls panel allows a manual override until the next boundary or **Now**.
+- **Time:** drag the timeline or tap **Play day** to preview daytime routes. **Now** works in both modes and restores the current campus departure time and its automatic sunlight/streetlight routing mode. The clock shows the real time even while previewing another departure time.
 - **Routes card:** on phones it shows the selected route; tap or swipe the handle to compare all three. Pick a route, then hand it off with **Open in Google Maps** or **Apple Maps**.
 - **ⓘ:** a short "How SunScreen works" explainer. It opens on the first visit to the website; add `?intro=0` to the URL to skip it.
 - **Wide screens** (900 px and up) put the controls in a side panel next to a full-height map.
