@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  ActivityIndicator, Image, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, useWindowDimensions, View,
+  ActivityIndicator, Image, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Switch, Text, useWindowDimensions, View,
 } from "react-native";
 import RouteMap from "./RouteMap";
 import PlacePicker from "./PlacePicker";
@@ -21,20 +21,14 @@ import { ThemeProvider, useTheme, useThemedStyles } from "./ThemeContext";
 import fallback from "./fallback.json";
 import lightingFallback from "./fallback-lighting.json";
 import area from "./places.json";
+import { FIRST, LAST, campusParts, campusMinutes, outsideSunHours } from "./campusTime";
 
-const FIRST = 7 * 60, LAST = 20 * 60;
 const SLOTS = Array.from({ length: (LAST - FIRST) / 30 + 1 }, (_, i) => FIRST + i * 30);
 const WIDE = 900; // side-panel layout at and above this width
 const hhmm = (min) => `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
 const clock = (min) => `${((Math.floor(min / 60) + 11) % 12) + 1}:${String(min % 60).padStart(2, "0")} ${min < 720 ? "AM" : "PM"}`;
 const snap = (min) => Math.min(LAST, Math.max(FIRST, Math.round(min / 30) * 30));
-const campusParts = (date) => Object.fromEntries(new Intl.DateTimeFormat("en-US", {
-  timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23",
-}).formatToParts(date).map((p) => [p.type, Number(p.value)]));
-const nowMin = () => {
-  const parts = campusParts(new Date());
-  return snap(parts.hour * 60 + parts.minute);
-};
+const nowMin = () => snap(campusMinutes());
 const destinations = [...area.places, ...indoorPlaces];
 const byId = Object.fromEntries(destinations.map((p) => [p.id, p]));
 const mapPlaceCatalog = mapPlaces(area.places, highlights);
@@ -109,12 +103,31 @@ function insight(data, selected) {
 }
 
 export default function App() {
-  const [night, setNight] = useState(() => store.get("sunscreen-night-mode", false));
-  const toggleNight = (value) => { setNight(value); store.set("sunscreen-night-mode", value); };
-  return <ThemeProvider night={night}><AppContent toggleNight={toggleNight} /></ThemeProvider>;
+  const [currentMinutes, setCurrentMinutes] = useState(campusMinutes);
+  const [night, setNight] = useState(() => outsideSunHours(currentMinutes));
+  const automaticNight = outsideSunHours(currentMinutes);
+  useEffect(() => {
+    const updateClock = () => setCurrentMinutes(campusMinutes());
+    const timer = setInterval(updateClock, 15000);
+    // Refresh immediately when a sleeping/backgrounded browser becomes visible.
+    if (Platform.OS === "web") document.addEventListener("visibilitychange", updateClock);
+    return () => {
+      clearInterval(timer);
+      if (Platform.OS === "web") document.removeEventListener("visibilitychange", updateClock);
+    };
+  }, []);
+  // A manual override lasts until the next day/night boundary or pressing Now.
+  useEffect(() => setNight(automaticNight), [automaticNight]);
+  const returnToNow = () => {
+    const minutes = campusMinutes();
+    setCurrentMinutes(minutes);
+    setNight(outsideSunHours(minutes));
+    return snap(minutes);
+  };
+  return <ThemeProvider night={night}><AppContent toggleNight={setNight} currentMinutes={currentMinutes} returnToNow={returnToNow} /></ThemeProvider>;
 }
 
-function AppContent({ toggleNight }) {
+function AppContent({ toggleNight, currentMinutes, returnToNow }) {
   const styles = useThemedStyles(createStyles);
   const { colors: { surface }, night } = useTheme();
   const dimensions = useWindowDimensions();
@@ -217,6 +230,17 @@ function AppContent({ toggleNight }) {
   }, [night, playing, status.loading, minutes]);
 
   const setTime = (m) => { setPlaying(false); setMinutes(m); setPreview(m); };
+  const goToNow = () => setTime(returnToNow());
+  const previousAutomaticNight = useRef(outsideSunHours(currentMinutes));
+  useEffect(() => {
+    const automaticNight = outsideSunHours(currentMinutes);
+    if (automaticNight !== previousAutomaticNight.current) {
+      setPlaying(false);
+      setMinutes(snap(currentMinutes));
+      setPreview(snap(currentMinutes));
+      previousAutomaticNight.current = automaticNight;
+    }
+  }, [currentMinutes]);
   const togglePlay = () => {
     if (!playing && minutes >= LAST) setTime(FIRST);
     setPlaying(!playing);
@@ -255,7 +279,7 @@ function AppContent({ toggleNight }) {
 
   const mapControls = (
     <MapControls style={wide || docked ? { top: 12 } : { top: topInset + tripHeight + 12 }}
-      onNight={() => toggleNight(!night)} onSettings={() => { setPlaying(false); setSettingsOpen(true); }} onInfo={() => setAbout(true)} />
+      onSettings={() => { setPlaying(false); setSettingsOpen(true); }} onInfo={() => setAbout(true)} />
   );
   const controls = highlightedPlace ? (
     <PlaceDetails place={highlightedPlace} from={from} to={to} onClose={() => setHighlightedId(null)}
@@ -266,7 +290,7 @@ function AppContent({ toggleNight }) {
   ) : (
     <Controls
       data={showRoutes && !stale ? data : null} stale={stale} status={{ ...status, error: endpointError || status.error }} selected={selected} setSelected={setSelected}
-      preview={preview} setPreview={setPreview} setTime={setTime} playing={playing} togglePlay={togglePlay} limits={limits} fill={wide} from={from} to={to}
+      preview={preview} setPreview={setPreview} setTime={setTime} goToNow={goToNow} currentMinutes={currentMinutes} toggleNight={toggleNight} playing={playing} togglePlay={togglePlay} limits={limits} fill={wide} from={from} to={to}
     />
   );
   const mapPane = (
@@ -302,10 +326,7 @@ function AppContent({ toggleNight }) {
     return (
       <View style={[styles.screen, { flexDirection: "row" }]}>
         <View style={styles.panel}>
-          <View style={styles.brandRow}>
-            <Image source={require("./assets/logo.png")} style={styles.logo} />
-            <Text style={styles.brand}>SunScreen</Text>
-          </View>
+          <BrandHeader currentMinutes={currentMinutes} />
           <View style={{ paddingHorizontal: 16 }}>{trip}</View>
           <ScrollView contentContainerStyle={[styles.panelBody, { flexGrow: 1 }]}>{controls}</ScrollView>
           {pickerSheet}
@@ -342,6 +363,18 @@ function AppContent({ toggleNight }) {
   );
 }
 
+function BrandHeader({ currentMinutes, compact = false }) {
+  const styles = useThemedStyles(createStyles);
+  return <View style={[styles.brandRow, compact && { paddingHorizontal: 0, paddingTop: 0, paddingBottom: 0 }]}>
+    <Image source={require("./assets/logo.png")} style={styles.logo} />
+    <Text style={styles.brand}>SunScreen</Text>
+    <View style={styles.headerClock} accessibilityLabel={`Campus time: ${clock(currentMinutes)}`}>
+      <Text style={styles.headerTime}>{clock(currentMinutes)}</Text>
+      <Text style={styles.clockCaption}>Campus time</Text>
+    </View>
+  </View>;
+}
+
 function TripCard({ from, to, setPicker, swap, floating }) {
   const styles = useThemedStyles(createStyles);
   const { colors: { MAROON } } = useTheme();
@@ -374,17 +407,12 @@ function Endpoint({ label, place, onPress }) {
   );
 }
 
-// Round buttons floating on the map: night mode (a switch), route settings and "How it works".
-function MapControls({ style, onNight, onSettings, onInfo }) {
+// Round buttons floating on the map: route settings and "How it works".
+function MapControls({ style, onSettings, onInfo }) {
   const styles = useThemedStyles(createStyles);
-  const { colors: { INK, onAccent }, night } = useTheme();
+  const { colors: { INK } } = useTheme();
   return (
     <View style={[styles.mapControls, style]} pointerEvents="box-none">
-      <Pressable onPress={onNight} style={[styles.round, night && styles.roundActive]} accessibilityRole="switch"
-        accessibilityState={{ checked: night }} aria-checked={night} accessibilityLabel="Night mode"
-        accessibilityHint="Switch between sun-affected and streetlight-affected routing">
-        <Icon name={night ? "moonFilled" : "moon"} color={night ? onAccent : INK} />
-      </Pressable>
       <Pressable onPress={onSettings} style={styles.round} accessibilityRole="button" accessibilityLabel="Route settings"
         accessibilityHint="Adjust extra walking distance limits">
         <Icon name="sliders" color={INK} />
@@ -398,37 +426,47 @@ function MapControls({ style, onNight, onSettings, onInfo }) {
 
 // `fill` spreads the controls down a tall side panel in three groups (time, routes, actions)
 // and lets the sun timeline grow with the window. Night has no timeline, so its actions sit at the bottom.
-function Controls({ data, stale, status, selected, setSelected, preview, setPreview, setTime, playing, togglePlay, limits, fill, from, to }) {
+function Controls({ data, stale, status, selected, setSelected, preview, setPreview, setTime, goToNow, currentMinutes, toggleNight, playing, togglePlay, limits, fill, from, to }) {
   const styles = useThemedStyles(createStyles);
-  const { colors: { MAROON, SUN, sunInk, sunTint, onAccent }, night } = useTheme();
+  const { colors: { MAROON, SUN, sunInk, sunTint, onAccent, track }, night } = useTheme();
   const { height } = useWindowDimensions();
   const [title, sub] = data ? insight(data, selected) : [];
 
   return (
     <View style={fill ? [styles.fill, night && styles.fillNight] : { gap: 14 }}>
       <View style={{ gap: 14 }}>
+        {!fill && <BrandHeader currentMinutes={currentMinutes} compact />}
+        <View style={styles.modeRow}>
+          <View style={{ flex: 1, gap: 2 }}>
+            <Text style={styles.modeLabel}>Night mode</Text>
+            <Text style={styles.rowMeta}>{night ? "Route by streetlights" : "Route by sunlight"}</Text>
+          </View>
+          <Switch value={night} onValueChange={toggleNight} trackColor={{ false: track, true: MAROON }} thumbColor="#ffffff"
+            {...(Platform.OS === "web" ? { activeThumbColor: "#ffffff" } : {})}
+            accessibilityLabel="Night mode" accessibilityHint="Switch between sunlight and streetlight routing" />
+        </View>
         <IndoorDirections key={`${from.id}-${to.id}`} from={from} to={to} />
-        {night ? <Text style={styles.nightTitle}>Streetlight routing</Text> : <>
           <View style={styles.timeRow}>
             <View style={{ flex: 1, minWidth: 0, gap: 2 }}>
-              <Text style={styles.time}>{clock(preview)}</Text>
-              {data && <View style={styles.weather}>
+              <Text style={night ? styles.nightTitle : styles.time}>{night ? "Streetlight routing" : clock(preview)}</Text>
+              {night && <Text style={styles.sub}>{clock(currentMinutes)} · Campus time</Text>}
+              {!night && data && <View style={styles.weather}>
                 <Icon name="sun" size={14} color={SUN} strokeWidth={2.4} />
                 <Text style={styles.sub} numberOfLines={1}>{weatherLine(data)}</Text>
               </View>}
             </View>
             {status.loading && <ActivityIndicator size="small" color={MAROON} />}
-            <Pressable onPress={() => setTime(nowMin())} style={styles.nowButton} accessibilityRole="button">
+            <Pressable onPress={goToNow} style={styles.nowButton} accessibilityRole="button" accessibilityLabel="Now"
+              accessibilityHint="Use the current campus time and automatically select sunlight or streetlight routing">
               <Text style={styles.nowText}>Now</Text>
             </Pressable>
-            <Pressable onPress={togglePlay} style={styles.playButton} accessibilityRole="button"
+            {!night && <Pressable onPress={togglePlay} style={styles.playButton} accessibilityRole="button"
               accessibilityLabel={playing ? "Pause day preview" : "Play through the day"}>
               <Icon name={playing ? "pause" : "play"} size={16} color={onAccent} />
-            </Pressable>
+            </Pressable>}
           </View>
-          <SunTimeline preview={preview} setPreview={setPreview} setTime={setTime}
-            height={fill ? Math.min(200, Math.max(72, height - 620)) : 40} />
-        </>}
+          {!night && <SunTimeline preview={preview} setPreview={setPreview} setTime={setTime}
+            height={fill ? Math.min(200, Math.max(72, height - 620)) : 40} />}
       </View>
 
       <View style={{ gap: 14 }}>
@@ -607,6 +645,11 @@ const createStyles = ({ INK, LINE, MAROON, MUTED, TINT, surface, card, chip, div
     brandRow: { flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 16, paddingTop: 16, paddingBottom: 12 },
     logo: { width: 26, height: 26 },
     brand: { color: MAROON, fontSize: 19, fontWeight: "800", letterSpacing: 0.2 },
+    headerClock: { marginLeft: "auto", alignItems: "flex-end", gap: 2 },
+    headerTime: { color: INK, fontSize: 16, fontWeight: "700", fontVariant: ["tabular-nums"] },
+    clockCaption: { color: MUTED, fontSize: 10 },
+    modeRow: { flexDirection: "row", alignItems: "center", gap: 12, paddingVertical: 10, paddingHorizontal: 12, backgroundColor: chip, borderRadius: 14 },
+    modeLabel: { color: INK, fontSize: 14, fontWeight: "700" },
     tripFloat: { position: "absolute", left: 12, right: 12 },
     tripDock: { paddingHorizontal: 12, paddingBottom: 8, backgroundColor: surface, zIndex: 1 },
     trip: { flexDirection: "row", alignItems: "center", gap: 10, backgroundColor: card, borderRadius: 20, paddingVertical: 6, paddingLeft: 16, paddingRight: 6 },
@@ -622,7 +665,6 @@ const createStyles = ({ INK, LINE, MAROON, MUTED, TINT, surface, card, chip, div
     swap: { width: 44, height: 44, borderRadius: 14, backgroundColor: TINT, alignItems: "center", justifyContent: "center" },
     mapControls: { position: "absolute", zIndex: 1000, right: 12, gap: 8 },
     round: { width: 44, height: 44, borderRadius: 22, backgroundColor: card, alignItems: "center", justifyContent: "center", ...raised },
-    roundActive: { backgroundColor: MAROON },
     banner: { position: "absolute", zIndex: 1000, left: 12, right: 12, backgroundColor: MAROON, borderRadius: 14, padding: 14, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
     bannerText: { color: onAccent, fontWeight: "600", flex: 1 },
     bannerCancel: { color: onAccent, fontWeight: "700", marginLeft: 12 },
