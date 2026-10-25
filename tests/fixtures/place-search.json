@@ -1,0 +1,22 @@
+[
+  {"query":"ILSQ","first":"ilsq","exact":"ilsq"},
+  {"query":" ilcb ","first":"ilcb","exact":"ilcb"},
+  {"query":"I L C B","first":"ilcb","exact":"ilcb"},
+  {"query":"il-sq","first":"ilsq","exact":"ilsq"},
+  {"query":"1500","first":"ilsq","exact":"ilsq"},
+  {"query":"Buetul","first":"beutel","exact":"beutel"},
+  {"query":"Buetel","first":"beutel","exact":"beutel"},
+  {"query":"BÉUTEL","first":"beutel","exact":"beutel"},
+  {"query":"BEUT","first":"beutel","exact":"beutel"},
+  {"query":"ASTO","first":"building_0447","exact":"building_0447"},
+  {"query":"Hullabaloo","first":"hullabaloo","exact":"hullabaloo"},
+  {"query":"Duncan","first":"duncan","exact":"duncan"},
+  {"query":"SBSA","first":"sbisa","exact":"sbisa"},
+  {"query":"Commons Dining Hall","first":"commons","exact":"commons"},
+  {"query":"Mays","first":"wehner","exact":"wehner"},
+  {"query":"white creek","first":"white_creek_a","exact":null},
+  {"query":"Rudder Hall","first":"building_0291","exact":"building_0291"},
+  {"query":"ILSB","first":"building_1530","exact":"building_1530"},
+  {"query":" ","first":null,"exact":null},
+  {"query":"no such campus destination qzx","first":null,"exact":null}
+]

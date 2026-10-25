@@ -1,6 +1,6 @@
 PY ?= python
 
-.PHONY: data refresh lighting test test-routes test-browser audit-routes api app web bake deploy
+.PHONY: data refresh lighting places test test-routes test-browser audit-routes api app web bake deploy
 
 data: test
 	$(PY) pipeline/01_area.py
@@ -18,6 +18,10 @@ refresh: test
 # Refresh public lighting independently of the expensive LiDAR/shadow stages.
 lighting:
 	$(PY) pipeline/05_lighting.py --refresh
+
+# Refresh campus names/codes without rebuilding shadows or the walking graph.
+places:
+	$(PY) scripts/import_campus_places.py --download
 
 test:
 	$(PY) pipeline/test_shade.py

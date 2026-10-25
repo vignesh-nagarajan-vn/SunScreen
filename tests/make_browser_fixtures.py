@@ -16,7 +16,10 @@ if __name__ == '__main__':
                 'building': index.route('14:00', 'commons', 'langford'),
                 'custom': index.route('14:00', recommended_pct=20, max_detour_pct=50),
                 'lighting': index.route(mode='lighting'),
-                'lightingCustom': index.route(mode='lighting', recommended_pct=20, max_detour_pct=50)}
+                'lightingCustom': index.route(mode='lighting', recommended_pct=20, max_detour_pct=50),
+                'ilsqToIlcb': index.route('14:00', 'ilsq', 'ilcb')}
+        data['placeTrips'] = {pid: index.route('14:00', pid, 'zachry') for pid in
+                              ('ilsq', 'ilcb', 'beutel', 'hullabaloo', 'duncan', 'building_0447')}
     target = Path('tmp/browser-fixtures.json')
     target.parent.mkdir(exist_ok=True)
     target.write_text(json.dumps(data), encoding='utf-8')

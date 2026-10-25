@@ -11,172 +11,6376 @@
  ],
  "places": [
   {
-   "id": "commons",
-   "name": "The Commons",
-   "category": "Dining",
-   "lat": 30.6155193,
-   "lon": -96.3361609
-  },
-  {
-   "id": "zachry",
-   "name": "Zachry Engineering",
-   "category": "Academic",
-   "lat": 30.6213752,
-   "lon": -96.3402021
-  },
-  {
-   "id": "msc",
-   "name": "Memorial Student Center",
-   "category": "Student life",
-   "lat": 30.6122297,
-   "lon": -96.3412229
-  },
-  {
-   "id": "evans",
-   "name": "Evans Library",
-   "category": "Libraries",
-   "lat": 30.6168208,
-   "lon": -96.3391984
-  },
-  {
    "id": "academic",
    "name": "Academic Building",
    "category": "Academic",
    "lat": 30.6157404,
-   "lon": -96.3407842
-  },
-  {
-   "id": "century_tree",
-   "name": "Century Tree",
-   "category": "Landmarks",
-   "lat": 30.6158806,
-   "lon": -96.3413475
-  },
-  {
-   "id": "rudder",
-   "name": "Rudder Tower",
-   "category": "Landmarks",
-   "lat": 30.6128606,
-   "lon": -96.3403448
-  },
-  {
-   "id": "ssb",
-   "name": "Student Services Building",
-   "category": "Student life",
-   "lat": 30.6141742,
-   "lon": -96.3413579
-  },
-  {
-   "id": "kyle",
-   "name": "Kyle Field",
-   "category": "Athletics",
-   "lat": 30.6098548,
-   "lon": -96.3403698
-  },
-  {
-   "id": "rec",
-   "name": "Student Rec Center",
-   "category": "Athletics",
-   "lat": 30.6071334,
-   "lon": -96.3428624
-  },
-  {
-   "id": "reed",
-   "name": "Reed Arena",
-   "category": "Athletics",
-   "lat": 30.6056832,
-   "lon": -96.3462955
-  },
-  {
-   "id": "sbisa",
-   "name": "Sbisa Dining Hall",
-   "category": "Dining",
-   "lat": 30.6171429,
-   "lon": -96.3438025
-  },
-  {
-   "id": "wehner",
-   "name": "Mays Business School",
-   "category": "Academic",
-   "lat": 30.610444,
-   "lon": -96.3512091
-  },
-  {
-   "id": "bell_tower",
-   "name": "Albritton Bell Tower",
-   "category": "Landmarks",
-   "lat": 30.6131298,
-   "lon": -96.3446636
-  },
-  {
-   "id": "drill_field",
-   "name": "Simpson Drill Field",
-   "category": "Landmarks",
-   "lat": 30.6135004,
-   "lon": -96.3427367
-  },
-  {
-   "id": "corps",
-   "name": "Corps of Cadets Center",
-   "category": "Landmarks",
-   "lat": 30.6120939,
-   "lon": -96.3375242
-  },
-  {
-   "id": "cushing",
-   "name": "Cushing Library",
-   "category": "Libraries",
-   "lat": 30.6163551,
-   "lon": -96.3399534
-  },
-  {
-   "id": "blocker",
-   "name": "Blocker Building",
-   "category": "Academic",
-   "lat": 30.6196311,
-   "lon": -96.3421599
-  },
-  {
-   "id": "langford",
-   "name": "Langford Architecture",
-   "category": "Academic",
-   "lat": 30.6188047,
-   "lon": -96.3376411
-  },
-  {
-   "id": "agls",
-   "name": "AgriLife Sciences Building",
-   "category": "Academic",
-   "lat": 30.6056395,
-   "lon": -96.3507785
+   "lon": -96.3407842,
+   "aliases": [
+    "Academic Building",
+    "ACAD",
+    "0462",
+    "building 0462",
+    "bldg 0462"
+   ],
+   "building_code": "ACAD",
+   "building_number": "0462"
   },
   {
    "id": "aggie_park",
    "name": "Aggie Park",
    "category": "Parks & neighborhoods",
    "lat": 30.609532,
-   "lon": -96.3365261
+   "lon": -96.3365261,
+   "aliases": [],
+   "building_code": "",
+   "building_number": ""
   },
   {
-   "id": "spence_park",
-   "name": "Spence Park",
-   "category": "Parks & neighborhoods",
-   "lat": 30.6127894,
-   "lon": -96.3381439
+   "id": "agls",
+   "name": "AgriLife Sciences Building",
+   "category": "Academic",
+   "lat": 30.6056395,
+   "lon": -96.3507785,
+   "aliases": [
+    "Agriculture and Life Sciences Building",
+    "AGLS",
+    "1535",
+    "building 1535",
+    "bldg 1535"
+   ],
+   "building_code": "AGLS",
+   "building_number": "1535"
+  },
+  {
+   "id": "bell_tower",
+   "name": "Albritton Bell Tower",
+   "category": "Landmarks",
+   "lat": 30.6131298,
+   "lon": -96.3446636,
+   "aliases": [
+    "Albritton Bell Tower",
+    "0350",
+    "building 0350",
+    "bldg 0350"
+   ],
+   "building_code": "",
+   "building_number": "0350"
+  },
+  {
+   "id": "beutel",
+   "name": "Beutel Health Center",
+   "category": "Health & services",
+   "lat": 30.6156245,
+   "lon": -96.342664,
+   "aliases": [
+    "Beutel Health Center",
+    "BEUT",
+    "0520",
+    "building 0520",
+    "bldg 0520",
+    "Beutel",
+    "Buetul",
+    "Buetel",
+    "Beutal",
+    "A P Beutel",
+    "AP Beutel Health Center",
+    "Student Health Center"
+   ],
+   "building_code": "BEUT",
+   "building_number": "0520"
+  },
+  {
+   "id": "blocker",
+   "name": "Blocker Building",
+   "category": "Academic",
+   "lat": 30.6196311,
+   "lon": -96.3421599,
+   "aliases": [
+    "Blocker Building",
+    "BLOC",
+    "0524",
+    "building 0524",
+    "bldg 0524"
+   ],
+   "building_code": "BLOC",
+   "building_number": "0524"
+  },
+  {
+   "id": "building_0065",
+   "name": "West Campus Office Building 01",
+   "category": "Campus facilities",
+   "lat": 30.6069626,
+   "lon": -96.3549516,
+   "aliases": [
+    "West Campus Office Building 01",
+    "WCOB01",
+    "0065",
+    "building 0065",
+    "bldg 0065"
+   ],
+   "building_code": "WCOB01",
+   "building_number": "0065"
+  },
+  {
+   "id": "building_0066",
+   "name": "West Campus Office Building 02",
+   "category": "Campus facilities",
+   "lat": 30.6067645,
+   "lon": -96.3546261,
+   "aliases": [
+    "West Campus Office Building 02",
+    "WCOB02",
+    "0066",
+    "building 0066",
+    "bldg 0066"
+   ],
+   "building_code": "WCOB02",
+   "building_number": "0066"
+  },
+  {
+   "id": "building_0067",
+   "name": "West Campus Office Building 03",
+   "category": "Campus facilities",
+   "lat": 30.6065959,
+   "lon": -96.3548207,
+   "aliases": [
+    "West Campus Office Building 03",
+    "WCOB03",
+    "0067",
+    "building 0067",
+    "bldg 0067"
+   ],
+   "building_code": "WCOB03",
+   "building_number": "0067"
+  },
+  {
+   "id": "building_0070",
+   "name": "West Campus Office Building 04",
+   "category": "Campus facilities",
+   "lat": 30.6062848,
+   "lon": -96.3552329,
+   "aliases": [
+    "West Campus Office Building 04",
+    "WCOB04",
+    "0070",
+    "building 0070",
+    "bldg 0070"
+   ],
+   "building_code": "WCOB04",
+   "building_number": "0070"
+  },
+  {
+   "id": "building_0071",
+   "name": "West Campus Office Building 06",
+   "category": "Campus facilities",
+   "lat": 30.6064491,
+   "lon": -96.3555514,
+   "aliases": [
+    "West Campus Office Building 06",
+    "WCOB06",
+    "0071",
+    "building 0071",
+    "bldg 0071"
+   ],
+   "building_code": "WCOB06",
+   "building_number": "0071"
+  },
+  {
+   "id": "building_0072",
+   "name": "West Campus Office Building 05",
+   "category": "Campus facilities",
+   "lat": 30.6060977,
+   "lon": -96.3554036,
+   "aliases": [
+    "West Campus Office Building 05",
+    "WCOB05",
+    "0072",
+    "building 0072",
+    "bldg 0072"
+   ],
+   "building_code": "WCOB05",
+   "building_number": "0072"
+  },
+  {
+   "id": "building_0249",
+   "name": "Cold Storage - Corps Dining",
+   "category": "Campus facilities",
+   "lat": 30.6119254,
+   "lon": -96.334847,
+   "aliases": [
+    "Cold Storage - Corps Dining",
+    "0249",
+    "building 0249",
+    "bldg 0249"
+   ],
+   "building_code": "",
+   "building_number": "0249"
+  },
+  {
+   "id": "building_0256",
+   "name": "CUP Modular",
+   "category": "Campus facilities",
+   "lat": 30.6187987,
+   "lon": -96.3424396,
+   "aliases": [
+    "CUP Modular",
+    "0256",
+    "building 0256",
+    "bldg 0256"
+   ],
+   "building_code": "",
+   "building_number": "0256"
+  },
+  {
+   "id": "building_0270",
+   "name": "Emerging Technologies Building",
+   "category": "Academic",
+   "lat": 30.6226869,
+   "lon": -96.3395637,
+   "aliases": [
+    "Emerging Technologies Building",
+    "ETB",
+    "0270",
+    "building 0270",
+    "bldg 0270"
+   ],
+   "building_code": "ETB",
+   "building_number": "0270"
+  },
+  {
+   "id": "building_0271",
+   "name": "Polo Road Garage",
+   "category": "Campus facilities",
+   "lat": 30.6235005,
+   "lon": -96.3380276,
+   "aliases": [
+    "Polo Road Garage",
+    "PRG",
+    "0271",
+    "building 0271",
+    "bldg 0271"
+   ],
+   "building_code": "PRG",
+   "building_number": "0271"
+  },
+  {
+   "id": "building_0272",
+   "name": "Polo Road Building",
+   "category": "Athletics",
+   "lat": 30.6231079,
+   "lon": -96.338455,
+   "aliases": [
+    "Polo Road Building",
+    "PRB",
+    "0272",
+    "building 0272",
+    "bldg 0272"
+   ],
+   "building_code": "PRB",
+   "building_number": "0272"
+  },
+  {
+   "id": "building_0275",
+   "name": "Liberal Arts and Arts & Humanities Building",
+   "category": "Academic",
+   "lat": 30.6177088,
+   "lon": -96.3379553,
+   "aliases": [
+    "Liberal Arts and Arts & Humanities Building",
+    "LAAH",
+    "0275",
+    "building 0275",
+    "bldg 0275"
+   ],
+   "building_code": "LAAH",
+   "building_number": "0275"
+  },
+  {
+   "id": "building_0276",
+   "name": "TX Forest Service Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6164302,
+   "lon": -96.3520776,
+   "aliases": [
+    "TX Forest Service Greenhouse",
+    "0276",
+    "building 0276",
+    "bldg 0276"
+   ],
+   "building_code": "",
+   "building_number": "0276"
+  },
+  {
+   "id": "building_0278",
+   "name": "TX Forest Service Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6161092,
+   "lon": -96.3517605,
+   "aliases": [
+    "TX Forest Service Greenhouse",
+    "0278",
+    "building 0278",
+    "bldg 0278"
+   ],
+   "building_code": "",
+   "building_number": "0278"
+  },
+  {
+   "id": "building_0279",
+   "name": "TX Forest Service GH Headhouse",
+   "category": "Campus facilities",
+   "lat": 30.6160905,
+   "lon": -96.3519139,
+   "aliases": [
+    "TX Forest Service GH Headhouse",
+    "0279",
+    "building 0279",
+    "bldg 0279"
+   ],
+   "building_code": "",
+   "building_number": "0279"
+  },
+  {
+   "id": "building_0288",
+   "name": "Southside Recreation Center",
+   "category": "Athletics",
+   "lat": 30.6156998,
+   "lon": -96.3333991,
+   "aliases": [
+    "Southside Recreation Center",
+    "SSRC",
+    "0288",
+    "building 0288",
+    "bldg 0288"
+   ],
+   "building_code": "SSRC",
+   "building_number": "0288"
+  },
+  {
+   "id": "building_0289",
+   "name": "Central Utility Plant Electrical Building",
+   "category": "Campus facilities",
+   "lat": 30.6175827,
+   "lon": -96.3420012,
+   "aliases": [
+    "Central Utility Plant Electrical Building",
+    "0289",
+    "building 0289",
+    "bldg 0289"
+   ],
+   "building_code": "",
+   "building_number": "0289"
+  },
+  {
+   "id": "building_0290",
+   "name": "Wells Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6148136,
+   "lon": -96.3349531,
+   "aliases": [
+    "Wells Residence Hall",
+    "WELL",
+    "0290",
+    "building 0290",
+    "bldg 0290",
+    "Wells Hall",
+    "Wells Dorm",
+    "Wells"
+   ],
+   "building_code": "WELL",
+   "building_number": "0290"
+  },
+  {
+   "id": "building_0291",
+   "name": "Rudder Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6149592,
+   "lon": -96.3341364,
+   "aliases": [
+    "Rudder Residence Hall",
+    "RUDD",
+    "0291",
+    "building 0291",
+    "bldg 0291",
+    "Rudder Hall",
+    "Rudder Dorm",
+    "Rudder"
+   ],
+   "building_code": "RUDD",
+   "building_number": "0291"
+  },
+  {
+   "id": "building_0292",
+   "name": "Eppright Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6144581,
+   "lon": -96.3344712,
+   "aliases": [
+    "Eppright Residence Hall",
+    "EPPR",
+    "0292",
+    "building 0292",
+    "bldg 0292",
+    "Eppright Hall",
+    "Eppright Dorm",
+    "Eppright"
+   ],
+   "building_code": "EPPR",
+   "building_number": "0292"
+  },
+  {
+   "id": "building_0293",
+   "name": "Appelt Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6142666,
+   "lon": -96.3353574,
+   "aliases": [
+    "Appelt Residence Hall",
+    "APPE",
+    "0293",
+    "building 0293",
+    "bldg 0293",
+    "Appelt Hall",
+    "Appelt Dorm",
+    "Appelt"
+   ],
+   "building_code": "APPE",
+   "building_number": "0293"
+  },
+  {
+   "id": "building_0294",
+   "name": "Lechner Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6161246,
+   "lon": -96.3438436,
+   "aliases": [
+    "Lechner Residence Hall",
+    "LECH",
+    "0294",
+    "building 0294",
+    "bldg 0294",
+    "Lechner Hall",
+    "Lechner Dorm",
+    "Lechner"
+   ],
+   "building_code": "LECH",
+   "building_number": "0294"
+  },
+  {
+   "id": "building_0296",
+   "name": "Mitchell Inst for Fundamental Phys & Astronomy",
+   "category": "Academic",
+   "lat": 30.6200401,
+   "lon": -96.3429109,
+   "aliases": [
+    "Mitchell Inst for Fundamental Phys & Astronomy",
+    "MIST",
+    "0296",
+    "building 0296",
+    "bldg 0296"
+   ],
+   "building_code": "MIST",
+   "building_number": "0296"
+  },
+  {
+   "id": "building_0297",
+   "name": "Mitchell Physics Building",
+   "category": "Academic",
+   "lat": 30.6203317,
+   "lon": -96.3424182,
+   "aliases": [
+    "Mitchell Physics Building",
+    "MPHY",
+    "0297",
+    "building 0297",
+    "bldg 0297"
+   ],
+   "building_code": "MPHY",
+   "building_number": "0297"
+  },
+  {
+   "id": "building_0325",
+   "name": "CVE Lab Building",
+   "category": "Academic",
+   "lat": 30.6199628,
+   "lon": -96.3395405,
+   "aliases": [
+    "CVE Lab Building",
+    "CVLB",
+    "0325",
+    "building 0325",
+    "bldg 0325"
+   ],
+   "building_code": "CVLB",
+   "building_number": "0325"
+  },
+  {
+   "id": "building_0353",
+   "name": "Bright Building",
+   "category": "Academic",
+   "lat": 30.6189877,
+   "lon": -96.3387982,
+   "aliases": [
+    "Bright Building",
+    "HRBB",
+    "0353",
+    "building 0353",
+    "bldg 0353"
+   ],
+   "building_code": "HRBB",
+   "building_number": "0353"
+  },
+  {
+   "id": "building_0356",
+   "name": "The HUB-Bike Maintenance Shack",
+   "category": "Campus facilities",
+   "lat": 30.6161807,
+   "lon": -96.3362883,
+   "aliases": [
+    "The HUB-Bike Maintenance Shack",
+    "HUB",
+    "0356",
+    "building 0356",
+    "bldg 0356"
+   ],
+   "building_code": "HUB",
+   "building_number": "0356"
+  },
+  {
+   "id": "building_0357",
+   "name": "Aggie Express - Pavilion",
+   "category": "Campus facilities",
+   "lat": 30.6165429,
+   "lon": -96.3382286,
+   "aliases": [
+    "Aggie Express - Pavilion",
+    "0357",
+    "building 0357",
+    "bldg 0357"
+   ],
+   "building_code": "",
+   "building_number": "0357"
+  },
+  {
+   "id": "building_0358",
+   "name": "Davis Football Player Development Center",
+   "category": "Athletics",
+   "lat": 30.6086224,
+   "lon": -96.3385227,
+   "aliases": [
+    "Davis Football Player Development Center",
+    "DPDC",
+    "0358",
+    "building 0358",
+    "bldg 0358"
+   ],
+   "building_code": "DPDC",
+   "building_number": "0358"
+  },
+  {
+   "id": "building_0359",
+   "name": "Architecture Building B",
+   "category": "Academic",
+   "lat": 30.6191795,
+   "lon": -96.3382627,
+   "aliases": [
+    "Architecture Building B",
+    "ARCB",
+    "0359",
+    "building 0359",
+    "bldg 0359"
+   ],
+   "building_code": "ARCB",
+   "building_number": "0359"
+  },
+  {
+   "id": "building_0361",
+   "name": "Bright-Slocum Center Texas A&M Football",
+   "category": "Athletics",
+   "lat": 30.6089102,
+   "lon": -96.3391619,
+   "aliases": [
+    "Bright-Slocum Center Texas A&M Football",
+    "BFC",
+    "0361",
+    "building 0361",
+    "bldg 0361"
+   ],
+   "building_code": "BFC",
+   "building_number": "0361"
+  },
+  {
+   "id": "building_0375",
+   "name": "Williams Alumni Center",
+   "category": "Student life",
+   "lat": 30.6083626,
+   "lon": -96.336262,
+   "aliases": [
+    "Williams Alumni Center",
+    "CLAC",
+    "0375",
+    "building 0375",
+    "bldg 0375"
+   ],
+   "building_code": "CLAC",
+   "building_number": "0375"
+  },
+  {
+   "id": "building_0376",
+   "name": "Chemistry",
+   "category": "Academic",
+   "lat": 30.6184769,
+   "lon": -96.3396143,
+   "aliases": [
+    "Chemistry",
+    "CHAN",
+    "0376",
+    "building 0376",
+    "bldg 0376"
+   ],
+   "building_code": "CHAN",
+   "building_number": "0376"
+  },
+  {
+   "id": "building_0377",
+   "name": "Satellite Utility Plant No. 3",
+   "category": "Campus facilities",
+   "lat": 30.6138454,
+   "lon": -96.3389403,
+   "aliases": [
+    "Satellite Utility Plant No. 3",
+    "SUP3",
+    "0377",
+    "building 0377",
+    "bldg 0377"
+   ],
+   "building_code": "SUP3",
+   "building_number": "0377"
+  },
+  {
+   "id": "building_0378",
+   "name": "Southside Parking Garage",
+   "category": "Campus facilities",
+   "lat": 30.6136829,
+   "lon": -96.3336286,
+   "aliases": [
+    "Southside Parking Garage",
+    "SSG",
+    "0378",
+    "building 0378",
+    "bldg 0378"
+   ],
+   "building_code": "SSG",
+   "building_number": "0378"
+  },
+  {
+   "id": "building_0379",
+   "name": "University Center Parking Garage",
+   "category": "Campus facilities",
+   "lat": 30.6120086,
+   "lon": -96.3387,
+   "aliases": [
+    "University Center Parking Garage",
+    "UCG",
+    "0379",
+    "building 0379",
+    "bldg 0379"
+   ],
+   "building_code": "UCG",
+   "building_number": "0379"
+  },
+  {
+   "id": "building_0383",
+   "name": "Koldus Building",
+   "category": "Academic",
+   "lat": 30.6121676,
+   "lon": -96.3395273,
+   "aliases": [
+    "Koldus Building",
+    "JJKB",
+    "0383",
+    "building 0383",
+    "bldg 0383"
+   ],
+   "building_code": "JJKB",
+   "building_number": "0383"
+  },
+  {
+   "id": "building_0385",
+   "name": "Dwight Look Engineering Building",
+   "category": "Academic",
+   "lat": 30.6202196,
+   "lon": -96.3399117,
+   "aliases": [
+    "Dwight Look Engineering Building",
+    "DLEB",
+    "0385",
+    "building 0385",
+    "bldg 0385"
+   ],
+   "building_code": "DLEB",
+   "building_number": "0385"
+  },
+  {
+   "id": "building_0386",
+   "name": "Jack E. Brown Chemical Engineering Building",
+   "category": "Academic",
+   "lat": 30.6208261,
+   "lon": -96.3418205,
+   "aliases": [
+    "Jack E. Brown Chemical Engineering Building",
+    "CHEN",
+    "0386",
+    "building 0386",
+    "bldg 0386"
+   ],
+   "building_code": "CHEN",
+   "building_number": "0386"
+  },
+  {
+   "id": "building_0387",
+   "name": "Joe C. Richardson Petroleum Engineering Building",
+   "category": "Academic",
+   "lat": 30.6194941,
+   "lon": -96.3393782,
+   "aliases": [
+    "Joe C. Richardson Petroleum Engineering Building",
+    "RICH",
+    "0387",
+    "building 0387",
+    "bldg 0387"
+   ],
+   "building_code": "RICH",
+   "building_number": "0387"
+  },
+  {
+   "id": "building_0388",
+   "name": "Northside Parking Garage",
+   "category": "Campus facilities",
+   "lat": 30.6191416,
+   "lon": -96.3434525,
+   "aliases": [
+    "Northside Parking Garage",
+    "NSG",
+    "0388",
+    "building 0388",
+    "bldg 0388"
+   ],
+   "building_code": "NSG",
+   "building_number": "0388"
+  },
+  {
+   "id": "building_0389",
+   "name": "Grounds Maintenance Potting Shed",
+   "category": "Campus facilities",
+   "lat": 30.6282864,
+   "lon": -96.3438109,
+   "aliases": [
+    "Grounds Maintenance Potting Shed",
+    "0389",
+    "building 0389",
+    "bldg 0389"
+   ],
+   "building_code": "",
+   "building_number": "0389"
+  },
+  {
+   "id": "building_0391",
+   "name": "James J. Cain '51 Building",
+   "category": "Academic",
+   "lat": 30.6197814,
+   "lon": -96.3408874,
+   "aliases": [
+    "James J. Cain '51 Building",
+    "JCAIN",
+    "0391",
+    "building 0391",
+    "bldg 0391"
+   ],
+   "building_code": "JCAIN",
+   "building_number": "0391"
+  },
+  {
+   "id": "building_0392",
+   "name": "Mechanical Engineering Office Building",
+   "category": "Academic",
+   "lat": 30.6196622,
+   "lon": -96.3403928,
+   "aliases": [
+    "Mechanical Engineering Office Building",
+    "MEOB",
+    "0392",
+    "building 0392",
+    "bldg 0392"
+   ],
+   "building_code": "MEOB",
+   "building_number": "0392"
+  },
+  {
+   "id": "building_0393",
+   "name": "John H. Lindsey Building",
+   "category": "Academic",
+   "lat": 30.611842,
+   "lon": -96.3336753,
+   "aliases": [
+    "John H. Lindsey Building",
+    "LIND",
+    "0393",
+    "building 0393",
+    "bldg 0393"
+   ],
+   "building_code": "LIND",
+   "building_number": "0393"
+  },
+  {
+   "id": "building_0394",
+   "name": "Underwood Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6141033,
+   "lon": -96.3356991,
+   "aliases": [
+    "Underwood Residence Hall",
+    "UNDE",
+    "0394",
+    "building 0394",
+    "bldg 0394",
+    "Underwood Hall",
+    "Underwood Dorm",
+    "Underwood"
+   ],
+   "building_code": "UNDE",
+   "building_number": "0394"
+  },
+  {
+   "id": "building_0400",
+   "name": "Spence Hall-Dorm 1",
+   "category": "Residence halls",
+   "lat": 30.6142968,
+   "lon": -96.3370908,
+   "aliases": [
+    "Spence Hall-Dorm 1",
+    "SPEN",
+    "0400",
+    "building 0400",
+    "bldg 0400",
+    "Spence Hall Dorm 1",
+    "Spence Hall"
+   ],
+   "building_code": "SPEN",
+   "building_number": "0400"
+  },
+  {
+   "id": "building_0401",
+   "name": "Kiest Hall-Dorm 2",
+   "category": "Residence halls",
+   "lat": 30.613851,
+   "lon": -96.3375454,
+   "aliases": [
+    "Kiest Hall-Dorm 2",
+    "KIES",
+    "0401",
+    "building 0401",
+    "bldg 0401",
+    "Kiest Hall Dorm 2",
+    "Kiest Hall"
+   ],
+   "building_code": "KIES",
+   "building_number": "0401"
+  },
+  {
+   "id": "building_0402",
+   "name": "Briggs Hall-Dorm 3",
+   "category": "Residence halls",
+   "lat": 30.614048,
+   "lon": -96.3364925,
+   "aliases": [
+    "Briggs Hall-Dorm 3",
+    "BRIG",
+    "0402",
+    "building 0402",
+    "bldg 0402",
+    "Briggs Hall Dorm 3",
+    "Briggs Hall"
+   ],
+   "building_code": "BRIG",
+   "building_number": "0402"
+  },
+  {
+   "id": "building_0403",
+   "name": "Fountain Hall-Dorm 4",
+   "category": "Residence halls",
+   "lat": 30.6134375,
+   "lon": -96.3373938,
+   "aliases": [
+    "Fountain Hall-Dorm 4",
+    "FOUN",
+    "0403",
+    "building 0403",
+    "bldg 0403",
+    "Fountain Hall Dorm 4",
+    "Fountain Hall"
+   ],
+   "building_code": "FOUN",
+   "building_number": "0403"
+  },
+  {
+   "id": "building_0404",
+   "name": "Gainer Hall-Dorm 5",
+   "category": "Residence halls",
+   "lat": 30.6138721,
+   "lon": -96.3359823,
+   "aliases": [
+    "Gainer Hall-Dorm 5",
+    "GAIN",
+    "0404",
+    "building 0404",
+    "bldg 0404",
+    "Gainer Hall Dorm 5",
+    "Gainer Hall"
+   ],
+   "building_code": "GAIN",
+   "building_number": "0404"
+  },
+  {
+   "id": "building_0405",
+   "name": "Lacy Hall-Dorm 6",
+   "category": "Residence halls",
+   "lat": 30.6129325,
+   "lon": -96.3374339,
+   "aliases": [
+    "Lacy Hall-Dorm 6",
+    "LACY",
+    "0405",
+    "building 0405",
+    "bldg 0405",
+    "Lacy Hall Dorm 6",
+    "Lacy Hall"
+   ],
+   "building_code": "LACY",
+   "building_number": "0405"
+  },
+  {
+   "id": "building_0406",
+   "name": "Leonard Hall-Dorm 7",
+   "category": "Residence halls",
+   "lat": 30.6132929,
+   "lon": -96.3359764,
+   "aliases": [
+    "Leonard Hall-Dorm 7",
+    "LEON",
+    "0406",
+    "building 0406",
+    "bldg 0406",
+    "Leonard Hall Dorm 7",
+    "Leonard Hall"
+   ],
+   "building_code": "LEON",
+   "building_number": "0406"
+  },
+  {
+   "id": "building_0407",
+   "name": "Harrell Hall-Dorm 8",
+   "category": "Residence halls",
+   "lat": 30.6127526,
+   "lon": -96.3367696,
+   "aliases": [
+    "Harrell Hall-Dorm 8",
+    "HARL",
+    "0407",
+    "building 0407",
+    "bldg 0407",
+    "Harrell Hall Dorm 8",
+    "Harrell Hall"
+   ],
+   "building_code": "HARL",
+   "building_number": "0407"
+  },
+  {
+   "id": "building_0408",
+   "name": "Whiteley Hall-Dorm 9",
+   "category": "Residence halls",
+   "lat": 30.6128874,
+   "lon": -96.3358108,
+   "aliases": [
+    "Whiteley Hall-Dorm 9",
+    "WHTE",
+    "0408",
+    "building 0408",
+    "bldg 0408",
+    "Whiteley Hall Dorm 9",
+    "Whiteley Hall"
+   ],
+   "building_code": "WHTE",
+   "building_number": "0408"
+  },
+  {
+   "id": "building_0409",
+   "name": "White Hall-Dorm 10",
+   "category": "Residence halls",
+   "lat": 30.6124834,
+   "lon": -96.3363031,
+   "aliases": [
+    "White Hall-Dorm 10",
+    "WHIT",
+    "0409",
+    "building 0409",
+    "bldg 0409",
+    "White Hall Dorm 10",
+    "White Hall"
+   ],
+   "building_code": "WHIT",
+   "building_number": "0409"
+  },
+  {
+   "id": "building_0410",
+   "name": "Harrington Hall-Dorm 11",
+   "category": "Residence halls",
+   "lat": 30.6127251,
+   "lon": -96.3349404,
+   "aliases": [
+    "Harrington Hall-Dorm 11",
+    "HARR",
+    "0410",
+    "building 0410",
+    "bldg 0410",
+    "Harrington Hall Dorm 11",
+    "Harrington Hall"
+   ],
+   "building_code": "HARR",
+   "building_number": "0410"
+  },
+  {
+   "id": "building_0411",
+   "name": "Utay Hall-Dorm 12",
+   "category": "Residence halls",
+   "lat": 30.6117535,
+   "lon": -96.3363631,
+   "aliases": [
+    "Utay Hall-Dorm 12",
+    "UTAY",
+    "0411",
+    "building 0411",
+    "bldg 0411",
+    "Utay Hall Dorm 12",
+    "Utay Hall"
+   ],
+   "building_code": "UTAY",
+   "building_number": "0411"
+  },
+  {
+   "id": "building_0412",
+   "name": "Moses Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6156464,
+   "lon": -96.3456543,
+   "aliases": [
+    "Moses Residence Hall",
+    "MOSE",
+    "0412",
+    "building 0412",
+    "bldg 0412",
+    "Moses Hall",
+    "Moses Dorm",
+    "Moses"
+   ],
+   "building_code": "MOSE",
+   "building_number": "0412"
+  },
+  {
+   "id": "building_0415",
+   "name": "Davis-Gary Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6155761,
+   "lon": -96.3464753,
+   "aliases": [
+    "Davis-Gary Residence Hall",
+    "DAVI",
+    "0415",
+    "building 0415",
+    "bldg 0415",
+    "Davis-Gary Hall",
+    "Davis-Gary Dorm",
+    "Davis-Gary"
+   ],
+   "building_code": "DAVI",
+   "building_number": "0415"
+  },
+  {
+   "id": "building_0417",
+   "name": "Hart Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6143377,
+   "lon": -96.3406747,
+   "aliases": [
+    "Hart Residence Hall",
+    "HART",
+    "0417",
+    "building 0417",
+    "bldg 0417",
+    "Hart Hall",
+    "Hart Dorm",
+    "Hart"
+   ],
+   "building_code": "HART",
+   "building_number": "0417"
+  },
+  {
+   "id": "building_0419",
+   "name": "Legett Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6161824,
+   "lon": -96.3423224,
+   "aliases": [
+    "Legett Residence Hall",
+    "LEGE",
+    "0419",
+    "building 0419",
+    "bldg 0419",
+    "Legett Hall",
+    "Legett Dorm",
+    "Legett"
+   ],
+   "building_code": "LEGE",
+   "building_number": "0419"
+  },
+  {
+   "id": "building_0420",
+   "name": "Milner Hall",
+   "category": "Academic",
+   "lat": 30.6168797,
+   "lon": -96.3428789,
+   "aliases": [
+    "Milner Hall",
+    "MILN",
+    "0420",
+    "building 0420",
+    "bldg 0420"
+   ],
+   "building_code": "MILN",
+   "building_number": "0420"
+  },
+  {
+   "id": "building_0422",
+   "name": "Walton Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6169337,
+   "lon": -96.3450552,
+   "aliases": [
+    "Walton Residence Hall",
+    "WALT",
+    "0422",
+    "building 0422",
+    "bldg 0422",
+    "Walton Hall",
+    "Walton Dorm",
+    "Walton"
+   ],
+   "building_code": "WALT",
+   "building_number": "0422"
+  },
+  {
+   "id": "building_0424",
+   "name": "Hotard Hall",
+   "category": "Academic",
+   "lat": 30.6182216,
+   "lon": -96.3445133,
+   "aliases": [
+    "Hotard Hall",
+    "HOTA",
+    "0424",
+    "building 0424",
+    "bldg 0424"
+   ],
+   "building_code": "HOTA",
+   "building_number": "0424"
+  },
+  {
+   "id": "building_0425",
+   "name": "Henderson Hall",
+   "category": "Academic",
+   "lat": 30.6147778,
+   "lon": -96.3444801,
+   "aliases": [
+    "Henderson Hall",
+    "HEND",
+    "0425",
+    "building 0425",
+    "bldg 0425"
+   ],
+   "building_code": "HEND",
+   "building_number": "0425"
+  },
+  {
+   "id": "building_0426",
+   "name": "Hughes Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6155083,
+   "lon": -96.3451786,
+   "aliases": [
+    "Hughes Residence Hall",
+    "HUGH",
+    "0426",
+    "building 0426",
+    "bldg 0426",
+    "Hughes Hall",
+    "Hughes Dorm",
+    "Hughes"
+   ],
+   "building_code": "HUGH",
+   "building_number": "0426"
+  },
+  {
+   "id": "building_0427",
+   "name": "Fowler Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6149502,
+   "lon": -96.3453579,
+   "aliases": [
+    "Fowler Residence Hall",
+    "FOWL",
+    "0427",
+    "building 0427",
+    "bldg 0427",
+    "Fowler Hall",
+    "Fowler Dorm",
+    "Fowler"
+   ],
+   "building_code": "FOWL",
+   "building_number": "0427"
+  },
+  {
+   "id": "building_0428",
+   "name": "Keathley Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6151919,
+   "lon": -96.3456302,
+   "aliases": [
+    "Keathley Residence Hall",
+    "KEAT",
+    "0428",
+    "building 0428",
+    "bldg 0428",
+    "Keathley Hall",
+    "Keathley Dorm",
+    "Keathley"
+   ],
+   "building_code": "KEAT",
+   "building_number": "0428"
+  },
+  {
+   "id": "building_0430",
+   "name": "Schuhmacher Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6171543,
+   "lon": -96.3454649,
+   "aliases": [
+    "Schuhmacher Residence Hall",
+    "SCHU",
+    "0430",
+    "building 0430",
+    "bldg 0430",
+    "Schuhmacher Hall",
+    "Schuhmacher Dorm",
+    "Schuhmacher"
+   ],
+   "building_code": "SCHU",
+   "building_number": "0430"
+  },
+  {
+   "id": "building_0432",
+   "name": "Architecture Building C",
+   "category": "Academic",
+   "lat": 30.6193556,
+   "lon": -96.3379943,
+   "aliases": [
+    "Architecture Building C",
+    "ARCC",
+    "0432",
+    "building 0432",
+    "bldg 0432"
+   ],
+   "building_code": "ARCC",
+   "building_number": "0432"
+  },
+  {
+   "id": "building_0433",
+   "name": "Mosher Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6154512,
+   "lon": -96.3351717,
+   "aliases": [
+    "Mosher Residence Hall",
+    "MOSH",
+    "0433",
+    "building 0433",
+    "bldg 0433",
+    "Mosher Hall",
+    "Mosher Dorm",
+    "Mosher"
+   ],
+   "building_code": "MOSH",
+   "building_number": "0433"
+  },
+  {
+   "id": "building_0434",
+   "name": "Luedecke Building (Cyclotron)",
+   "category": "Academic",
+   "lat": 30.6203062,
+   "lon": -96.3413846,
+   "aliases": [
+    "Luedecke Building (Cyclotron)",
+    "CYCL",
+    "0434",
+    "building 0434",
+    "bldg 0434"
+   ],
+   "building_code": "CYCL",
+   "building_number": "0434"
+  },
+  {
+   "id": "building_0435",
+   "name": "Harrington Education Center Office Tower",
+   "category": "Academic",
+   "lat": 30.6165496,
+   "lon": -96.3408904,
+   "aliases": [
+    "Harrington Education Center Office Tower",
+    "EDCT",
+    "0435",
+    "building 0435",
+    "bldg 0435"
+   ],
+   "building_code": "EDCT",
+   "building_number": "0435"
+  },
+  {
+   "id": "building_0436",
+   "name": "Reed-McDonald Building",
+   "category": "Academic",
+   "lat": 30.6183023,
+   "lon": -96.3409621,
+   "aliases": [
+    "Reed-McDonald Building",
+    "RDMC",
+    "0436",
+    "building 0436",
+    "bldg 0436"
+   ],
+   "building_code": "RDMC",
+   "building_number": "0436"
+  },
+  {
+   "id": "building_0438",
+   "name": "Harrington Education Center Classroom Building",
+   "category": "Academic",
+   "lat": 30.6168773,
+   "lon": -96.3404196,
+   "aliases": [
+    "Harrington Education Center Classroom Building",
+    "HECC",
+    "0438",
+    "building 0438",
+    "bldg 0438"
+   ],
+   "building_code": "HECC",
+   "building_number": "0438"
+  },
+  {
+   "id": "building_0441",
+   "name": "Krueger Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6159454,
+   "lon": -96.3355355,
+   "aliases": [
+    "Krueger Residence Hall",
+    "KRUE",
+    "0441",
+    "building 0441",
+    "bldg 0441",
+    "Krueger Hall",
+    "Krueger Dorm",
+    "Krueger"
+   ],
+   "building_code": "KRUE",
+   "building_number": "0441"
+  },
+  {
+   "id": "building_0442",
+   "name": "Dunn Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6150746,
+   "lon": -96.336812,
+   "aliases": [
+    "Dunn Residence Hall",
+    "DUNN",
+    "0442",
+    "building 0442",
+    "bldg 0442",
+    "Dunn Hall",
+    "Dunn Dorm",
+    "Dunn"
+   ],
+   "building_code": "DUNN",
+   "building_number": "0442"
+  },
+  {
+   "id": "building_0443",
+   "name": "Eller Oceanography & Meteorology Building",
+   "category": "Academic",
+   "lat": 30.6177267,
+   "lon": -96.3366599,
+   "aliases": [
+    "Eller Oceanography & Meteorology Building",
+    "OMB",
+    "0443",
+    "building 0443",
+    "bldg 0443"
+   ],
+   "building_code": "OMB",
+   "building_number": "0443"
+  },
+  {
+   "id": "building_0444",
+   "name": "Peterson Building",
+   "category": "Academic",
+   "lat": 30.6159797,
+   "lon": -96.3385926,
+   "aliases": [
+    "Peterson Building",
+    "PETR",
+    "0444",
+    "building 0444",
+    "bldg 0444"
+   ],
+   "building_code": "PETR",
+   "building_number": "0444"
+  },
+  {
+   "id": "building_0445",
+   "name": "Teague Research Center",
+   "category": "Academic",
+   "lat": 30.617261,
+   "lon": -96.3360513,
+   "aliases": [
+    "Teague Research Center",
+    "TEAG",
+    "0445",
+    "building 0445",
+    "bldg 0445"
+   ],
+   "building_code": "TEAG",
+   "building_number": "0445"
+  },
+  {
+   "id": "building_0447",
+   "name": "Aston Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6146749,
+   "lon": -96.3363075,
+   "aliases": [
+    "Aston Residence Hall",
+    "ASTO",
+    "0447",
+    "building 0447",
+    "bldg 0447",
+    "Aston Hall",
+    "Aston Dorm",
+    "Aston"
+   ],
+   "building_code": "ASTO",
+   "building_number": "0447"
+  },
+  {
+   "id": "building_0448",
+   "name": "Adams Band Hall",
+   "category": "Academic",
+   "lat": 30.6122917,
+   "lon": -96.33469,
+   "aliases": [
+    "Adams Band Hall",
+    "ADAM",
+    "0448",
+    "building 0448",
+    "bldg 0448"
+   ],
+   "building_code": "ADAM",
+   "building_number": "0448"
+  },
+  {
+   "id": "building_0449",
+   "name": "Biological Sciences Bldg West",
+   "category": "Academic",
+   "lat": 30.6155908,
+   "lon": -96.3396193,
+   "aliases": [
+    "Biological Sciences Bldg West",
+    "BSBW",
+    "0449",
+    "building 0449",
+    "bldg 0449"
+   ],
+   "building_code": "BSBW",
+   "building_number": "0449"
+  },
+  {
+   "id": "building_0456",
+   "name": "Military Sciences Building",
+   "category": "Academic",
+   "lat": 30.614214,
+   "lon": -96.3394907,
+   "aliases": [
+    "Military Sciences Building",
+    "MILS",
+    "0456",
+    "building 0456",
+    "bldg 0456"
+   ],
+   "building_code": "MILS",
+   "building_number": "0456"
+  },
+  {
+   "id": "building_0458",
+   "name": "Engineering Activities Bldg C",
+   "category": "Academic",
+   "lat": 30.6152609,
+   "lon": -96.3380221,
+   "aliases": [
+    "Engineering Activities Bldg C",
+    "EABC",
+    "0458",
+    "building 0458",
+    "bldg 0458"
+   ],
+   "building_code": "EABC",
+   "building_number": "0458"
+  },
+  {
+   "id": "building_0459",
+   "name": "Engineering Activities Bldg B",
+   "category": "Academic",
+   "lat": 30.615543,
+   "lon": -96.3375386,
+   "aliases": [
+    "Engineering Activities Bldg B",
+    "EABB",
+    "0459",
+    "building 0459",
+    "bldg 0459"
+   ],
+   "building_code": "EABB",
+   "building_number": "0459"
+  },
+  {
+   "id": "building_0460",
+   "name": "Engineering Activities Bldg A",
+   "category": "Academic",
+   "lat": 30.6158352,
+   "lon": -96.3371832,
+   "aliases": [
+    "Engineering Activities Bldg A",
+    "EABA",
+    "0460",
+    "building 0460",
+    "bldg 0460"
+   ],
+   "building_code": "EABA",
+   "building_number": "0460"
+  },
+  {
+   "id": "building_0461",
+   "name": "Coke Building",
+   "category": "Academic",
+   "lat": 30.6146143,
+   "lon": -96.3417105,
+   "aliases": [
+    "Coke Building",
+    "COKE",
+    "0461",
+    "building 0461",
+    "bldg 0461"
+   ],
+   "building_code": "COKE",
+   "building_number": "0461"
+  },
+  {
+   "id": "building_0463",
+   "name": "Psychology Building",
+   "category": "Academic",
+   "lat": 30.6146558,
+   "lon": -96.3395796,
+   "aliases": [
+    "Psychology Building",
+    "PSYC",
+    "0463",
+    "building 0463",
+    "bldg 0463"
+   ],
+   "building_code": "PSYC",
+   "building_number": "0463"
+  },
+  {
+   "id": "building_0465",
+   "name": "Butler Hall",
+   "category": "Academic",
+   "lat": 30.614869,
+   "lon": -96.3389562,
+   "aliases": [
+    "Butler Hall",
+    "BTLR",
+    "0465",
+    "building 0465",
+    "bldg 0465"
+   ],
+   "building_code": "BTLR",
+   "building_number": "0465"
+  },
+  {
+   "id": "building_0467",
+   "name": "Biological Sciences Bldg East",
+   "category": "Academic",
+   "lat": 30.6158071,
+   "lon": -96.3393754,
+   "aliases": [
+    "Biological Sciences Bldg East",
+    "BSBE",
+    "0467",
+    "building 0467",
+    "bldg 0467"
+   ],
+   "building_code": "BSBE",
+   "building_number": "0467"
+  },
+  {
+   "id": "building_0468",
+   "name": "Sterling C. Evans Library",
+   "category": "Libraries",
+   "lat": 30.6165918,
+   "lon": -96.3394923,
+   "aliases": [
+    "Sterling C. Evans Library",
+    "LIBR",
+    "0468",
+    "building 0468",
+    "bldg 0468"
+   ],
+   "building_code": "LIBR",
+   "building_number": "0468"
+  },
+  {
+   "id": "building_0469",
+   "name": "Central Campus Parking Garage",
+   "category": "Campus facilities",
+   "lat": 30.6164734,
+   "lon": -96.3377123,
+   "aliases": [
+    "Central Campus Parking Garage",
+    "CCG",
+    "0469",
+    "building 0469",
+    "bldg 0469"
+   ],
+   "building_code": "CCG",
+   "building_number": "0469"
+  },
+  {
+   "id": "building_0470",
+   "name": "Melbern G. Glasscock Building",
+   "category": "Academic",
+   "lat": 30.6173373,
+   "lon": -96.3384894,
+   "aliases": [
+    "Melbern G. Glasscock Building",
+    "GLAS",
+    "0470",
+    "building 0470",
+    "bldg 0470"
+   ],
+   "building_code": "GLAS",
+   "building_number": "0470"
+  },
+  {
+   "id": "building_0471",
+   "name": "Pavilion",
+   "category": "Academic",
+   "lat": 30.6168325,
+   "lon": -96.3380132,
+   "aliases": [
+    "Pavilion",
+    "PAV",
+    "0471",
+    "building 0471",
+    "bldg 0471"
+   ],
+   "building_code": "PAV",
+   "building_number": "0471"
+  },
+  {
+   "id": "building_0472",
+   "name": "AI Engineering Building",
+   "category": "Academic",
+   "lat": 30.6172549,
+   "lon": -96.3374279,
+   "aliases": [
+    "AI Engineering Building",
+    "AIEN",
+    "0472",
+    "building 0472",
+    "bldg 0472"
+   ],
+   "building_code": "AIEN",
+   "building_number": "0472"
+  },
+  {
+   "id": "building_0473",
+   "name": "Jack K. Williams Administration Building",
+   "category": "Academic",
+   "lat": 30.6187086,
+   "lon": -96.3364676,
+   "aliases": [
+    "Jack K. Williams Administration Building",
+    "ADMN",
+    "0473",
+    "building 0473",
+    "bldg 0473"
+   ],
+   "building_code": "ADMN",
+   "building_number": "0473"
+  },
+  {
+   "id": "building_0474",
+   "name": "YMCA Building",
+   "category": "Academic",
+   "lat": 30.6151681,
+   "lon": -96.3422828,
+   "aliases": [
+    "YMCA Building",
+    "YMCA",
+    "0474",
+    "building 0474",
+    "bldg 0474"
+   ],
+   "building_code": "YMCA",
+   "building_number": "0474"
+  },
+  {
+   "id": "building_0476",
+   "name": "Francis Hall",
+   "category": "Academic",
+   "lat": 30.6173041,
+   "lon": -96.3396377,
+   "aliases": [
+    "Francis Hall",
+    "FRAN",
+    "0476",
+    "building 0476",
+    "bldg 0476"
+   ],
+   "building_code": "FRAN",
+   "building_number": "0476"
+  },
+  {
+   "id": "building_0477",
+   "name": "Anthropology Building",
+   "category": "Academic",
+   "lat": 30.6177447,
+   "lon": -96.3390082,
+   "aliases": [
+    "Anthropology Building",
+    "ANTH",
+    "0477",
+    "building 0477",
+    "bldg 0477"
+   ],
+   "building_code": "ANTH",
+   "building_number": "0477"
+  },
+  {
+   "id": "building_0478",
+   "name": "Scoates Hall",
+   "category": "Academic",
+   "lat": 30.6185248,
+   "lon": -96.3383977,
+   "aliases": [
+    "Scoates Hall",
+    "SCTS",
+    "0478",
+    "building 0478",
+    "bldg 0478"
+   ],
+   "building_code": "SCTS",
+   "building_number": "0478"
+  },
+  {
+   "id": "building_0480",
+   "name": "Bolton Hall",
+   "category": "Academic",
+   "lat": 30.6161763,
+   "lon": -96.3416456,
+   "aliases": [
+    "Bolton Hall",
+    "BLTN",
+    "0480",
+    "building 0480",
+    "bldg 0480"
+   ],
+   "building_code": "BLTN",
+   "building_number": "0480"
+  },
+  {
+   "id": "building_0481",
+   "name": "Heaton Hall",
+   "category": "Academic",
+   "lat": 30.6167032,
+   "lon": -96.3422601,
+   "aliases": [
+    "Heaton Hall",
+    "HEAT",
+    "0481",
+    "building 0481",
+    "bldg 0481"
+   ],
+   "building_code": "HEAT",
+   "building_number": "0481"
+  },
+  {
+   "id": "building_0482",
+   "name": "Fermier Hall",
+   "category": "Academic",
+   "lat": 30.6168325,
+   "lon": -96.3417384,
+   "aliases": [
+    "Fermier Hall",
+    "FERM",
+    "0482",
+    "building 0482",
+    "bldg 0482"
+   ],
+   "building_code": "FERM",
+   "building_number": "0482"
+  },
+  {
+   "id": "building_0483",
+   "name": "Thompson Hall",
+   "category": "Academic",
+   "lat": 30.6172317,
+   "lon": -96.3412641,
+   "aliases": [
+    "Thompson Hall",
+    "THOM",
+    "0483",
+    "building 0483",
+    "bldg 0483"
+   ],
+   "building_code": "THOM",
+   "building_number": "0483"
+  },
+  {
+   "id": "building_0484",
+   "name": "Chemistry",
+   "category": "Academic",
+   "lat": 30.6180042,
+   "lon": -96.3404748,
+   "aliases": [
+    "Chemistry",
+    "CHEM",
+    "0484",
+    "building 0484",
+    "bldg 0484"
+   ],
+   "building_code": "CHEM",
+   "building_number": "0484"
+  },
+  {
+   "id": "building_0490",
+   "name": "Halbouty Geosciences Building",
+   "category": "Academic",
+   "lat": 30.6188757,
+   "lon": -96.3404515,
+   "aliases": [
+    "Halbouty Geosciences Building",
+    "HALB",
+    "0490",
+    "building 0490",
+    "bldg 0490"
+   ],
+   "building_code": "HALB",
+   "building_number": "0490"
+  },
+  {
+   "id": "building_0492",
+   "name": "H.J. (Bill) and Reta Haynes Engineering Building",
+   "category": "Academic",
+   "lat": 30.6198169,
+   "lon": -96.3387307,
+   "aliases": [
+    "H.J. (Bill) and Reta Haynes Engineering Building",
+    "HEB",
+    "0492",
+    "building 0492",
+    "bldg 0492"
+   ],
+   "building_code": "HEB",
+   "building_number": "0492"
+  },
+  {
+   "id": "building_0496",
+   "name": "Utilities & Energy Services Central Office",
+   "category": "Campus facilities",
+   "lat": 30.6183931,
+   "lon": -96.3432095,
+   "aliases": [
+    "Utilities & Energy Services Central Office",
+    "UCO",
+    "0496",
+    "building 0496",
+    "bldg 0496"
+   ],
+   "building_code": "UCO",
+   "building_number": "0496"
+  },
+  {
+   "id": "building_0498",
+   "name": "Central Utility Plant",
+   "category": "Campus facilities",
+   "lat": 30.6181613,
+   "lon": -96.3422744,
+   "aliases": [
+    "Central Utility Plant",
+    "CUP",
+    "0498",
+    "building 0498",
+    "bldg 0498"
+   ],
+   "building_code": "CUP",
+   "building_number": "0498"
+  },
+  {
+   "id": "building_0499",
+   "name": "Engineering Innovation Center",
+   "category": "Academic",
+   "lat": 30.6185653,
+   "lon": -96.3414572,
+   "aliases": [
+    "Engineering Innovation Center",
+    "EIC",
+    "0499",
+    "building 0499",
+    "bldg 0499"
+   ],
+   "building_code": "EIC",
+   "building_number": "0499"
+  },
+  {
+   "id": "building_0506",
+   "name": "Nagle Hall",
+   "category": "Academic",
+   "lat": 30.6149441,
+   "lon": -96.3405158,
+   "aliases": [
+    "Nagle Hall",
+    "NGLE",
+    "0506",
+    "building 0506",
+    "bldg 0506"
+   ],
+   "building_code": "NGLE",
+   "building_number": "0506"
+  },
+  {
+   "id": "building_0508",
+   "name": "Veterinary Teaching Hospital",
+   "category": "Academic",
+   "lat": 30.6129958,
+   "lon": -96.3533909,
+   "aliases": [
+    "Veterinary Teaching Hospital",
+    "VTH",
+    "0508",
+    "building 0508",
+    "bldg 0508"
+   ],
+   "building_code": "VTH",
+   "building_number": "0508"
+  },
+  {
+   "id": "building_0510",
+   "name": "Adriance Lab",
+   "category": "Campus facilities",
+   "lat": 30.6103164,
+   "lon": -96.3531914,
+   "aliases": [
+    "Adriance Lab",
+    "0510",
+    "building 0510",
+    "bldg 0510"
+   ],
+   "building_code": "",
+   "building_number": "0510"
+  },
+  {
+   "id": "building_0511",
+   "name": "HEEP Laboratory Building",
+   "category": "Academic",
+   "lat": 30.6162113,
+   "lon": -96.3374932,
+   "aliases": [
+    "HEEP Laboratory Building",
+    "HLB",
+    "0511",
+    "building 0511",
+    "bldg 0511"
+   ],
+   "building_code": "HLB",
+   "building_number": "0511"
+  },
+  {
+   "id": "building_0512",
+   "name": "All Faiths Chapel",
+   "category": "Academic",
+   "lat": 30.6153644,
+   "lon": -96.3438439,
+   "aliases": [
+    "All Faiths Chapel",
+    "CHPL",
+    "0512",
+    "building 0512",
+    "bldg 0512"
+   ],
+   "building_code": "CHPL",
+   "building_number": "0512"
+  },
+  {
+   "id": "building_0513",
+   "name": "Doherty Building",
+   "category": "Academic",
+   "lat": 30.6192345,
+   "lon": -96.3399346,
+   "aliases": [
+    "Doherty Building",
+    "DRTY",
+    "0513",
+    "building 0513",
+    "bldg 0513"
+   ],
+   "building_code": "DRTY",
+   "building_number": "0513"
+  },
+  {
+   "id": "building_0514",
+   "name": "Munnerlyn Astronomy & Space Sciences Engineering",
+   "category": "Academic",
+   "lat": 30.6189184,
+   "lon": -96.3441198,
+   "aliases": [
+    "Munnerlyn Astronomy & Space Sciences Engineering",
+    "MASS",
+    "0514",
+    "building 0514",
+    "bldg 0514"
+   ],
+   "building_code": "MASS",
+   "building_number": "0514"
+  },
+  {
+   "id": "building_0516",
+   "name": "Computing Services Center",
+   "category": "Academic",
+   "lat": 30.6168093,
+   "lon": -96.3368592,
+   "aliases": [
+    "Computing Services Center",
+    "CSC",
+    "0516",
+    "building 0516",
+    "bldg 0516"
+   ],
+   "building_code": "CSC",
+   "building_number": "0516"
+  },
+  {
+   "id": "building_0517",
+   "name": "Computing Services Annex",
+   "category": "Academic",
+   "lat": 30.616927,
+   "lon": -96.3363782,
+   "aliases": [
+    "Computing Services Annex",
+    "CSA",
+    "0517",
+    "building 0517",
+    "bldg 0517"
+   ],
+   "building_code": "CSA",
+   "building_number": "0517"
+  },
+  {
+   "id": "building_0521",
+   "name": "Heldenfels Hall",
+   "category": "Academic",
+   "lat": 30.6152491,
+   "lon": -96.3387968,
+   "aliases": [
+    "Heldenfels Hall",
+    "HELD",
+    "0521",
+    "building 0521",
+    "bldg 0521"
+   ],
+   "building_code": "HELD",
+   "building_number": "0521"
+  },
+  {
+   "id": "building_0547",
+   "name": "Break Room at Central Utility Plant",
+   "category": "Campus facilities",
+   "lat": 30.6179569,
+   "lon": -96.342975,
+   "aliases": [
+    "Break Room at Central Utility Plant",
+    "0547",
+    "building 0547",
+    "bldg 0547"
+   ],
+   "building_code": "",
+   "building_number": "0547"
+  },
+  {
+   "id": "building_0548",
+   "name": "Clements Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6144493,
+   "lon": -96.3454833,
+   "aliases": [
+    "Clements Residence Hall",
+    "CLEM",
+    "0548",
+    "building 0548",
+    "bldg 0548",
+    "Clements Hall",
+    "Clements Dorm",
+    "Clements"
+   ],
+   "building_code": "CLEM",
+   "building_number": "0548"
+  },
+  {
+   "id": "building_0549",
+   "name": "Haas Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6159149,
+   "lon": -96.3445672,
+   "aliases": [
+    "Haas Residence Hall",
+    "HAAS",
+    "0549",
+    "building 0549",
+    "bldg 0549",
+    "Haas Hall",
+    "Haas Dorm",
+    "Haas"
+   ],
+   "building_code": "HAAS",
+   "building_number": "0549"
+  },
+  {
+   "id": "building_0550",
+   "name": "McFadden Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6156555,
+   "lon": -96.3442816,
+   "aliases": [
+    "McFadden Residence Hall",
+    "MCFA",
+    "0550",
+    "building 0550",
+    "bldg 0550",
+    "McFadden Hall",
+    "McFadden Dorm",
+    "McFadden"
+   ],
+   "building_code": "MCFA",
+   "building_number": "0550"
+  },
+  {
+   "id": "building_0652",
+   "name": "Neeley Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6179726,
+   "lon": -96.3443954,
+   "aliases": [
+    "Neeley Residence Hall",
+    "NEEL",
+    "0652",
+    "building 0652",
+    "bldg 0652",
+    "Neeley Hall",
+    "Neeley Dorm",
+    "Neeley"
+   ],
+   "building_code": "NEEL",
+   "building_number": "0652"
+  },
+  {
+   "id": "building_0653",
+   "name": "Hobby Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6177405,
+   "lon": -96.3441237,
+   "aliases": [
+    "Hobby Residence Hall",
+    "HOBB",
+    "0653",
+    "building 0653",
+    "bldg 0653",
+    "Hobby Hall",
+    "Hobby Dorm",
+    "Hobby"
+   ],
+   "building_code": "HOBB",
+   "building_number": "0653"
+  },
+  {
+   "id": "building_0672",
+   "name": "Golf Course Clubhouse",
+   "category": "Academic",
+   "lat": 30.6168041,
+   "lon": -96.3340535,
+   "aliases": [
+    "Golf Course Clubhouse",
+    "GOLF",
+    "0672",
+    "building 0672",
+    "bldg 0672"
+   ],
+   "building_code": "GOLF",
+   "building_number": "0672"
+  },
+  {
+   "id": "building_0682",
+   "name": "Wisenbaker Engineering Building",
+   "category": "Academic",
+   "lat": 30.6208208,
+   "lon": -96.3389059,
+   "aliases": [
+    "Wisenbaker Engineering Building",
+    "WEB",
+    "0682",
+    "building 0682",
+    "bldg 0682"
+   ],
+   "building_code": "WEB",
+   "building_number": "0682"
+  },
+  {
+   "id": "building_0685",
+   "name": "Grounds Maintenance-Tractor Shed",
+   "category": "Campus facilities",
+   "lat": 30.6265949,
+   "lon": -96.3438849,
+   "aliases": [
+    "Grounds Maintenance-Tractor Shed",
+    "0685",
+    "building 0685",
+    "bldg 0685"
+   ],
+   "building_code": "",
+   "building_number": "0685"
+  },
+  {
+   "id": "building_0715",
+   "name": "Chemistry Chemical Storage",
+   "category": "Academic",
+   "lat": 30.618108,
+   "lon": -96.3400033,
+   "aliases": [
+    "Chemistry Chemical Storage",
+    "0715",
+    "building 0715",
+    "bldg 0715"
+   ],
+   "building_code": "",
+   "building_number": "0715"
+  },
+  {
+   "id": "building_0717",
+   "name": "Storage and Lab-Cyclotron",
+   "category": "Academic",
+   "lat": 30.6200762,
+   "lon": -96.3409284,
+   "aliases": [
+    "Storage and Lab-Cyclotron",
+    "0717",
+    "building 0717",
+    "bldg 0717"
+   ],
+   "building_code": "",
+   "building_number": "0717"
+  },
+  {
+   "id": "building_0718",
+   "name": "Storage-Cyclotron",
+   "category": "Campus facilities",
+   "lat": 30.6202864,
+   "lon": -96.340968,
+   "aliases": [
+    "Storage-Cyclotron",
+    "0718",
+    "building 0718",
+    "bldg 0718"
+   ],
+   "building_code": "",
+   "building_number": "0718"
+  },
+  {
+   "id": "building_0726",
+   "name": "Grounds Maintenance Greenhouse 4",
+   "category": "Campus facilities",
+   "lat": 30.6272397,
+   "lon": -96.3449189,
+   "aliases": [
+    "Grounds Maintenance Greenhouse 4",
+    "0726",
+    "building 0726",
+    "bldg 0726"
+   ],
+   "building_code": "",
+   "building_number": "0726"
+  },
+  {
+   "id": "building_0728",
+   "name": "Grounds Maintenance Greenhouse 5",
+   "category": "Campus facilities",
+   "lat": 30.6273121,
+   "lon": -96.3448385,
+   "aliases": [
+    "Grounds Maintenance Greenhouse 5",
+    "0728",
+    "building 0728",
+    "bldg 0728"
+   ],
+   "building_code": "",
+   "building_number": "0728"
+  },
+  {
+   "id": "building_0732",
+   "name": "Grounds Maintenance Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6268918,
+   "lon": -96.3451703,
+   "aliases": [
+    "Grounds Maintenance Greenhouse",
+    "0732",
+    "building 0732",
+    "bldg 0732"
+   ],
+   "building_code": "",
+   "building_number": "0732"
+  },
+  {
+   "id": "building_0733",
+   "name": "Grounds Maintenance Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6269965,
+   "lon": -96.345105,
+   "aliases": [
+    "Grounds Maintenance Greenhouse",
+    "0733",
+    "building 0733",
+    "bldg 0733"
+   ],
+   "building_code": "",
+   "building_number": "0733"
+  },
+  {
+   "id": "building_0742",
+   "name": "Grounds Maintenance Storage",
+   "category": "Campus facilities",
+   "lat": 30.6269388,
+   "lon": -96.3439684,
+   "aliases": [
+    "Grounds Maintenance Storage",
+    "0742",
+    "building 0742",
+    "bldg 0742"
+   ],
+   "building_code": "",
+   "building_number": "0742"
+  },
+  {
+   "id": "building_0747",
+   "name": "Grounds Maintenance Supply Bldg",
+   "category": "Campus facilities",
+   "lat": 30.626564,
+   "lon": -96.3442606,
+   "aliases": [
+    "Grounds Maintenance Supply Bldg",
+    "GMSB",
+    "0747",
+    "building 0747",
+    "bldg 0747"
+   ],
+   "building_code": "GMSB",
+   "building_number": "0747"
+  },
+  {
+   "id": "building_0815",
+   "name": "Entomology Research Lab",
+   "category": "Academic",
+   "lat": 30.6144706,
+   "lon": -96.3512274,
+   "aliases": [
+    "Entomology Research Lab",
+    "ERLB",
+    "0815",
+    "building 0815",
+    "bldg 0815"
+   ],
+   "building_code": "ERLB",
+   "building_number": "0815"
+  },
+  {
+   "id": "building_0824",
+   "name": "Grounds Maintenance Implement Shed",
+   "category": "Campus facilities",
+   "lat": 30.6273302,
+   "lon": -96.3444519,
+   "aliases": [
+    "Grounds Maintenance Implement Shed",
+    "0824",
+    "building 0824",
+    "bldg 0824"
+   ],
+   "building_code": "",
+   "building_number": "0824"
+  },
+  {
+   "id": "building_0828",
+   "name": "Grounds Shop Warehouse",
+   "category": "Campus facilities",
+   "lat": 30.6269938,
+   "lon": -96.344621,
+   "aliases": [
+    "Grounds Shop Warehouse",
+    "0828",
+    "building 0828",
+    "bldg 0828"
+   ],
+   "building_code": "",
+   "building_number": "0828"
+  },
+  {
+   "id": "building_0829",
+   "name": "Grounds Maintenance Office Shop/Stor",
+   "category": "Campus facilities",
+   "lat": 30.6268901,
+   "lon": -96.344475,
+   "aliases": [
+    "Grounds Maintenance Office Shop/Stor",
+    "0829",
+    "building 0829",
+    "bldg 0829"
+   ],
+   "building_code": "",
+   "building_number": "0829"
+  },
+  {
+   "id": "building_0831",
+   "name": "Grounds Maintenance Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6270874,
+   "lon": -96.3449713,
+   "aliases": [
+    "Grounds Maintenance Greenhouse",
+    "0831",
+    "building 0831",
+    "bldg 0831"
+   ],
+   "building_code": "",
+   "building_number": "0831"
+  },
+  {
+   "id": "building_0861",
+   "name": "CUSE-Chemistry",
+   "category": "Academic",
+   "lat": 30.6149371,
+   "lon": -96.3514406,
+   "aliases": [
+    "CUSE-Chemistry",
+    "INSC",
+    "0861",
+    "building 0861",
+    "bldg 0861"
+   ],
+   "building_code": "INSC",
+   "building_number": "0861"
+  },
+  {
+   "id": "building_0862",
+   "name": "Butler Building",
+   "category": "Academic",
+   "lat": 30.6152116,
+   "lon": -96.3510985,
+   "aliases": [
+    "Butler Building",
+    "0862",
+    "building 0862",
+    "bldg 0862"
+   ],
+   "building_code": "",
+   "building_number": "0862"
+  },
+  {
+   "id": "building_0943",
+   "name": "TVMC-Barn No 2",
+   "category": "Academic",
+   "lat": 30.6138127,
+   "lon": -96.3569824,
+   "aliases": [
+    "TVMC-Barn No 2",
+    "0943",
+    "building 0943",
+    "bldg 0943"
+   ],
+   "building_code": "",
+   "building_number": "0943"
+  },
+  {
+   "id": "building_0954",
+   "name": "Agronomy Field Lab",
+   "category": "Academic",
+   "lat": 30.6159256,
+   "lon": -96.3533319,
+   "aliases": [
+    "Agronomy Field Lab",
+    "AGRL",
+    "0954",
+    "building 0954",
+    "bldg 0954"
+   ],
+   "building_code": "AGRL",
+   "building_number": "0954"
+  },
+  {
+   "id": "building_0955",
+   "name": "Soil/Crop Cotton Genetic Greenhouse",
+   "category": "Academic",
+   "lat": 30.6163642,
+   "lon": -96.3539796,
+   "aliases": [
+    "Soil/Crop Cotton Genetic Greenhouse",
+    "0955",
+    "building 0955",
+    "bldg 0955"
+   ],
+   "building_code": "",
+   "building_number": "0955"
+  },
+  {
+   "id": "building_0957",
+   "name": "Purchasing & Stores",
+   "category": "Campus facilities",
+   "lat": 30.6171821,
+   "lon": -96.3525611,
+   "aliases": [
+    "Purchasing & Stores",
+    "PRCH",
+    "0957",
+    "building 0957",
+    "bldg 0957"
+   ],
+   "building_code": "PRCH",
+   "building_number": "0957"
+  },
+  {
+   "id": "building_0958",
+   "name": "Fleet Services",
+   "category": "Campus facilities",
+   "lat": 30.6178556,
+   "lon": -96.3533753,
+   "aliases": [
+    "Fleet Services",
+    "FLSV",
+    "0958",
+    "building 0958",
+    "bldg 0958"
+   ],
+   "building_code": "FLSV",
+   "building_number": "0958"
+  },
+  {
+   "id": "building_0959",
+   "name": "Plant Science Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6169593,
+   "lon": -96.3545884,
+   "aliases": [
+    "Plant Science Greenhouse",
+    "0959",
+    "building 0959",
+    "bldg 0959"
+   ],
+   "building_code": "",
+   "building_number": "0959"
+  },
+  {
+   "id": "building_0960",
+   "name": "SCS Forage Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6168551,
+   "lon": -96.354505,
+   "aliases": [
+    "SCS Forage Greenhouse",
+    "SCSFGH",
+    "0960",
+    "building 0960",
+    "bldg 0960"
+   ],
+   "building_code": "SCSFGH",
+   "building_number": "0960"
+  },
+  {
+   "id": "building_0961",
+   "name": "Cotton Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6167616,
+   "lon": -96.3544065,
+   "aliases": [
+    "Cotton Greenhouse",
+    "0961",
+    "building 0961",
+    "bldg 0961"
+   ],
+   "building_code": "",
+   "building_number": "0961"
+  },
+  {
+   "id": "building_0962",
+   "name": "Plant Science Grain Sorghum Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6166753,
+   "lon": -96.3543146,
+   "aliases": [
+    "Plant Science Grain Sorghum Greenhouse",
+    "0962",
+    "building 0962",
+    "bldg 0962"
+   ],
+   "building_code": "",
+   "building_number": "0962"
+  },
+  {
+   "id": "building_0963",
+   "name": "Hort & Plant Science Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6165925,
+   "lon": -96.3542452,
+   "aliases": [
+    "Hort & Plant Science Greenhouse",
+    "0963",
+    "building 0963",
+    "bldg 0963"
+   ],
+   "building_code": "",
+   "building_number": "0963"
+  },
+  {
+   "id": "building_0964",
+   "name": "Agronomy Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6165142,
+   "lon": -96.3541693,
+   "aliases": [
+    "Agronomy Greenhouse",
+    "0964",
+    "building 0964",
+    "bldg 0964"
+   ],
+   "building_code": "",
+   "building_number": "0964"
+  },
+  {
+   "id": "building_0965",
+   "name": "Beasley Laboratory",
+   "category": "Academic",
+   "lat": 30.6168054,
+   "lon": -96.3541357,
+   "aliases": [
+    "Beasley Laboratory",
+    "BEAS",
+    "0965",
+    "building 0965",
+    "bldg 0965"
+   ],
+   "building_code": "BEAS",
+   "building_number": "0965"
+  },
+  {
+   "id": "building_0966",
+   "name": "Purchasing & Stores-General Storage",
+   "category": "Campus facilities",
+   "lat": 30.6177781,
+   "lon": -96.3518679,
+   "aliases": [
+    "Purchasing & Stores-General Storage",
+    "0966",
+    "building 0966",
+    "bldg 0966"
+   ],
+   "building_code": "",
+   "building_number": "0966"
+  },
+  {
+   "id": "building_0967",
+   "name": "Purchasing & Stores-Volatile Storage",
+   "category": "Campus facilities",
+   "lat": 30.6173404,
+   "lon": -96.3515774,
+   "aliases": [
+    "Purchasing & Stores-Volatile Storage",
+    "0967",
+    "building 0967",
+    "bldg 0967"
+   ],
+   "building_code": "",
+   "building_number": "0967"
+  },
+  {
+   "id": "building_0969",
+   "name": "Transit Services",
+   "category": "Campus facilities",
+   "lat": 30.6183596,
+   "lon": -96.3541217,
+   "aliases": [
+    "Transit Services",
+    "TRSV",
+    "0969",
+    "building 0969",
+    "bldg 0969"
+   ],
+   "building_code": "TRSV",
+   "building_number": "0969"
+  },
+  {
+   "id": "building_0970",
+   "name": "Phys Plant-Grounds Maintenance",
+   "category": "Campus facilities",
+   "lat": 30.6188739,
+   "lon": -96.3546099,
+   "aliases": [
+    "Phys Plant-Grounds Maintenance",
+    "PPGM",
+    "0970",
+    "building 0970",
+    "bldg 0970"
+   ],
+   "building_code": "PPGM",
+   "building_number": "0970"
+  },
+  {
+   "id": "building_0971",
+   "name": "Fred Dollar Food Services Commissary",
+   "category": "Campus facilities",
+   "lat": 30.6195703,
+   "lon": -96.3538079,
+   "aliases": [
+    "Fred Dollar Food Services Commissary",
+    "WCDC",
+    "0971",
+    "building 0971",
+    "bldg 0971"
+   ],
+   "building_code": "WCDC",
+   "building_number": "0971"
+  },
+  {
+   "id": "building_0972",
+   "name": "Laboratory Animal Care Building",
+   "category": "Academic",
+   "lat": 30.615179,
+   "lon": -96.352867,
+   "aliases": [
+    "Laboratory Animal Care Building",
+    "LARR",
+    "0972",
+    "building 0972",
+    "bldg 0972"
+   ],
+   "building_code": "LARR",
+   "building_number": "0972"
+  },
+  {
+   "id": "building_0980",
+   "name": "Murray Case Sells Storage Bldg",
+   "category": "Campus facilities",
+   "lat": 30.6180923,
+   "lon": -96.351941,
+   "aliases": [
+    "Murray Case Sells Storage Bldg",
+    "0980",
+    "building 0980",
+    "bldg 0980"
+   ],
+   "building_code": "",
+   "building_number": "0980"
+  },
+  {
+   "id": "building_0983",
+   "name": "Trans Center Paint Storage",
+   "category": "Campus facilities",
+   "lat": 30.6178618,
+   "lon": -96.3528865,
+   "aliases": [
+    "Trans Center Paint Storage",
+    "0983",
+    "building 0983",
+    "bldg 0983"
+   ],
+   "building_code": "",
+   "building_number": "0983"
+  },
+  {
+   "id": "building_0995",
+   "name": "Water Distribution Pump Station No. 2",
+   "category": "Campus facilities",
+   "lat": 30.6239387,
+   "lon": -96.3575711,
+   "aliases": [
+    "Water Distribution Pump Station No. 2",
+    "0995",
+    "building 0995",
+    "bldg 0995"
+   ],
+   "building_code": "",
+   "building_number": "0995"
+  },
+  {
+   "id": "building_1000",
+   "name": "Farm Service Office",
+   "category": "Campus facilities",
+   "lat": 30.6199829,
+   "lon": -96.3568928,
+   "aliases": [
+    "Farm Service Office",
+    "1000",
+    "building 1000",
+    "bldg 1000"
+   ],
+   "building_code": "",
+   "building_number": "1000"
+  },
+  {
+   "id": "building_1001",
+   "name": "Farm Service Implement #1",
+   "category": "Campus facilities",
+   "lat": 30.6195602,
+   "lon": -96.3573634,
+   "aliases": [
+    "Farm Service Implement #1",
+    "1001",
+    "building 1001",
+    "bldg 1001"
+   ],
+   "building_code": "",
+   "building_number": "1001"
+  },
+  {
+   "id": "building_1002",
+   "name": "Farm Service Implement #2",
+   "category": "Campus facilities",
+   "lat": 30.6199552,
+   "lon": -96.3577259,
+   "aliases": [
+    "Farm Service Implement #2",
+    "1002",
+    "building 1002",
+    "bldg 1002"
+   ],
+   "building_code": "",
+   "building_number": "1002"
+  },
+  {
+   "id": "building_1003",
+   "name": "Farm Service Shop",
+   "category": "Campus facilities",
+   "lat": 30.6196746,
+   "lon": -96.3576722,
+   "aliases": [
+    "Farm Service Shop",
+    "1003",
+    "building 1003",
+    "bldg 1003"
+   ],
+   "building_code": "",
+   "building_number": "1003"
+  },
+  {
+   "id": "building_1020",
+   "name": "Vivarium III",
+   "category": "Campus facilities",
+   "lat": 30.6143641,
+   "lon": -96.3529395,
+   "aliases": [
+    "Vivarium III",
+    "VIV3",
+    "1020",
+    "building 1020",
+    "bldg 1020"
+   ],
+   "building_code": "VIV3",
+   "building_number": "1020"
+  },
+  {
+   "id": "building_1026",
+   "name": "Veterinary Medicine Administration",
+   "category": "Academic",
+   "lat": 30.6129796,
+   "lon": -96.3525352,
+   "aliases": [
+    "Veterinary Medicine Administration",
+    "VMA",
+    "1026",
+    "building 1026",
+    "bldg 1026"
+   ],
+   "building_code": "VMA",
+   "building_number": "1026"
+  },
+  {
+   "id": "building_1029",
+   "name": "Agronomy Implement Storage",
+   "category": "Campus facilities",
+   "lat": 30.6157515,
+   "lon": -96.3539782,
+   "aliases": [
+    "Agronomy Implement Storage",
+    "1029",
+    "building 1029",
+    "bldg 1029"
+   ],
+   "building_code": "",
+   "building_number": "1029"
+  },
+  {
+   "id": "building_1030",
+   "name": "AG Engr Res Lab & Shop",
+   "category": "Academic",
+   "lat": 30.6137312,
+   "lon": -96.3484476,
+   "aliases": [
+    "AG Engr Res Lab & Shop",
+    "AESH",
+    "1030",
+    "building 1030",
+    "bldg 1030"
+   ],
+   "building_code": "AESH",
+   "building_number": "1030"
+  },
+  {
+   "id": "building_1034",
+   "name": "Ag Engineering Power & Machinery Building",
+   "category": "Academic",
+   "lat": 30.6141982,
+   "lon": -96.3490483,
+   "aliases": [
+    "Ag Engineering Power & Machinery Building",
+    "AEPM",
+    "1034",
+    "building 1034",
+    "bldg 1034"
+   ],
+   "building_code": "AEPM",
+   "building_number": "1034"
+  },
+  {
+   "id": "building_1041",
+   "name": "Former TVMDL Building",
+   "category": "Campus facilities",
+   "lat": 30.6140203,
+   "lon": -96.3533174,
+   "aliases": [
+    "Former TVMDL Building",
+    "1041",
+    "building 1041",
+    "bldg 1041"
+   ],
+   "building_code": "",
+   "building_number": "1041"
+  },
+  {
+   "id": "building_1042",
+   "name": "Forest Science Laboratory Building",
+   "category": "Academic",
+   "lat": 30.6159701,
+   "lon": -96.3522701,
+   "aliases": [
+    "Forest Science Laboratory Building",
+    "FSLB",
+    "1042",
+    "building 1042",
+    "bldg 1042"
+   ],
+   "building_code": "FSLB",
+   "building_number": "1042"
+  },
+  {
+   "id": "building_1043",
+   "name": "Mosquito Research Lab",
+   "category": "Academic",
+   "lat": 30.6156029,
+   "lon": -96.3513095,
+   "aliases": [
+    "Mosquito Research Lab",
+    "1043",
+    "building 1043",
+    "bldg 1043"
+   ],
+   "building_code": "",
+   "building_number": "1043"
+  },
+  {
+   "id": "building_1045",
+   "name": "USDA Greenhouse 1",
+   "category": "Campus facilities",
+   "lat": 30.6208609,
+   "lon": -96.3575403,
+   "aliases": [
+    "USDA Greenhouse 1",
+    "1045",
+    "building 1045",
+    "bldg 1045"
+   ],
+   "building_code": "",
+   "building_number": "1045"
+  },
+  {
+   "id": "building_1047",
+   "name": "Virus-Vector Research Lab",
+   "category": "Campus facilities",
+   "lat": 30.6202998,
+   "lon": -96.3570708,
+   "aliases": [
+    "Virus-Vector Research Lab",
+    "1047",
+    "building 1047",
+    "bldg 1047"
+   ],
+   "building_code": "",
+   "building_number": "1047"
+  },
+  {
+   "id": "building_1049",
+   "name": "USDA Greenhouse 2",
+   "category": "Campus facilities",
+   "lat": 30.6205368,
+   "lon": -96.3572441,
+   "aliases": [
+    "USDA Greenhouse 2",
+    "1049",
+    "building 1049",
+    "bldg 1049"
+   ],
+   "building_code": "",
+   "building_number": "1049"
+  },
+  {
+   "id": "building_1050",
+   "name": "CUSE-Research Labs",
+   "category": "Academic",
+   "lat": 30.6153345,
+   "lon": -96.3517757,
+   "aliases": [
+    "CUSE-Research Labs",
+    "1050",
+    "building 1050",
+    "bldg 1050"
+   ],
+   "building_code": "",
+   "building_number": "1050"
+  },
+  {
+   "id": "building_1051",
+   "name": "Center for Urban and Structural Entomology (CUSE)",
+   "category": "Academic",
+   "lat": 30.6151486,
+   "lon": -96.3515368,
+   "aliases": [
+    "Center for Urban and Structural Entomology (CUSE)",
+    "CUSE",
+    "1051",
+    "building 1051",
+    "bldg 1051"
+   ],
+   "building_code": "CUSE",
+   "building_number": "1051"
+  },
+  {
+   "id": "building_1054",
+   "name": "Forage and Turf Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6162221,
+   "lon": -96.354088,
+   "aliases": [
+    "Forage and Turf Greenhouse",
+    "1054",
+    "building 1054",
+    "bldg 1054"
+   ],
+   "building_code": "",
+   "building_number": "1054"
+  },
+  {
+   "id": "building_1056",
+   "name": "Soil & Crop Sci Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6161471,
+   "lon": -96.354194,
+   "aliases": [
+    "Soil & Crop Sci Greenhouse",
+    "1056",
+    "building 1056",
+    "bldg 1056"
+   ],
+   "building_code": "",
+   "building_number": "1056"
+  },
+  {
+   "id": "building_1057",
+   "name": "Soil & Crop Sci Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.616074,
+   "lon": -96.354299,
+   "aliases": [
+    "Soil & Crop Sci Greenhouse",
+    "1057",
+    "building 1057",
+    "bldg 1057"
+   ],
+   "building_code": "",
+   "building_number": "1057"
+  },
+  {
+   "id": "building_1058",
+   "name": "Soil & Crop Sci Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.616022,
+   "lon": -96.3544262,
+   "aliases": [
+    "Soil & Crop Sci Greenhouse",
+    "1058",
+    "building 1058",
+    "bldg 1058"
+   ],
+   "building_code": "",
+   "building_number": "1058"
+  },
+  {
+   "id": "building_1059",
+   "name": "Soil & Crop Sci Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6159266,
+   "lon": -96.3545117,
+   "aliases": [
+    "Soil & Crop Sci Greenhouse",
+    "1059",
+    "building 1059",
+    "bldg 1059"
+   ],
+   "building_code": "",
+   "building_number": "1059"
+  },
+  {
+   "id": "building_1060",
+   "name": "Greenhouse-Small Grains",
+   "category": "Campus facilities",
+   "lat": 30.6157774,
+   "lon": -96.354209,
+   "aliases": [
+    "Greenhouse-Small Grains",
+    "1060",
+    "building 1060",
+    "bldg 1060"
+   ],
+   "building_code": "",
+   "building_number": "1060"
+  },
+  {
+   "id": "building_1063",
+   "name": "Greenhouse-Cotton Taxonomy",
+   "category": "Campus facilities",
+   "lat": 30.6156389,
+   "lon": -96.354128,
+   "aliases": [
+    "Greenhouse-Cotton Taxonomy",
+    "1063",
+    "building 1063",
+    "bldg 1063"
+   ],
+   "building_code": "",
+   "building_number": "1063"
+  },
+  {
+   "id": "building_1064",
+   "name": "Soil & Crop Sciences Greenhouse",
+   "category": "Academic",
+   "lat": 30.6153099,
+   "lon": -96.3545438,
+   "aliases": [
+    "Soil & Crop Sciences Greenhouse",
+    "1064",
+    "building 1064",
+    "bldg 1064"
+   ],
+   "building_code": "",
+   "building_number": "1064"
+  },
+  {
+   "id": "building_1065",
+   "name": "Soil & Crop Sci Dry Processing",
+   "category": "Academic",
+   "lat": 30.6149391,
+   "lon": -96.3539977,
+   "aliases": [
+    "Soil & Crop Sci Dry Processing",
+    "1065",
+    "building 1065",
+    "bldg 1065"
+   ],
+   "building_code": "",
+   "building_number": "1065"
+  },
+  {
+   "id": "building_1066",
+   "name": "Cotton Ginning Lab",
+   "category": "Academic",
+   "lat": 30.615176,
+   "lon": -96.35368,
+   "aliases": [
+    "Cotton Ginning Lab",
+    "1066",
+    "building 1066",
+    "bldg 1066"
+   ],
+   "building_code": "",
+   "building_number": "1066"
+  },
+  {
+   "id": "building_1067",
+   "name": "Agronomy Field Crop Laboratory",
+   "category": "Academic",
+   "lat": 30.6151779,
+   "lon": -96.3547709,
+   "aliases": [
+    "Agronomy Field Crop Laboratory",
+    "1067",
+    "building 1067",
+    "bldg 1067"
+   ],
+   "building_code": "",
+   "building_number": "1067"
+  },
+  {
+   "id": "building_1068",
+   "name": "Crop Testing",
+   "category": "Academic",
+   "lat": 30.6139269,
+   "lon": -96.3546356,
+   "aliases": [
+    "Crop Testing",
+    "1068",
+    "building 1068",
+    "bldg 1068"
+   ],
+   "building_code": "",
+   "building_number": "1068"
+  },
+  {
+   "id": "building_1077",
+   "name": "SCSC Small Grain Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6155851,
+   "lon": -96.3546801,
+   "aliases": [
+    "SCSC Small Grain Greenhouse",
+    "1077",
+    "building 1077",
+    "bldg 1077"
+   ],
+   "building_code": "",
+   "building_number": "1077"
+  },
+  {
+   "id": "building_1078",
+   "name": "Soil & Crop Peanut Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6157024,
+   "lon": -96.3547996,
+   "aliases": [
+    "Soil & Crop Peanut Greenhouse",
+    "1078",
+    "building 1078",
+    "bldg 1078"
+   ],
+   "building_code": "",
+   "building_number": "1078"
+  },
+  {
+   "id": "building_1079",
+   "name": "SCSC-Weed Sci Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6158277,
+   "lon": -96.3548765,
+   "aliases": [
+    "SCSC-Weed Sci Greenhouse",
+    "1079",
+    "building 1079",
+    "bldg 1079"
+   ],
+   "building_code": "",
+   "building_number": "1079"
+  },
+  {
+   "id": "building_1084",
+   "name": "West Campus Switching Station",
+   "category": "Campus facilities",
+   "lat": 30.6136126,
+   "lon": -96.3478836,
+   "aliases": [
+    "West Campus Switching Station",
+    "WCS",
+    "1084",
+    "building 1084",
+    "bldg 1084"
+   ],
+   "building_code": "WCS",
+   "building_number": "1084"
+  },
+  {
+   "id": "building_1085",
+   "name": "Veterinary Small Animal Hospital",
+   "category": "Academic",
+   "lat": 30.6122024,
+   "lon": -96.3536262,
+   "aliases": [
+    "Veterinary Small Animal Hospital",
+    "VSAH",
+    "1085",
+    "building 1085",
+    "bldg 1085"
+   ],
+   "building_code": "VSAH",
+   "building_number": "1085"
+  },
+  {
+   "id": "building_1146",
+   "name": "Biological Control Facility",
+   "category": "Academic",
+   "lat": 30.6149626,
+   "lon": -96.3503964,
+   "aliases": [
+    "Biological Control Facility",
+    "BCC",
+    "1146",
+    "building 1146",
+    "bldg 1146"
+   ],
+   "building_code": "BCC",
+   "building_number": "1146"
+  },
+  {
+   "id": "building_1156",
+   "name": "Facilities Services",
+   "category": "Campus facilities",
+   "lat": 30.6204717,
+   "lon": -96.3551432,
+   "aliases": [
+    "Facilities Services",
+    "PLNT",
+    "1156",
+    "building 1156",
+    "bldg 1156"
+   ],
+   "building_code": "PLNT",
+   "building_number": "1156"
+  },
+  {
+   "id": "building_1157",
+   "name": "Warehouse",
+   "category": "Campus facilities",
+   "lat": 30.6210408,
+   "lon": -96.3556388,
+   "aliases": [
+    "Warehouse",
+    "WRHS",
+    "1157",
+    "building 1157",
+    "bldg 1157"
+   ],
+   "building_code": "WRHS",
+   "building_number": "1157"
+  },
+  {
+   "id": "building_1160",
+   "name": "Pearce Animal Pavilion",
+   "category": "Academic",
+   "lat": 30.5995562,
+   "lon": -96.343576,
+   "aliases": [
+    "Pearce Animal Pavilion",
+    "PRPV",
+    "1160",
+    "building 1160",
+    "bldg 1160"
+   ],
+   "building_code": "PRPV",
+   "building_number": "1160"
+  },
+  {
+   "id": "building_1161",
+   "name": "Reed House",
+   "category": "Campus facilities",
+   "lat": 30.59481,
+   "lon": -96.3473972,
+   "aliases": [
+    "Reed House",
+    "1161",
+    "building 1161",
+    "bldg 1161"
+   ],
+   "building_code": "",
+   "building_number": "1161"
+  },
+  {
+   "id": "building_1166",
+   "name": "CUSE-Special Project Lab & Storage",
+   "category": "Campus facilities",
+   "lat": 30.6154469,
+   "lon": -96.3516824,
+   "aliases": [
+    "CUSE-Special Project Lab & Storage",
+    "1166",
+    "building 1166",
+    "bldg 1166"
+   ],
+   "building_code": "",
+   "building_number": "1166"
+  },
+  {
+   "id": "building_1167",
+   "name": "CUSE-Insect Testing Lab",
+   "category": "Campus facilities",
+   "lat": 30.6155248,
+   "lon": -96.3514807,
+   "aliases": [
+    "CUSE-Insect Testing Lab",
+    "1167",
+    "building 1167",
+    "bldg 1167"
+   ],
+   "building_code": "",
+   "building_number": "1167"
+  },
+  {
+   "id": "building_1168",
+   "name": "CUSE-Shop & Storage",
+   "category": "Campus facilities",
+   "lat": 30.6153803,
+   "lon": -96.3513707,
+   "aliases": [
+    "CUSE-Shop & Storage",
+    "1168",
+    "building 1168",
+    "bldg 1168"
+   ],
+   "building_code": "",
+   "building_number": "1168"
+  },
+  {
+   "id": "building_1169",
+   "name": "CUSE-Toxicology Hut",
+   "category": "Campus facilities",
+   "lat": 30.615288,
+   "lon": -96.3514332,
+   "aliases": [
+    "CUSE-Toxicology Hut",
+    "1169",
+    "building 1169",
+    "bldg 1169"
+   ],
+   "building_code": "",
+   "building_number": "1169"
+  },
+  {
+   "id": "building_1172",
+   "name": "Flammable Mat Storage",
+   "category": "Campus facilities",
+   "lat": 30.619349,
+   "lon": -96.3549814,
+   "aliases": [
+    "Flammable Mat Storage",
+    "1172",
+    "building 1172",
+    "bldg 1172"
+   ],
+   "building_code": "",
+   "building_number": "1172"
+  },
+  {
+   "id": "building_1173",
+   "name": "Soil & Crop Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6155705,
+   "lon": -96.3545171,
+   "aliases": [
+    "Soil & Crop Greenhouse",
+    "1173",
+    "building 1173",
+    "bldg 1173"
+   ],
+   "building_code": "",
+   "building_number": "1173"
+  },
+  {
+   "id": "building_1176",
+   "name": "Hort/FS Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6088793,
+   "lon": -96.3499292,
+   "aliases": [
+    "Hort/FS Greenhouse",
+    "1176",
+    "building 1176",
+    "bldg 1176"
+   ],
+   "building_code": "",
+   "building_number": "1176"
+  },
+  {
+   "id": "building_1177",
+   "name": "Horticulture/Forest Science Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6088777,
+   "lon": -96.3500865,
+   "aliases": [
+    "Horticulture/Forest Science Greenhouse",
+    "1177",
+    "building 1177",
+    "bldg 1177"
+   ],
+   "building_code": "",
+   "building_number": "1177"
+  },
+  {
+   "id": "building_1178",
+   "name": "Horticulture/Forest Science Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6088788,
+   "lon": -96.350314,
+   "aliases": [
+    "Horticulture/Forest Science Greenhouse",
+    "1178",
+    "building 1178",
+    "bldg 1178"
+   ],
+   "building_code": "",
+   "building_number": "1178"
+  },
+  {
+   "id": "building_1179",
+   "name": "Forest Science Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6088782,
+   "lon": -96.3504715,
+   "aliases": [
+    "Forest Science Greenhouse",
+    "1179",
+    "building 1179",
+    "bldg 1179"
+   ],
+   "building_code": "",
+   "building_number": "1179"
+  },
+  {
+   "id": "building_1184",
+   "name": "Veterinary Anatomic Pathology",
+   "category": "Academic",
+   "lat": 30.6136628,
+   "lon": -96.3540848,
+   "aliases": [
+    "Veterinary Anatomic Pathology",
+    "VAPA",
+    "1184",
+    "building 1184",
+    "bldg 1184"
+   ],
+   "building_code": "VAPA",
+   "building_number": "1184"
+  },
+  {
+   "id": "building_1186",
+   "name": "TVMC-Isolation Laboratory",
+   "category": "Campus facilities",
+   "lat": 30.6118723,
+   "lon": -96.355416,
+   "aliases": [
+    "TVMC-Isolation Laboratory",
+    "1186",
+    "building 1186",
+    "bldg 1186"
+   ],
+   "building_code": "",
+   "building_number": "1186"
+  },
+  {
+   "id": "building_1187",
+   "name": "W.P. Luse Foundation Building",
+   "category": "Campus facilities",
+   "lat": 30.6095925,
+   "lon": -96.3566893,
+   "aliases": [
+    "W.P. Luse Foundation Building",
+    "LFB",
+    "1187",
+    "building 1187",
+    "bldg 1187"
+   ],
+   "building_code": "LFB",
+   "building_number": "1187"
+  },
+  {
+   "id": "building_1188",
+   "name": "Forest Science Storage",
+   "category": "Campus facilities",
+   "lat": 30.6161654,
+   "lon": -96.3520028,
+   "aliases": [
+    "Forest Science Storage",
+    "1188",
+    "building 1188",
+    "bldg 1188"
+   ],
+   "building_code": "",
+   "building_number": "1188"
+  },
+  {
+   "id": "building_1190",
+   "name": "Floriculture Research Greenhouse",
+   "category": "Campus facilities",
+   "lat": 30.6293809,
+   "lon": -96.3425646,
+   "aliases": [
+    "Floriculture Research Greenhouse",
+    "1190",
+    "building 1190",
+    "bldg 1190"
+   ],
+   "building_code": "",
+   "building_number": "1190"
+  },
+  {
+   "id": "building_1191",
+   "name": "Floriculture Growing Facility",
+   "category": "Campus facilities",
+   "lat": 30.6294481,
+   "lon": -96.3427648,
+   "aliases": [
+    "Floriculture Growing Facility",
+    "1191",
+    "building 1191",
+    "bldg 1191"
+   ],
+   "building_code": "",
+   "building_number": "1191"
+  },
+  {
+   "id": "building_1192",
+   "name": "TVMC-Surgery Building",
+   "category": "Academic",
+   "lat": 30.6144302,
+   "lon": -96.3560486,
+   "aliases": [
+    "TVMC-Surgery Building",
+    "VMSB",
+    "1192",
+    "building 1192",
+    "bldg 1192"
+   ],
+   "building_code": "VMSB",
+   "building_number": "1192"
+  },
+  {
+   "id": "building_1194",
+   "name": "Veterinary Large Animal Hospital",
+   "category": "Academic",
+   "lat": 30.6126347,
+   "lon": -96.354991,
+   "aliases": [
+    "Veterinary Large Animal Hospital",
+    "VLAH",
+    "1194",
+    "building 1194",
+    "bldg 1194"
+   ],
+   "building_code": "VLAH",
+   "building_number": "1194"
+  },
+  {
+   "id": "building_1195",
+   "name": "Non Surgical Animal Procedure",
+   "category": "Academic",
+   "lat": 30.6144662,
+   "lon": -96.3563794,
+   "aliases": [
+    "Non Surgical Animal Procedure",
+    "1195",
+    "building 1195",
+    "bldg 1195"
+   ],
+   "building_code": "",
+   "building_number": "1195"
+  },
+  {
+   "id": "building_1197",
+   "name": "Veterinary Research Building",
+   "category": "Academic",
+   "lat": 30.611138,
+   "lon": -96.3548614,
+   "aliases": [
+    "Veterinary Research Building",
+    "VRB",
+    "1197",
+    "building 1197",
+    "bldg 1197"
+   ],
+   "building_code": "VRB",
+   "building_number": "1197"
+  },
+  {
+   "id": "building_1232",
+   "name": "Theriogenology Facility, Equine Reproduction",
+   "category": "Academic",
+   "lat": 30.6133541,
+   "lon": -96.3563668,
+   "aliases": [
+    "Theriogenology Facility, Equine Reproduction",
+    "VMTF",
+    "1232",
+    "building 1232",
+    "bldg 1232"
+   ],
+   "building_code": "VMTF",
+   "building_number": "1232"
+  },
+  {
+   "id": "building_1234",
+   "name": "Dry Feed Storage Facility",
+   "category": "Campus facilities",
+   "lat": 30.6140328,
+   "lon": -96.355346,
+   "aliases": [
+    "Dry Feed Storage Facility",
+    "1234",
+    "building 1234",
+    "bldg 1234"
+   ],
+   "building_code": "",
+   "building_number": "1234"
+  },
+  {
+   "id": "building_1237",
+   "name": "Equine Athletic Riding Arena",
+   "category": "Academic",
+   "lat": 30.612695,
+   "lon": -96.3568105,
+   "aliases": [
+    "Equine Athletic Riding Arena",
+    "EAA",
+    "1237",
+    "building 1237",
+    "bldg 1237"
+   ],
+   "building_code": "EAA",
+   "building_number": "1237"
+  },
+  {
+   "id": "building_1248",
+   "name": "Transportation Car/Bus Wash Building",
+   "category": "Campus facilities",
+   "lat": 30.6181914,
+   "lon": -96.3533779,
+   "aliases": [
+    "Transportation Car/Bus Wash Building",
+    "VWSH",
+    "1248",
+    "building 1248",
+    "bldg 1248"
+   ],
+   "building_code": "VWSH",
+   "building_number": "1248"
+  },
+  {
+   "id": "building_1249",
+   "name": "Telecommunications Optical Remote Building",
+   "category": "Campus facilities",
+   "lat": 30.6192816,
+   "lon": -96.3536673,
+   "aliases": [
+    "Telecommunications Optical Remote Building",
+    "1249",
+    "building 1249",
+    "bldg 1249"
+   ],
+   "building_code": "",
+   "building_number": "1249"
+  },
+  {
+   "id": "building_1398",
+   "name": "John D. White '70 - Robert L. Walker '58 Music Activities Center",
+   "category": "Academic",
+   "lat": 30.6100066,
+   "lon": -96.3342116,
+   "aliases": [
+    "John D. White '70 - Robert L. Walker '58 Music Activities Center",
+    "MAC",
+    "1398",
+    "building 1398",
+    "bldg 1398"
+   ],
+   "building_code": "MAC",
+   "building_number": "1398"
+  },
+  {
+   "id": "building_1402",
+   "name": "Buzbee Leadership Learning Center",
+   "category": "Residence halls",
+   "lat": 30.6125309,
+   "lon": -96.3371079,
+   "aliases": [
+    "Buzbee Leadership Learning Center",
+    "BUZB",
+    "1402",
+    "building 1402",
+    "bldg 1402"
+   ],
+   "building_code": "BUZB",
+   "building_number": "1402"
+  },
+  {
+   "id": "building_1403",
+   "name": "H. Grady Ash, Jr. '58 Leadership Learning Center",
+   "category": "Residence halls",
+   "lat": 30.6135269,
+   "lon": -96.3356007,
+   "aliases": [
+    "H. Grady Ash, Jr. '58 Leadership Learning Center",
+    "ASH1",
+    "1403",
+    "building 1403",
+    "bldg 1403"
+   ],
+   "building_code": "ASH1",
+   "building_number": "1403"
+  },
+  {
+   "id": "building_1404",
+   "name": "Plank Leadership Learning Center",
+   "category": "Residence halls",
+   "lat": 30.6136259,
+   "lon": -96.3374324,
+   "aliases": [
+    "Plank Leadership Learning Center",
+    "PLNK",
+    "1404",
+    "building 1404",
+    "bldg 1404"
+   ],
+   "building_code": "PLNK",
+   "building_number": "1404"
+  },
+  {
+   "id": "building_1405",
+   "name": "Ash, II Leadership Learning Center",
+   "category": "Residence halls",
+   "lat": 30.6140057,
+   "lon": -96.3368066,
+   "aliases": [
+    "Ash, II Leadership Learning Center",
+    "ASH2",
+    "1405",
+    "building 1405",
+    "bldg 1405"
+   ],
+   "building_code": "ASH2",
+   "building_number": "1405"
+  },
+  {
+   "id": "building_1412",
+   "name": "Civilian Lounge-A2",
+   "category": "Residence halls",
+   "lat": 30.6158558,
+   "lon": -96.3454175,
+   "aliases": [
+    "Civilian Lounge-A2",
+    "1412",
+    "building 1412",
+    "bldg 1412"
+   ],
+   "building_code": "",
+   "building_number": "1412"
+  },
+  {
+   "id": "building_1415",
+   "name": "Civilian Lounge-A3",
+   "category": "Residence halls",
+   "lat": 30.6152454,
+   "lon": -96.3461666,
+   "aliases": [
+    "Civilian Lounge-A3",
+    "CVLNA3",
+    "1415",
+    "building 1415",
+    "bldg 1415"
+   ],
+   "building_code": "CVLNA3",
+   "building_number": "1415"
+  },
+  {
+   "id": "building_1427",
+   "name": "Civilian Lounge-A1",
+   "category": "Residence halls",
+   "lat": 30.6152235,
+   "lon": -96.3449017,
+   "aliases": [
+    "Civilian Lounge-A1",
+    "1427",
+    "building 1427",
+    "bldg 1427"
+   ],
+   "building_code": "",
+   "building_number": "1427"
+  },
+  {
+   "id": "building_1430",
+   "name": "Civilian Lounge-C1",
+   "category": "Residence halls",
+   "lat": 30.6170528,
+   "lon": -96.3453786,
+   "aliases": [
+    "Civilian Lounge-C1",
+    "1430",
+    "building 1430",
+    "bldg 1430"
+   ],
+   "building_code": "",
+   "building_number": "1430"
+  },
+  {
+   "id": "building_1440",
+   "name": "Golf Cart Storage Building",
+   "category": "Campus facilities",
+   "lat": 30.6151606,
+   "lon": -96.3316258,
+   "aliases": [
+    "Golf Cart Storage Building",
+    "1440",
+    "building 1440",
+    "bldg 1440"
+   ],
+   "building_code": "",
+   "building_number": "1440"
+  },
+  {
+   "id": "building_1441",
+   "name": "EMS Vehicle Cover",
+   "category": "Campus facilities",
+   "lat": 30.6159257,
+   "lon": -96.3427693,
+   "aliases": [
+    "EMS Vehicle Cover",
+    "1441",
+    "building 1441",
+    "bldg 1441"
+   ],
+   "building_code": "",
+   "building_number": "1441"
+  },
+  {
+   "id": "building_1450",
+   "name": "Gardens Laundry",
+   "category": "Student life",
+   "lat": 30.6262498,
+   "lon": -96.3422348,
+   "aliases": [
+    "Gardens Laundry",
+    "1450",
+    "building 1450",
+    "bldg 1450"
+   ],
+   "building_code": "",
+   "building_number": "1450"
+  },
+  {
+   "id": "building_1451",
+   "name": "The Gardens J",
+   "category": "Residence halls",
+   "lat": 30.6269264,
+   "lon": -96.3424761,
+   "aliases": [
+    "The Gardens J",
+    "1451",
+    "building 1451",
+    "bldg 1451"
+   ],
+   "building_code": "",
+   "building_number": "1451"
+  },
+  {
+   "id": "building_1452",
+   "name": "The Gardens K",
+   "category": "Residence halls",
+   "lat": 30.6266965,
+   "lon": -96.3422006,
+   "aliases": [
+    "The Gardens K",
+    "1452",
+    "building 1452",
+    "bldg 1452"
+   ],
+   "building_code": "",
+   "building_number": "1452"
+  },
+  {
+   "id": "building_1453",
+   "name": "The Gardens L",
+   "category": "Residence halls",
+   "lat": 30.6264677,
+   "lon": -96.3419247,
+   "aliases": [
+    "The Gardens L",
+    "1453",
+    "building 1453",
+    "bldg 1453"
+   ],
+   "building_code": "",
+   "building_number": "1453"
+  },
+  {
+   "id": "building_1454",
+   "name": "The Gardens F",
+   "category": "Residence halls",
+   "lat": 30.6264779,
+   "lon": -96.342881,
+   "aliases": [
+    "The Gardens F",
+    "1454",
+    "building 1454",
+    "bldg 1454"
+   ],
+   "building_code": "",
+   "building_number": "1454"
+  },
+  {
+   "id": "building_1455",
+   "name": "The Gardens G",
+   "category": "Residence halls",
+   "lat": 30.6261008,
+   "lon": -96.3424269,
+   "aliases": [
+    "The Gardens G",
+    "1455",
+    "building 1455",
+    "bldg 1455"
+   ],
+   "building_code": "",
+   "building_number": "1455"
+  },
+  {
+   "id": "building_1456",
+   "name": "The Gardens H",
+   "category": "Residence halls",
+   "lat": 30.625637,
+   "lon": -96.3418681,
+   "aliases": [
+    "The Gardens H",
+    "1456",
+    "building 1456",
+    "bldg 1456"
+   ],
+   "building_code": "",
+   "building_number": "1456"
+  },
+  {
+   "id": "building_1457",
+   "name": "The Gardens M",
+   "category": "Residence halls",
+   "lat": 30.6277149,
+   "lon": -96.3419561,
+   "aliases": [
+    "The Gardens M",
+    "1457",
+    "building 1457",
+    "bldg 1457"
+   ],
+   "building_code": "",
+   "building_number": "1457"
+  },
+  {
+   "id": "building_1458",
+   "name": "The Gardens N",
+   "category": "Residence halls",
+   "lat": 30.627976,
+   "lon": -96.3416665,
+   "aliases": [
+    "The Gardens N",
+    "1458",
+    "building 1458",
+    "bldg 1458"
+   ],
+   "building_code": "",
+   "building_number": "1458"
+  },
+  {
+   "id": "building_1459",
+   "name": "The Gardens P",
+   "category": "Residence halls",
+   "lat": 30.6274569,
+   "lon": -96.341477,
+   "aliases": [
+    "The Gardens P",
+    "1459",
+    "building 1459",
+    "bldg 1459"
+   ],
+   "building_code": "",
+   "building_number": "1459"
+  },
+  {
+   "id": "building_1460",
+   "name": "The Gardens Q",
+   "category": "Residence halls",
+   "lat": 30.6273225,
+   "lon": -96.341075,
+   "aliases": [
+    "The Gardens Q",
+    "1460",
+    "building 1460",
+    "bldg 1460"
+   ],
+   "building_code": "",
+   "building_number": "1460"
+  },
+  {
+   "id": "building_1461",
+   "name": "Gardens Community Learning Center",
+   "category": "Student life",
+   "lat": 30.6270607,
+   "lon": -96.3413719,
+   "aliases": [
+    "Gardens Community Learning Center",
+    "GCLC",
+    "1461",
+    "building 1461",
+    "bldg 1461"
+   ],
+   "building_code": "GCLC",
+   "building_number": "1461"
+  },
+  {
+   "id": "building_1462",
+   "name": "The Gardens - storage shed",
+   "category": "Campus facilities",
+   "lat": 30.6261165,
+   "lon": -96.3417102,
+   "aliases": [
+    "The Gardens - storage shed",
+    "1462",
+    "building 1462",
+    "bldg 1462"
+   ],
+   "building_code": "",
+   "building_number": "1462"
+  },
+  {
+   "id": "building_1488",
+   "name": "UES IT Modular Building",
+   "category": "Campus facilities",
+   "lat": 30.6155213,
+   "lon": -96.3507664,
+   "aliases": [
+    "UES IT Modular Building",
+    "UESIT",
+    "1488",
+    "building 1488",
+    "bldg 1488"
+   ],
+   "building_code": "UESIT",
+   "building_number": "1488"
+  },
+  {
+   "id": "building_1493",
+   "name": "Agronomy Road - T8 PCR",
+   "category": "Campus facilities",
+   "lat": 30.6167876,
+   "lon": -96.3517165,
+   "aliases": [
+    "Agronomy Road - T8 PCR",
+    "1493",
+    "building 1493",
+    "bldg 1493"
+   ],
+   "building_code": "",
+   "building_number": "1493"
+  },
+  {
+   "id": "building_1495",
+   "name": "Enterprise Electrical Switching Station",
+   "category": "Campus facilities",
+   "lat": 30.6037572,
+   "lon": -96.355854,
+   "aliases": [
+    "Enterprise Electrical Switching Station",
+    "EESS",
+    "1495",
+    "building 1495",
+    "bldg 1495"
+   ],
+   "building_code": "EESS",
+   "building_number": "1495"
+  },
+  {
+   "id": "building_1496",
+   "name": "12.47 KV Switching Station",
+   "category": "Campus facilities",
+   "lat": 30.6160463,
+   "lon": -96.3505339,
+   "aliases": [
+    "12.47 KV Switching Station",
+    "SWST",
+    "1496",
+    "building 1496",
+    "bldg 1496"
+   ],
+   "building_code": "SWST",
+   "building_number": "1496"
+  },
+  {
+   "id": "building_1497",
+   "name": "Utilities & Energy Services Business Office",
+   "category": "Campus facilities",
+   "lat": 30.6158017,
+   "lon": -96.3510631,
+   "aliases": [
+    "Utilities & Energy Services Business Office",
+    "UBO",
+    "1497",
+    "building 1497",
+    "bldg 1497"
+   ],
+   "building_code": "UBO",
+   "building_number": "1497"
+  },
+  {
+   "id": "building_1498",
+   "name": "Satellite Utility Plant No. 1",
+   "category": "Campus facilities",
+   "lat": 30.6082159,
+   "lon": -96.3471272,
+   "aliases": [
+    "Satellite Utility Plant No. 1",
+    "SUP1",
+    "1498",
+    "building 1498",
+    "bldg 1498"
+   ],
+   "building_code": "SUP1",
+   "building_number": "1498"
+  },
+  {
+   "id": "building_1499",
+   "name": "Satellite Utility Plant No. 2",
+   "category": "Campus facilities",
+   "lat": 30.6146961,
+   "lon": -96.353648,
+   "aliases": [
+    "Satellite Utility Plant No. 2",
+    "SUP2",
+    "1499",
+    "building 1499",
+    "bldg 1499"
+   ],
+   "building_code": "SUP2",
+   "building_number": "1499"
+  },
+  {
+   "id": "building_1501",
+   "name": "Kleberg Center",
+   "category": "Academic",
+   "lat": 30.6106021,
+   "lon": -96.3473609,
+   "aliases": [
+    "Kleberg Center",
+    "KLCT",
+    "1501",
+    "building 1501",
+    "bldg 1501"
+   ],
+   "building_code": "KLCT",
+   "building_number": "1501"
+  },
+  {
+   "id": "building_1502",
+   "name": "HEEP Center",
+   "category": "Academic",
+   "lat": 30.6113987,
+   "lon": -96.3480267,
+   "aliases": [
+    "HEEP Center",
+    "HPCT",
+    "1502",
+    "building 1502",
+    "bldg 1502"
+   ],
+   "building_code": "HPCT",
+   "building_number": "1502"
+  },
+  {
+   "id": "building_1503",
+   "name": "Cater-Mattil Hall",
+   "category": "Academic",
+   "lat": 30.6132156,
+   "lon": -96.3481409,
+   "aliases": [
+    "Cater-Mattil Hall",
+    "CMAT",
+    "1503",
+    "building 1503",
+    "bldg 1503"
+   ],
+   "building_code": "CMAT",
+   "building_number": "1503"
+  },
+  {
+   "id": "building_1504",
+   "name": "Reynolds Medical Sciences Building",
+   "category": "Academic",
+   "lat": 30.6112344,
+   "lon": -96.3520007,
+   "aliases": [
+    "Reynolds Medical Sciences Building",
+    "REYN",
+    "1504",
+    "building 1504",
+    "bldg 1504"
+   ],
+   "building_code": "REYN",
+   "building_number": "1504"
+  },
+  {
+   "id": "building_1505",
+   "name": "Rosenthal Meat Science & Technology Center",
+   "category": "Academic",
+   "lat": 30.6098709,
+   "lon": -96.3483078,
+   "aliases": [
+    "Rosenthal Meat Science & Technology Center",
+    "MSTC",
+    "1505",
+    "building 1505",
+    "bldg 1505"
+   ],
+   "building_code": "MSTC",
+   "building_number": "1505"
+  },
+  {
+   "id": "building_1506",
+   "name": "Horticulture/Forest Science Building",
+   "category": "Academic",
+   "lat": 30.6092641,
+   "lon": -96.3502941,
+   "aliases": [
+    "Horticulture/Forest Science Building",
+    "HFSB",
+    "1506",
+    "building 1506",
+    "bldg 1506"
+   ],
+   "building_code": "HFSB",
+   "building_number": "1506"
+  },
+  {
+   "id": "building_1507",
+   "name": "Biochemistry/Biophysics Building",
+   "category": "Academic",
+   "lat": 30.6107406,
+   "lon": -96.3492085,
+   "aliases": [
+    "Biochemistry/Biophysics Building",
+    "BICH",
+    "1507",
+    "building 1507",
+    "bldg 1507"
+   ],
+   "building_code": "BICH",
+   "building_number": "1507"
+  },
+  {
+   "id": "building_1508",
+   "name": "Price Hobgood Ag Engineering Research Lab",
+   "category": "Academic",
+   "lat": 30.6134009,
+   "lon": -96.3490522,
+   "aliases": [
+    "Price Hobgood Ag Engineering Research Lab",
+    "HOBG",
+    "1508",
+    "building 1508",
+    "bldg 1508"
+   ],
+   "building_code": "HOBG",
+   "building_number": "1508"
+  },
+  {
+   "id": "building_1509",
+   "name": "West Campus Teaching and Research Collaborative",
+   "category": "Libraries",
+   "lat": 30.6117988,
+   "lon": -96.3515686,
+   "aliases": [
+    "West Campus Teaching and Research Collaborative",
+    "WTRC",
+    "1509",
+    "building 1509",
+    "bldg 1509"
+   ],
+   "building_code": "WTRC",
+   "building_number": "1509"
+  },
+  {
+   "id": "building_1511",
+   "name": "West Campus Library",
+   "category": "Libraries",
+   "lat": 30.611474,
+   "lon": -96.3501703,
+   "aliases": [
+    "West Campus Library",
+    "WCL",
+    "1511",
+    "building 1511",
+    "bldg 1511"
+   ],
+   "building_code": "WCL",
+   "building_number": "1511"
+  },
+  {
+   "id": "building_1512",
+   "name": "Southern Crop Improvement Greenhouse",
+   "category": "Academic",
+   "lat": 30.6073074,
+   "lon": -96.3499175,
+   "aliases": [
+    "Southern Crop Improvement Greenhouse",
+    "SCIG",
+    "1512",
+    "building 1512",
+    "bldg 1512"
+   ],
+   "building_code": "SCIG",
+   "building_number": "1512"
+  },
+  {
+   "id": "building_1513",
+   "name": "Norman E. Borlaug Building",
+   "category": "Academic",
+   "lat": 30.6080322,
+   "lon": -96.3494763,
+   "aliases": [
+    "Norman E. Borlaug Building",
+    "SCIC",
+    "1513",
+    "building 1513",
+    "bldg 1513"
+   ],
+   "building_code": "SCIC",
+   "building_number": "1513"
+  },
+  {
+   "id": "building_1515",
+   "name": "Plant Pathology and Microbiology Building",
+   "category": "Academic",
+   "lat": 30.6093621,
+   "lon": -96.3491175,
+   "aliases": [
+    "Plant Pathology and Microbiology Building",
+    "PLPM",
+    "1515",
+    "building 1515",
+    "bldg 1515"
+   ],
+   "building_code": "PLPM",
+   "building_number": "1515"
+  },
+  {
+   "id": "building_1516",
+   "name": "Horticulture Field Laboratory",
+   "category": "Campus facilities",
+   "lat": 30.6083983,
+   "lon": -96.3506835,
+   "aliases": [
+    "Horticulture Field Laboratory",
+    "1516",
+    "building 1516",
+    "bldg 1516"
+   ],
+   "building_code": "",
+   "building_number": "1516"
+  },
+  {
+   "id": "building_1518",
+   "name": "School of Public Health - Admin Bldg",
+   "category": "Academic",
+   "lat": 30.6094701,
+   "lon": -96.3543755,
+   "aliases": [
+    "School of Public Health - Admin Bldg",
+    "SPHA",
+    "1518",
+    "building 1518",
+    "bldg 1518"
+   ],
+   "building_code": "SPHA",
+   "building_number": "1518"
+  },
+  {
+   "id": "building_1519",
+   "name": "School of Public Health - Lab Bldg",
+   "category": "Academic",
+   "lat": 30.6099435,
+   "lon": -96.3544493,
+   "aliases": [
+    "School of Public Health - Lab Bldg",
+    "SPHB",
+    "1519",
+    "building 1519",
+    "bldg 1519"
+   ],
+   "building_code": "SPHB",
+   "building_number": "1519"
+  },
+  {
+   "id": "building_1520",
+   "name": "School of Public Health - Classroom Bldg",
+   "category": "Academic",
+   "lat": 30.6100011,
+   "lon": -96.3538873,
+   "aliases": [
+    "School of Public Health - Classroom Bldg",
+    "SPHC",
+    "1520",
+    "building 1520",
+    "bldg 1520"
+   ],
+   "building_code": "SPHC",
+   "building_number": "1520"
+  },
+  {
+   "id": "building_1523",
+   "name": "Wayne Roberts '85 Building",
+   "category": "Academic",
+   "lat": 30.6112029,
+   "lon": -96.3495,
+   "aliases": [
+    "Wayne Roberts '85 Building",
+    "WRB",
+    "1523",
+    "building 1523",
+    "bldg 1523"
+   ],
+   "building_code": "WRB",
+   "building_number": "1523"
+  },
+  {
+   "id": "building_1525",
+   "name": "Nuclear Magnetic Resonance Facility",
+   "category": "Academic",
+   "lat": 30.610284,
+   "lon": -96.3498168,
+   "aliases": [
+    "Nuclear Magnetic Resonance Facility",
+    "NMR",
+    "1525",
+    "building 1525",
+    "bldg 1525"
+   ],
+   "building_code": "NMR",
+   "building_number": "1525"
+  },
+  {
+   "id": "building_1530",
+   "name": "Interdisciplinary Life Sciences Building",
+   "category": "Academic",
+   "lat": 30.6142003,
+   "lon": -96.3438345,
+   "aliases": [
+    "Interdisciplinary Life Sciences Building",
+    "ILSB",
+    "1530",
+    "building 1530",
+    "bldg 1530"
+   ],
+   "building_code": "ILSB",
+   "building_number": "1530"
+  },
+  {
+   "id": "building_1532",
+   "name": "Teaching Gardens Pavilion",
+   "category": "Campus facilities",
+   "lat": 30.6071756,
+   "lon": -96.3516766,
+   "aliases": [
+    "Teaching Gardens Pavilion",
+    "LTGP",
+    "1532",
+    "building 1532",
+    "bldg 1532"
+   ],
+   "building_code": "LTGP",
+   "building_number": "1532"
+  },
+  {
+   "id": "building_1536",
+   "name": "AgriLife Services Building",
+   "category": "Academic",
+   "lat": 30.6060711,
+   "lon": -96.3511407,
+   "aliases": [
+    "AgriLife Services Building",
+    "AGSV",
+    "1536",
+    "building 1536",
+    "bldg 1536"
+   ],
+   "building_code": "AGSV",
+   "building_number": "1536"
+  },
+  {
+   "id": "building_1537",
+   "name": "Wildlife, Fisheries & Ecological Sciences Building",
+   "category": "Academic",
+   "lat": 30.6064361,
+   "lon": -96.3506042,
+   "aliases": [
+    "Wildlife, Fisheries & Ecological Sciences Building",
+    "WFES",
+    "1537",
+    "building 1537",
+    "bldg 1537"
+   ],
+   "building_code": "WFES",
+   "building_number": "1537"
+  },
+  {
+   "id": "building_1538",
+   "name": "The Shirley and Joe Swinbank '74 AgriLife Center",
+   "category": "Academic",
+   "lat": 30.6060754,
+   "lon": -96.3501059,
+   "aliases": [
+    "The Shirley and Joe Swinbank '74 AgriLife Center",
+    "AGCT",
+    "1538",
+    "building 1538",
+    "bldg 1538"
+   ],
+   "building_code": "AGCT",
+   "building_number": "1538"
+  },
+  {
+   "id": "building_1540",
+   "name": "Physical Education Activity Program Building",
+   "category": "Academic",
+   "lat": 30.6044629,
+   "lon": -96.349405,
+   "aliases": [
+    "Physical Education Activity Program Building",
+    "PEAP",
+    "1540",
+    "building 1540",
+    "bldg 1540"
+   ],
+   "building_code": "PEAP",
+   "building_number": "1540"
+  },
+  {
+   "id": "building_1541",
+   "name": "Physical Education Boot Camp and Archery Annex",
+   "category": "Athletics",
+   "lat": 30.6017192,
+   "lon": -96.3512522,
+   "aliases": [
+    "Physical Education Boot Camp and Archery Annex",
+    "PEBC",
+    "1541",
+    "building 1541",
+    "bldg 1541"
+   ],
+   "building_code": "PEBC",
+   "building_number": "1541"
+  },
+  {
+   "id": "building_1542",
+   "name": "Human Clinical Research Building",
+   "category": "Academic",
+   "lat": 30.6044534,
+   "lon": -96.3509973,
+   "aliases": [
+    "Human Clinical Research Building",
+    "HCRB",
+    "1542",
+    "building 1542",
+    "bldg 1542"
+   ],
+   "building_code": "HCRB",
+   "building_number": "1542"
+  },
+  {
+   "id": "building_1544",
+   "name": "Gene Stallings Blvd Garage",
+   "category": "Campus facilities",
+   "lat": 30.6115286,
+   "lon": -96.3434072,
+   "aliases": [
+    "Gene Stallings Blvd Garage",
+    "SBG",
+    "1544",
+    "building 1544",
+    "bldg 1544"
+   ],
+   "building_code": "SBG",
+   "building_number": "1544"
+  },
+  {
+   "id": "building_1550",
+   "name": "Olsen Field at Bluebell Park",
+   "category": "Athletics",
+   "lat": 30.6054131,
+   "lon": -96.3410486,
+   "aliases": [
+    "Olsen Field at Bluebell Park",
+    "OLSN",
+    "1550",
+    "building 1550",
+    "bldg 1550"
+   ],
+   "building_code": "OLSN",
+   "building_number": "1550"
+  },
+  {
+   "id": "building_1555",
+   "name": "Track & Field Support Center",
+   "category": "Athletics",
+   "lat": 30.6044538,
+   "lon": -96.3431639,
+   "aliases": [
+    "Track & Field Support Center",
+    "1555",
+    "building 1555",
+    "bldg 1555"
+   ],
+   "building_code": "",
+   "building_number": "1555"
+  },
+  {
+   "id": "building_1556",
+   "name": "Penberthy Intramural Sports Center",
+   "category": "Athletics",
+   "lat": 30.6020245,
+   "lon": -96.3467288,
+   "aliases": [
+    "Penberthy Intramural Sports Center",
+    "PISC",
+    "1556",
+    "building 1556",
+    "bldg 1556"
+   ],
+   "building_code": "PISC",
+   "building_number": "1556"
+  },
+  {
+   "id": "building_1558",
+   "name": "Cox-McFerrin Center for Aggie Basketball",
+   "category": "Athletics",
+   "lat": 30.6053297,
+   "lon": -96.3457523,
+   "aliases": [
+    "Cox-McFerrin Center for Aggie Basketball",
+    "CMCB",
+    "1558",
+    "building 1558",
+    "bldg 1558"
+   ],
+   "building_code": "CMCB",
+   "building_number": "1558"
+  },
+  {
+   "id": "building_1559",
+   "name": "West Campus Parking Garage",
+   "category": "Campus facilities",
+   "lat": 30.6084519,
+   "lon": -96.3444668,
+   "aliases": [
+    "West Campus Parking Garage",
+    "WCG",
+    "1559",
+    "building 1559",
+    "bldg 1559"
+   ],
+   "building_code": "WCG",
+   "building_number": "1559"
+  },
+  {
+   "id": "building_1561",
+   "name": "George P. Mitchell '40 Tennis Center",
+   "category": "Athletics",
+   "lat": 30.6028771,
+   "lon": -96.3488635,
+   "aliases": [
+    "George P. Mitchell '40 Tennis Center",
+    "MTC",
+    "1561",
+    "building 1561",
+    "bldg 1561"
+   ],
+   "building_code": "MTC",
+   "building_number": "1561"
+  },
+  {
+   "id": "building_1563",
+   "name": "Equipment Storage Bldg at Mt. Aggie",
+   "category": "Athletics",
+   "lat": 30.6014473,
+   "lon": -96.3493476,
+   "aliases": [
+    "Equipment Storage Bldg at Mt. Aggie",
+    "1563",
+    "building 1563",
+    "bldg 1563"
+   ],
+   "building_code": "",
+   "building_number": "1563"
+  },
+  {
+   "id": "building_1566",
+   "name": "Julia And Mark Ellis '79 Soccer Building",
+   "category": "Athletics",
+   "lat": 30.6040737,
+   "lon": -96.3433023,
+   "aliases": [
+    "Julia And Mark Ellis '79 Soccer Building",
+    "1566",
+    "building 1566",
+    "bldg 1566"
+   ],
+   "building_code": "",
+   "building_number": "1566"
+  },
+  {
+   "id": "building_1567",
+   "name": "Softball Building",
+   "category": "Athletics",
+   "lat": 30.6043572,
+   "lon": -96.3435851,
+   "aliases": [
+    "Softball Building",
+    "1567",
+    "building 1567",
+    "bldg 1567"
+   ],
+   "building_code": "",
+   "building_number": "1567"
+  },
+  {
+   "id": "building_1568",
+   "name": "Varsity Soccer Press Box",
+   "category": "Athletics",
+   "lat": 30.6042667,
+   "lon": -96.343965,
+   "aliases": [
+    "Varsity Soccer Press Box",
+    "1568",
+    "building 1568",
+    "bldg 1568"
+   ],
+   "building_code": "",
+   "building_number": "1568"
+  },
+  {
+   "id": "building_1569",
+   "name": "Mitchell Tennis Center Ticket Booth",
+   "category": "Athletics",
+   "lat": 30.6031758,
+   "lon": -96.3480119,
+   "aliases": [
+    "Mitchell Tennis Center Ticket Booth",
+    "1569",
+    "building 1569",
+    "bldg 1569"
+   ],
+   "building_code": "",
+   "building_number": "1569"
+  },
+  {
+   "id": "building_1570",
+   "name": "Omar Smith Instructional Tennis Center",
+   "category": "Athletics",
+   "lat": 30.6021445,
+   "lon": -96.3495486,
+   "aliases": [
+    "Omar Smith Instructional Tennis Center",
+    "WCTC",
+    "1570",
+    "building 1570",
+    "bldg 1570"
+   ],
+   "building_code": "WCTC",
+   "building_number": "1570"
+  },
+  {
+   "id": "building_1571",
+   "name": "West Campus Office Pavilion",
+   "category": "Athletics",
+   "lat": 30.603894,
+   "lon": -96.3435496,
+   "aliases": [
+    "West Campus Office Pavilion",
+    "1571",
+    "building 1571",
+    "bldg 1571"
+   ],
+   "building_code": "",
+   "building_number": "1571"
+  },
+  {
+   "id": "building_1572",
+   "name": "Soccer/Intramural Restroom",
+   "category": "Athletics",
+   "lat": 30.6033473,
+   "lon": -96.3444087,
+   "aliases": [
+    "Soccer/Intramural Restroom",
+    "1572",
+    "building 1572",
+    "bldg 1572"
+   ],
+   "building_code": "",
+   "building_number": "1572"
+  },
+  {
+   "id": "building_1578",
+   "name": "Penberthy RecSports Pavilion",
+   "category": "Athletics",
+   "lat": 30.5999484,
+   "lon": -96.3472891,
+   "aliases": [
+    "Penberthy RecSports Pavilion",
+    "1578",
+    "building 1578",
+    "bldg 1578"
+   ],
+   "building_code": "",
+   "building_number": "1578"
+  },
+  {
+   "id": "building_1579",
+   "name": "Small Upland Fowl Res Lab (Mothballed in 2014)",
+   "category": "Campus facilities",
+   "lat": 30.5933663,
+   "lon": -96.3502412,
+   "aliases": [
+    "Small Upland Fowl Res Lab (Mothballed in 2014)",
+    "1579",
+    "building 1579",
+    "bldg 1579"
+   ],
+   "building_code": "",
+   "building_number": "1579"
+  },
+  {
+   "id": "building_1581",
+   "name": "Penberthy RecSports Maintenance Bldg",
+   "category": "Campus facilities",
+   "lat": 30.6001639,
+   "lon": -96.3499296,
+   "aliases": [
+    "Penberthy RecSports Maintenance Bldg",
+    "1581",
+    "building 1581",
+    "bldg 1581"
+   ],
+   "building_code": "",
+   "building_number": "1581"
+  },
+  {
+   "id": "building_1582",
+   "name": "Player Development Center-West Campus",
+   "category": "Athletics",
+   "lat": 30.6036801,
+   "lon": -96.3455235,
+   "aliases": [
+    "Player Development Center-West Campus",
+    "PDCWC",
+    "1582",
+    "building 1582",
+    "bldg 1582"
+   ],
+   "building_code": "PDCWC",
+   "building_number": "1582"
+  },
+  {
+   "id": "building_1583",
+   "name": "Davis Diamond Softball Stadium",
+   "category": "Athletics",
+   "lat": 30.6026509,
+   "lon": -96.3463685,
+   "aliases": [
+    "Davis Diamond Softball Stadium",
+    "DDSS",
+    "1583",
+    "building 1583",
+    "bldg 1583"
+   ],
+   "building_code": "DDSS",
+   "building_number": "1583"
+  },
+  {
+   "id": "building_1584",
+   "name": "E.B. Cushing Stadium",
+   "category": "Athletics",
+   "lat": 30.601829,
+   "lon": -96.3449749,
+   "aliases": [
+    "E.B. Cushing Stadium",
+    "EBCS",
+    "1584",
+    "building 1584",
+    "bldg 1584"
+   ],
+   "building_code": "EBCS",
+   "building_number": "1584"
+  },
+  {
+   "id": "building_1585",
+   "name": "12th Man Productions Building",
+   "category": "Athletics",
+   "lat": 30.6019515,
+   "lon": -96.3429168,
+   "aliases": [
+    "12th Man Productions Building",
+    "1585",
+    "building 1585",
+    "bldg 1585"
+   ],
+   "building_code": "",
+   "building_number": "1585"
+  },
+  {
+   "id": "building_1586",
+   "name": "Penberthy South Restroom",
+   "category": "Campus facilities",
+   "lat": 30.5981741,
+   "lon": -96.3453718,
+   "aliases": [
+    "Penberthy South Restroom",
+    "1586",
+    "building 1586",
+    "bldg 1586"
+   ],
+   "building_code": "",
+   "building_number": "1586"
+  },
+  {
+   "id": "building_1587",
+   "name": "Penberthy South Control Building",
+   "category": "Athletics",
+   "lat": 30.5959987,
+   "lon": -96.3439016,
+   "aliases": [
+    "Penberthy South Control Building",
+    "1587",
+    "building 1587",
+    "bldg 1587"
+   ],
+   "building_code": "",
+   "building_number": "1587"
+  },
+  {
+   "id": "building_1589",
+   "name": "White Creek Apartments Activity Center",
+   "category": "Student life",
+   "lat": 30.6076361,
+   "lon": -96.3561521,
+   "aliases": [
+    "White Creek Apartments Activity Center",
+    "1589",
+    "building 1589",
+    "bldg 1589",
+    "White Creek Activity Center"
+   ],
+   "building_code": "",
+   "building_number": "1589"
+  },
+  {
+   "id": "building_1593",
+   "name": "White Creek Community Center",
+   "category": "Academic",
+   "lat": 30.6075523,
+   "lon": -96.3538824,
+   "aliases": [
+    "White Creek Community Center",
+    "WCCC",
+    "1593",
+    "building 1593",
+    "bldg 1593"
+   ],
+   "building_code": "WCCC",
+   "building_number": "1593"
+  },
+  {
+   "id": "building_1600",
+   "name": "Gibb Gilchrist Building",
+   "category": "Academic",
+   "lat": 30.6014804,
+   "lon": -96.3533803,
+   "aliases": [
+    "Gibb Gilchrist Building",
+    "GGB",
+    "1600",
+    "building 1600",
+    "bldg 1600"
+   ],
+   "building_code": "GGB",
+   "building_number": "1600"
+  },
+  {
+   "id": "building_1601",
+   "name": "Scientific Ocean Drilling Building",
+   "category": "Academic",
+   "lat": 30.6035442,
+   "lon": -96.354619,
+   "aliases": [
+    "Scientific Ocean Drilling Building",
+    "SODB",
+    "1601",
+    "building 1601",
+    "bldg 1601"
+   ],
+   "building_code": "SODB",
+   "building_number": "1601"
+  },
+  {
+   "id": "building_1603",
+   "name": "Donald L. Houston Building",
+   "category": "Academic",
+   "lat": 30.6065005,
+   "lon": -96.3576446,
+   "aliases": [
+    "Donald L. Houston Building",
+    "DLH",
+    "1603",
+    "building 1603",
+    "bldg 1603"
+   ],
+   "building_code": "DLH",
+   "building_number": "1603"
+  },
+  {
+   "id": "building_1604",
+   "name": "Offshore Technology Research Center",
+   "category": "Academic",
+   "lat": 30.6025939,
+   "lon": -96.3557445,
+   "aliases": [
+    "Offshore Technology Research Center",
+    "OTRC",
+    "1604",
+    "building 1604",
+    "bldg 1604"
+   ],
+   "building_code": "OTRC",
+   "building_number": "1604"
+  },
+  {
+   "id": "building_1607",
+   "name": "Allen Building",
+   "category": "Academic",
+   "lat": 30.5975366,
+   "lon": -96.3525616,
+   "aliases": [
+    "Allen Building",
+    "ALLN",
+    "1607",
+    "building 1607",
+    "bldg 1607"
+   ],
+   "building_code": "ALLN",
+   "building_number": "1607"
+  },
+  {
+   "id": "building_1608",
+   "name": "Annenberg Presidential Conference Center",
+   "category": "Academic",
+   "lat": 30.5973563,
+   "lon": -96.3537559,
+   "aliases": [
+    "Annenberg Presidential Conference Center",
+    "BPCC",
+    "1608",
+    "building 1608",
+    "bldg 1608"
+   ],
+   "building_code": "BPCC",
+   "building_number": "1608"
+  },
+  {
+   "id": "building_1609",
+   "name": "West Campus Social Sciences Building",
+   "category": "Academic",
+   "lat": 30.6020771,
+   "lon": -96.3538302,
+   "aliases": [
+    "West Campus Social Sciences Building",
+    "WCSS",
+    "1609",
+    "building 1609",
+    "bldg 1609"
+   ],
+   "building_code": "WCSS",
+   "building_number": "1609"
+  },
+  {
+   "id": "building_1610",
+   "name": "Health Technologies Building",
+   "category": "Academic",
+   "lat": 30.6047705,
+   "lon": -96.3555234,
+   "aliases": [
+    "Health Technologies Building",
+    "HTB",
+    "1610",
+    "building 1610",
+    "bldg 1610"
+   ],
+   "building_code": "HTB",
+   "building_number": "1610"
+  },
+  {
+   "id": "building_1611",
+   "name": "Giesecke Engineering Research Building",
+   "category": "Academic",
+   "lat": 30.6021408,
+   "lon": -96.3570684,
+   "aliases": [
+    "Giesecke Engineering Research Building",
+    "GERB",
+    "1611",
+    "building 1611",
+    "bldg 1611"
+   ],
+   "building_code": "GERB",
+   "building_number": "1611"
+  },
+  {
+   "id": "building_1620",
+   "name": "Electron Beam Food Research Facility",
+   "category": "Academic",
+   "lat": 30.6056734,
+   "lon": -96.3564589,
+   "aliases": [
+    "Electron Beam Food Research Facility",
+    "EBRF",
+    "1620",
+    "building 1620",
+    "bldg 1620"
+   ],
+   "building_code": "EBRF",
+   "building_number": "1620"
+  },
+  {
+   "id": "building_1625",
+   "name": "R.A. \"Murray\" Fasken '38 Indoor Track & Field",
+   "category": "Athletics",
+   "lat": 30.6034269,
+   "lon": -96.3426508,
+   "aliases": [
+    "R.A. \"Murray\" Fasken '38 Indoor Track & Field",
+    "MFTF",
+    "1625",
+    "building 1625",
+    "bldg 1625"
+   ],
+   "building_code": "MFTF",
+   "building_number": "1625"
+  },
+  {
+   "id": "building_1630",
+   "name": "Coolidge Football Indoor Performance Center",
+   "category": "Athletics",
+   "lat": 30.6079718,
+   "lon": -96.3401431,
+   "aliases": [
+    "Coolidge Football Indoor Performance Center",
+    "CFPC",
+    "1630",
+    "building 1630",
+    "bldg 1630"
+   ],
+   "building_code": "CFPC",
+   "building_number": "1630"
+  },
+  {
+   "id": "building_1631",
+   "name": "Adam C. Sinn '00 Academic & Wellness Center",
+   "category": "Academic",
+   "lat": 30.6077836,
+   "lon": -96.3389639,
+   "aliases": [
+    "Adam C. Sinn '00 Academic & Wellness Center",
+    "SAWC",
+    "1631",
+    "building 1631",
+    "bldg 1631"
+   ],
+   "building_code": "SAWC",
+   "building_number": "1631"
+  },
+  {
+   "id": "building_1641",
+   "name": "Creamery in Aggie Park",
+   "category": "Campus facilities",
+   "lat": 30.610444,
+   "lon": -96.3369421,
+   "aliases": [
+    "Creamery in Aggie Park",
+    "1641",
+    "building 1641",
+    "bldg 1641"
+   ],
+   "building_code": "",
+   "building_number": "1641"
+  },
+  {
+   "id": "building_1642",
+   "name": "Events Pavilion in Aggie Park",
+   "category": "Campus facilities",
+   "lat": 30.6104576,
+   "lon": -96.3375111,
+   "aliases": [
+    "Events Pavilion in Aggie Park",
+    "1642",
+    "building 1642",
+    "bldg 1642"
+   ],
+   "building_code": "",
+   "building_number": "1642"
+  },
+  {
+   "id": "building_1698",
+   "name": "Research Park Switching Station",
+   "category": "Campus facilities",
+   "lat": 30.6021018,
+   "lon": -96.3550075,
+   "aliases": [
+    "Research Park Switching Station",
+    "RPSW",
+    "1698",
+    "building 1698",
+    "bldg 1698"
+   ],
+   "building_code": "RPSW",
+   "building_number": "1698"
+  },
+  {
+   "id": "building_1699",
+   "name": "GTE Optical Remote Module (ODM) Facility @ Research Park",
+   "category": "Campus facilities",
+   "lat": 30.6026412,
+   "lon": -96.3544567,
+   "aliases": [
+    "GTE Optical Remote Module (ODM) Facility @ Research Park",
+    "GTERP",
+    "1699",
+    "building 1699",
+    "bldg 1699"
+   ],
+   "building_code": "GTERP",
+   "building_number": "1699"
+  },
+  {
+   "id": "building_1800",
+   "name": "General Services Complex",
+   "category": "Academic",
+   "lat": 30.622166,
+   "lon": -96.357453,
+   "aliases": [
+    "General Services Complex",
+    "GSC",
+    "1800",
+    "building 1800",
+    "bldg 1800"
+   ],
+   "building_code": "GSC",
+   "building_number": "1800"
+  },
+  {
+   "id": "building_1809",
+   "name": "TVMDL Building",
+   "category": "Academic",
+   "lat": 30.6189055,
+   "lon": -96.3565442,
+   "aliases": [
+    "TVMDL Building",
+    "VMDL",
+    "1809",
+    "building 1809",
+    "bldg 1809"
+   ],
+   "building_code": "VMDL",
+   "building_number": "1809"
+  },
+  {
+   "id": "building_1810",
+   "name": "Office of the State Chemist Building",
+   "category": "Academic",
+   "lat": 30.617471,
+   "lon": -96.3555078,
+   "aliases": [
+    "Office of the State Chemist Building",
+    "OTSC",
+    "1810",
+    "building 1810",
+    "bldg 1810"
+   ],
+   "building_code": "OTSC",
+   "building_number": "1810"
+  },
+  {
+   "id": "building_1811",
+   "name": "Vet Med Research Bldg Addition",
+   "category": "Academic",
+   "lat": 30.6115884,
+   "lon": -96.3546855,
+   "aliases": [
+    "Vet Med Research Bldg Addition",
+    "VMR",
+    "1811",
+    "building 1811",
+    "bldg 1811"
+   ],
+   "building_code": "VMR",
+   "building_number": "1811"
+  },
+  {
+   "id": "building_1812",
+   "name": "Veterinary Medicine Building 1 - VENI",
+   "category": "Academic",
+   "lat": 30.6115366,
+   "lon": -96.3570933,
+   "aliases": [
+    "Veterinary Medicine Building 1 - VENI",
+    "VENI",
+    "1812",
+    "building 1812",
+    "bldg 1812"
+   ],
+   "building_code": "VENI",
+   "building_number": "1812"
+  },
+  {
+   "id": "building_1814",
+   "name": "Veterinary Medicine Building 3 - VICI",
+   "category": "Academic",
+   "lat": 30.6123303,
+   "lon": -96.357362,
+   "aliases": [
+    "Veterinary Medicine Building 3 - VICI",
+    "VICI",
+    "1814",
+    "building 1814",
+    "bldg 1814"
+   ],
+   "building_code": "VICI",
+   "building_number": "1814"
+  },
+  {
+   "id": "building_1815",
+   "name": "Cold Storage (right)",
+   "category": "Campus facilities",
+   "lat": 30.6156015,
+   "lon": -96.3540091,
+   "aliases": [
+    "Cold Storage (right)",
+    "1815",
+    "building 1815",
+    "bldg 1815"
+   ],
+   "building_code": "",
+   "building_number": "1815"
+  },
+  {
+   "id": "building_1816",
+   "name": "Cold Storage (left)",
+   "category": "Campus facilities",
+   "lat": 30.6155749,
+   "lon": -96.3540462,
+   "aliases": [
+    "Cold Storage (left)",
+    "1816",
+    "building 1816",
+    "bldg 1816"
+   ],
+   "building_code": "",
+   "building_number": "1816"
+  },
+  {
+   "id": "building_1900",
+   "name": "Texas A&M Institute For Genomic Medicine",
+   "category": "Academic",
+   "lat": 30.6105106,
+   "lon": -96.3571843,
+   "aliases": [
+    "Texas A&M Institute For Genomic Medicine",
+    "TIGM",
+    "1900",
+    "building 1900",
+    "bldg 1900"
+   ],
+   "building_code": "TIGM",
+   "building_number": "1900"
+  },
+  {
+   "id": "building_1904",
+   "name": "Texas A&M Institute for Preclinical Studies A",
+   "category": "Academic",
+   "lat": 30.6092147,
+   "lon": -96.3574578,
+   "aliases": [
+    "Texas A&M Institute for Preclinical Studies A",
+    "TIPS A",
+    "1904",
+    "building 1904",
+    "bldg 1904"
+   ],
+   "building_code": "TIPS A",
+   "building_number": "1904"
+  },
+  {
+   "id": "building_3100",
+   "name": "Hagler Center",
+   "category": "Student life",
+   "lat": 30.6072882,
+   "lon": -96.3372454,
+   "aliases": [
+    "Hagler Center",
+    "HGLR",
+    "3100",
+    "building 3100",
+    "bldg 3100"
+   ],
+   "building_code": "HGLR",
+   "building_number": "3100"
+  },
+  {
+   "id": "building_3190",
+   "name": "Becky Gates Childrens Center Multipurpose Bldg",
+   "category": "Campus facilities",
+   "lat": 30.6282046,
+   "lon": -96.3430106,
+   "aliases": [
+    "Becky Gates Childrens Center Multipurpose Bldg",
+    "3190",
+    "building 3190",
+    "bldg 3190"
+   ],
+   "building_code": "",
+   "building_number": "3190"
+  },
+  {
+   "id": "building_3197",
+   "name": "Gardens Community Maintenance Building",
+   "category": "Student life",
+   "lat": 30.6260367,
+   "lon": -96.3412411,
+   "aliases": [
+    "Gardens Community Maintenance Building",
+    "GCMB",
+    "3197",
+    "building 3197",
+    "bldg 3197"
+   ],
+   "building_code": "GCMB",
+   "building_number": "3197"
+  },
+  {
+   "id": "building_3198",
+   "name": "Gardens Community Center",
+   "category": "Student life",
+   "lat": 30.6266942,
+   "lon": -96.3402013,
+   "aliases": [
+    "Gardens Community Center",
+    "GCC",
+    "3198",
+    "building 3198",
+    "bldg 3198"
+   ],
+   "building_code": "GCC",
+   "building_number": "3198"
+  },
+  {
+   "id": "building_3199",
+   "name": "Becky Gates Childrens Center",
+   "category": "Academic",
+   "lat": 30.628284,
+   "lon": -96.3427593,
+   "aliases": [
+    "Becky Gates Childrens Center",
+    "BGCC",
+    "3199",
+    "building 3199",
+    "bldg 3199"
+   ],
+   "building_code": "BGCC",
+   "building_number": "3199"
+  },
+  {
+   "id": "building_4141",
+   "name": "James A. Baker, III Pavilion",
+   "category": "Academic",
+   "lat": 30.5956775,
+   "lon": -96.3537832,
+   "aliases": [
+    "James A. Baker, III Pavilion",
+    "JABP",
+    "4141",
+    "building 4141",
+    "bldg 4141"
+   ],
+   "building_code": "JABP",
+   "building_number": "4141"
+  },
+  {
+   "id": "building_4633",
+   "name": "Veterinary Support Building",
+   "category": "Academic",
+   "lat": 30.6149218,
+   "lon": -96.3564077,
+   "aliases": [
+    "Veterinary Support Building",
+    "4633",
+    "building 4633",
+    "bldg 4633"
+   ],
+   "building_code": "",
+   "building_number": "4633"
+  },
+  {
+   "id": "building_4634",
+   "name": "Variety Testing and Sorghum Breeding",
+   "category": "Academic",
+   "lat": 30.6141108,
+   "lon": -96.3544478,
+   "aliases": [
+    "Variety Testing and Sorghum Breeding",
+    "FSSB",
+    "4634",
+    "building 4634",
+    "bldg 4634"
+   ],
+   "building_code": "FSSB",
+   "building_number": "4634"
+  },
+  {
+   "id": "building_8577",
+   "name": "Flammable Materials Storage at CUP",
+   "category": "Campus facilities",
+   "lat": 30.6176099,
+   "lon": -96.3418489,
+   "aliases": [
+    "Flammable Materials Storage at CUP",
+    "8577",
+    "building 8577",
+    "bldg 8577"
+   ],
+   "building_code": "",
+   "building_number": "8577"
+  },
+  {
+   "id": "building_8578",
+   "name": "Water Lab at CUP",
+   "category": "Campus facilities",
+   "lat": 30.6181067,
+   "lon": -96.3429383,
+   "aliases": [
+    "Water Lab at CUP",
+    "8578",
+    "building 8578",
+    "bldg 8578"
+   ],
+   "building_code": "",
+   "building_number": "8578"
+  },
+  {
+   "id": "building_8800",
+   "name": "Bonfire Memorial Restroom",
+   "category": "Campus facilities",
+   "lat": 30.6209963,
+   "lon": -96.3355595,
+   "aliases": [
+    "Bonfire Memorial Restroom",
+    "8800",
+    "building 8800",
+    "bldg 8800"
+   ],
+   "building_code": "",
+   "building_number": "8800"
+  },
+  {
+   "id": "building_8901",
+   "name": "GSC Portable Building",
+   "category": "Campus facilities",
+   "lat": 30.6207703,
+   "lon": -96.3561565,
+   "aliases": [
+    "GSC Portable Building",
+    "GSCPB",
+    "8901",
+    "building 8901",
+    "bldg 8901"
+   ],
+   "building_code": "GSCPB",
+   "building_number": "8901"
+  },
+  {
+   "id": "building_8902",
+   "name": "BUILD Pavilion",
+   "category": "Campus facilities",
+   "lat": 30.6205638,
+   "lon": -96.356554,
+   "aliases": [
+    "BUILD Pavilion",
+    "8902",
+    "building 8902",
+    "bldg 8902"
+   ],
+   "building_code": "",
+   "building_number": "8902"
+  },
+  {
+   "id": "building_9101",
+   "name": "Agronomy Road 138kV Substation Control House",
+   "category": "Campus facilities",
+   "lat": 30.616525,
+   "lon": -96.3505344,
+   "aliases": [
+    "Agronomy Road 138kV Substation Control House",
+    "9101",
+    "building 9101",
+    "bldg 9101"
+   ],
+   "building_code": "",
+   "building_number": "9101"
+  },
+  {
+   "id": "building_9351",
+   "name": "Water Tower (Insulation Shop)",
+   "category": "Campus facilities",
+   "lat": 30.6178594,
+   "lon": -96.3430976,
+   "aliases": [
+    "Water Tower (Insulation Shop)",
+    "9351",
+    "building 9351",
+    "bldg 9351"
+   ],
+   "building_code": "",
+   "building_number": "9351"
+  },
+  {
+   "id": "building_9791",
+   "name": "Billy Pickard Pedestrian Passageway",
+   "category": "Campus facilities",
+   "lat": 30.6096235,
+   "lon": -96.343822,
+   "aliases": [
+    "Billy Pickard Pedestrian Passageway",
+    "9791",
+    "building 9791",
+    "bldg 9791"
+   ],
+   "building_code": "",
+   "building_number": "9791"
+  },
+  {
+   "id": "building_9795",
+   "name": "Wellborn Road Grade Separation Pumps",
+   "category": "Campus facilities",
+   "lat": 30.6116769,
+   "lon": -96.3473407,
+   "aliases": [
+    "Wellborn Road Grade Separation Pumps",
+    "9795",
+    "building 9795",
+    "bldg 9795"
+   ],
+   "building_code": "",
+   "building_number": "9795"
+  },
+  {
+   "id": "building_n020",
+   "name": "Teaching Gardens-Outdoor Classroom",
+   "category": "Campus facilities",
+   "lat": 30.607403,
+   "lon": -96.350787,
+   "aliases": [
+    "Teaching Gardens-Outdoor Classroom",
+    "N020",
+    "building N020",
+    "bldg N020"
+   ],
+   "building_code": "N020",
+   "building_number": "N020"
+  },
+  {
+   "id": "building_n021",
+   "name": "Teaching Gardens Entry-Left",
+   "category": "Campus facilities",
+   "lat": 30.6069123,
+   "lon": -96.3508874,
+   "aliases": [
+    "Teaching Gardens Entry-Left",
+    "N021",
+    "building N021",
+    "bldg N021"
+   ],
+   "building_code": "N021",
+   "building_number": "N021"
+  },
+  {
+   "id": "building_n022",
+   "name": "Teaching Gardens Entry-Right",
+   "category": "Campus facilities",
+   "lat": 30.6069977,
+   "lon": -96.3507618,
+   "aliases": [
+    "Teaching Gardens Entry-Right",
+    "N022",
+    "building N022",
+    "bldg N022"
+   ],
+   "building_code": "N022",
+   "building_number": "N022"
+  },
+  {
+   "id": "building_n023",
+   "name": "Teaching Gardens-Grand Arbor",
+   "category": "Campus facilities",
+   "lat": 30.6068601,
+   "lon": -96.3514285,
+   "aliases": [
+    "Teaching Gardens-Grand Arbor",
+    "N023",
+    "building N023",
+    "bldg N023"
+   ],
+   "building_code": "N023",
+   "building_number": "N023"
+  },
+  {
+   "id": "building_n024",
+   "name": "Teaching Gardens-Farmer's Market",
+   "category": "Campus facilities",
+   "lat": 30.6069022,
+   "lon": -96.3518481,
+   "aliases": [
+    "Teaching Gardens-Farmer's Market",
+    "N024",
+    "building N024",
+    "bldg N024"
+   ],
+   "building_code": "N024",
+   "building_number": "N024"
+  },
+  {
+   "id": "building_n025",
+   "name": "Teaching Gardens-The Overlook",
+   "category": "Campus facilities",
+   "lat": 30.6068397,
+   "lon": -96.3523809,
+   "aliases": [
+    "Teaching Gardens-The Overlook",
+    "N025",
+    "building N025",
+    "bldg N025"
+   ],
+   "building_code": "N025",
+   "building_number": "N025"
+  },
+  {
+   "id": "building_n026",
+   "name": "Teaching Gardens-East Pergola",
+   "category": "Campus facilities",
+   "lat": 30.6065229,
+   "lon": -96.3514285,
+   "aliases": [
+    "Teaching Gardens-East Pergola",
+    "N026",
+    "building N026",
+    "bldg N026"
+   ],
+   "building_code": "N026",
+   "building_number": "N026"
+  },
+  {
+   "id": "building_n027",
+   "name": "Teaching Gardens-West Pergola",
+   "category": "Campus facilities",
+   "lat": 30.6065428,
+   "lon": -96.351535,
+   "aliases": [
+    "Teaching Gardens-West Pergola",
+    "N027",
+    "building N027",
+    "bldg N027"
+   ],
+   "building_code": "N027",
+   "building_number": "N027"
   },
   {
    "id": "bush_library",
    "name": "Bush Library",
    "category": "Libraries",
    "lat": 30.5960994,
-   "lon": -96.3534813
+   "lon": -96.3534813,
+   "aliases": [
+    "George Bush Presidential Library & Museum",
+    "BPLM",
+    "1606",
+    "building 1606",
+    "bldg 1606",
+    "George Bush Library",
+    "Bush Presidential Library"
+   ],
+   "building_code": "BPLM",
+   "building_number": "1606"
+  },
+  {
+   "id": "century_tree",
+   "name": "Century Tree",
+   "category": "Landmarks",
+   "lat": 30.6158806,
+   "lon": -96.3413475,
+   "aliases": [
+    "The Century Tree"
+   ],
+   "building_code": "",
+   "building_number": ""
+  },
+  {
+   "id": "commons",
+   "name": "The Commons",
+   "category": "Dining",
+   "lat": 30.6155193,
+   "lon": -96.3361609,
+   "aliases": [
+    "Commons",
+    "COMM",
+    "0440",
+    "building 0440",
+    "bldg 0440",
+    "Commons Dining Hall",
+    "Commons Dining Center"
+   ],
+   "building_code": "COMM",
+   "building_number": "0440"
+  },
+  {
+   "id": "corps",
+   "name": "Corps of Cadets Center",
+   "category": "Landmarks",
+   "lat": 30.6120939,
+   "lon": -96.3375242,
+   "aliases": [
+    "Sam Houston Sanders Corps of Cadets Center",
+    "SCCT",
+    "0384",
+    "building 0384",
+    "bldg 0384"
+   ],
+   "building_code": "SCCT",
+   "building_number": "0384"
+  },
+  {
+   "id": "cushing",
+   "name": "Cushing Library",
+   "category": "Libraries",
+   "lat": 30.6163551,
+   "lon": -96.3399534,
+   "aliases": [
+    "Cushing"
+   ],
+   "building_code": "",
+   "building_number": ""
+  },
+  {
+   "id": "drill_field",
+   "name": "Simpson Drill Field",
+   "category": "Landmarks",
+   "lat": 30.6135004,
+   "lon": -96.3427367,
+   "aliases": [
+    "Drill Field"
+   ],
+   "building_code": "",
+   "building_number": ""
+  },
+  {
+   "id": "duncan",
+   "name": "Duncan Dining Hall",
+   "category": "Dining",
+   "lat": 30.6121109,
+   "lon": -96.3354379,
+   "aliases": [
+    "Duncan Dining Hall",
+    "DCAN",
+    "0450",
+    "building 0450",
+    "bldg 0450"
+   ],
+   "building_code": "DCAN",
+   "building_number": "0450"
+  },
+  {
+   "id": "evans",
+   "name": "Evans Library",
+   "category": "Libraries",
+   "lat": 30.6168208,
+   "lon": -96.3391984,
+   "aliases": [
+    "Sterling C Evans Library",
+    "Evans"
+   ],
+   "building_code": "",
+   "building_number": ""
+  },
+  {
+   "id": "hullabaloo",
+   "name": "Hullabaloo Residence Hall",
+   "category": "Residence halls",
+   "lat": 30.6164961,
+   "lon": -96.3466366,
+   "aliases": [
+    "Hullabaloo Residence Hall",
+    "HLBL",
+    "1416",
+    "building 1416",
+    "bldg 1416",
+    "Hullabaloo",
+    "Hullabaloo Hall",
+    "Hullabaloo Dorm"
+   ],
+   "building_code": "HLBL",
+   "building_number": "1416"
+  },
+  {
+   "id": "ilcb",
+   "name": "Innovative Learning Classroom Building",
+   "category": "Academic",
+   "lat": 30.6119804,
+   "lon": -96.344429,
+   "aliases": [
+    "Innovative Learning Classroom Building",
+    "ILCB",
+    "1543",
+    "building 1543",
+    "bldg 1543"
+   ],
+   "building_code": "ILCB",
+   "building_number": "1543"
+  },
+  {
+   "id": "ilsq",
+   "name": "Instructional Laboratory & Innovative Learning Building",
+   "category": "Academic",
+   "lat": 30.6111473,
+   "lon": -96.3461203,
+   "aliases": [
+    "Instructional Laboratory & Innovative Learning Building",
+    "ILSQ",
+    "1500",
+    "building 1500",
+    "bldg 1500"
+   ],
+   "building_code": "ILSQ",
+   "building_number": "1500"
+  },
+  {
+   "id": "kyle",
+   "name": "Kyle Field",
+   "category": "Athletics",
+   "lat": 30.6098548,
+   "lon": -96.3403698,
+   "aliases": [
+    "Kyle Field",
+    "KYLE",
+    "0367",
+    "building 0367",
+    "bldg 0367"
+   ],
+   "building_code": "KYLE",
+   "building_number": "0367"
+  },
+  {
+   "id": "langford",
+   "name": "Langford Architecture",
+   "category": "Academic",
+   "lat": 30.6188047,
+   "lon": -96.3376411,
+   "aliases": [
+    "Langford Architecture Center Building A",
+    "ARCA",
+    "0398",
+    "building 0398",
+    "bldg 0398",
+    "Langford A",
+    "Langford Architecture Center A"
+   ],
+   "building_code": "ARCA",
+   "building_number": "0398"
+  },
+  {
+   "id": "msc",
+   "name": "Memorial Student Center",
+   "category": "Student life",
+   "lat": 30.6122297,
+   "lon": -96.3412229,
+   "aliases": [
+    "Memorial Student Center",
+    "MSC",
+    "0454",
+    "building 0454",
+    "bldg 0454"
+   ],
+   "building_code": "MSC",
+   "building_number": "0454"
   },
   {
    "id": "northgate",
    "name": "Northgate",
    "category": "Parks & neighborhoods",
    "lat": 30.6256273,
-   "lon": -96.3453931
+   "lon": -96.3453931,
+   "aliases": [],
+   "building_code": "",
+   "building_number": ""
+  },
+  {
+   "id": "rec",
+   "name": "Student Rec Center",
+   "category": "Athletics",
+   "lat": 30.6071334,
+   "lon": -96.3428624,
+   "aliases": [
+    "Student Recreation Center",
+    "SREC",
+    "1560",
+    "building 1560",
+    "bldg 1560",
+    "Rec",
+    "Rec Center",
+    "Student Rec"
+   ],
+   "building_code": "SREC",
+   "building_number": "1560"
+  },
+  {
+   "id": "reed",
+   "name": "Reed Arena",
+   "category": "Athletics",
+   "lat": 30.6056832,
+   "lon": -96.3462955,
+   "aliases": [
+    "Reed Arena",
+    "REED",
+    "1554",
+    "building 1554",
+    "bldg 1554"
+   ],
+   "building_code": "REED",
+   "building_number": "1554"
+  },
+  {
+   "id": "rudder",
+   "name": "Rudder Tower",
+   "category": "Landmarks",
+   "lat": 30.6128606,
+   "lon": -96.3403448,
+   "aliases": [
+    "Rudder Tower",
+    "RDER",
+    "0446",
+    "building 0446",
+    "bldg 0446"
+   ],
+   "building_code": "RDER",
+   "building_number": "0446"
+  },
+  {
+   "id": "sbisa",
+   "name": "Sbisa Dining Hall",
+   "category": "Dining",
+   "lat": 30.6171429,
+   "lon": -96.3438025,
+   "aliases": [
+    "Sbisa Dining Hall",
+    "SBSA",
+    "0495",
+    "building 0495",
+    "bldg 0495"
+   ],
+   "building_code": "SBSA",
+   "building_number": "0495"
+  },
+  {
+   "id": "spence_park",
+   "name": "Spence Park",
+   "category": "Parks & neighborhoods",
+   "lat": 30.6127894,
+   "lon": -96.3381439,
+   "aliases": [],
+   "building_code": "",
+   "building_number": ""
+  },
+  {
+   "id": "ssb",
+   "name": "Student Services Building",
+   "category": "Student life",
+   "lat": 30.6141742,
+   "lon": -96.3413579,
+   "aliases": [
+    "Student Services Building",
+    "SSB",
+    "1546",
+    "building 1546",
+    "bldg 1546",
+    "Student Services"
+   ],
+   "building_code": "SSB",
+   "building_number": "1546"
+  },
+  {
+   "id": "wehner",
+   "name": "Mays Business School",
+   "category": "Academic",
+   "lat": 30.610444,
+   "lon": -96.3512091,
+   "aliases": [
+    "Wehner Building",
+    "WCBA",
+    "1510",
+    "building 1510",
+    "bldg 1510",
+    "Wehner",
+    "Mays",
+    "Mays Business School"
+   ],
+   "building_code": "WCBA",
+   "building_number": "1510"
+  },
+  {
+   "id": "west_campus_dining",
+   "name": "West Campus Dining Facility",
+   "category": "Dining",
+   "lat": 30.6102172,
+   "lon": -96.3486006,
+   "aliases": [
+    "West Campus Dining Facility",
+    "WCDF",
+    "1522",
+    "building 1522",
+    "bldg 1522",
+    "West Campus Food Hall",
+    "WCFH"
+   ],
+   "building_code": "WCDF",
+   "building_number": "1522"
+  },
+  {
+   "id": "white_creek_a",
+   "name": "White Creek Apartments A",
+   "category": "Residence halls",
+   "lat": 30.6076068,
+   "lon": -96.3570095,
+   "aliases": [
+    "White Creek Apartments A",
+    "1590",
+    "building 1590",
+    "bldg 1590",
+    "White Creek A"
+   ],
+   "building_code": "",
+   "building_number": "1590"
+  },
+  {
+   "id": "white_creek_b",
+   "name": "White Creek Apartments B",
+   "category": "Residence halls",
+   "lat": 30.6081577,
+   "lon": -96.3555926,
+   "aliases": [
+    "White Creek Apartments B",
+    "1591",
+    "building 1591",
+    "bldg 1591",
+    "White Creek B"
+   ],
+   "building_code": "",
+   "building_number": "1591"
+  },
+  {
+   "id": "white_creek_c",
+   "name": "White Creek Apartments C",
+   "category": "Residence halls",
+   "lat": 30.6070951,
+   "lon": -96.3556077,
+   "aliases": [
+    "White Creek Apartments C",
+    "1592",
+    "building 1592",
+    "bldg 1592",
+    "White Creek C"
+   ],
+   "building_code": "",
+   "building_number": "1592"
+  },
+  {
+   "id": "zachry",
+   "name": "Zachry Engineering",
+   "category": "Academic",
+   "lat": 30.6213752,
+   "lon": -96.3402021,
+   "aliases": [
+    "Zachry Engineering Education Complex",
+    "ZACH",
+    "0518",
+    "building 0518",
+    "bldg 0518",
+    "Zach",
+    "Zachary",
+    "Zack",
+    "Zachry"
+   ],
+   "building_code": "ZACH",
+   "building_number": "0518"
   }
  ]
 }
