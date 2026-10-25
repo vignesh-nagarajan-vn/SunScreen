@@ -19,7 +19,7 @@ Search **Zach 596** for documented room guidance, or compare **ILSQ → Commons*
 with Max shade to evaluate the provisional MSC passage. See [indoor routing](docs-misc/indoor-routing.md)
 for entrance sources, schedules and field-verification limits.
 
-Try it live at [sunscreen-walks.vercel.app](https://sunscreen-walks.vercel.app/).
+Try it live at [sunscreen-walks.vercel.app](https://sunscreen-walks.vercel.app/). Check out our Devpost submisssion at [devpost.com/software/sunscreen-jozs49](https://devpost.com/software/sunscreen-jozs49).
 
 | Shade (maroon) vs. sun (gold) | Places grouped by type | Night mode by streetlights | How it works |
 |:-:|:-:|:-:|:-:|
