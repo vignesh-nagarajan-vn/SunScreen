@@ -10,7 +10,7 @@ import sys
 import time
 import urllib.parse
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timedelta
 from functools import lru_cache
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -26,6 +26,8 @@ from campus_routing.passages import add_passages, load_catalog, traversal_availa
 from campus_routing.geometry import route_key
 from api.lighting import routes as lighting_routes
 from campus_routing.places import load_places, public_place, resolve_place, search_places
+from campus_routing.indoors import is_room_query, load_destinations, room_available, room_guidance
+from campus_routing.candidates import passage_candidates
 
 WALK_MPS = 1.4
 ALPHAS = [0, 0.25, 0.5, 1, 2, 4, 8, 16]  # shade weights tried when generating candidate routes
@@ -45,6 +47,7 @@ SLOTS = G.graph["slots"]  # ["0700", "0730", ...]
 SUN = G.graph["sun"]  # slot -> altitude, azimuth, clearsky_dni
 SHADOW_DATE = G.graph["date"]  # shade masks were cast for this date
 PLACES = {p["id"]: p for p in load_places(G)}
+PLACES.update({p['id']: p for p in load_destinations(G)})
 DEFAULT = G.graph["default"]
 B = G.graph["bounds"]
 NODES = [(n, d["y"], d["x"]) for n, d in G.nodes(data=True)]
@@ -137,7 +140,9 @@ def endpoint(value, label):
     """A place id or "lat,lon" -> {name, lat, lon, node}."""
     p = PLACES.get(value) or resolve_place(PLACES.values(), value)
     if p is not None:
-        return {"id": p["id"], "name": p["name"], "lat": p["lat"], "lon": p["lon"], "node": p["node"]}
+        return {**public_place(p), 'node': p['node'], **({'_indoor_rule': p['_indoor_rule']} if '_indoor_rule' in p else {})}
+    if is_room_query(value):
+        raise HTTPException(400, "Indoor directions aren't mapped for this room yet. Search the building name for an outdoor route.")
     try:
         lat, lon = (float(v) for v in value.split(","))
     except ValueError:
@@ -150,14 +155,23 @@ def endpoint(value, label):
     return {"id": None, "name": label, "lat": lat, "lon": lon, "node": node}
 
 
-def shortest(src, dst, i, alpha, graph=None):
+def shortest(src, dst, i, alpha, graph=None, excluded_passage=None):
     graph = G if graph is None else graph
     cost = lambda d: d["length"] * (1 + alpha * (1 - d["shade"][i]))
-    _, path = nx.bidirectional_dijkstra(graph, src, dst, weight=lambda u, v, ds: min(map(cost, ds.values())))
+    weight = (lambda u, v, ds: min((cost(d) for d in ds.values() if d.get('passage_id') != excluded_passage), default=None)) if excluded_passage else (lambda u, v, ds: min(map(cost, ds.values())))
+    _, path = nx.bidirectional_dijkstra(graph, src, dst, weight=weight)
+    return summarize_path(path, graph, i, alpha, excluded_passage=excluded_passage)
+
+
+def summarize_path(path, graph, i, alpha, passage_id=None, excluded_passage=None):
+    src, dst = path[0], path[-1]
+    cost = lambda d: d['length'] * (1 + alpha * (1 - d['shade'][i]))
     coords, runs, length, shaded = [], [], 0.0, 0.0
     building_runs, indoor_m, covered_m = [], 0.0, 0.0
     for u, v in zip(path, path[1:]):
-        d = min(graph[u][v].values(), key=cost)
+        eligible = [d for d in graph[u][v].values() if (passage_id is None or d.get('passage_id') == passage_id)
+                    and (excluded_passage is None or d.get('passage_id') != excluded_passage)]
+        d = min(eligible, key=cost)
         first = max(len(coords) - 1, 0)
         coords += d["coords"] if not coords else d["coords"][1:]
         runs.append([first, len(coords) - 1, round(d["shade"][i], 2)])  # coord range + shade of this edge
@@ -169,6 +183,7 @@ def shortest(src, dst, i, alpha, graph=None):
             building_runs.append({"first": first, "last": len(coords) - 1,
                                   "building": d["building"], "environment": d["environment"],
                                   "passage_id": d["passage_id"], "access_status": d.get("access_status", "unconfirmed"),
+                                  "access_unconfirmed": d.get('access_unconfirmed', False),
                                   "start_m": length - d["length"], "end_m": length})
     if not coords:  # both ends snapped to the same node
         n = graph.nodes[src]
@@ -209,7 +224,7 @@ def feature(route_id, label, r, fastest, sun):
             "covered_passage_m": round(r["covered_passage_m"], 1),
             "building_runs": r["building_runs"],
             "via_buildings": list(dict.fromkeys(run["building"] for run in r["building_runs"])),
-            "access_unconfirmed": any(run['access_status'] == 'unconfirmed' for run in r['building_runs']),
+            "access_unconfirmed": any(run['access_status'] == 'unconfirmed' or run.get('access_unconfirmed', False) for run in r['building_runs']),
         },
     }
 
@@ -225,12 +240,23 @@ def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destinat
               "effective_recommended_pct": recommended_pct}
     a = endpoint(src or DEFAULT[0], src_name)
     b = endpoint(dst or DEFAULT[1], dst_name)
+    if (a.get('indoor') and a['building_id'] == b['id']) or (b.get('indoor') and b['building_id'] == a['id']):
+        raise HTTPException(400, 'You are already in the destination building. Use the indoor directions; no outdoor trip is needed.')
     if a["node"] == b["node"]:
         if a['id'] and b['id'] and a['id'] != b['id']:
             raise HTTPException(400, "These buildings share the same mapped walkway point. Try adjusting a pin on the map.")
         raise HTTPException(400, "Start and destination are the same spot.")
     if mode not in ("shade", "lighting"):
         raise HTTPException(400, "Unknown routing mode")
+    room_departure = datetime.now(TZ) if mode == 'lighting' else departure_for_slot(nearest_slot(time))
+    if not room_available(a, room_departure):
+        raise HTTPException(400, 'The starting building is closed at this departure time. Choose an outdoor start.')
+    def indoor_response(features):
+        if not room_guidance(a, b):
+            return {}
+        if any(not room_available(b, room_departure + timedelta(minutes=f['properties']['time_min'])) for f in features):
+            raise HTTPException(400, 'The destination building will be closed at the estimated arrival time. Choose another time or an outdoor destination.')
+        return {'indoor_guidance': room_guidance(a, b), 'walking_estimate_scope': 'outdoor_to_entrance'}
     if mode == "lighting":
         try:
             features, summary, status = lighting_routes(G, a["node"], b["node"], WALK_MPS,
@@ -242,7 +268,7 @@ def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destinat
                 "route_limits": limits,
                 "summary": summary, "lighting_status": status,
                 "lighting": G.graph.get("lighting", {"source": "OpenStreetMap", "retrieved_at": None}),
-                "start": pick(a), "end": pick(b)}
+                "start": pick(a), "end": pick(b), **indoor_response(features)}
     slot = nearest_slot(time)
     i = SLOTS.index(slot)
     weather = weather_at(slot)
@@ -265,6 +291,14 @@ def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destinat
     if not candidates:
         raise HTTPException(400, "No walking path connects those two points.")
     fastest = min(candidates, key=lambda candidate: candidate["length"])
+    max_distance = fastest['length'] * (1 + max_detour_pct / 100)
+    considered = {run['passage_id'] for c in candidates if c['length'] <= max_distance for run in c['building_runs']}
+    rules = [rule for rule in graph.graph.get('passage_rules', {}).values() if rule.get('doors') and rule['id'] not in considered]
+    if rules:
+        evaluated = passage_candidates(graph, rules, a['node'], b['node'], i, ALPHAS,
+                                        max_distance, shortest, summarize_path)
+        candidates.extend(r for r in evaluated if traversal_available(r, graph, departure, WALK_MPS))
+        fastest = min(candidates, key=lambda candidate: candidate['length'])
     best = lambda limit: max(
         (c for c in candidates if c["length"] <= limit), key=lambda c: (round(c["shade"], 3), -c["length"])
     )
@@ -300,6 +334,7 @@ def route(time="14:00", src=None, dst=None, src_name="Start", dst_name="Destinat
         "summary": note,
         "start": pick(a),
         "end": pick(b),
+        **indoor_response(features),
         "building_routing": {
             "available_passages": [p["id"] for p in available],
             "excluded_count": len(graph.graph.get('passage_diagnostics', [])),
@@ -321,6 +356,8 @@ def search(q):
     local = search_places(PLACES.values(), q)
     if local:
         return {"results": [public_place(p) for p in local]}
+    if is_room_query(q):
+        return {'results': [], 'message': "Indoor directions aren't mapped for this room yet. Search the building name for an outdoor route."}
     if not q.strip():
         return {"results": []}
     key = q.strip().lower()
@@ -357,6 +394,14 @@ def get_route(
 @router.get("/building-passages")
 def get_building_passages():
     return PASSAGES
+
+
+@router.get('/building-entrances')
+def get_building_entrances():
+    try:
+        return json.loads(GRAPH.with_name('building_entrances.json').read_text(encoding='utf-8'))
+    except (OSError, ValueError, UnicodeError):
+        return {'buildings': [], 'limitations': 'Entrance inventory is unavailable.'}
 
 
 @router.get("/places")

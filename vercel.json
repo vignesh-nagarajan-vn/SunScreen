@@ -4,5 +4,5 @@
   "buildCommand": "cd app && npx expo export --platform web --output-dir ../dist",
   "outputDirectory": "dist",
   "rewrites": [{ "source": "/api/(.*)", "destination": "/api/index" }],
-  "functions": { "api/index.py": { "includeFiles": "data/{graph.pkl,building_passages.json,campus_places.json}", "maxDuration": 30 } }
+  "functions": { "api/index.py": { "includeFiles": "data/{graph.pkl,building_passages.json,campus_places.json,indoor_destinations.json,building_entrances.json}", "maxDuration": 30 } }
 }

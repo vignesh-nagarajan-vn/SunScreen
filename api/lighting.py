@@ -59,6 +59,11 @@ def shortest(graph, src, dst, alpha):
                 longest_gap = max(longest_gap, gap)
             else:
                 gap = 0
+    if coords and all('x' in graph.nodes[n] and 'y' in graph.nodes[n] for n in (src, dst)):
+        # Match day routing: saved edge coordinates are rounded, while entrance
+        # anchors retain the original OSM precision.
+        coords[0] = [graph.nodes[src]['x'], graph.nodes[src]['y']]
+        coords[-1] = [graph.nodes[dst]['x'], graph.nodes[dst]['y']]
     return {"path": tuple(signature), "coords": coords, "length": length, "runs": runs,
             "totals": totals, "risk_m": risk_m, "longest_gap_m": longest_gap}
 

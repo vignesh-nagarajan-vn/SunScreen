@@ -10,7 +10,7 @@ import networkx as nx
 from .geometry import metres
 
 CATALOG = Path(__file__).resolve().parents[1] / 'data/campus_places.json'
-PUBLIC_FIELDS = ('id', 'name', 'category', 'lat', 'lon', 'aliases', 'building_code', 'building_number')
+PUBLIC_FIELDS = ('id', 'name', 'category', 'lat', 'lon', 'aliases', 'building_code', 'building_number', 'building_id', 'room', 'floor', 'indoor')
 
 
 def normalize(value):

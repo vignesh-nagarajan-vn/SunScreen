@@ -147,7 +147,7 @@ def _passage_plan(base, record, graph):
         if metres(expected, coords[0]) > 0.05:
             raise ValueError('Sections must connect continuously')
         environment = section['environment']
-        if environment not in ('indoor', 'covered'):
+        if environment not in ('indoor', 'covered', 'outdoor'):
             raise ValueError('Unknown passage environment')
         length = sum(metres(a, b) for a, b in zip(coords, coords[1:]))
         next_node = doors[1]['node'] if i == len(sections) - 1 else f"passage:{record['id']}:{i}"
@@ -157,9 +157,10 @@ def _passage_plan(base, record, graph):
             nodes.append((next_node, dict(x=coords[-1][0], y=coords[-1][1], passage=True)))
         elif metres(coords[-1], doors[1]['coordinates']) > 0.05:
             raise ValueError('Corridor does not end at the mapped exit')
-        attrs = dict(length=length, shade=tuple(1.0 for _ in base.graph['slots']), coords=coords,
+        attrs = dict(length=length, shade=tuple((0.0 if environment == 'outdoor' else 1.0) for _ in base.graph['slots']), coords=coords,
                      passage_id=record['id'], building=record['building'], environment=environment,
-                     verification=record.get('verification', ''), access_status=access_status(record))
+                     verification=record.get('verification', ''), access_status=access_status(record),
+                     access_unconfirmed=record.get('access_verified') is not True)
         edges.append((previous, next_node, attrs))
         if not record.get('oneway', False):
             edges.append((next_node, previous, dict(attrs, coords=list(reversed(coords)))))
