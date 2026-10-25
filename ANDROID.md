@@ -103,6 +103,14 @@ use the same package name and signing key.
 
 ## Troubleshooting
 
+- **Closes immediately before any screen appears:** collect the Android crash
+  log. A failure in `androidx.startup.InitializationProvider` caused by
+  `androidx.work.impl.WorkDatabase` points to native WorkManager startup. The
+  build configuration preserves `WorkDatabase` and `WorkDatabase_Impl` from
+  R8 removal/renaming because Room instantiates its implementation by reflection.
+  This change requires a new APK; refreshing the website or JavaScript will not
+  update an installed native binary. Build the updated source with
+  `npx.cmd eas-cli@latest build --platform android --profile preview --clear-cache`.
 - **Blank map:** check that Maps SDK for Android is enabled, billing is set up,
   the key is in the EAS `preview` environment, and the package/SHA-1 restriction
   matches the APK's signing key. Rebuild after changing the key value embedded
