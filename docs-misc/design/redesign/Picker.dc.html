@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SunScreen · Choose a place</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#500000}a:hover{color:#3a0000}
+button,input{font-family:inherit}
+input::placeholder{color:#6E6E74}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #E0A21B;outline-offset:2px}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; padding: 16px 20px 0; background: #FFFFFF; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1d1d1f">
+
+  <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+    <h1 style="margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.3px">Choose destination</h1>
+    <a href="Main.dc.html" aria-label="Close" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #F5F0F0; color: #1d1d1f">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </a>
+  </div>
+
+  <label style="display: flex; align-items: center; gap: 10px; height: 50px; padding: 0 14px; border: 1.5px solid #500000; border-radius: 14px; background: #FFFFFF">
+    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex: none; fill: none; stroke: #5c5c62; stroke-width: 2.2; stroke-linecap: round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+    <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Search places</span>
+    <input type="search" placeholder="Search campus or an address" style="flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font-size: 15px; font-weight: 500; color: #1d1d1f">
+  </label>
+
+  <div style="display: flex; gap: 8px">
+    <button style="flex: 1; height: 44px; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1.5px solid #E6DDDD; border-radius: 12px; background: #FFFFFF; color: #500000; font-size: 14px; font-weight: 700; cursor: pointer">
+      <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round"><circle cx="12" cy="12" r="7"></circle><circle cx="12" cy="12" r="2.5" style="fill: currentColor"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path></svg>
+      My location
+    </button>
+    <a href="Main.dc.html" style="flex: 1; height: 44px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1.5px solid #E6DDDD; border-radius: 12px; background: #FFFFFF; color: #500000; font-size: 14px; font-weight: 700; text-decoration: none">
+      <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"></path><circle cx="12" cy="10" r="2.3"></circle></svg>
+      Pick on map
+    </a>
+  </div>
+
+  <div style="display: flex; gap: 8px; overflow-x: auto; margin: 0 -20px; padding: 0 20px">
+    <button aria-pressed="true" style="flex: none; height: 36px; padding: 0 14px; border: 0; border-radius: 18px; background: #500000; color: #FFFFFF; font-size: 13px; font-weight: 700">All</button>
+    <button aria-pressed="false" style="flex: none; height: 36px; padding: 0 14px; border: 1.5px solid #E6DDDD; border-radius: 18px; background: #FFFFFF; color: #1d1d1f; font-size: 13px; font-weight: 600">Academic</button>
+    <button aria-pressed="false" style="flex: none; height: 36px; padding: 0 14px; border: 1.5px solid #E6DDDD; border-radius: 18px; background: #FFFFFF; color: #1d1d1f; font-size: 13px; font-weight: 600">Dining</button>
+    <button aria-pressed="false" style="flex: none; height: 36px; padding: 0 14px; border: 1.5px solid #E6DDDD; border-radius: 18px; background: #FFFFFF; color: #1d1d1f; font-size: 13px; font-weight: 600">Libraries</button>
+    <button aria-pressed="false" style="flex: none; height: 36px; padding: 0 14px; border: 1.5px solid #E6DDDD; border-radius: 18px; background: #FFFFFF; color: #1d1d1f; font-size: 13px; font-weight: 600">Student life</button>
+    <button aria-pressed="false" style="flex: none; height: 36px; padding: 0 14px; border: 1.5px solid #E6DDDD; border-radius: 18px; background: #FFFFFF; color: #1d1d1f; font-size: 13px; font-weight: 600">Athletics</button>
+  </div>
+
+  <div style="display: flex; flex-direction: column">
+    <h2 style="margin: 4px 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #5c5c62">Recent</h2>
+    <a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 64px; text-decoration: none; color: #1d1d1f; border-bottom: 1px solid #F1EAEA">
+      <span aria-hidden="true" style="width: 40px; height: 40px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: #F5F0F0; color: #5c5c62">
+        <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>
+      </span>
+      <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 15px; font-weight: 700">Memorial Student Center</span>
+        <span style="font-size: 12px; font-weight: 500; color: #5c5c62">Student life · 640 m</span>
+      </span>
+    </a>
+    <a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 64px; text-decoration: none; color: #1d1d1f">
+      <span aria-hidden="true" style="width: 40px; height: 40px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: #F5F0F0; color: #5c5c62">
+        <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>
+      </span>
+      <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 15px; font-weight: 700">Evans Library</span>
+        <span style="font-size: 12px; font-weight: 500; color: #5c5c62">Libraries · 410 m</span>
+      </span>
+    </a>
+  </div>
+
+  <div style="display: flex; flex-direction: column">
+    <h2 style="margin: 4px 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #5c5c62">Academic</h2>
+    <a href="Main.dc.html" aria-current="true" style="display: flex; align-items: center; gap: 12px; min-height: 64px; margin: 0 -10px; padding: 0 10px; border-radius: 14px; background: #F8EEEE; text-decoration: none; color: #1d1d1f">
+      <span aria-hidden="true" style="width: 40px; height: 40px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: #500000; color: #FFFFFF">
+        <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><path d="M2 9l10-5 10 5-10 5z"></path><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"></path></svg>
+      </span>
+      <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 15px; font-weight: 700">Zachry Engineering</span>
+        <span style="font-size: 12px; font-weight: 500; color: #5c5c62">Academic · 1.1 km · current destination</span>
+      </span>
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none; fill: none; stroke: #500000; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+    </a>
+    <a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 64px; text-decoration: none; color: #1d1d1f; border-bottom: 1px solid #F1EAEA">
+      <span aria-hidden="true" style="width: 40px; height: 40px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: #F8EEEE; color: #500000">
+        <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><path d="M2 9l10-5 10 5-10 5z"></path><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"></path></svg>
+      </span>
+      <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 15px; font-weight: 700">Academic Building</span>
+        <span style="font-size: 12px; font-weight: 500; color: #5c5c62">Academic · 520 m</span>
+      </span>
+    </a>
+    <a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 64px; text-decoration: none; color: #1d1d1f; border-bottom: 1px solid #F1EAEA">
+      <span aria-hidden="true" style="width: 40px; height: 40px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: #F8EEEE; color: #500000">
+        <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><path d="M2 9l10-5 10 5-10 5z"></path><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"></path></svg>
+      </span>
+      <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 15px; font-weight: 700">Blocker Building</span>
+        <span style="font-size: 12px; font-weight: 500; color: #5c5c62">Academic · 760 m</span>
+      </span>
+    </a>
+    <a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 64px; text-decoration: none; color: #1d1d1f; border-bottom: 1px solid #F1EAEA">
+      <span aria-hidden="true" style="width: 40px; height: 40px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: #F8EEEE; color: #500000">
+        <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><path d="M2 9l10-5 10 5-10 5z"></path><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"></path></svg>
+      </span>
+      <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 15px; font-weight: 700">Langford Architecture</span>
+        <span style="font-size: 12px; font-weight: 500; color: #5c5c62">Academic · 380 m</span>
+      </span>
+    </a>
+    <a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 64px; text-decoration: none; color: #1d1d1f">
+      <span aria-hidden="true" style="width: 40px; height: 40px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: #F8EEEE; color: #500000">
+        <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><path d="M2 9l10-5 10 5-10 5z"></path><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"></path></svg>
+      </span>
+      <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 15px; font-weight: 700">Mays Business School</span>
+        <span style="font-size: 12px; font-weight: 500; color: #5c5c62">Academic · 900 m</span>
+      </span>
+    </a>
+  </div>
+
+  <div style="display: flex; flex-direction: column">
+    <h2 style="margin: 4px 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #5c5c62">Dining</h2>
+    <a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 64px; text-decoration: none; color: #1d1d1f">
+      <span aria-hidden="true" style="width: 40px; height: 40px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: #F8EEEE; color: #500000">
+        <svg width="18" height="18" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><path d="M7 3v8M4.5 3v5a2.5 2.5 0 0 0 5 0V3M7 11v10M17 21V3c-2 1.5-3 4-3 7h3"></path></svg>
+      </span>
+      <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 15px; font-weight: 700">Sbisa Dining Hall</span>
+        <span style="font-size: 12px; font-weight: 500; color: #5c5c62">Dining · 450 m</span>
+      </span>
+    </a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
