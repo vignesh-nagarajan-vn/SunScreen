@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "destinations": [
+    {
+      "id": "zachry_596",
+      "name": "Zachry 596",
+      "category": "Rooms",
+      "building_id": "zachry",
+      "building_code": "ZACH 596",
+      "room": "596",
+      "floor": "5",
+      "plan_page": 11,
+      "aliases": ["Zach 596", "ZACH596", "Zachry room 596", "ZACH room 596", "596 Zachry", "596 ZACH"],
+      "entrance_node": 6193744746,
+      "entrance_coordinates": [-96.3398443, 30.6209274],
+      "entrance_name": "Zachry level-1 entrance",
+      "weekly_hours": {
+        "mon": [["07:00", "02:00"]],
+        "tue": [["07:00", "02:00"]],
+        "wed": [["07:00", "02:00"]],
+        "thu": [["07:00", "02:00"]],
+        "fri": [["07:00", "24:00"]],
+        "sat": [["09:00", "24:00"]],
+        "sun": [["09:00", "02:00"]]
+      },
+      "arrival_steps": [
+        "Enter Zachry at the mapped level-1 entrance.",
+        "Use the signed elevators to reach Level 5.",
+        "Follow the main shared corridor to the learning-studio wing (rooms 582-598).",
+        "Continue to room 596, beside 598 at the end of the learning-studio wing."
+      ],
+      "departure_steps": [
+        "From 596, follow the shared corridor back from the learning-studio wing to the elevators.",
+        "Take an elevator to Level 1, then leave through the mapped level-1 entrance."
+      ],
+      "guidance_note": "Indoor directions follow the published plan; room access and elevator service are unconfirmed. Walking estimates cover the outdoor route to the entrance.",
+      "sources": [
+        {"url": "https://zachry.tamu.edu/wp-content/uploads/2018/08/ZACH-Tour-Book-web-accessible.pdf", "detail": "PDF pages 7 and 11: level-1 entrances/elevators and level-5 learning studios including 596. Schematic guidance, not indoor positioning."},
+        {"url": "https://zachry.tamu.edu/location/", "detail": "Current published building hours; holiday, event and room-specific closures can differ."},
+        {"url": "https://www.openstreetmap.org/node/6193744746", "detail": "Mapped entrance, level=0 and level:ref=1, with an exact saved walking-graph connection. Other Zachry doors include raised entries and emergency exits."}
+      ]
+    }
+  ]
+}

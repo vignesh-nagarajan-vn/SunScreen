@@ -6,6 +6,8 @@ data/*
 !data/building_passages.json
 !data/building_coverage.json
 !data/campus_places.json
+!data/building_entrances.json
+!data/indoor_destinations.json
 *.laz
 *.las
 *.tif

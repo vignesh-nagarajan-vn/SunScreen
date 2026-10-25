@@ -1,0 +1,2773 @@
+{
+  "schema_version": 1,
+  "retrieved_at": "2026-10-25T04:41:11.101098+00:00",
+  "source": "OpenStreetMap contributors",
+  "license": "ODbL-1.0",
+  "snapshot_sha256": "c5280f63ee178d427f574cf28fc9bb7f73a4b245e3ac3ec209d784d9c2c5da7d",
+  "limitations": "Mapped doors are not proof of current access or interior corridors. Levels are retained; emergency exits are excluded. Missing entrance tags are not filled with guessed doors.",
+  "buildings": [
+    {
+      "place_id": "academic",
+      "building": "Academic Building",
+      "osm_type": "way",
+      "osm_id": 86199626,
+      "source": "https://www.openstreetmap.org/way/86199626",
+      "entrances": []
+    },
+    {
+      "place_id": "agls",
+      "building": "AgriLife Sciences Building",
+      "osm_type": "way",
+      "osm_id": 1034278661,
+      "source": "https://www.openstreetmap.org/way/1034278661",
+      "entrances": []
+    },
+    {
+      "place_id": "beutel",
+      "building": "Beutel Health Center",
+      "osm_type": "way",
+      "osm_id": 155052499,
+      "source": "https://www.openstreetmap.org/way/155052499",
+      "entrances": []
+    },
+    {
+      "place_id": "blocker",
+      "building": "Blocker Building",
+      "osm_type": "way",
+      "osm_id": 95151462,
+      "source": "https://www.openstreetmap.org/way/95151462",
+      "entrances": [
+        {
+          "osm_node": 8509387329,
+          "coordinates": [
+            -96.3420108,
+            30.6193509
+          ],
+          "tags": {
+            "entrance": "main",
+            "level": "0",
+            "level:ref": "1"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": "0",
+          "level_ref": "1",
+          "source": "https://www.openstreetmap.org/node/8509387329"
+        },
+        {
+          "osm_node": 8509387331,
+          "coordinates": [
+            -96.3421277,
+            30.6193629
+          ],
+          "tags": {
+            "entrance": "main",
+            "level": "0",
+            "level:ref": "1"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": "0",
+          "level_ref": "1",
+          "source": "https://www.openstreetmap.org/node/8509387331"
+        },
+        {
+          "osm_node": 10689401995,
+          "coordinates": [
+            -96.3415683,
+            30.6194287
+          ],
+          "tags": {
+            "entrance": "yes",
+            "level": "0",
+            "level:ref": "1"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": "0",
+          "level_ref": "1",
+          "source": "https://www.openstreetmap.org/node/10689401995"
+        },
+        {
+          "osm_node": 10689415942,
+          "coordinates": [
+            -96.3421119,
+            30.6197878
+          ],
+          "tags": {
+            "entrance": "yes",
+            "level": "1",
+            "level:ref": "2"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": "1",
+          "level_ref": "2",
+          "source": "https://www.openstreetmap.org/node/10689415942"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0270",
+      "building": "Emerging Technologies Building",
+      "osm_type": "way",
+      "osm_id": 167553463,
+      "source": "https://www.openstreetmap.org/way/167553463",
+      "entrances": [
+        {
+          "osm_node": 4193721967,
+          "coordinates": [
+            -96.3391891,
+            30.6227171
+          ],
+          "tags": {
+            "entrance": "main"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/4193721967"
+        },
+        {
+          "osm_node": 8197564278,
+          "coordinates": [
+            -96.338648,
+            30.6222788
+          ],
+          "tags": {
+            "entrance": "main"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/8197564278"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0271",
+      "building": "Polo Road Garage",
+      "osm_type": "way",
+      "osm_id": 916117344,
+      "source": "https://www.openstreetmap.org/way/916117344",
+      "entrances": [
+        {
+          "osm_node": 8509154568,
+          "coordinates": [
+            -96.3388078,
+            30.6236277
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/8509154568"
+        },
+        {
+          "osm_node": 10689406803,
+          "coordinates": [
+            -96.3382328,
+            30.6241417
+          ],
+          "tags": {
+            "entrance": "staircase"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/10689406803"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0272",
+      "building": "Polo Road Building",
+      "osm_type": "way",
+      "osm_id": 916117345,
+      "source": "https://www.openstreetmap.org/way/916117345",
+      "entrances": [
+        {
+          "osm_node": 10687737160,
+          "coordinates": [
+            -96.3378186,
+            30.6225911
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/10687737160"
+        },
+        {
+          "osm_node": 10687737166,
+          "coordinates": [
+            -96.3382885,
+            30.6228665
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/10687737166"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0275",
+      "building": "Liberal Arts and Arts & Humanities Building",
+      "osm_type": "way",
+      "osm_id": 260795474,
+      "source": "https://www.openstreetmap.org/way/260795474",
+      "entrances": [
+        {
+          "osm_node": 8509378138,
+          "coordinates": [
+            -96.3381368,
+            30.6175754
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/8509378138"
+        },
+        {
+          "osm_node": 11693047191,
+          "coordinates": [
+            -96.3380204,
+            30.617774
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/11693047191"
+        },
+        {
+          "osm_node": 11693047193,
+          "coordinates": [
+            -96.3378872,
+            30.6176261
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/11693047193"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0290",
+      "building": "Wells Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052684,
+      "source": "https://www.openstreetmap.org/way/155052684",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0291",
+      "building": "Rudder Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052685,
+      "source": "https://www.openstreetmap.org/way/155052685",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0292",
+      "building": "Eppright Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052679,
+      "source": "https://www.openstreetmap.org/way/155052679",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0293",
+      "building": "Appelt Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052587,
+      "source": "https://www.openstreetmap.org/way/155052587",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0294",
+      "building": "Lechner Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052668,
+      "source": "https://www.openstreetmap.org/way/155052668",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0297",
+      "building": "Mitchell Physics Building",
+      "osm_type": "way",
+      "osm_id": 136806238,
+      "source": "https://www.openstreetmap.org/way/136806238",
+      "entrances": [
+        {
+          "osm_node": 10689415931,
+          "coordinates": [
+            -96.3426303,
+            30.6199981
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/10689415931"
+        },
+        {
+          "osm_node": 10689415934,
+          "coordinates": [
+            -96.3425226,
+            30.6199874
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/10689415934"
+        },
+        {
+          "osm_node": 10689415936,
+          "coordinates": [
+            -96.3425556,
+            30.6199742
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/10689415936"
+        },
+        {
+          "osm_node": 10689415938,
+          "coordinates": [
+            -96.3426636,
+            30.6200133
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/10689415938"
+        },
+        {
+          "osm_node": 13762387317,
+          "coordinates": [
+            -96.3427635,
+            30.6201409
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/13762387317"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0325",
+      "building": "CVE Lab Building",
+      "osm_type": "way",
+      "osm_id": 915378579,
+      "source": "https://www.openstreetmap.org/way/915378579",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0353",
+      "building": "Bright Building",
+      "osm_type": "way",
+      "osm_id": 951877260,
+      "source": "https://www.openstreetmap.org/way/951877260",
+      "entrances": [
+        {
+          "osm_node": 11693047178,
+          "coordinates": [
+            -96.3387685,
+            30.6189188
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/11693047178"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0377",
+      "building": "Satellite Utility Plant No. 3",
+      "osm_type": "way",
+      "osm_id": 155052690,
+      "source": "https://www.openstreetmap.org/way/155052690",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0378",
+      "building": "Southside Parking Garage",
+      "osm_type": "way",
+      "osm_id": 168585553,
+      "source": "https://www.openstreetmap.org/way/168585553",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0383",
+      "building": "Koldus Building",
+      "osm_type": "way",
+      "osm_id": 88440897,
+      "source": "https://www.openstreetmap.org/way/88440897",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0385",
+      "building": "Dwight Look Engineering Building",
+      "osm_type": "way",
+      "osm_id": 915378578,
+      "source": "https://www.openstreetmap.org/way/915378578",
+      "entrances": [
+        {
+          "osm_node": 8502844915,
+          "coordinates": [
+            -96.339948,
+            30.6200424
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/8502844915"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0386",
+      "building": "Jack E. Brown Chemical Engineering Building",
+      "osm_type": "way",
+      "osm_id": 155052538,
+      "source": "https://www.openstreetmap.org/way/155052538",
+      "entrances": [
+        {
+          "osm_node": 1674935316,
+          "coordinates": [
+            -96.3414196,
+            30.6209941
+          ],
+          "tags": {
+            "entrance": "main"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/1674935316"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0387",
+      "building": "Joe C. Richardson Petroleum Engineering Building",
+      "osm_type": "way",
+      "osm_id": 260841144,
+      "source": "https://www.openstreetmap.org/way/260841144",
+      "entrances": [
+        {
+          "osm_node": 8502844910,
+          "coordinates": [
+            -96.3394998,
+            30.6194029
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/8502844910"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0389",
+      "building": "Grounds Maintenance Potting Shed",
+      "osm_type": "way",
+      "osm_id": 485933765,
+      "source": "https://www.openstreetmap.org/way/485933765",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0391",
+      "building": "James J. Cain '51 Building",
+      "osm_type": "way",
+      "osm_id": 307097868,
+      "source": "https://www.openstreetmap.org/way/307097868",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0392",
+      "building": "Mechanical Engineering Office Building",
+      "osm_type": "way",
+      "osm_id": 307097866,
+      "source": "https://www.openstreetmap.org/way/307097866",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0393",
+      "building": "John H. Lindsey Building",
+      "osm_type": "way",
+      "osm_id": 260847133,
+      "source": "https://www.openstreetmap.org/way/260847133",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0394",
+      "building": "Underwood Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052688,
+      "source": "https://www.openstreetmap.org/way/155052688",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0400",
+      "building": "Spence Hall-Dorm 1",
+      "osm_type": "way",
+      "osm_id": 86199578,
+      "source": "https://www.openstreetmap.org/way/86199578",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0401",
+      "building": "Kiest Hall-Dorm 2",
+      "osm_type": "way",
+      "osm_id": 86199584,
+      "source": "https://www.openstreetmap.org/way/86199584",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0402",
+      "building": "Briggs Hall-Dorm 3",
+      "osm_type": "way",
+      "osm_id": 86199576,
+      "source": "https://www.openstreetmap.org/way/86199576",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0403",
+      "building": "Fountain Hall-Dorm 4",
+      "osm_type": "way",
+      "osm_id": 86199569,
+      "source": "https://www.openstreetmap.org/way/86199569",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0404",
+      "building": "Gainer Hall-Dorm 5",
+      "osm_type": "way",
+      "osm_id": 86199575,
+      "source": "https://www.openstreetmap.org/way/86199575",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0405",
+      "building": "Lacy Hall-Dorm 6",
+      "osm_type": "way",
+      "osm_id": 86199579,
+      "source": "https://www.openstreetmap.org/way/86199579",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0406",
+      "building": "Leonard Hall-Dorm 7",
+      "osm_type": "way",
+      "osm_id": 86199585,
+      "source": "https://www.openstreetmap.org/way/86199585",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0407",
+      "building": "Harrell Hall-Dorm 8",
+      "osm_type": "way",
+      "osm_id": 835643896,
+      "source": "https://www.openstreetmap.org/way/835643896",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0409",
+      "building": "White Hall-Dorm 10",
+      "osm_type": "way",
+      "osm_id": 86199583,
+      "source": "https://www.openstreetmap.org/way/86199583",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0410",
+      "building": "Harrington Hall-Dorm 11",
+      "osm_type": "way",
+      "osm_id": 86199571,
+      "source": "https://www.openstreetmap.org/way/86199571",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0411",
+      "building": "Utay Hall-Dorm 12",
+      "osm_type": "way",
+      "osm_id": 86199570,
+      "source": "https://www.openstreetmap.org/way/86199570",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0412",
+      "building": "Moses Residence Hall",
+      "osm_type": "way",
+      "osm_id": 1012223006,
+      "source": "https://www.openstreetmap.org/way/1012223006",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0417",
+      "building": "Hart Residence Hall",
+      "osm_type": "way",
+      "osm_id": 91100231,
+      "source": "https://www.openstreetmap.org/way/91100231",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0419",
+      "building": "Legett Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052686,
+      "source": "https://www.openstreetmap.org/way/155052686",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0420",
+      "building": "Milner Hall",
+      "osm_type": "way",
+      "osm_id": 155052661,
+      "source": "https://www.openstreetmap.org/way/155052661",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0422",
+      "building": "Walton Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052483,
+      "source": "https://www.openstreetmap.org/way/155052483",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0424",
+      "building": "Hotard Hall",
+      "osm_type": "way",
+      "osm_id": 155052722,
+      "source": "https://www.openstreetmap.org/way/155052722",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0425",
+      "building": "Henderson Hall",
+      "osm_type": "way",
+      "osm_id": 155052703,
+      "source": "https://www.openstreetmap.org/way/155052703",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0426",
+      "building": "Hughes Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052540,
+      "source": "https://www.openstreetmap.org/way/155052540",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0427",
+      "building": "Fowler Residence Hall",
+      "osm_type": "way",
+      "osm_id": 1012223007,
+      "source": "https://www.openstreetmap.org/way/1012223007",
+      "entrances": [
+        {
+          "osm_node": 9338734129,
+          "coordinates": [
+            -96.3455932,
+            30.6148685
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": false,
+          "approach_eligible": false,
+          "exclusion": "no saved outdoor walking connection",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/9338734129"
+        },
+        {
+          "osm_node": 9338734130,
+          "coordinates": [
+            -96.3455069,
+            30.6147799
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": false,
+          "approach_eligible": false,
+          "exclusion": "no saved outdoor walking connection",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/9338734130"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0428",
+      "building": "Keathley Residence Hall",
+      "osm_type": "way",
+      "osm_id": 1012223005,
+      "source": "https://www.openstreetmap.org/way/1012223005",
+      "entrances": [
+        {
+          "osm_node": 9338734127,
+          "coordinates": [
+            -96.3458382,
+            30.6151197
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": false,
+          "approach_eligible": false,
+          "exclusion": "no saved outdoor walking connection",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/9338734127"
+        },
+        {
+          "osm_node": 9338734128,
+          "coordinates": [
+            -96.3457558,
+            30.6150352
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": false,
+          "approach_eligible": false,
+          "exclusion": "no saved outdoor walking connection",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/9338734128"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0430",
+      "building": "Schuhmacher Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052671,
+      "source": "https://www.openstreetmap.org/way/155052671",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0433",
+      "building": "Mosher Residence Hall",
+      "osm_type": "relation",
+      "osm_id": 2083293,
+      "source": "https://www.openstreetmap.org/relation/2083293",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0434",
+      "building": "Luedecke Building (Cyclotron)",
+      "osm_type": "way",
+      "osm_id": 155052770,
+      "source": "https://www.openstreetmap.org/way/155052770",
+      "entrances": [
+        {
+          "osm_node": 10689401991,
+          "coordinates": [
+            -96.3410114,
+            30.6203818
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/10689401991"
+        },
+        {
+          "osm_node": 10689401993,
+          "coordinates": [
+            -96.3414386,
+            30.6205994
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/10689401993"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0436",
+      "building": "Reed-McDonald Building",
+      "osm_type": "way",
+      "osm_id": 307098416,
+      "source": "https://www.openstreetmap.org/way/307098416",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0438",
+      "building": "Harrington Education Center Classroom Building",
+      "osm_type": "way",
+      "osm_id": 91100321,
+      "source": "https://www.openstreetmap.org/way/91100321",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0441",
+      "building": "Krueger Residence Hall",
+      "osm_type": "relation",
+      "osm_id": 2083296,
+      "source": "https://www.openstreetmap.org/relation/2083296",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0442",
+      "building": "Dunn Residence Hall",
+      "osm_type": "relation",
+      "osm_id": 2083291,
+      "source": "https://www.openstreetmap.org/relation/2083291",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0443",
+      "building": "Eller Oceanography & Meteorology Building",
+      "osm_type": "way",
+      "osm_id": 155052692,
+      "source": "https://www.openstreetmap.org/way/155052692",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0444",
+      "building": "Peterson Building",
+      "osm_type": "way",
+      "osm_id": 91100266,
+      "source": "https://www.openstreetmap.org/way/91100266",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0447",
+      "building": "Aston Residence Hall",
+      "osm_type": "relation",
+      "osm_id": 2083292,
+      "source": "https://www.openstreetmap.org/relation/2083292",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0456",
+      "building": "Military Sciences Building",
+      "osm_type": "way",
+      "osm_id": 155052510,
+      "source": "https://www.openstreetmap.org/way/155052510",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0458",
+      "building": "Engineering Activities Bldg C",
+      "osm_type": "way",
+      "osm_id": 155052530,
+      "source": "https://www.openstreetmap.org/way/155052530",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0459",
+      "building": "Engineering Activities Bldg B",
+      "osm_type": "way",
+      "osm_id": 155052516,
+      "source": "https://www.openstreetmap.org/way/155052516",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0460",
+      "building": "Engineering Activities Bldg A",
+      "osm_type": "way",
+      "osm_id": 155052534,
+      "source": "https://www.openstreetmap.org/way/155052534",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0461",
+      "building": "Coke Building",
+      "osm_type": "way",
+      "osm_id": 91100333,
+      "source": "https://www.openstreetmap.org/way/91100333",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0463",
+      "building": "Psychology Building",
+      "osm_type": "way",
+      "osm_id": 91100325,
+      "source": "https://www.openstreetmap.org/way/91100325",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0465",
+      "building": "Butler Hall",
+      "osm_type": "way",
+      "osm_id": 91100258,
+      "source": "https://www.openstreetmap.org/way/91100258",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0469",
+      "building": "Central Campus Parking Garage",
+      "osm_type": "way",
+      "osm_id": 91100311,
+      "source": "https://www.openstreetmap.org/way/91100311",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0473",
+      "building": "Jack K. Williams Administration Building",
+      "osm_type": "way",
+      "osm_id": 137166991,
+      "source": "https://www.openstreetmap.org/way/137166991",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0474",
+      "building": "YMCA Building",
+      "osm_type": "way",
+      "osm_id": 155052548,
+      "source": "https://www.openstreetmap.org/way/155052548",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0476",
+      "building": "Francis Hall",
+      "osm_type": "way",
+      "osm_id": 91100301,
+      "source": "https://www.openstreetmap.org/way/91100301",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0477",
+      "building": "Anthropology Building",
+      "osm_type": "way",
+      "osm_id": 91100247,
+      "source": "https://www.openstreetmap.org/way/91100247",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0478",
+      "building": "Scoates Hall",
+      "osm_type": "way",
+      "osm_id": 155052524,
+      "source": "https://www.openstreetmap.org/way/155052524",
+      "entrances": [
+        {
+          "osm_node": 8509378141,
+          "coordinates": [
+            -96.3386117,
+            30.6185466
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/8509378141"
+        },
+        {
+          "osm_node": 8509378151,
+          "coordinates": [
+            -96.3381189,
+            30.6182608
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/8509378151"
+        },
+        {
+          "osm_node": 11693047179,
+          "coordinates": [
+            -96.3385958,
+            30.61872
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/11693047179"
+        },
+        {
+          "osm_node": 11693047181,
+          "coordinates": [
+            -96.3383549,
+            30.61877
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": false,
+          "approach_eligible": false,
+          "exclusion": "no saved outdoor walking connection",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/11693047181"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0480",
+      "building": "Bolton Hall",
+      "osm_type": "way",
+      "osm_id": 155052520,
+      "source": "https://www.openstreetmap.org/way/155052520",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0481",
+      "building": "Heaton Hall",
+      "osm_type": "way",
+      "osm_id": 155052724,
+      "source": "https://www.openstreetmap.org/way/155052724",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0482",
+      "building": "Fermier Hall",
+      "osm_type": "way",
+      "osm_id": 155052726,
+      "source": "https://www.openstreetmap.org/way/155052726",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0483",
+      "building": "Thompson Hall",
+      "osm_type": "way",
+      "osm_id": 155052702,
+      "source": "https://www.openstreetmap.org/way/155052702",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0490",
+      "building": "Halbouty Geosciences Building",
+      "osm_type": "way",
+      "osm_id": 155052559,
+      "source": "https://www.openstreetmap.org/way/155052559",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0492",
+      "building": "H.J. (Bill) and Reta Haynes Engineering Building",
+      "osm_type": "way",
+      "osm_id": 260840980,
+      "source": "https://www.openstreetmap.org/way/260840980",
+      "entrances": [
+        {
+          "osm_node": 8502845129,
+          "coordinates": [
+            -96.3389531,
+            30.6201282
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/8502845129"
+        },
+        {
+          "osm_node": 8509378122,
+          "coordinates": [
+            -96.3388344,
+            30.6196481
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/8509378122"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0496",
+      "building": "Utilities & Energy Services Central Office",
+      "osm_type": "way",
+      "osm_id": 155052713,
+      "source": "https://www.openstreetmap.org/way/155052713",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0498",
+      "building": "Central Utility Plant",
+      "osm_type": "way",
+      "osm_id": 260848378,
+      "source": "https://www.openstreetmap.org/way/260848378",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0499",
+      "building": "Engineering Innovation Center",
+      "osm_type": "way",
+      "osm_id": 307098417,
+      "source": "https://www.openstreetmap.org/way/307098417",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0506",
+      "building": "Nagle Hall",
+      "osm_type": "way",
+      "osm_id": 91100270,
+      "source": "https://www.openstreetmap.org/way/91100270",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0508",
+      "building": "Veterinary Teaching Hospital",
+      "osm_type": "way",
+      "osm_id": 408443905,
+      "source": "https://www.openstreetmap.org/way/408443905",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0511",
+      "building": "HEEP Laboratory Building",
+      "osm_type": "way",
+      "osm_id": 91100329,
+      "source": "https://www.openstreetmap.org/way/91100329",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0512",
+      "building": "All Faiths Chapel",
+      "osm_type": "way",
+      "osm_id": 155052507,
+      "source": "https://www.openstreetmap.org/way/155052507",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0513",
+      "building": "Doherty Building",
+      "osm_type": "way",
+      "osm_id": 155052513,
+      "source": "https://www.openstreetmap.org/way/155052513",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0521",
+      "building": "Heldenfels Hall",
+      "osm_type": "way",
+      "osm_id": 91100278,
+      "source": "https://www.openstreetmap.org/way/91100278",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0548",
+      "building": "Clements Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052660,
+      "source": "https://www.openstreetmap.org/way/155052660",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0549",
+      "building": "Haas Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052667,
+      "source": "https://www.openstreetmap.org/way/155052667",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0550",
+      "building": "McFadden Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052695,
+      "source": "https://www.openstreetmap.org/way/155052695",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0652",
+      "building": "Neeley Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052616,
+      "source": "https://www.openstreetmap.org/way/155052616",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0653",
+      "building": "Hobby Residence Hall",
+      "osm_type": "way",
+      "osm_id": 155052710,
+      "source": "https://www.openstreetmap.org/way/155052710",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0682",
+      "building": "Wisenbaker Engineering Building",
+      "osm_type": "way",
+      "osm_id": 915378602,
+      "source": "https://www.openstreetmap.org/way/915378602",
+      "entrances": [
+        {
+          "osm_node": 8502845201,
+          "coordinates": [
+            -96.3387105,
+            30.6209299
+          ],
+          "tags": {
+            "entrance": "yes",
+            "level": "1",
+            "level:ref": "1"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": "1",
+          "level_ref": "1",
+          "source": "https://www.openstreetmap.org/node/8502845201"
+        },
+        {
+          "osm_node": 8502845202,
+          "coordinates": [
+            -96.3391889,
+            30.6211855
+          ],
+          "tags": {
+            "entrance": "yes",
+            "level": "-1",
+            "level:ref": "0"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": "-1",
+          "level_ref": "0",
+          "source": "https://www.openstreetmap.org/node/8502845202"
+        },
+        {
+          "osm_node": 8502845203,
+          "coordinates": [
+            -96.3390191,
+            30.6207116
+          ],
+          "tags": {
+            "entrance": "yes",
+            "level": "0",
+            "level:ref": "1"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": "0",
+          "level_ref": "1",
+          "source": "https://www.openstreetmap.org/node/8502845203"
+        }
+      ]
+    },
+    {
+      "place_id": "building_0685",
+      "building": "Grounds Maintenance-Tractor Shed",
+      "osm_type": "way",
+      "osm_id": 485933753,
+      "source": "https://www.openstreetmap.org/way/485933753",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0726",
+      "building": "Grounds Maintenance Greenhouse 4",
+      "osm_type": "way",
+      "osm_id": 485933758,
+      "source": "https://www.openstreetmap.org/way/485933758",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0728",
+      "building": "Grounds Maintenance Greenhouse 5",
+      "osm_type": "way",
+      "osm_id": 485933757,
+      "source": "https://www.openstreetmap.org/way/485933757",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0742",
+      "building": "Grounds Maintenance Storage",
+      "osm_type": "way",
+      "osm_id": 485933754,
+      "source": "https://www.openstreetmap.org/way/485933754",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0747",
+      "building": "Grounds Maintenance Supply Bldg",
+      "osm_type": "way",
+      "osm_id": 485933752,
+      "source": "https://www.openstreetmap.org/way/485933752",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0815",
+      "building": "Entomology Research Lab",
+      "osm_type": "way",
+      "osm_id": 406504755,
+      "source": "https://www.openstreetmap.org/way/406504755",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0824",
+      "building": "Grounds Maintenance Implement Shed",
+      "osm_type": "way",
+      "osm_id": 485933762,
+      "source": "https://www.openstreetmap.org/way/485933762",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0828",
+      "building": "Grounds Shop Warehouse",
+      "osm_type": "way",
+      "osm_id": 485933756,
+      "source": "https://www.openstreetmap.org/way/485933756",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0829",
+      "building": "Grounds Maintenance Office Shop/Stor",
+      "osm_type": "way",
+      "osm_id": 485933755,
+      "source": "https://www.openstreetmap.org/way/485933755",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0861",
+      "building": "CUSE-Chemistry",
+      "osm_type": "way",
+      "osm_id": 413444271,
+      "source": "https://www.openstreetmap.org/way/413444271",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0954",
+      "building": "Agronomy Field Lab",
+      "osm_type": "way",
+      "osm_id": 407982448,
+      "source": "https://www.openstreetmap.org/way/407982448",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0955",
+      "building": "Soil/Crop Cotton Genetic Greenhouse",
+      "osm_type": "way",
+      "osm_id": 407982458,
+      "source": "https://www.openstreetmap.org/way/407982458",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0957",
+      "building": "Purchasing & Stores",
+      "osm_type": "way",
+      "osm_id": 405480371,
+      "source": "https://www.openstreetmap.org/way/405480371",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0958",
+      "building": "Fleet Services",
+      "osm_type": "way",
+      "osm_id": 405480290,
+      "source": "https://www.openstreetmap.org/way/405480290",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0965",
+      "building": "Beasley Laboratory",
+      "osm_type": "way",
+      "osm_id": 407982449,
+      "source": "https://www.openstreetmap.org/way/407982449",
+      "entrances": []
+    },
+    {
+      "place_id": "building_0970",
+      "building": "Phys Plant-Grounds Maintenance",
+      "osm_type": "way",
+      "osm_id": 405480400,
+      "source": "https://www.openstreetmap.org/way/405480400",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1026",
+      "building": "Veterinary Medicine Administration",
+      "osm_type": "way",
+      "osm_id": 408443906,
+      "source": "https://www.openstreetmap.org/way/408443906",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1034",
+      "building": "Ag Engineering Power & Machinery Building",
+      "osm_type": "way",
+      "osm_id": 155052664,
+      "source": "https://www.openstreetmap.org/way/155052664",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1042",
+      "building": "Forest Science Laboratory Building",
+      "osm_type": "way",
+      "osm_id": 406504986,
+      "source": "https://www.openstreetmap.org/way/406504986",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1045",
+      "building": "USDA Greenhouse 1",
+      "osm_type": "way",
+      "osm_id": 413444297,
+      "source": "https://www.openstreetmap.org/way/413444297",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1049",
+      "building": "USDA Greenhouse 2",
+      "osm_type": "way",
+      "osm_id": 413444300,
+      "source": "https://www.openstreetmap.org/way/413444300",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1051",
+      "building": "Center for Urban and Structural Entomology (CUSE)",
+      "osm_type": "way",
+      "osm_id": 413444269,
+      "source": "https://www.openstreetmap.org/way/413444269",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1054",
+      "building": "Forage and Turf Greenhouse",
+      "osm_type": "way",
+      "osm_id": 457944619,
+      "source": "https://www.openstreetmap.org/way/457944619",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1056",
+      "building": "Soil & Crop Sci Greenhouse",
+      "osm_type": "way",
+      "osm_id": 457944620,
+      "source": "https://www.openstreetmap.org/way/457944620",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1057",
+      "building": "Soil & Crop Sci Greenhouse",
+      "osm_type": "way",
+      "osm_id": 457944620,
+      "source": "https://www.openstreetmap.org/way/457944620",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1058",
+      "building": "Soil & Crop Sci Greenhouse",
+      "osm_type": "way",
+      "osm_id": 457944620,
+      "source": "https://www.openstreetmap.org/way/457944620",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1059",
+      "building": "Soil & Crop Sci Greenhouse",
+      "osm_type": "way",
+      "osm_id": 457944620,
+      "source": "https://www.openstreetmap.org/way/457944620",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1065",
+      "building": "Soil & Crop Sci Dry Processing",
+      "osm_type": "way",
+      "osm_id": 413449709,
+      "source": "https://www.openstreetmap.org/way/413449709",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1066",
+      "building": "Cotton Ginning Lab",
+      "osm_type": "way",
+      "osm_id": 413449708,
+      "source": "https://www.openstreetmap.org/way/413449708",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1084",
+      "building": "West Campus Switching Station",
+      "osm_type": "way",
+      "osm_id": 155052691,
+      "source": "https://www.openstreetmap.org/way/155052691",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1085",
+      "building": "Veterinary Small Animal Hospital",
+      "osm_type": "way",
+      "osm_id": 408443904,
+      "source": "https://www.openstreetmap.org/way/408443904",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1146",
+      "building": "Biological Control Facility",
+      "osm_type": "way",
+      "osm_id": 406504754,
+      "source": "https://www.openstreetmap.org/way/406504754",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1177",
+      "building": "Horticulture/Forest Science Greenhouse",
+      "osm_type": "way",
+      "osm_id": 155052682,
+      "source": "https://www.openstreetmap.org/way/155052682",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1178",
+      "building": "Horticulture/Forest Science Greenhouse",
+      "osm_type": "way",
+      "osm_id": 155052682,
+      "source": "https://www.openstreetmap.org/way/155052682",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1187",
+      "building": "W.P. Luse Foundation Building",
+      "osm_type": "way",
+      "osm_id": 408443914,
+      "source": "https://www.openstreetmap.org/way/408443914",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1190",
+      "building": "Floriculture Research Greenhouse",
+      "osm_type": "way",
+      "osm_id": 485230486,
+      "source": "https://www.openstreetmap.org/way/485230486",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1191",
+      "building": "Floriculture Growing Facility",
+      "osm_type": "way",
+      "osm_id": 485230485,
+      "source": "https://www.openstreetmap.org/way/485230485",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1192",
+      "building": "TVMC-Surgery Building",
+      "osm_type": "way",
+      "osm_id": 413449693,
+      "source": "https://www.openstreetmap.org/way/413449693",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1194",
+      "building": "Veterinary Large Animal Hospital",
+      "osm_type": "way",
+      "osm_id": 408443903,
+      "source": "https://www.openstreetmap.org/way/408443903",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1197",
+      "building": "Veterinary Research Building",
+      "osm_type": "way",
+      "osm_id": 408443901,
+      "source": "https://www.openstreetmap.org/way/408443901",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1232",
+      "building": "Theriogenology Facility, Equine Reproduction",
+      "osm_type": "way",
+      "osm_id": 408330473,
+      "source": "https://www.openstreetmap.org/way/408330473",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1237",
+      "building": "Equine Athletic Riding Arena",
+      "osm_type": "way",
+      "osm_id": 504042626,
+      "source": "https://www.openstreetmap.org/way/504042626",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1402",
+      "building": "Buzbee Leadership Learning Center",
+      "osm_type": "relation",
+      "osm_id": 11488690,
+      "source": "https://www.openstreetmap.org/relation/11488690",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1404",
+      "building": "Plank Leadership Learning Center",
+      "osm_type": "way",
+      "osm_id": 86199572,
+      "source": "https://www.openstreetmap.org/way/86199572",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1405",
+      "building": "Ash, II Leadership Learning Center",
+      "osm_type": "way",
+      "osm_id": 86199577,
+      "source": "https://www.openstreetmap.org/way/86199577",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1412",
+      "building": "Civilian Lounge-A2",
+      "osm_type": "way",
+      "osm_id": 951889535,
+      "source": "https://www.openstreetmap.org/way/951889535",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1415",
+      "building": "Civilian Lounge-A3",
+      "osm_type": "way",
+      "osm_id": 951897042,
+      "source": "https://www.openstreetmap.org/way/951897042",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1427",
+      "building": "Civilian Lounge-A1",
+      "osm_type": "way",
+      "osm_id": 951889534,
+      "source": "https://www.openstreetmap.org/way/951889534",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1440",
+      "building": "Golf Cart Storage Building",
+      "osm_type": "way",
+      "osm_id": 619702891,
+      "source": "https://www.openstreetmap.org/way/619702891",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1451",
+      "building": "The Gardens J",
+      "osm_type": "way",
+      "osm_id": 405486876,
+      "source": "https://www.openstreetmap.org/way/405486876",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1452",
+      "building": "The Gardens K",
+      "osm_type": "way",
+      "osm_id": 405486915,
+      "source": "https://www.openstreetmap.org/way/405486915",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1453",
+      "building": "The Gardens L",
+      "osm_type": "way",
+      "osm_id": 405486951,
+      "source": "https://www.openstreetmap.org/way/405486951",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1454",
+      "building": "The Gardens F",
+      "osm_type": "way",
+      "osm_id": 405487032,
+      "source": "https://www.openstreetmap.org/way/405487032",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1455",
+      "building": "The Gardens G",
+      "osm_type": "way",
+      "osm_id": 405487147,
+      "source": "https://www.openstreetmap.org/way/405487147",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1456",
+      "building": "The Gardens H",
+      "osm_type": "way",
+      "osm_id": 405487309,
+      "source": "https://www.openstreetmap.org/way/405487309",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1457",
+      "building": "The Gardens M",
+      "osm_type": "way",
+      "osm_id": 405487312,
+      "source": "https://www.openstreetmap.org/way/405487312",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1458",
+      "building": "The Gardens N",
+      "osm_type": "way",
+      "osm_id": 405487344,
+      "source": "https://www.openstreetmap.org/way/405487344",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1459",
+      "building": "The Gardens P",
+      "osm_type": "way",
+      "osm_id": 405487353,
+      "source": "https://www.openstreetmap.org/way/405487353",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1460",
+      "building": "The Gardens Q",
+      "osm_type": "way",
+      "osm_id": 405487392,
+      "source": "https://www.openstreetmap.org/way/405487392",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1497",
+      "building": "Utilities & Energy Services Business Office",
+      "osm_type": "way",
+      "osm_id": 413444266,
+      "source": "https://www.openstreetmap.org/way/413444266",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1498",
+      "building": "Satellite Utility Plant No. 1",
+      "osm_type": "way",
+      "osm_id": 521350301,
+      "source": "https://www.openstreetmap.org/way/521350301",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1501",
+      "building": "Kleberg Center",
+      "osm_type": "way",
+      "osm_id": 155052487,
+      "source": "https://www.openstreetmap.org/way/155052487",
+      "entrances": [
+        {
+          "osm_node": 13624330256,
+          "coordinates": [
+            -96.3470088,
+            30.610576
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/13624330256"
+        },
+        {
+          "osm_node": 13624330258,
+          "coordinates": [
+            -96.3474012,
+            30.6107893
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/13624330258"
+        }
+      ]
+    },
+    {
+      "place_id": "building_1502",
+      "building": "HEEP Center",
+      "osm_type": "way",
+      "osm_id": 1486173174,
+      "source": "https://www.openstreetmap.org/way/1486173174",
+      "entrances": [
+        {
+          "osm_node": 13624330247,
+          "coordinates": [
+            -96.3478414,
+            30.6112752
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/13624330247"
+        },
+        {
+          "osm_node": 13624330250,
+          "coordinates": [
+            -96.3479061,
+            30.6112305
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/13624330250"
+        },
+        {
+          "osm_node": 13624330253,
+          "coordinates": [
+            -96.3477431,
+            30.6113432
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/13624330253"
+        },
+        {
+          "osm_node": 13648554386,
+          "coordinates": [
+            -96.3479456,
+            30.6116806
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/13648554386"
+        },
+        {
+          "osm_node": 13648554388,
+          "coordinates": [
+            -96.3478504,
+            30.6115349
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/13648554388"
+        }
+      ]
+    },
+    {
+      "place_id": "building_1503",
+      "building": "Cater-Mattil Hall",
+      "osm_type": "way",
+      "osm_id": 155052734,
+      "source": "https://www.openstreetmap.org/way/155052734",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1504",
+      "building": "Reynolds Medical Sciences Building",
+      "osm_type": "way",
+      "osm_id": 155052718,
+      "source": "https://www.openstreetmap.org/way/155052718",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1505",
+      "building": "Rosenthal Meat Science & Technology Center",
+      "osm_type": "way",
+      "osm_id": 155052762,
+      "source": "https://www.openstreetmap.org/way/155052762",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1507",
+      "building": "Biochemistry/Biophysics Building",
+      "osm_type": "way",
+      "osm_id": 155052502,
+      "source": "https://www.openstreetmap.org/way/155052502",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1508",
+      "building": "Price Hobgood Ag Engineering Research Lab",
+      "osm_type": "way",
+      "osm_id": 155052663,
+      "source": "https://www.openstreetmap.org/way/155052663",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1511",
+      "building": "West Campus Library",
+      "osm_type": "way",
+      "osm_id": 155052747,
+      "source": "https://www.openstreetmap.org/way/155052747",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1512",
+      "building": "Southern Crop Improvement Greenhouse",
+      "osm_type": "way",
+      "osm_id": 155052698,
+      "source": "https://www.openstreetmap.org/way/155052698",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1515",
+      "building": "Plant Pathology and Microbiology Building",
+      "osm_type": "way",
+      "osm_id": 951912555,
+      "source": "https://www.openstreetmap.org/way/951912555",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1516",
+      "building": "Horticulture Field Laboratory",
+      "osm_type": "way",
+      "osm_id": 155052694,
+      "source": "https://www.openstreetmap.org/way/155052694",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1525",
+      "building": "Nuclear Magnetic Resonance Facility",
+      "osm_type": "way",
+      "osm_id": 155052488,
+      "source": "https://www.openstreetmap.org/way/155052488",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1530",
+      "building": "Interdisciplinary Life Sciences Building",
+      "osm_type": "way",
+      "osm_id": 91084667,
+      "source": "https://www.openstreetmap.org/way/91084667",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1532",
+      "building": "Teaching Gardens Pavilion",
+      "osm_type": "way",
+      "osm_id": 661590581,
+      "source": "https://www.openstreetmap.org/way/661590581",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1536",
+      "building": "AgriLife Services Building",
+      "osm_type": "way",
+      "osm_id": 411525270,
+      "source": "https://www.openstreetmap.org/way/411525270",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1537",
+      "building": "Wildlife, Fisheries & Ecological Sciences Building",
+      "osm_type": "way",
+      "osm_id": 418863347,
+      "source": "https://www.openstreetmap.org/way/418863347",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1540",
+      "building": "Physical Education Activity Program Building",
+      "osm_type": "way",
+      "osm_id": 332218359,
+      "source": "https://www.openstreetmap.org/way/332218359",
+      "entrances": [
+        {
+          "osm_node": 13033125700,
+          "coordinates": [
+            -96.3492692,
+            30.6049264
+          ],
+          "tags": {
+            "addr:city": "College Station",
+            "addr:housenumber": "632",
+            "addr:postcode": "77840",
+            "addr:state": "TX",
+            "addr:street": "Penberthy Boulevard",
+            "building": "university",
+            "entrance": "main",
+            "name": "Physical Education Activities Program Building",
+            "ref": "1540",
+            "short_name": "PEAP",
+            "website": "https://peap.tamu.edu/",
+            "wheelchair": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/13033125700"
+        }
+      ]
+    },
+    {
+      "place_id": "building_1541",
+      "building": "Physical Education Boot Camp and Archery Annex",
+      "osm_type": "way",
+      "osm_id": 550895693,
+      "source": "https://www.openstreetmap.org/way/550895693",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1544",
+      "building": "Gene Stallings Blvd Garage",
+      "osm_type": "way",
+      "osm_id": 450686873,
+      "source": "https://www.openstreetmap.org/way/450686873",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1555",
+      "building": "Track & Field Support Center",
+      "osm_type": "way",
+      "osm_id": 496182522,
+      "source": "https://www.openstreetmap.org/way/496182522",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1556",
+      "building": "Penberthy Intramural Sports Center",
+      "osm_type": "way",
+      "osm_id": 413449792,
+      "source": "https://www.openstreetmap.org/way/413449792",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1566",
+      "building": "Julia And Mark Ellis '79 Soccer Building",
+      "osm_type": "way",
+      "osm_id": 496182518,
+      "source": "https://www.openstreetmap.org/way/496182518",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1567",
+      "building": "Softball Building",
+      "osm_type": "way",
+      "osm_id": 91100249,
+      "source": "https://www.openstreetmap.org/way/91100249",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1571",
+      "building": "West Campus Office Pavilion",
+      "osm_type": "way",
+      "osm_id": 496182514,
+      "source": "https://www.openstreetmap.org/way/496182514",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1582",
+      "building": "Player Development Center-West Campus",
+      "osm_type": "way",
+      "osm_id": 405507890,
+      "source": "https://www.openstreetmap.org/way/405507890",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1587",
+      "building": "Penberthy South Control Building",
+      "osm_type": "way",
+      "osm_id": 520394169,
+      "source": "https://www.openstreetmap.org/way/520394169",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1593",
+      "building": "White Creek Community Center",
+      "osm_type": "way",
+      "osm_id": 661590592,
+      "source": "https://www.openstreetmap.org/way/661590592",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1600",
+      "building": "Gibb Gilchrist Building",
+      "osm_type": "way",
+      "osm_id": 411525268,
+      "source": "https://www.openstreetmap.org/way/411525268",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1601",
+      "building": "Scientific Ocean Drilling Building",
+      "osm_type": "relation",
+      "osm_id": 10610194,
+      "source": "https://www.openstreetmap.org/relation/10610194",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1603",
+      "building": "Donald L. Houston Building",
+      "osm_type": "way",
+      "osm_id": 261139889,
+      "source": "https://www.openstreetmap.org/way/261139889",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1604",
+      "building": "Offshore Technology Research Center",
+      "osm_type": "way",
+      "osm_id": 411525313,
+      "source": "https://www.openstreetmap.org/way/411525313",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1607",
+      "building": "Allen Building",
+      "osm_type": "way",
+      "osm_id": 199697590,
+      "source": "https://www.openstreetmap.org/way/199697590",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1608",
+      "building": "Annenberg Presidential Conference Center",
+      "osm_type": "way",
+      "osm_id": 199697597,
+      "source": "https://www.openstreetmap.org/way/199697597",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1609",
+      "building": "West Campus Social Sciences Building",
+      "osm_type": "way",
+      "osm_id": 411525266,
+      "source": "https://www.openstreetmap.org/way/411525266",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1610",
+      "building": "Health Technologies Building",
+      "osm_type": "way",
+      "osm_id": 261142789,
+      "source": "https://www.openstreetmap.org/way/261142789",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1611",
+      "building": "Giesecke Engineering Research Building",
+      "osm_type": "way",
+      "osm_id": 520421200,
+      "source": "https://www.openstreetmap.org/way/520421200",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1620",
+      "building": "Electron Beam Food Research Facility",
+      "osm_type": "way",
+      "osm_id": 261142509,
+      "source": "https://www.openstreetmap.org/way/261142509",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1800",
+      "building": "General Services Complex",
+      "osm_type": "way",
+      "osm_id": 405482152,
+      "source": "https://www.openstreetmap.org/way/405482152",
+      "entrances": []
+    },
+    {
+      "place_id": "building_1810",
+      "building": "Office of the State Chemist Building",
+      "osm_type": "way",
+      "osm_id": 406504756,
+      "source": "https://www.openstreetmap.org/way/406504756",
+      "entrances": []
+    },
+    {
+      "place_id": "building_3100",
+      "building": "Hagler Center",
+      "osm_type": "way",
+      "osm_id": 91084656,
+      "source": "https://www.openstreetmap.org/way/91084656",
+      "entrances": []
+    },
+    {
+      "place_id": "building_4141",
+      "building": "James A. Baker, III Pavilion",
+      "osm_type": "way",
+      "osm_id": 1458560767,
+      "source": "https://www.openstreetmap.org/way/1458560767",
+      "entrances": []
+    },
+    {
+      "place_id": "bush_library",
+      "building": "Bush Library",
+      "osm_type": "way",
+      "osm_id": 52723782,
+      "source": "https://www.openstreetmap.org/way/52723782",
+      "entrances": []
+    },
+    {
+      "place_id": "commons",
+      "building": "The Commons",
+      "osm_type": "way",
+      "osm_id": 155052765,
+      "source": "https://www.openstreetmap.org/way/155052765",
+      "entrances": []
+    },
+    {
+      "place_id": "duncan",
+      "building": "Duncan Dining Hall",
+      "osm_type": "way",
+      "osm_id": 86199582,
+      "source": "https://www.openstreetmap.org/way/86199582",
+      "entrances": [
+        {
+          "osm_node": 7799857683,
+          "coordinates": [
+            -96.3354491,
+            30.6124526
+          ],
+          "tags": {
+            "entrance": "emergency"
+          },
+          "graph_connected": true,
+          "approach_eligible": false,
+          "exclusion": "emergency, exit-only or closed entrance",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/7799857683"
+        },
+        {
+          "osm_node": 7799857684,
+          "coordinates": [
+            -96.3359453,
+            30.6121155
+          ],
+          "tags": {
+            "entrance": "emergency"
+          },
+          "graph_connected": true,
+          "approach_eligible": false,
+          "exclusion": "emergency, exit-only or closed entrance",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/7799857684"
+        },
+        {
+          "osm_node": 13390283464,
+          "coordinates": [
+            -96.3359096,
+            30.6118533
+          ],
+          "tags": {
+            "entrance": "emergency"
+          },
+          "graph_connected": true,
+          "approach_eligible": false,
+          "exclusion": "emergency, exit-only or closed entrance",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/13390283464"
+        },
+        {
+          "osm_node": 13390283471,
+          "coordinates": [
+            -96.3351543,
+            30.6123712
+          ],
+          "tags": {
+            "entrance": "emergency"
+          },
+          "graph_connected": true,
+          "approach_eligible": false,
+          "exclusion": "emergency, exit-only or closed entrance",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/13390283471"
+        },
+        {
+          "osm_node": 13390283485,
+          "coordinates": [
+            -96.3356618,
+            30.6117013
+          ],
+          "tags": {
+            "entrance": "emergency"
+          },
+          "graph_connected": true,
+          "approach_eligible": false,
+          "exclusion": "emergency, exit-only or closed entrance",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/13390283485"
+        },
+        {
+          "osm_node": 13390283493,
+          "coordinates": [
+            -96.33574,
+            30.6123614
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/13390283493"
+        }
+      ]
+    },
+    {
+      "place_id": "evans",
+      "building": "Evans Library",
+      "osm_type": "way",
+      "osm_id": 249571643,
+      "source": "https://www.openstreetmap.org/way/249571643",
+      "entrances": [
+        {
+          "osm_node": 8197541284,
+          "coordinates": [
+            -96.3387033,
+            30.6167454
+          ],
+          "tags": {
+            "entrance": "yes",
+            "level": "3",
+            "level:ref": "4"
+          },
+          "graph_connected": false,
+          "approach_eligible": false,
+          "exclusion": "no saved outdoor walking connection",
+          "level": "3",
+          "level_ref": "4",
+          "source": "https://www.openstreetmap.org/node/8197541284"
+        }
+      ]
+    },
+    {
+      "place_id": "hullabaloo",
+      "building": "Hullabaloo Residence Hall",
+      "osm_type": "way",
+      "osm_id": 260847573,
+      "source": "https://www.openstreetmap.org/way/260847573",
+      "entrances": []
+    },
+    {
+      "place_id": "ilcb",
+      "building": "Innovative Learning Classroom Building",
+      "osm_type": "way",
+      "osm_id": 1039186230,
+      "source": "https://www.openstreetmap.org/way/1039186230",
+      "entrances": []
+    },
+    {
+      "place_id": "kyle",
+      "building": "Kyle Field",
+      "osm_type": "relation",
+      "osm_id": 8117457,
+      "source": "https://www.openstreetmap.org/relation/8117457",
+      "entrances": []
+    },
+    {
+      "place_id": "langford",
+      "building": "Langford Architecture",
+      "osm_type": "way",
+      "osm_id": 155052696,
+      "source": "https://www.openstreetmap.org/way/155052696",
+      "entrances": [
+        {
+          "osm_node": 11693047110,
+          "coordinates": [
+            -96.337867,
+            30.6189529
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/11693047110"
+        },
+        {
+          "osm_node": 11693047117,
+          "coordinates": [
+            -96.3375308,
+            30.6185753
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/11693047117"
+        },
+        {
+          "osm_node": 11693047182,
+          "coordinates": [
+            -96.3373967,
+            30.6190399
+          ],
+          "tags": {
+            "entrance": "yes"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/11693047182"
+        }
+      ]
+    },
+    {
+      "place_id": "msc",
+      "building": "Memorial Student Center",
+      "osm_type": "relation",
+      "osm_id": 2083295,
+      "source": "https://www.openstreetmap.org/relation/2083295",
+      "entrances": []
+    },
+    {
+      "place_id": "rec",
+      "building": "Student Rec Center",
+      "osm_type": "way",
+      "osm_id": 91084650,
+      "source": "https://www.openstreetmap.org/way/91084650",
+      "entrances": [
+        {
+          "osm_node": 13033170367,
+          "coordinates": [
+            -96.3429907,
+            30.6077028
+          ],
+          "tags": {
+            "entrance": "main"
+          },
+          "graph_connected": false,
+          "approach_eligible": false,
+          "exclusion": "no saved outdoor walking connection",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/13033170367"
+        }
+      ]
+    },
+    {
+      "place_id": "reed",
+      "building": "Reed Arena",
+      "osm_type": "way",
+      "osm_id": 155052566,
+      "source": "https://www.openstreetmap.org/way/155052566",
+      "entrances": []
+    },
+    {
+      "place_id": "sbisa",
+      "building": "Sbisa Dining Hall",
+      "osm_type": "way",
+      "osm_id": 155052496,
+      "source": "https://www.openstreetmap.org/way/155052496",
+      "entrances": []
+    },
+    {
+      "place_id": "ssb",
+      "building": "Student Services Building",
+      "osm_type": "way",
+      "osm_id": 791937392,
+      "source": "https://www.openstreetmap.org/way/791937392",
+      "entrances": []
+    },
+    {
+      "place_id": "wehner",
+      "building": "Mays Business School",
+      "osm_type": "way",
+      "osm_id": 155052572,
+      "source": "https://www.openstreetmap.org/way/155052572",
+      "entrances": []
+    },
+    {
+      "place_id": "west_campus_dining",
+      "building": "West Campus Dining Facility",
+      "osm_type": "way",
+      "osm_id": 1485893455,
+      "source": "https://www.openstreetmap.org/way/1485893455",
+      "entrances": []
+    },
+    {
+      "place_id": "zachry",
+      "building": "Zachry Engineering",
+      "osm_type": "way",
+      "osm_id": 451759287,
+      "source": "https://www.openstreetmap.org/way/451759287",
+      "entrances": [
+        {
+          "osm_node": 6193744740,
+          "coordinates": [
+            -96.3407176,
+            30.6215544
+          ],
+          "tags": {
+            "entrance": "yes",
+            "level": "0.5",
+            "level:ref": "2R"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": "0.5",
+          "level_ref": "2R",
+          "source": "https://www.openstreetmap.org/node/6193744740"
+        },
+        {
+          "osm_node": 6193744745,
+          "coordinates": [
+            -96.3402714,
+            30.6217541
+          ],
+          "tags": {
+            "entrance": "yes",
+            "level": "1.5",
+            "level:ref": "2R"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": "1.5",
+          "level_ref": "2R",
+          "source": "https://www.openstreetmap.org/node/6193744745"
+        },
+        {
+          "osm_node": 6193744746,
+          "coordinates": [
+            -96.3398443,
+            30.6209274
+          ],
+          "tags": {
+            "entrance": "yes",
+            "level": "0",
+            "level:ref": "1"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": "0",
+          "level_ref": "1",
+          "source": "https://www.openstreetmap.org/node/6193744746"
+        },
+        {
+          "osm_node": 8502687833,
+          "coordinates": [
+            -96.3405882,
+            30.6209165
+          ],
+          "tags": {
+            "entrance": "emergency"
+          },
+          "graph_connected": true,
+          "approach_eligible": false,
+          "exclusion": "emergency, exit-only or closed entrance",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/8502687833"
+        },
+        {
+          "osm_node": 8502687863,
+          "coordinates": [
+            -96.3396967,
+            30.6212559
+          ],
+          "tags": {
+            "entrance": "emergency"
+          },
+          "graph_connected": true,
+          "approach_eligible": false,
+          "exclusion": "emergency, exit-only or closed entrance",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/8502687863"
+        },
+        {
+          "osm_node": 8502687879,
+          "coordinates": [
+            -96.3398769,
+            30.6216206
+          ],
+          "tags": {
+            "entrance": "emergency"
+          },
+          "graph_connected": true,
+          "approach_eligible": false,
+          "exclusion": "emergency, exit-only or closed entrance",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/8502687879"
+        },
+        {
+          "osm_node": 8502687882,
+          "coordinates": [
+            -96.340722,
+            30.6218918
+          ],
+          "tags": {
+            "entrance": "emergency"
+          },
+          "graph_connected": true,
+          "approach_eligible": false,
+          "exclusion": "emergency, exit-only or closed entrance",
+          "level": null,
+          "level_ref": null,
+          "source": "https://www.openstreetmap.org/node/8502687882"
+        },
+        {
+          "osm_node": 10689401975,
+          "coordinates": [
+            -96.3406776,
+            30.6214614
+          ],
+          "tags": {
+            "entrance": "yes",
+            "level": "1",
+            "level:ref": "2"
+          },
+          "graph_connected": true,
+          "approach_eligible": true,
+          "exclusion": null,
+          "level": "1",
+          "level_ref": "2",
+          "source": "https://www.openstreetmap.org/node/10689401975"
+        }
+      ]
+    }
+  ]
+}
