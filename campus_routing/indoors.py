@@ -60,7 +60,7 @@ def load_destinations(graph, path=CATALOG, entrances_path=ENTRANCES):
             if not isinstance(r.get('sources'), list) or not r['sources'] or any(
                     not isinstance(s, dict) or not isinstance(s.get('url'), str) or not s['url'].startswith('https://') for s in r['sources']):
                 raise ValueError('Missing room plan sources')
-            rule = {**r, 'enabled': True, 'access': 'public'}
+            rule = {'enabled': True, 'access': 'public', **r}
             if not isinstance(r.get('weekly_hours'), dict) and r.get('weekly_hours') != '24/7':
                 raise ValueError('Room needs a reviewed building schedule')
             available(rule, datetime.fromisoformat('2026-10-26T12:00:00-05:00'))  # validates the whole weekly schedule

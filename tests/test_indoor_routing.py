@@ -12,7 +12,7 @@ from fastapi.testclient import TestClient
 
 from api import index
 from campus_routing.candidates import join_routes, passage_candidates
-from campus_routing.indoors import is_room_query, load_destinations
+from campus_routing.indoors import is_room_query, load_destinations, room_available
 from campus_routing.passages import add_passages
 from test_building_passages import fixture
 
@@ -109,6 +109,18 @@ class IndoorRoutingTests(unittest.TestCase):
         self.assertNotIn('_indoor_rule', room)
         self.assertTrue(room['indoor']['arrival_steps'])
         self.assertGreaterEqual(len(client.get('/api/building-entrances').json()['buildings']), 200)
+
+    def test_room_records_cannot_override_disabled_or_private_access_with_public_defaults(self):
+        original = json.loads((ROOT / 'data/indoor_destinations.json').read_text())
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'rooms.json'
+            for restriction in ({'enabled': False}, {'access': 'private'}, {'closed': True}):
+                catalog = copy.deepcopy(original)
+                catalog['destinations'][0].update(restriction)
+                path.write_text(json.dumps(catalog))
+                rooms = load_destinations(index.G, path)
+                self.assertEqual(len(rooms), 1)
+                self.assertFalse(room_available(rooms[0], DAY))
 
     def test_msc_is_considered_without_forcing_it_past_the_recommended_limit(self):
         for a, b in [('ilsq', 'commons'), ('commons', 'ilsq')]:
