@@ -4,6 +4,9 @@
 
 **1st Place Overall & Software Track, Howdy Hacks 2026.**
 
+- Live Deployment: [sunscreen-walks.vercel.app](https://sunscreen-walks.vercel.app/)
+- Devpost Submission: [devpost.com/software/sunscreen-jozs49](https://devpost.com/software/sunscreen-jozs49)
+
 SunScreen finds the optimal walking route between any two spots on Texas A&M's campus and the nearby neighborhoods, optimized for shade coverage. It builds a 3D shadow map from LiDAR using PDAL and pvlib, scores every footpath for shade, adjusts for live cloud cover, and shows routes in an Expo (React Native) app backed by a FastAPI router. Routes also cut through mapped building pass-throughs and covered walkways when that's shadier (see [building passages](docs-misc/building-shortcuts.md)).
 
 - **Team:** Vignesh Nagarajan, Amulya Bisaria, Abhi Thatavarthi, Jayin Palicha
@@ -21,8 +24,7 @@ Search **Zach 596** for documented room guidance, or compare **ILSQ → Commons*
 with Max shade to evaluate the provisional MSC passage. See [indoor routing](docs-misc/indoor-routing.md)
 for entrance sources, schedules and field-verification limits.
 
-Try it live at [sunscreen-walks.vercel.app](https://sunscreen-walks.vercel.app/). 
-Check out our Devpost at [devpost.com/software/sunscreen-jozs49](https://devpost.com/software/sunscreen-jozs49).
+Try it live at [sunscreen-walks.vercel.app](https://sunscreen-walks.vercel.app/).
 
 | Shade (maroon) vs. sun (gold) | Places grouped by type | Night mode by streetlights | How it works |
 |:-:|:-:|:-:|:-:|
