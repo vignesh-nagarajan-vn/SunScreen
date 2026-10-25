@@ -261,7 +261,7 @@ function AppContent({ toggleNight }) {
   ) : (
     <Controls
       data={showRoutes && !stale ? data : null} stale={stale} status={{ ...status, error: endpointError || status.error }} selected={selected} setSelected={setSelected}
-      preview={preview} setPreview={setPreview} setTime={setTime} playing={playing} togglePlay={togglePlay} limits={limits}
+      preview={preview} setPreview={setPreview} setTime={setTime} playing={playing} togglePlay={togglePlay} limits={limits} fill={wide}
     />
   );
   const mapPane = (
@@ -302,7 +302,7 @@ function AppContent({ toggleNight }) {
             <Text style={styles.brand}>SunScreen</Text>
           </View>
           <View style={{ paddingHorizontal: 16 }}>{trip}</View>
-          <ScrollView contentContainerStyle={styles.panelBody}>{controls}</ScrollView>
+          <ScrollView contentContainerStyle={[styles.panelBody, { flexGrow: 1 }]}>{controls}</ScrollView>
           {pickerSheet}
         </View>
         <View style={styles.map}>{mapPane}</View>
@@ -391,76 +391,80 @@ function MapControls({ style, onNight, onSettings, onInfo }) {
   );
 }
 
-function Controls({ data, stale, status, selected, setSelected, preview, setPreview, setTime, playing, togglePlay, limits }) {
+// `fill` spreads the controls down a tall side panel in three groups (time, routes, actions)
+// and lets the sun timeline grow with the window. Night has no timeline, so its actions sit at the bottom.
+function Controls({ data, stale, status, selected, setSelected, preview, setPreview, setTime, playing, togglePlay, limits, fill }) {
   const styles = useThemedStyles(createStyles);
   const { colors: { MAROON, SUN, sunInk, sunTint, onAccent }, night } = useTheme();
+  const { height } = useWindowDimensions();
   const [title, sub] = data ? insight(data, selected) : [];
 
   return (
-    <View style={{ gap: 14 }}>
-      {night ? (
-        <View style={{ gap: 3 }}>
-          <Text style={styles.nightTitle}>Streetlight routing</Text>
-          <Text style={styles.sub}>Prefers paths near mapped campus lamps</Text>
-        </View>
-      ) : <>
-        <View style={styles.timeRow}>
-          <View style={{ flex: 1, minWidth: 0, gap: 2 }}>
-            <Text style={styles.time}>{clock(preview)}</Text>
-            {data && <View style={styles.weather}>
-              <Icon name="sun" size={14} color={SUN} strokeWidth={2.4} />
-              <Text style={styles.sub} numberOfLines={1}>{weatherLine(data)}</Text>
-            </View>}
+    <View style={fill ? [styles.fill, night && styles.fillNight] : { gap: 14 }}>
+      <View style={{ gap: 14 }}>
+        {night ? <Text style={styles.nightTitle}>Streetlight routing</Text> : <>
+          <View style={styles.timeRow}>
+            <View style={{ flex: 1, minWidth: 0, gap: 2 }}>
+              <Text style={styles.time}>{clock(preview)}</Text>
+              {data && <View style={styles.weather}>
+                <Icon name="sun" size={14} color={SUN} strokeWidth={2.4} />
+                <Text style={styles.sub} numberOfLines={1}>{weatherLine(data)}</Text>
+              </View>}
+            </View>
+            {status.loading && <ActivityIndicator size="small" color={MAROON} />}
+            <Pressable onPress={() => setTime(nowMin())} style={styles.nowButton} accessibilityRole="button">
+              <Text style={styles.nowText}>Now</Text>
+            </Pressable>
+            <Pressable onPress={togglePlay} style={styles.playButton} accessibilityRole="button"
+              accessibilityLabel={playing ? "Pause day preview" : "Play through the day"}>
+              <Icon name={playing ? "pause" : "play"} size={16} color={onAccent} />
+            </Pressable>
           </View>
-          {status.loading && <ActivityIndicator size="small" color={MAROON} />}
-          <Pressable onPress={() => setTime(nowMin())} style={styles.nowButton} accessibilityRole="button">
-            <Text style={styles.nowText}>Now</Text>
-          </Pressable>
-          <Pressable onPress={togglePlay} style={styles.playButton} accessibilityRole="button"
-            accessibilityLabel={playing ? "Pause day preview" : "Play through the day"}>
-            <Icon name={playing ? "pause" : "play"} size={16} color={onAccent} />
-          </Pressable>
-        </View>
-        <SunTimeline preview={preview} setPreview={setPreview} setTime={setTime} />
-      </>}
+          <SunTimeline preview={preview} setPreview={setPreview} setTime={setTime}
+            height={fill ? Math.min(200, Math.max(72, height - 620)) : 40} />
+        </>}
+      </View>
 
-      {status.error && <Text style={styles.error} accessibilityLiveRegion="polite">{status.error}</Text>}
-      {!defaultLimits(limits) && <Text style={styles.rowMeta}>Custom limits: Recommended +{limits.recommended_pct}%; {night ? "Most lit" : "Max shade"} +{limits.max_detour_pct}%.</Text>}
-      {stale && <Skeleton />}
-      {data && (
-        <View style={styles.routes}>
-          {data.features.map(({ properties: p }) => (
-            <RouteCard key={p.id} p={p} active={p.id === selected} onPress={() => setSelected(p.id)} />
-          ))}
-        </View>
-      )}
-      {data && (
-        <View style={styles.insight} accessibilityLiveRegion="polite">
-          <View style={[styles.insightIcon, { backgroundColor: sunTint }]}>
-            <Icon name={night ? "bulb" : "sunOff"} size={18} color={sunInk} strokeWidth={2.2} />
+      <View style={{ gap: 14 }}>
+        {status.error && <Text style={styles.error} accessibilityLiveRegion="polite">{status.error}</Text>}
+        {!defaultLimits(limits) && <Text style={styles.rowMeta}>Custom limits: Recommended +{limits.recommended_pct}%; {night ? "Most lit" : "Max shade"} +{limits.max_detour_pct}%.</Text>}
+        {stale && <Skeleton />}
+        {data && (
+          <View style={styles.routes}>
+            {data.features.map(({ properties: p }) => (
+              <RouteCard key={p.id} p={p} active={p.id === selected} onPress={() => setSelected(p.id)} roomy={fill} />
+            ))}
           </View>
-          <View style={{ flex: 1, minWidth: 0, gap: 2 }}>
-            <Text style={styles.insightTitle}>{title}</Text>
-            <Text style={styles.rowMeta}>{sub}</Text>
+        )}
+        {data && (
+          <View style={styles.insight} accessibilityLiveRegion="polite">
+            <View style={[styles.insightIcon, { backgroundColor: sunTint }]}>
+              <Icon name={night ? "bulb" : "sunOff"} size={18} color={sunInk} strokeWidth={2.2} />
+            </View>
+            <View style={{ flex: 1, minWidth: 0, gap: 2 }}>
+              <Text style={styles.insightTitle}>{title}</Text>
+              <Text style={styles.rowMeta}>{sub}</Text>
+            </View>
           </View>
-        </View>
-      )}
-      {night && <CorpsEscort />}
-      {data && <Handoff data={data} selected={selected} />}
-      {night && data && <View style={{ gap: 4 }}>
-        <Text style={styles.rowMeta}>Lamp proximity is estimated, not measured brightness or live outage status. Unmapped paths remain unknown.</Text>
-        <Text style={styles.rowMeta} accessibilityRole="link"
-          onPress={() => open("https://www.openstreetmap.org/copyright")}>© OpenStreetMap contributors · ODbL{data.lighting?.retrieved_at ? ` · ${data.lighting.retrieved_at.slice(0, 10)}` : ""}</Text>
-        {data.lighting?.sources?.length > 0 && <Text style={styles.rowMeta} accessibilityRole="link"
-          onPress={() => open(`https://www.arcgis.com/home/item.html?id=${data.lighting.sources[0].item_id}`)}>Lamp locations: TAMU campus GIS · nighttime coverage is estimated</Text>}
-      </View>}
-      {status.offline && <Text style={styles.offline}>Offline: showing saved routes for The Commons → Zachry</Text>}
+        )}
+      </View>
+
+      <View style={[{ gap: 14 }, fill && night && { marginTop: "auto" }]}>
+        {night && <CorpsEscort />}
+        {data && <Handoff data={data} selected={selected} />}
+        {night && data && <Text style={styles.rowMeta}>
+          <Text accessibilityRole="link" onPress={() => open("https://www.openstreetmap.org/copyright")}>© OpenStreetMap contributors</Text>
+          {data.lighting?.sources?.length > 0 && <>{" · "}<Text accessibilityRole="link"
+            onPress={() => open(`https://www.arcgis.com/home/item.html?id=${data.lighting.sources[0].item_id}`)}>TAMU campus GIS</Text></>}
+        </Text>}
+        {status.offline && <Text style={styles.offline}>Offline: showing saved routes for The Commons → Zachry</Text>}
+      </View>
     </View>
   );
 }
 
 // Half-hour bars from 7 AM to 8 PM, as tall as the sun is high; drag or tap to pick a departure time.
-function SunTimeline({ preview, setPreview, setTime }) {
+function SunTimeline({ preview, setPreview, setTime, height }) {
   const styles = useThemedStyles(createStyles);
   const { colors: { MAROON, sunBar, sunNone } } = useTheme();
   const [curve] = useState(daySunCurve);
@@ -473,7 +477,7 @@ function SunTimeline({ preview, setPreview, setTime }) {
   const step = (by) => setTime(Math.min(LAST, Math.max(FIRST, preview + by * 30)));
   return (
     <View style={{ gap: 6 }}>
-      <View style={styles.timeline} onLayout={(e) => { width.current = e.nativeEvent.layout.width; }}
+      <View style={[styles.timeline, { height }]} onLayout={(e) => { width.current = e.nativeEvent.layout.width; }}
         onStartShouldSetResponder={() => true} onMoveShouldSetResponder={() => true} onResponderTerminationRequest={() => false}
         onResponderGrant={move} onResponderMove={move} onResponderRelease={() => setTime(latest.current)}
         accessibilityRole="adjustable" accessibilityLabel="Time of day"
@@ -487,7 +491,7 @@ function SunTimeline({ preview, setPreview, setTime }) {
           step(by);
         } } : {})}>
         {curve.map((s, i) => {
-          const h = s > 0 ? 6 + Math.round(34 * s / peak) : 4;
+          const h = s > 0 ? 6 + Math.round((height - 6) * s / peak) : 4;
           return <View key={i} pointerEvents="none" style={[styles.bar, i === index
             ? { height: Math.max(h, 16), backgroundColor: MAROON }
             : { height: h, backgroundColor: s > 0 ? sunBar : sunNone }]} />;
@@ -559,7 +563,7 @@ function Handoff({ data, selected }) {
   );
 }
 
-function RouteCard({ p, active, onPress }) {
+function RouteCard({ p, active, onPress, roomy }) {
   const styles = useThemedStyles(createStyles);
   const { colors: { SUN, unlitBar }, routes: ROUTES } = useTheme();
   const narrow = useWindowDimensions().width < 360;
@@ -567,7 +571,7 @@ function RouteCard({ p, active, onPress }) {
   const { tone } = ROUTES[p.id];
   const pct = lighting ? p.lit_pct : p.shaded_pct;
   return (
-    <Pressable onPress={onPress} style={[styles.routeCard, narrow && { padding: 8 }, active && styles.routeCardActive]} accessibilityRole="button"
+    <Pressable onPress={onPress} style={[styles.routeCard, narrow && { padding: 8 }, roomy && { padding: 12, gap: 8 }, active && styles.routeCardActive]} accessibilityRole="button"
       accessibilityState={{ selected: active }}
       accessibilityLabel={`${p.label}: ${p.time_min} minutes, ${lighting ? `${p.lit_pct} percent mapped or estimated lit, ${p.unknown_pct} percent unknown` : `${p.shaded_pct} percent shaded`}`}>
       <View style={styles.routeLabelRow}>
@@ -579,6 +583,7 @@ function RouteCard({ p, active, onPress }) {
         <View style={{ width: `${pct}%`, backgroundColor: lighting ? LIGHTING_COLORS.mapped : tone }} />
       </View>
       <Text style={styles.routeMetric} numberOfLines={1}>{pct}% {lighting ? "lit" : "shade"}</Text>
+      {roomy && <Text style={styles.routeMetric} numberOfLines={1}>{p.distance_m} m</Text>}
     </Pressable>
   );
 }
@@ -629,10 +634,12 @@ const createStyles = ({ INK, LINE, MAROON, MUTED, TINT, surface, card, chip, div
     nowButton: { height: 44, paddingHorizontal: 16, borderRadius: 22, borderWidth: 1.5, borderColor: LINE, justifyContent: "center" },
     nowText: { color: MAROON, fontSize: 14, fontWeight: "700" },
     playButton: { width: 44, height: 44, borderRadius: 22, backgroundColor: MAROON, alignItems: "center", justifyContent: "center" },
-    timeline: { height: 40, flexDirection: "row", alignItems: "flex-end", gap: 3, cursor: "pointer" },
+    timeline: { flexDirection: "row", alignItems: "flex-end", gap: 3, cursor: "pointer" },
     bar: { flex: 1, borderRadius: 3 },
     ticks: { flexDirection: "row", justifyContent: "space-between" },
     tick: { color: MUTED, fontSize: 11, fontWeight: "600" },
+    fill: { flexGrow: 1, justifyContent: "space-between", gap: 24 },
+    fillNight: { justifyContent: "flex-start", gap: 18 },
     routes: { flexDirection: "row", gap: 6 },
     routeCard: { flex: 1, minWidth: 0, gap: 6, padding: 10, borderRadius: 14, borderWidth: 1.5, borderColor: LINE, backgroundColor: card },
     routeCardActive: { borderColor: MAROON, backgroundColor: TINT },
