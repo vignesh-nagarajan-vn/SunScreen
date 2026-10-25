@@ -35,5 +35,5 @@ data/lighting/*
 !data/lighting/lights.geojson
 
 # Public source snapshots are reproducible local research/cache artifacts.
-research/lighting/cache/
-research/lighting/*-points.json
+docs-misc/research/lighting/cache/
+docs-misc/research/lighting/*-points.json
