@@ -2,7 +2,12 @@
 
 # SunScreen
 
-SunScreen finds the optimal walking route between any two spots on Texas A&M's campus and the nearby neighborhoods, optimized for shade coverage. It builds a 3D shadow map from LiDAR using PDAL and pvlib, scores every footpath for shade, adjusts for live cloud cover, and shows routes in an Expo (React Native) app backed by a FastAPI router. Routes also cut through mapped building pass-throughs and covered walkways when that's shadier (see [building passages](docs-misc/building-shortcuts.md)). Built for Aggies during Howdy Hacks 2026.
+**1st Place Overall & Software Track, Howdy Hacks 2026.**
+
+- Live Deployment: [sunscreen-walks.vercel.app](https://sunscreen-walks.vercel.app/)
+- Devpost Submission: [devpost.com/software/sunscreen-jozs49](https://devpost.com/software/sunscreen-jozs49)
+
+SunScreen finds the optimal walking route between any two spots on Texas A&M's campus and the nearby neighborhoods, optimized for shade coverage. It builds a 3D shadow map from LiDAR using PDAL and pvlib, scores every footpath for shade, adjusts for live cloud cover, and shows routes in an Expo (React Native) app backed by a FastAPI router. Routes also cut through mapped building pass-throughs and covered walkways when that's shadier (see [building passages](docs-misc/building-shortcuts.md)).
 
 - **Team:** Vignesh Nagarajan, Amulya Bisaria, Abhi Thatavarthi, Jayin Palicha
 - **Datasets:** [TxGIO StratMap 2025 LiDAR](https://data.geographic.texas.gov/) (Brazos basins, with [USGS 3DEP](https://registry.opendata.aws/usgs-lidar/) as a fallback), [OpenStreetMap](https://www.openstreetmap.org/) walking paths (via osmnx), [Open-Meteo](https://open-meteo.com/) cloud and sunlight forecast
