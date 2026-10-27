@@ -16,10 +16,10 @@ Create an account at https://expo.dev/signup if you do not have one. This is
 separate from your GitHub account. Node.js/npm must be installed on the computer;
 Android Studio is not required for cloud builds.
 
-Open PowerShell and run:
+Open PowerShell in the root of your SunScreen checkout and run:
 
 ```powershell
-cd "C:\Users\mrmca\OneDrive\Documents\TAMUWork\SunScreen\SunScreen-main\app"
+cd app
 npm ci
 npx eas-cli@latest login
 npx eas-cli@latest whoami
